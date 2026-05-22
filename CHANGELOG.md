@@ -54,7 +54,7 @@ The foundational version of OCF. Sets the shape of the format, the surrounding t
 
 ### Project infrastructure
 
-- `LICENSE`, `LICENSE-spec` (CC-BY 4.0), `LICENSE-code` (MIT) — dual-license setup.
+- `LICENSING.md`, `LICENSE-spec` (CC-BY 4.0), `LICENSE-code` (MIT) — dual-license setup.
 - `CONTRIBUTING.md` — the contribution process.
 - `CHANGELOG.md` — this file.
 - `.github/` issue and PR templates.

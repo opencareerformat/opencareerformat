@@ -104,7 +104,7 @@ node reference/validator/validate.js
 
 ## License
 
-OCF is dual-licensed. The specification (everything in `spec/` and `mappings/`) is licensed under [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). The reference implementations (everything in `reference/`) are licensed under the [MIT License](LICENSE-code). See [LICENSE](LICENSE) for the umbrella explainer.
+OCF is dual-licensed. The specification (everything in `spec/` and `mappings/`) is licensed under [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). The reference implementations (everything in `reference/`) are licensed under the [MIT License](LICENSE-code). See [LICENSING.md](LICENSING.md) for the umbrella explainer.
 
 ## Status
 
