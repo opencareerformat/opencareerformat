@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Career Format — Your Guide</title>
+<link rel="icon" type="image/png" href="spec/assets/ocf-logo.png">
+<meta property="og:image" content="spec/assets/ocf-logo.png">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --card-bg: #ffffff;
+    --private: #dc2626;
+    --shared: #d97706;
+    --public: #16a34a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+  }
+  .brand-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .brand-mark {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    flex: 0 0 auto;
+  }
+  .brand-copy .subtitle {
+    margin-bottom: 0;
+  }
+  .updated {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+  }
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  p { margin-bottom: 1rem; }
+  .callout {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .pipeline {
+    display: flex;
+    gap: 0;
+    margin: 1.5rem 0;
+    align-items: stretch;
+  }
+  .stage-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .stage-group .stage {
+    border-radius: 8px !important;
+    flex: 1;
+  }
+  .stage {
+    flex: 1;
+    padding: 1.25rem 1rem;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    position: relative;
+  }
+  .stage:first-child { border-radius: 8px 0 0 8px; }
+  .stage:last-child { border-radius: 0 8px 8px 0; }
+  .stage h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .stage p { font-size: 0.92rem; margin-bottom: 0; color: var(--muted); }
+  .arrow {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--border);
+    padding: 0 0.15rem;
+  }
+  .vis-row {
+    display: flex;
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .vis-chip {
+    flex: 1;
+    padding: 0.9rem 0.75rem;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .vis-chip span {
+    display: block;
+    font-weight: 400;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    opacity: 0.9;
+  }
+  .vis-public { background: var(--public); }
+  .vis-shared { background: var(--shared); }
+  .vis-private { background: var(--private); }
+
+  .example {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.92rem;
+  }
+  .example .label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .section-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .section-item {
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-item strong { font-weight: 600; }
+  .section-item span { color: var(--muted); font-size: 0.85rem; }
+  .tip {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .tip strong { color: #92400e; }
+  .warning {
+    background: #fee2e2;
+    border-left: 4px solid #dc2626;
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+  }
+  .warning strong { color: #991b1b; }
+  .warning p:last-child { margin-bottom: 0; }
+  .diagram {
+    margin: 1.5rem 0;
+  }
+  .diagram img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+  }
+  .diagram figcaption {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  @media (max-width: 600px) {
+    .brand-header { align-items: flex-start; }
+    .brand-mark { width: 64px; height: 64px; border-radius: 12px; }
+    .pipeline { flex-direction: column; }
+    .arrow { justify-content: center; transform: rotate(90deg); padding: 0.25rem 0; }
+    .stage:first-child { border-radius: 8px 8px 0 0; }
+    .stage:last-child { border-radius: 0 0 8px 8px; }
+    .stage-group { flex-direction: column; }
+    .section-list { grid-template-columns: 1fr; }
+    .vis-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="brand-header">
+  <img class="brand-mark" src="spec/assets/ocf-logo.png" alt="Open Career Format logo">
+  <div class="brand-copy">
+    <h1>Open Career Format</h1>
+    <p class="subtitle">One file. Your whole career. Every resume you'll ever need.</p>
+    <p class="updated">Last updated: 2026-05-21</p>
+  </div>
+</header>
+
+<h2>The Problem</h2>
+<p>Every time you apply for a job, you have to find the last version of your resume and quickly update it in a rush so you can send it to the recruiter you are on the phone with. There are a dozen versions of the truth scattered across your home directory. Half are out of date, none complete or ready to share.</p>
+<p>The Open Career Format (OCF) solves this. You build <em>one master file</em> that holds everything — every job, every skill, every certification, every achievement, every note-to-self about why you left a company. Then, when you need a resume, a tool reads your master file and builds one for you, tailored to the job you're applying for.</p>
+
+<h2>How It Works: A Living Loop</h2>
+<p>OCF is best understood as a living loop. Old resumes, LinkedIn exports, pasted notes, LLM conversations, editor apps, and hand edits all feed the master OCF. A curator then creates a derived OCF for a specific audience or purpose. That derived file can be rendered into a resume or profile, exported into another schema or system, or shared with a coach, including an LLM-based coach. User review is the gate before anything becomes an output file. Corrections, missing stories, or better wording discovered during review or coaching should come back as proposed updates to the master, accepted by the user before they become durable.</p>
+
+<figure class="diagram">
+  <img src="spec/assets/ocf-living-loop.png" alt="Diagram showing sources feeding the master OCF, curator creating a derived OCF, downstream rendering, exporting, coaching, user review, output files, and accepted updates flowing back to the master.">
+  <figcaption>The master OCF improves over time as reviewed downstream work feeds accepted updates back into it.</figcaption>
+</figure>
+
+<h3>Three Useful Artifacts</h3>
+<p>Another way to think about the loop is as three artifacts. The master preserves the complete private record. The derived OCF is a purpose-specific source file. Rendered or exported output files are what actually leave the workflow.</p>
+
+<div class="pipeline">
+  <div class="stage">
+    <h3>1. Master File</h3>
+    <p>Your complete career record. One file, updated over years. Contains far more than any resume ever would.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>2. Derived OCF</h3>
+    <p>A filtered copy for a specific purpose — a job, a company, a public profile. The tool does the filtering.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>3. Rendered Output</h3>
+    <p>The actual resume, cover letter, or profile someone sees. Generated from the derived file.</p>
+  </div>
+</div>
+
+<p>In the ideal case, you do not hand-edit any stage. You work with an editor, importer, or AI assistant that helps maintain your master file, and the rest happens downstream. A derivation tool reads your master, considers the job you're targeting, and produces a tailored version. A renderer turns that into a PDF, a web page, or whatever output you need.</p>
+
+<div class="callout">
+  <p><strong>You build the master once and maintain it over time.</strong> Adding a new job, a new cert, or a new achievement is a few minutes of work. You never start from scratch again.</p>
+</div>
+
+<h2>What Goes in the Master File</h2>
+<p>The master file has sections for everything a career can contain. You don't need to fill in all of them — just what applies to you. Here's what's available:</p>
+
+<div class="section-list">
+  <div class="section-item"><strong>Person</strong> <span>— Name, contact, location</span></div>
+  <div class="section-item"><strong>Skills</strong> <span>— Every tool, tech, domain skill</span></div>
+  <div class="section-item"><strong>Experience</strong> <span>— All work history in one list</span></div>
+  <div class="section-item"><strong>Education</strong> <span>— Degrees, bootcamps, MOOCs</span></div>
+  <div class="section-item"><strong>Certifications</strong> <span>— Licenses, creds, permits</span></div>
+  <div class="section-item"><strong>Projects</strong> <span>— Independent/freelance work</span></div>
+  <div class="section-item"><strong>Publications</strong> <span>— Papers, books, articles</span></div>
+  <div class="section-item"><strong>Patents</strong> <span>— Independently held patents</span></div>
+  <div class="section-item"><strong>Speaking</strong> <span>— Talks, panels, podcasts</span></div>
+  <div class="section-item"><strong>Teaching</strong> <span>— Courses, workshops, mentoring</span></div>
+  <div class="section-item"><strong>Governance</strong> <span>— Board seats, advisory roles</span></div>
+  <div class="section-item"><strong>Memberships</strong> <span>— Professional orgs, unions</span></div>
+  <div class="section-item"><strong>Service</strong> <span>— Volunteer, civic, community</span></div>
+  <div class="section-item"><strong>Awards</strong> <span>— Honors and recognitions</span></div>
+  <div class="section-item"><strong>Languages</strong> <span>— Spoken, written, signed</span></div>
+  <div class="section-item"><strong>References</strong> <span>— People who vouch for you</span></div>
+  <div class="section-item"><strong>Interests</strong> <span>— Hobbies, activities, pursuits</span></div>
+</div>
+
+<p>Most people use a handful of these. A software engineer might fill in experience, skills, education, certifications, and projects. A professor might add publications, teaching, speaking, and grants. A military veteran might use clearances, deployments, and occupational codes. The format bends to your career, not the other way around.</p>
+
+<p>A useful OCF does not need to describe forty years of work on day one. A minimum useful master can be as small as the person section, one experience entry, one position, and a few achievements. That is enough to validate, have a useful conversation, and start accumulating better detail over time. The rest of the schema exists so the file can grow without changing formats.</p>
+
+<h2>OCF as Input to an AI Conversation</h2>
+<p>One of the most useful things to do with an OCF file isn't to render it — it's to have a conversation about it. Most candidates have always wanted a career coach: someone who actually knows their career, can read a job description alongside it, and can tell them what to stress, what to rewrite, and what to avoid. Human coaches are expensive and hard to find. An LLM with access to a rich OCF can do most of that work, on demand, in any chat that accepts file attachments. The conversation might be about tailoring a resume, preparing for an interview, mapping a career narrative, identifying skill gaps, drafting a cover letter, or talking through a career decision — all from the same master file, with no specialized tool between the user and the model.</p>
+
+<p>The reason this works is that OCF carries the substrate a coach would need that a resume cannot: longform narrative behind each achievement, who the counterparties were, what was at stake, what was lost or learned, and importance and audience tags that signal what mattered. None of that fits on a printed page. All of it makes a conversation substantially more useful. The richer and more honestly authored the master, the more useful every conversation becomes.</p>
+
+<p>This use case also lowers the bar for OCF adoption considerably. To get value from OCF as a resume generator a user needs OCF, a derivation tool, and a renderer. To get value from OCF as conversational input the user needs OCF and any LLM chat that accepts file attachments. Most people will encounter OCF this way first, and the rest of the tooling ecosystem becomes useful rather than necessary.</p>
+
+<h3>Using OCF Today</h3>
+<p>You do not need to wait for a dedicated OCF editor, MCP server, or resume renderer to get value from the format. If an AI tool can read file attachments and follow a public schema, it can help you create and use an OCF today. The workflow is manual but useful: upload old resumes, LinkedIn exports, career notes, or pasted chat text; point the model at the public schema; ask it to walk you through creating a master OCF; then review every proposed fact before accepting it.</p>
+
+<p>A good first prompt is:</p>
+
+<pre>Using the three copies of my resume I just uploaded to you, and the schema at https://opencareerformat.org/v0.1/schema.json, please walk me through the OCF process to create my master OCF. Treat prior resumes as source artifacts, preserve useful audience-specific wording as narrative variants, and propose uncertain claims as open questions instead of inventing facts. After each major step, ask whether I want to save, version, or git commit the latest accepted version.</pre>
+
+<p>That first session should not try to produce the perfect final file in one pass. It should register the uploaded resumes as <code>sourceArtifacts</code>, extract the obvious career structure, identify places where old versions disagree, preserve useful bullet-level variants, and ask targeted follow-up questions where the evidence is weak. The output can be a draft OCF plus a list of user decisions needed before the master is trusted.</p>
+
+<p>Once you have a master OCF, the day-to-day prompt changes. Upload the OCF and the target job description, then ask:</p>
+
+<pre>Given my OCF, which I just uploaded, and this job description, let's do resume prep and interview prep. First identify the best matching evidence in my OCF, then suggest any master updates, then produce a targeted resume draft and interview talking points. Respect visibility, separate facts from display wording, and remind me what I need to verify before using any output. After each major step, ask whether I want to save, version, or git commit the latest accepted version.</pre>
+
+<p>That second session uses the OCF rather than rebuilding it. It should curate the master for the target role, mine any newly relevant gaps, propose master updates separately from the immediate draft, and prepare interview stories from the same underlying evidence. The resume draft is temporary; the accepted master updates are the durable value.</p>
+
+<p>Because these sessions often happen in bursts, the AI tool should offer a checkpoint after every major step: save the draft OCF, store the accepted master updates, export the derived OCF, or commit the current version if the user is working in a git-backed folder. This should be an explicit offer, not an automatic write. The user still reviews and accepts facts before they become part of the master, but important work should not live only in a chat transcript.</p>
+
+<p>We strongly encourage users to ask their tool to use git, cloud document history, encrypted backups, or another versioning system of their choice for the master OCF. This document is meant to accumulate over years. Versioning makes it possible to recover from bad imports, compare changes, preserve accepted milestones, and avoid losing work when a chat session ends unexpectedly.</p>
+
+<p>Later, purpose-built OCF tools and MCP servers can make the same workflow less manual: attach the current master automatically, validate against the schema, write accepted updates back to the file, track source artifacts, generate derived OCFs, and render outputs. The important thing is that the data model does not depend on those tools existing. The same schema supports today's upload-and-chat workflow and tomorrow's integrated tooling.</p>
+
+<h3>Every Conversation Should Improve the File</h3>
+<p>The conversational pattern that makes OCF accumulate value over time is bidirectional. The user brings OCF and a context. The LLM uses OCF as substrate, probes for missing detail when relevant, produces output for the immediate need, and proposes specific updates back to the master file at the end. The user accepts, edits, or rejects each proposal. Tools that can write back to the master apply accepted proposals directly; tools that only read surface them for the user to apply manually. Either way, the file should leave the conversation richer than it entered.</p>
+
+
+<p>Two diagrams make the bidirectional pattern concrete. The simplest case is mining-only — the conversation produces a richer master file and nothing else:</p>
+
+<div class="pipeline">
+  <div class="stage">
+    <h3>Master OCF</h3>
+    <p>Comprehensive career record.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>Coaching LLM</h3>
+    <p>Probes for gaps; proposes updates.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>Updated Master OCF</h3>
+    <p>Newly mined content added; nothing removed.</p>
+  </div>
+</div>
+
+<p>The more practical case combines mining, curation, and rendering in a single session. A "resume coach" tool reads a job description alongside the master, surfaces relevant stories that aren't yet in the file, proposes updates to the master, then curates the now-richer master for the target role and renders a PDF. Two artifacts come out of one conversation:</p>
+
+<div class="pipeline">
+  <div class="stage">
+    <h3>Master OCF</h3>
+    <p>Source of truth.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>Resume Coach</h3>
+    <p>Mines, curates, and renders in a single session.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage-group">
+    <div class="stage">
+      <h3>Updated Master OCF</h3>
+      <p>Newly mined content.</p>
+    </div>
+    <div class="stage">
+      <h3>Resume PDF</h3>
+      <p>Curated and rendered for the target.</p>
+    </div>
+  </div>
+</div>
+
+<p>Both shapes are valid. A conversation focused on career reflection or interview prep often lands as the first pattern — the master gets richer and that's the only artifact. A conversation focused on a specific opportunity usually lands as the second — the master gets richer <em>and</em> a tailored output is produced. The crucial property is that in both cases, the master grows over time; the second pattern doesn't trade master enrichment for output, it adds output on top of enrichment.</p>
+
+<p>The <code>mhs-ransomware-2024</code> entry in <code>spec/examples/sample-resume.json</code> is a worked example. It was not in the user's resume when the session began — the original bullet said only "Led incident response for ransomware event." A conversation about a specific job description (a CISO-track role) surfaced the actual story through targeted probing: the forensic basis for recommending against paying the ransom, the executive judgment in the room, the 41-hour recovery, the counterfactual where it could have gone wrong. The conversation produced two outputs: a tailored resume bullet for the immediate role, and a fully-fleshed new achievement entry — with longform narrative, structured metrics, audience tags, and provenance recording how the content was elicited — added to the OCF master. The next conversation that touches on incident response, executive judgment, or healthcare security has access to that story without re-eliciting it. Look at the <code>provenance</code> field on that achievement to see the pattern in concrete form.</p>
+
+<p>An important corollary: <em>conversations propose additions to the master, not deletions from it.</em> If a conversation concludes that a particular achievement doesn't fit the current target role — say, an MSSP cost-reduction story isn't right for a CISO-track resume — the right response is to <em>curate it out at derivation time</em>, not delete it from the master. The master keeps everything; derivation filters by importance, audiences, and visibility. The <code>mhs-mssp-transition</code> entry in the same example file is deliberately included to demonstrate this: it stays in the master because the work was real and useful, and the audiences tags (<code>cost-management</code>, <code>ops-efficiency</code>) tell derivation tools which target roles it surfaces well for. A different conversation about a different role might pull it forward; today's conversation just doesn't.</p>
+
+<h3>Old resumes are source material</h3>
+<p>Most people arrive at OCF with a folder full of old resumes, LinkedIn exports, portfolio bios, application drafts, and one-off role-targeted documents. OCF treats those files as historical artifacts to mine, not as obsolete outputs to discard. Each version captures what the person thought was relevant at a point in time: bullets, metrics, projects, tools, title framing, and details that may have been edited out later for space rather than because they stopped being true.</p>
+
+<p>Importing those prior versions can recover deleted substance, surface alternate framings, and identify stories that deserve to become full achievement entries. A cloud-focused resume might mention infrastructure work the current leadership resume omits. A federal resume might preserve supervisor details, hours per week, or old duties. A short one-page resume might contain a compressed bullet that points to a much richer story. OCF records these inputs in <code>sourceArtifacts</code> — old files, LinkedIn exports, pasted chat text, interview transcripts, and manual notes — so mined items can point back to where they came from. Tools should preserve provenance when mining from these artifacts and use <code>openQuestions</code> when an old claim needs verification rather than overwriting the master blindly.</p>
+
+<p>Prior versions also preserve audience-specific language. The same achievement may have been described one way for security leadership, another way for healthcare compliance, another way for a federal application, and another way for an executive resume. OCF stores those bullet-level alternatives as <code>narrativeVariants</code> on achievements: alternate wording for the same underlying facts, tagged with audiences and provenance. This lets an importer keep useful nuance instead of choosing one phrasing and erasing the rest.</p>
+
+<p>The edge is important: a narrative variant is not a competing factual record and not a second job description. It may reframe, compress, expand, or emphasize a bullet; it must not introduce claims the canonical achievement cannot support. If an old resume version contains a metric, title, client name, or responsibility that is not already backed by the master, a tool should either promote the fact into the canonical structured fields after review, or park it in <code>openQuestions</code> until the user verifies it. Variants are for bullet language and audience fit; facts still belong in the canonical fields.</p>
+
+<p>Position titles are handled separately and more cautiously. The canonical <code>position.title</code> is the actual title, rank, billet, or best-known official title. A position can carry <code>titleVariants</code> for defensible alternate display labels — for example, an implementation-heavy Customer Success role that was previously framed as "Implementation Manager" for implementation-targeted resumes. Each title variant requires a <code>basis</code> explaining why the alternate title is fair. This is intentionally a speed bump: title variants should not imply seniority, management authority, credential, rank, or legal role the person did not hold, and they should survive an interview or reference-check question.</p>
+
+<p>For this ratchet to work, the LLM needs to know it should propose updates rather than only answer questions. OCF publishes a recommended instruction set for LLM-based tools in <a href="spec/llm-prompt.md"><code>spec/llm-prompt.md</code></a>. The prompt covers how an LLM should read the file, when to probe, how to handle visibility, what to refuse to do, and — critically — how to propose updates at the end of substantive interactions. Tools may use it verbatim, adapt it, or replace it; the format itself stays neutral about prompt wording. The pattern is what matters: every meaningful conversation should leave the OCF richer.</p>
+
+<div class="callout">
+  <p>The conversational use case is the reason OCF carries the longform, stakes, and lessons content that no resume can hold. It isn't preparation for some future tool — it's the substrate that makes today's LLM conversations useful, and it grows with every conversation that follows the recommended pattern.</p>
+</div>
+
+<h2>Reflections: The Interview-Prep Layer</h2>
+<p>Achievements are the structured layer of OCF — the part that derives into resumes, cover letters, and exports. <strong>Reflections</strong> are a second, parallel layer: open-ended, often subjective answers about each role and company that are useful for interview prep, self-reflection, and conversational tools, but are not appropriate for resumes. They live alongside achievements rather than competing with them.</p>
+
+<p>The questions reflections are designed to answer come from the Topgrading interview methodology (Smart, <em>Who: The A Method for Hiring</em>) and similar structured interview frameworks: how would your boss rate you 1–10, what did you like most about this role, what's your biggest mistake, why did you leave, what are you proudest of. Hiring managers ask these constantly. Candidates rarely think them through in advance. Writing the answers once into a master file means every future interview starts from a much stronger position.</p>
+
+<p>Reflections default to <code>visibility: private</code> because they are sensitive personal content — they include things you would never put on a resume and don't want a recruiter to read. They can be opted up to <code>shared</code> on a per-reflection basis when the user wants to share specific reflections with a coach or trusted recipient, but the default keeps them out of any derived OCF.</p>
+
+<p>OCF publishes a recommended question set and the canonical <code>kind</code> strings at <a href="spec/interview-prep-questions.md"><code>spec/interview-prep-questions.md</code></a>. Tools may use that question set verbatim, adapt it, or add new kinds; the format imposes no fixed list, but the published canonical kinds keep reflections portable across tools.</p>
+
+<h3>How reflections relate to achievements</h3>
+<p>The relationship between the two layers is one-way: reflections can seed achievements, not the other way around. A conversation that elicits a <code>proudest-of</code> or <code>biggest-success</code> reflection often surfaces a story that deserves to exist as a structured achievement entry too — with statement, longform, metrics, and audiences. The recommended pattern is to <em>keep both</em>: the reflection preserves the user's voice and the raw memory; the achievement is the distilled, structured derivative used for outputs. The <code>provenance</code> on the achievement can reference the reflection it was derived from, so the lineage stays traceable.</p>
+
+<p>Look at the Meridian Director of Cybersecurity position in <code>spec/examples/sample-resume.json</code> for the worked example. The position carries three reflections demonstrating the patterns: a numeric one (<code>boss-would-rate-1-10</code>), a prose one that seeded an existing achievement (<code>proudest-of</code>, with provenance linking to <code>mhs-ransomware-2024</code>), and an undistilled one that's a candidate for future mining (<code>biggest-mistake</code> — the framing for a structured achievement isn't obvious yet, so it stays a reflection for now). The position also has <code>teamSize</code> and <code>directReports</code> populated, since "how big was your team" is itself a standard interview question that wants a structured answer.</p>
+
+<div class="callout">
+  <p>The two-layer design resolves a tension that comes up the moment a tool tries to interview a user: open elicitation is the right UX, but structured storage is the right output. Reflections handle the elicitation side; achievements handle the output side; LLM tools move content between them as the conversation matures.</p>
+</div>
+
+<h2>Fields for Coach/AI Conversations</h2>
+<p>Five top-level fields exist primarily for the conversational use case. None of them belong on a resume; all of them help a coach, AI tool, or hybrid workflow engage with the file. Each is intentionally minimal in v0.1 — enough to hold the space and let early usage inform the shape — and marked with a <code>$comment</code> noting that more structure will likely be added in a future revision.</p>
+
+<p><strong><code>goals</code></strong> tells a coach or AI where the user is trying to go. The schema records where you've been; goals records where you want to be. The shape allows multiple target roles (each with a preference level — primary, secondary, open-to), multiple locations (including <code>remote</code> as a valid value), constraints that rule certain roles out, and motivations that explain why the user is looking. A coach or AI tailoring outputs reads goals first; without it, advice can only be generic. Defaults to private.</p>
+
+<p><strong><code>cautions</code></strong> captures things the user explicitly does <em>not</em> want claimed on their behalf. The expected origin pattern is corrective: a coach or AI suggests a framing, the user pushes back, and the correction gets stored here so future drafts don't re-suggest the same overclaim. Cautions are not a list of weaknesses — they are constraints on positioning. Each entry records the claim to avoid, an optional reason, and provenance. Defaults to private.</p>
+
+<p><strong><code>openQuestions</code></strong> is a working queue of things to revisit in future conversations — stories that need more mining, claims that need verifying, framings that aren't yet nailed down. Lets the user, coach, and AI pick up where they left off. The reflection mining pattern can park items here when a structured framing isn't obvious yet. Defaults to private.</p>
+
+<p><strong><code>voice</code></strong> tells a writer or AI how to write in the user's name. Most people cannot articulate their own voice from scratch, so the field is prescriptive at the high level — a small canonical set of named styles (<code>plain-direct</code>, <code>warm-precise</code>, <code>formal-traditional</code>, <code>creative-conversational</code>, <code>executive-terse</code>) — while allowing fine-grained customization through <code>avoidPhrases</code> and <code>preferredPhrases</code> lists and an open <code>customNotes</code> field. Pick a canonical style as a starting point; refine through usage.</p>
+
+<p><strong><code>aiInstructions</code></strong> is an open-text field that customizes or supplements the canonical LLM prompt for this specific file. Use it when the canonical instructions are right in general but a specific behavior matters for this user — "push back when I undersell," "prefer paragraphs over bullets," "I'm mid-pivot from one function to another and the importance tags lag behind the direction I'm trying to go." Tools using the canonical prompt should append the user's <code>aiInstructions</code> to it. Defaults to private.</p>
+
+<div class="callout">
+  <p>None of these five fields are required. A file with none of them validates fine and is still useful. They exist so users who want coaching or AI assistance to behave a certain way have a structured place to say so — and so tools have a stable place to read direction from, rather than re-eliciting it every session.</p>
+</div>
+
+<h2>Experience: One Timeline, No Gaps</h2>
+<p>All of your work history lives in a single list called <strong>experience</strong>. Each entry is an <strong>experience entry</strong>: one relationship, tenure, assignment, or period in your timeline — a company tenure, military service, self-employment, caregiving, or even a career break.</p>
+<p>This is one of the most important design decisions in OCF. By putting everything in one chronological list — traditional jobs, self-employment, caregiving, sabbaticals, military service — your career has no unexplained gaps. A three-year gap isn't suspicious when it clearly says "Full-time caregiver for elderly parent" or "Career break — traveled Southeast Asia."</p>
+<p>Within each experience entry, you list your <strong>positions</strong> — the specific roles you held. Promotions, lateral moves, and reassignments are all just positions within the same entry. Achievements, projects, and competencies nest inside positions, so the relationship is structural. You never have to explain "this achievement happened at this job" — it's already there.</p>
+
+<div class="example">
+  <div class="label">Example Structure</div>
+  <p><strong>Acme Corp</strong> (experience entry, 2018–2024)<br>
+  &nbsp;&nbsp;→ Software Engineer (position, 2018–2020)<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;→ Built the identity platform (achievement)<br>
+  &nbsp;&nbsp;→ Senior Engineer (position, 2020–2022)<br>
+  &nbsp;&nbsp;→ Engineering Manager (position, 2022–2024)<br>
+  &nbsp;&nbsp;→ Fire safety captain, 6 years (spanning achievement)</p>
+</div>
+
+<h2>Controlling What Gets Shared</h2>
+<p>Your master file is private. It is a sensitive personal archive, not a document to hand to an employer, colleague, recruiter, ATS, or public website. It may be appropriate to share the master with a trusted career coach, advisor, attorney, or tool, but that is a high-trust disclosure. When you generate a resume or profile from it, you are creating a derived artifact for a specific purpose, and you need to control what makes it into that output. OCF gives you three levels of visibility:</p>
+
+<div class="vis-row">
+  <div class="vis-chip vis-public">Public <span>Job boards, ATS, anyone</span></div>
+  <div class="vis-chip vis-shared">Shared <span>Recruiters, coaches, trusted parties</span></div>
+  <div class="vis-chip vis-private">Private <span>Master file only</span></div>
+</div>
+
+<p>Every item in OCF has a visibility setting. This is a derivation hint, not a security boundary. Most things default to <strong>shared</strong> — they can show up in ordinary recruiter-facing outputs but won't appear on a public job board unless you explicitly opt them in. Sensitive fields like salary, exit reasons, date of birth, and references default to <strong>private</strong> — they stay in the master and should not leave unless you deliberately change them.</p>
+
+<p>Visibility doesn't cascade. A private experience entry can contain public achievements. This means you can have a stealth-mode job where you can't name the company, but you can still claim the work you did there. The derivation tool handles those edge cases.</p>
+
+<div class="tip">
+  <strong>Privacy is a tradeoff.</strong> Getting hired requires sharing enough to be considered. OCF gives you the controls; the decisions are yours to make. Filtering by visibility doesn't anonymize your file — dates, locations, and metrics can still identify you. Think about what you include when sharing beyond your own files.
+</div>
+
+<div class="warning">
+  <p><strong>OCF is personally identifiable information.</strong> A complete career file can identify you even without a mailing address. Protect your master OCF the way you would protect a detailed resume, reference list, interview notes, and employment history combined. Derived OCF files are the shareable layer, but they will often still contain PII because resumes themselves contain PII. Any derived OCF can identify you through organization names, dates, locations, rare skills, metrics, or combinations of facts.</p>
+  <p>Do not store government identity numbers or account secrets in OCF: Social Security numbers, national insurance numbers, taxpayer IDs, passport numbers, driver's license numbers, bank details, passwords, API keys, or similar identifiers do not belong in this format. Some regional resume fields such as date of birth, nationality, gender, photo, or marital status exist because they are expected in some countries and discouraged or prohibited in others; keep them private by default and include them in derivations only when the target region and purpose make that appropriate.</p>
+</div>
+
+<h2>Caveats and Operating Practices</h2>
+<p>OCF is a schema, not a security product. The format can make career data portable, structured, and easier to review, but it cannot make private data safe by itself. The real risk is data handling: where the file is stored, uploaded, synced, logged, indexed, backed up, shared, and rendered. Treat the master OCF, source artifacts, derived OCFs, and rendered outputs as sensitive files unless you have intentionally made a specific artifact public.</p>
+
+<p><strong>Validation checks shape, not truth.</strong> A valid OCF file can still contain false claims, unsupported metrics, private material, stale facts, or poor judgment. Schema validation only proves the file has the right structure. It does not prove the content is true, safe to share, appropriate for a target role, or reviewed by the user.</p>
+
+<p><strong>Derived files should be archived deliberately.</strong> Most users will want to keep a copy of every OCF, resume, cover letter, profile, or interview-prep packet that actually went out the door. Those artifacts are useful records of what was represented to a specific audience at a specific time. The risk is not keeping them; the risk is keeping them accidentally, unnamed, or mixed with drafts. Downstream tools should name generated files with enough information to understand their purpose later, and should include a date. Recommended patterns are <code>master.ocf.json</code>, <code>derived/acme-ciso-2026-05-21.ocf.json</code>, <code>rendered/acme-ciso-resume-2026-05-21.pdf</code>, and <code>rendered/acme-ciso-interview-prep-2026-05-21.md</code>. A dated name is not provenance, but it helps users avoid sending the wrong file, compare what changed between applications, and separate sent artifacts from disposable working drafts.</p>
+
+<p><strong>Source artifacts may be more sensitive than the OCF.</strong> Old resumes, LinkedIn exports, chat transcripts, portfolio drafts, and career notes can contain mailing addresses, old phone numbers, salary history, supervisor names, identity-adjacent details, and mistakes the user would not repeat today. OCF can reference those artifacts without embedding them, but the folder that holds them still needs protection.</p>
+
+<p><strong>A coach does not always need the master.</strong> A trusted career coach may be an appropriate recipient for the master OCF in some cases, but that should be a deliberate high-trust disclosure. In many workflows, the better pattern is to generate a coach-specific derived OCF: enough detail for the coach to help, with private reflections, dangerous identifiers, irrelevant source artifacts, and sensitive notes withheld unless the user explicitly includes them.</p>
+
+<p><strong>The master accumulates, but the user can delete.</strong> Tools should not delete real but currently irrelevant facts just because today's resume does not need them; derivation should filter those out. But the file is still the user's text file. If the user wants material gone because it is false, dangerous, obsolete, too sensitive, or simply no longer something they want to preserve, tools should offer safer alternatives first — such as marking it private, adding a caution, or recording a future do-not-use / blacklist-style suppression rule when the schema grows one — and then delete it if the user confirms. Deletion should be explicit, versioned when possible, and never treated as ordinary curation.</p>
+
+<p><strong>Different tools deserve different access.</strong> A read-only reviewer can inspect the master and suggest edits. A renderer should usually receive only a derived OCF. A public exporter should not need private reflections or source artifacts. A trusted editor can write back to the master only after the user accepts changes. Tool access should match the job being done, not default to "upload everything."</p>
+
+<p><strong>Review has checkpoints.</strong> Users should review imported facts before accepting them into the master, review visibility before producing a derived OCF, review derived artifacts before sending them to a person or system, and review every rendered sentence before external use. Tooling can make those checkpoints easier, but it cannot remove the user's responsibility for the final words.</p>
+
+<p><strong>Updating tools must preserve what they do not own.</strong> A tool that writes back to the master OCF should preserve IDs, provenance, extensions, source artifact references, and fields it does not understand. It should validate against the file's declared <code>$schema</code> version, not blindly against whatever schema version the tool happens to prefer. If the tool cannot understand a newer schema version, the safe behavior is read-only review or an explicit migration flow, not silently dropping fields. Curators and renderers are allowed to strip content when producing a labeled derived OCF or rendered output; that derived artifact must not later be treated as the master or used to overwrite the master by accident.</p>
+
+<h2>Targeting with Importance and Audiences</h2>
+<p>Your master file will contain far more than fits on any single resume. Two fields help the derivation tool decide what's relevant:</p>
+
+<p><strong>Importance</strong> is a relative signal — higher numbers mean "this matters more." There's no fixed scale. If your CISSP is more important than your expired OSHA card, give it a higher number. The derivation tool uses importance to decide what makes the cut when space is limited.</p>
+
+<p><strong>Audiences</strong> are freeform tags you attach to items to say "this is relevant for these kinds of jobs." Tag an achievement with <code>federal</code> and <code>healthcare-it</code>, and when you target a federal healthcare IT role, the derivation tool knows to include it. Tag a skill with <code>startup</code> and it surfaces when you're applying to startups but stays hidden for government applications.</p>
+
+<div class="example">
+  <div class="label">How targeting works in practice</div>
+  <p>You have 47 skills, 12 positions across 5 companies, and dozens of achievements. You're applying for a cybersecurity director role at a hospital system. The derivation tool reads your master, sees the job description, and builds a derived OCF that emphasizes your HIPAA experience, your security certifications, and the SOC you built — while quietly dropping the mobile app you shipped and the marketing analytics dashboard. Same master file; completely different resume.</p>
+</div>
+
+<p>These fields are metadata for the derivation pipeline. They're not meaningful in the master file by themselves — they only come alive when a tool uses them to filter.</p>
+
+<h2>Facts, Variants, Derivations, and Display</h2>
+<p>OCF separates what is true from how it is presented. Canonical fields store facts the person can defend: titles, dates, organizations, achievements, metrics, skills, credentials, and source history. Variants store audience-specific wording for those same facts. Derivations select, filter, reorder, and sometimes lightly rewrite for a target. Renderers decide layout, typography, section order, date formatting, and final human-readable presentation. Exporters map a derived OCF into another schema.</p>
+
+<p>This distinction is one of the design goals of the format. <code>position.title</code> is the actual title, rank, billet, or best-known official title; <code>titleVariants</code> are defensible display labels for specific audiences. <code>achievement.statement</code>, metrics, and skills are the canonical claim; <code>narrativeVariants</code> preserve alternate bullet phrasing. <code>dateRange</code> stores structured dates; a renderer decides how those dates appear. <code>visibility</code>, <code>importance</code>, and <code>audiences</code> are derivation signals, not resume text.</p>
+
+<p>Tools should not change canonical facts just to make an output sound better. If a target audience needs different language, use a variant or a derived output. If an old artifact or conversation reveals a new fact, propose a canonical update. If the fact is uncertain, put it in <code>openQuestions</code> until the user verifies it.</p>
+
+<h2>Dates Done Right</h2>
+<p>OCF uses a structured date format that handles the real world. You can specify a full date (year, month, day), just a year and month, or just a year. For ongoing things — your current job, an active certification — you mark the end as "present."</p>
+<p>Any date range can be marked <strong><code>dateIsPrivate</code></strong>, which means the entry stays visible but the dates are suppressed. Common use: you don't want your graduation year on a resume because it reveals your age, but you still want to show the degree.</p>
+<p>Dates are stored unambiguously as structured data (year, month, day as separate fields), so there's no confusion about whether "2/1/2026" means February 1st or January 2nd. How dates display — that's up to the renderer and your preferences.</p>
+
+<h2>Organizations and Experience Entries</h2>
+<p>OCF separates stable information about an organization from your specific relationship with it. A top-level <code>organizations</code> registry can describe institutions — companies, military branches, nonprofits, government agencies, schools, unions, standards bodies — once. An <code>experience</code> entry then records a particular tenure, assignment, or period in your timeline, optionally linking back with <code>organizationRef</code>.</p>
+<p>This matters when you work at the same organization twice, return after a break, consult for the same client repeatedly, or need to preserve an organization's historical name while still recognizing it as the same institution. The organization record is reusable reference data; the experience entry is what happened to you during that period.</p>
+<p>Not every experience entry needs an organization. Self-employment, homemaking, caregiving, career breaks, retirement, and messy imported records can stand on their own with a descriptive <code>name</code>. Each experience entry has a <code>kind</code> — employment, self-employment, consulting, gig, military, government, homemaker, caregiver, career-break, retirement — so the app and downstream tools know what they're working with.</p>
+
+<h2>Let the Tools Do the Work</h2>
+<p>The app that walks you through filling this in will handle the structure. You don't need to think about JSON, schemas, or field names. You just answer questions: Where did you work? What was your title? What did you accomplish? The app handles the rest.</p>
+
+<p>A few things worth knowing about how the app will help:</p>
+<p><strong>Skills are the machine layer.</strong> The big list of skills (Python, Salesforce, HIPAA, etc.) exists for ATS keyword matching. You might want to let an AI suggest skills based on your job descriptions — it can pull out things you'd forget to list.</p>
+<p><strong>Competencies are the human layer.</strong> Inside each position, competencies are narrative clusters — "Customer Retention & Renewal Strategy" or "Digital Transformation" — that tell the story of what you brought to the role. Skills say what tools you used; competencies say what you did with them.</p>
+<p><strong>Achievements have depth.</strong> Each achievement has a short version (the resume bullet), an optional even-shorter version (for tight layouts), and an optional long-form narrative (the full story behind the bullet). The long form is where you capture context, stakes, and lessons — things that matter for interview prep even if they never appear on a resume.</p>
+<p><strong>Metrics are structured.</strong> When an achievement has numbers — revenue, headcount, percentage improvement — the app captures them as structured data, not just text. This means a derivation tool can compare and rank your achievements by impact, not just display them.</p>
+
+<h2>Provenance</h2>
+<p>Every item in OCF can carry a <strong>provenance</strong> object — an open shape where a tool can record how that item came to be. A tool that mined an achievement out of an interview can stamp it with the date, the tool name, the kind of input (typed, dictated, interview-derived, imported), a confidence score, or whatever else it cares to remember. A later tool that opens the file can read those notes and decide whether to trust the item, refine it, or re-prompt — instead of treating every achievement as if it were hand-typed from a blank page.</p>
+<p>Stable <code>id</code> fields belong to OCF items: source artifacts, experience entries, positions, achievements, reflections, and other records that a tool may need to edit or reference later. The LLM, importer, or editor does not become the item ID; it belongs in <code>provenance</code> as the tool or source that created, imported, or modified the item. This keeps update proposals precise: "add a narrative variant to achievement <code>northstar-onboarding-compression</code>" is safer than "edit the onboarding bullet in the first Northstar role."</p>
+<p>A future version is expected to add a structured <code>reviewStatus</code> lifecycle for imported or AI-mined material — values like unreviewed, user-confirmed, source-supported, stale, or do-not-use. That slot is deliberately reserved in the schema comments on source artifacts, achievements, narrative variants, and title variants. OCF v0.1 does not commit to the enum yet; it uses provenance, confidence, and <code>openQuestions</code> until real importer workflows prove the right shape.</p>
+<p>OCF deliberately does not hard-validate what goes inside the provenance object. The point is the <em>slot</em>, not a brittle mini-schema. Unknown fields are preserved on round-trip and ignored by tools that don't recognize them. Once tools know where to leave their notes for each other, an ecosystem of cooperating tools becomes possible — interview tools, editors, renderers, and importers can hand a file back and forth without each one starting from scratch.</p>
+
+<h3>Boring provenance</h3>
+<p>Even though provenance is open-shape, tools should keep the common case consistent. A boring provenance object is easier to merge, inspect, and preserve than a clever one. Recommended baseline keys are:</p>
+
+<pre>{
+  "source": "interview-derived",
+  "tool": "example-interview-tool",
+  "date": "2026-05-21",
+  "sourceArtifactId": "old-resume-2024-03",
+  "confidence": 0.82,
+  "sessionTopic": "CISO resume refresh",
+  "operation": "mined-achievement",
+  "note": "Recovered from prior resume and confirmed in conversation."
+}</pre>
+
+<p><code>source</code> should usually be one of <code>authored</code>, <code>imported</code>, <code>interview-derived</code>, <code>llm-suggested</code>, <code>curated</code>, <code>translated</code>, or <code>merged</code>. <code>tool</code> names the tool, model, importer, or editor. <code>date</code> is an ISO date. <code>sourceArtifactId</code> points to <code>sourceArtifacts</code> when the item came from an old resume, paste, transcript, or file. <code>confidence</code> is a 0-1 confidence estimate. <code>sessionTopic</code>, <code>operation</code>, and <code>note</code> keep enough human context to understand why the item changed. Tools may add their own keys, but they should use these boring keys first when they fit.</p>
+
+<h2>Vendor Extensions</h2>
+<p>Some tools want to attach metadata that doesn't belong in the OCF core: an ATS's internal candidate ID, a scoring vector from a matching tool, a renderer's layout hints, an interview tool's "ready to use" flag for a story. Forcing these into the schema would bloat it; banning them would push vendors to fork the format. OCF gives them a sanctioned home instead. Every item — and the file itself — can carry an <strong>extensions</strong> object.</p>
+<p>The key is the vendor's domain name: <code>greenhouse.com</code>, <code>ashbyhq.com</code>, <code>mytool.example.com</code>. Not an arbitrary identifier. Domain names are globally unique and self-asserted — a vendor owns its namespace by owning the domain. Anything else and two unrelated tools end up fighting over the same key.</p>
+<p>The value is opaque to OCF. The format doesn't validate the inner shape, and tools that don't recognize an extension must leave it untouched when they save. That's how a file edited by three different tools doesn't lose state along the way.</p>
+
+<div class="example">
+  <div class="label">Extensions in practice</div>
+  <p>An interview tool stores its session ID and "story maturity" rating under <code>mytool.example.com</code>. An ATS adds a candidate ID under <code>greenhouse.com</code>. A renderer tags certain items with layout preferences under <code>render.example.com</code>. All three tools coexist in the same file. None of them step on each other.</p>
+</div>
+
+<h2>Issuers and Skill Taxonomies</h2>
+<p>Two small fields exist so OCF plays well with the credential and skill ecosystems already in use elsewhere.</p>
+<p><strong>Certification issuers</strong> can be either a plain string (a display name like <code>(ISC)²</code>) or a structured object with a name, a URL, and an optional identifier. The identifier is typically a Decentralized Identifier (DID) — e.g. <code>did:web:isc2.org</code> — which is what Verifiable Credentials, LER-RS, and Open Badges use to point at issuers cryptographically. Most people will write the string form and stop there. Tools that import verified credentials, or that want to export OCF to LER-RS, can upgrade the issuer to the structured form without breaking anything: the string form remains valid forever.</p>
+<p><strong>Skills can carry taxonomy references</strong>. Each skill has a human-readable name (what an ATS expects to see) and an optional <code>taxonomies</code> array that aligns the skill to one or more external frameworks: ESCO (the EU's skill ontology), O*NET (the US Department of Labor's), SFIA (the IT-industry framework), Lightcast Open Skills, or any other framework URI. Each reference carries a framework identifier, a code or URI within that framework, an optional label, and an optional version. A skill can align to multiple taxonomies at once.</p>
+<p>The motivation for both is the same: OCF is the candidate-owned narrative layer, but credential verification and skill matching happen in ecosystems with their own standards. Carrying issuer identities and taxonomy refs as optional structured data means an OCF file can be exported to LER-RS or compared against a JD's required-skills taxonomy without losing fidelity — without forcing every OCF user to fill in fields they don't need.</p>
+
+<h2>A Note on Credential Verification</h2>
+<p>Credentials live on a spectrum of verifiability. Traditional certifications — CISSP, PMP, CFA — give the holder a number and a registry URL; verification is "look it up at the issuer's site." Modern industry credentials — AWS, Microsoft, Google, Cisco badges — are mostly issued through hosted-badge platforms like Credly, where verification is "open the badge URL and trust the platform that hosts it." The emerging direction is Open Badges 3.0 and W3C Verifiable Credentials, where each credential is cryptographically signed by its issuer and verifiable offline by anyone with the issuer's public key.</p>
+<p>OCF v0.1 covers the first two models cleanly. <code>credentialId</code> holds the registry number (CISSP cert number, NPI, bar number). <code>url</code> holds the hosted-badge URL. The structured <code>issuer</code> field with an optional <code>identifier</code> (typically a DID) gives an exporter what it needs to reach a Verifiable Credential's issuer. What v0.1 deliberately does <em>not</em> include is a dedicated structure for the cryptographic proofs themselves — the signed VC payloads — because that ecosystem is still maturing and the standards underneath it (VC Data Model 2.0, Open Badges 3.0, Velocity Network) are still settling. Locking in details now would risk committing to fields that change.</p>
+<p>Vendor-specific verification metadata can live under <code>extensions</code> in the meantime — a Credly-using tool can attach badge IDs and assertion URLs under <code>credly.com</code>; a Velocity-aware tool can attach issuance metadata under <code>velocitynetwork.foundation</code>; an Open Badges 3.0 wallet can carry signed credentials under a vendor-owned domain. A future OCF revision is expected to add a structured <code>verification</code> array to certifications that names the verification method (registry / open-badge / verifiable-credential) with a method-appropriate payload, capturing VC details uniformly. Until then, the existing surface is enough for most practical needs, and the extension mechanism handles the rest. The schema marks the reserved slot with a <code>$comment</code> on the certification definition so future implementers know where the field will land.</p>
+
+<h2>OCF Output and Downstream Tools: Curators, Renderers, and Exporters</h2>
+<p>Three kinds of tool sit downstream of the master OCF. Each does a different job, and the output of one is the input to the next. Naming them separately matters because they have different design constraints and different ecosystem positions — and because the most important one is the one most likely to get glossed over.</p>
+
+<p><strong>Curators</strong> (also called derivers) turn a master OCF into a derived OCF for a specific target. This is where the judgment lives. A master file contains far more than any single resume, cover letter, or profile would carry; the curator decides what to surface for <em>this</em> opportunity. Concretely, a curator reads the master plus a target context (a job description, a role type, an audience description, an output budget like "one page") and produces a derived OCF that is filtered, reordered, and sometimes lightly rewritten for that target. The schema supports this directly: derived OCFs set <code>meta.canonical: false</code>, point to the master via <code>meta.derivedFrom</code>, and may record their selection rationale in <code>meta.derivationNotes</code>. The filtering signals already in the format — <code>visibility</code>, <code>importance</code>, <code>audiences</code> tags on every item — are the curator's primary inputs.</p>
+
+<div class="pipeline">
+  <div class="stage">
+    <h3>Master OCF</h3>
+    <p>Comprehensive career record. Holds everything.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>Curator</h3>
+    <p>Filters, reorders, rewrites for a specific target.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>Derived OCF</h3>
+    <p>Smaller, targeted, ready for a renderer or exporter.</p>
+  </div>
+</div>
+
+<p>Curation is the highest-judgment step in the pipeline. A bad curator includes irrelevant items, exposes private content, weighs the wrong things, or drops the achievement that would have landed the role. A good curator reads the target carefully and picks the right twelve bullets out of the user's eighty. This is where conversational LLM tools shine — they can read a job description in detail, understand which of the user's experiences match it, and produce a tailored derived OCF that a renderer or exporter then turns into the final artifact. Tailoring a master file for a specific job posting <em>is</em> curation; producing an explicit derived OCF as the artifact of that conversation lets it be reused, audited, and re-rendered without re-deciding.</p>
+
+<p><strong>Renderers</strong> turn a derived OCF into a human-readable artifact — a PDF, a DOCX, an HTML page, a federal application. They make aesthetic decisions: page breaks, fonts, hierarchy, what to emphasize visually. Multiple renderers can produce wildly different outputs from the same derived OCF, and that's the point. The renderer is end-of-the-line: a human reads the output and nothing downstream consumes it.</p>
+
+<div class="pipeline">
+  <div class="stage">
+    <h3>Derived OCF</h3>
+    <p>The curated, targeted file.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>Renderer</h3>
+    <p>PDF, DOCX, HTML page, federal application.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>Reader</h3>
+    <p>A human, a hiring manager, a screening system.</p>
+  </div>
+</div>
+
+<p><strong>Exporters</strong> translate a derived OCF into another ecosystem's schema — JSON Resume, LER-RS, Schema.org JSON-LD, vCard, or a LinkedIn-shaped paste bundle. Exporters produce machine-readable files that are themselves inputs to other systems: JSON Resume gets fed to a static-site generator; LER-RS gets fed to an ATS or credential infrastructure; Schema.org JSON-LD gets embedded in a webpage for search engines; LinkedIn paste bundles get pasted box-by-box into LinkedIn's UI. The exporter's output is rarely the final artifact — it's a way-station toward another system's rendering or consumption.</p>
+
+<div class="pipeline">
+  <div class="stage">
+    <h3>Derived OCF</h3>
+    <p>The curated, targeted file.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>Exporter</h3>
+    <p>JSON Resume, LER-RS, LinkedIn paste, Schema.org JSON-LD.</p>
+  </div>
+  <div class="arrow">›</div>
+  <div class="stage">
+    <h3>Downstream system</h3>
+    <p>Static site generator, ATS, HR pipeline, search index.</p>
+  </div>
+</div>
+
+<p>The three categories have different design constraints. A curator is opinionated and lossy by design — it has to drop content that doesn't serve the target. A renderer is opinionated and aesthetic — it picks how the result looks and reads. An exporter has to be faithful to a target schema — the question isn't "what looks good" but "what does the target format expect?" An OCF → LER-RS exporter in particular has to pull in data from <em>outside</em> OCF (verified credentials from a wallet, skill-taxonomy alignments from a mapping service, issuer identities with DIDs). The exporter is the bridge that combines a derived OCF with those external streams to produce a target-schema-compliant document.</p>
+
+<div class="warning">
+  <p><strong>You own every word.</strong> A resume, cover letter, public profile, derived OCF, or export is your summary of yourself for a specific audience. Curators, renderers, exporters, and AI tools produce drafts — you are accountable for what gets sent. Before any output leaves your hands, read every word and confirm you are comfortable with it.</p>
+  <p>An AI-assisted draft that sounds reasonable but contains a number you cannot defend, a claim you would not have made yourself, or a framing you do not agree with is <em>worse than no draft at all</em>. It puts you in a position where you can be challenged on content you did not actually author. Visibility tags, derivation rules, and renderer choices do not transfer responsibility away from you. The OCF tooling is designed to assist your authorship, not replace it. Take ownership at the review step, every time.</p>
+</div>
+
+<div class="callout">
+  <p>Adding a new target — a new ATS schema, a future LinkedIn import format, a Schema.org dialect — is a new exporter. A new visual style is a new renderer. A new approach to tailoring (better matching against job descriptions, better personalization for audiences) is a new curator. Each tool type evolves independently. OCF stays small; the three downstream ecosystems grow.</p>
+</div>
+
+<h2>Regional and Sensitive Fields</h2>
+<p>Some fields exist because the world isn't one country. Photo, date of birth, nationality, marital status, and gender are required on resumes in Germany, Japan, South Korea, and much of the Middle East and Latin America — but prohibited or discouraged in the US, UK, Canada, and Australia. Store them if they apply to you; derivation tools include or exclude them based on the target region.</p>
+<p>All of these fields default to private. You have to explicitly decide to share them.</p>
+
+<h2>Accessibility and Language Variants</h2>
+<p>OCF does not specify how rendered documents look, but downstream renderers should produce accessible outputs whenever possible: selectable text rather than image-only resumes, sensible heading order, readable contrast, meaningful link text, and alt text for images. Accessibility is part of whether an output is usable, not decoration.</p>
+<p>The file-level <code>meta.language</code> records the main language of an OCF. Real careers often need more: translated resumes, localized title conventions, bilingual public profiles, and variants that preserve the same facts in different languages. v0.1 handles some of this through <code>narrativeVariants</code>, <code>titleVariants</code>, provenance, and notes, but future versions are expected to add more explicit language/locale metadata for variants. The invariant stays the same: translation changes presentation, not the underlying facts.</p>
+
+<h2>Federal Resumes: A Different World</h2>
+<p>If you've ever applied for a US government job through USAJobs, you know it's nothing like the private sector. A private-sector resume is 1–2 pages of highlights. A federal resume is 5–15 pages of <em>everything</em> — every duty, every project, every tool, hours per week, supervisor name and phone number, salary history, GS grades, occupational series codes. Leaving things out doesn't make you look concise; it makes you look unqualified. The HR specialist scoring your application can only credit what's on paper.</p>
+<p>This is exactly why the master file approach matters. Your OCF master already contains everything — the detailed achievements, the hours-per-week, the supervisor contacts, the occupational codes, the compensation history. A private-sector derivation strips most of it down to bullet points. A federal derivation keeps it all in, reformats it for USAJobs conventions, and includes the fields that federal HR requires: series and grade, hours per week, supervisor with contact info, salary, and detailed duty descriptions rather than punchy bullets.</p>
+<p>Same master file. Radically different outputs. That's the point.</p>
+
+<h2 id="non-goals">Non-Goals</h2>
+<p>OCF deliberately leaves several things outside its scope. This is part of the design, not an oversight.</p>
+<p><strong>OCF does not specify how content is elicited.</strong> The interview, the prompts, the question library, the conversational flow that gets a buried achievement onto the page — all of that lives in the tool layer. Two different tools can produce the same OCF file from the same person using completely different interview approaches. This is where vendors differentiate.</p>
+<p><strong>OCF does not specify how content is rendered or exported.</strong> Renderers and exporters are downstream tools — described in the section above — and OCF cares only that derivation produces a faithful, targeted file for them to consume. Whether your resume becomes a one-page minimalist PDF, a 15-page federal application, an HTML profile, or a JSON Resume / LER-RS export, those are tool decisions, not format decisions.</p>
+<p><strong>OCF does not specify how content is scored or matched against opportunities.</strong> Job-description matching, ATS keyword extraction, candidate ranking — all downstream of OCF. The format provides the inputs; the matching is the vendor's problem.</p>
+<p>Keeping these out of the format is what makes a portable file useful. If OCF baked in an opinion about how to interview, render, or score, every tool would have to either adopt the OCF opinion or fork the format. By staying focused on <em>what gets persisted</em>, OCF makes itself easy to support and lets vendors compete where it actually matters.</p>
+
+<h2>Your File, Your Data</h2>
+<p>The OCF is an open standard. Your master file is a structured data file that you own. It's not locked into any platform, any vendor, or any app. If you want to switch tools, you take your file with you. If you want to build your own tools on top of it, you can. The format is documented, the schema is public, and the data is yours.</p>
+
+<h2>Feedback and Suggestions</h2>
+<p>OCF should improve from real workflows, not only from abstract schema design. If you are using an LLM, editor, renderer, exporter, career coach, or hand-written file and you run into a missing capability, send that use case back to the project. You do not need to be a developer. A plain-language example is useful: "I wanted to store both my English and Spanish versions of the same achievement and have tools preserve both."</p>
+<p>For ideas, missing capabilities, or "why can't OCF do this?" moments, use the suggestion form at <a href="https://github.com/opencareerformat/opencareerformat/issues/new/choose">github.com/opencareerformat/opencareerformat/issues/new/choose</a>. For open-ended questions, early ideas, or thanks, use <a href="https://github.com/opencareerformat/opencareerformat/discussions">GitHub Discussions</a>.</p>
+
+<footer>
+  <p>Open Career Format (OCF) v0.1 — <a href="https://opencareerformat.org/">opencareerformat.org</a></p>
+  <p>Schema: <code>https://opencareerformat.org/v0.1/schema.json</code></p>
+</footer>
+
+</body>
+</html>
