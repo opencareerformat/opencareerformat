@@ -1,0 +1,5 @@
+Cybersecurity Director - Healthcare
+
+We are looking for a cybersecurity director to lead security operations for a healthcare technology organization. The role owns incident response, SOC maturity, cloud security, vulnerability management, executive reporting, and compliance work across HIPAA, HITRUST, SOC 2, and NIST-aligned controls.
+
+Ideal candidates have led teams, improved detection and response programs, briefed senior leaders, and handled high-pressure incidents such as ransomware or critical infrastructure events. Experience with SIEM platforms, endpoint security, AWS, zero trust architecture, and healthcare data protection is strongly preferred.

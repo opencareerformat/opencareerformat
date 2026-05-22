@@ -1,0 +1,249 @@
+{
+  "$schema": "https://opencareerformat.org/v0.1/schema.json",
+  "schemaVersion": "0.1",
+  "meta": {
+    "id": "7fb58e4f-7c93-4f7c-b04c-93de0b5a2c91",
+    "version": "example-v1",
+    "canonical": true,
+    "variant": "master",
+    "lastModified": "2026-05-22",
+    "language": "en-US",
+    "source": {
+      "kind": "authored"
+    }
+  },
+  "sourceArtifacts": [
+    {
+      "id": "artifact-2021-implementation-resume",
+      "kind": "resume",
+      "label": "2021 implementation-focused resume",
+      "capturedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 22
+      },
+      "artifactDate": {
+        "year": 2021
+      },
+      "audience": [
+        "implementation",
+        "saas-operations"
+      ],
+      "fileName": "alex-kim-implementation-resume-2021.pdf",
+      "rawIncluded": false,
+      "visibility": "private"
+    },
+    {
+      "id": "artifact-2026-chat-paste",
+      "kind": "chat-paste",
+      "label": "Resume bullets pasted into chat on May 22, 2026",
+      "capturedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 22
+      },
+      "sourceTool": "ChatGPT",
+      "rawIncluded": false,
+      "notes": "User pasted bullets from two older resumes for OCF mining.",
+      "visibility": "private"
+    }
+  ],
+  "person": {
+    "name": {
+      "renderAs": "Alex Kim",
+      "given": "Alex",
+      "family": "Kim"
+    },
+    "headline": "Customer operations leader for implementation-heavy SaaS teams",
+    "contacts": [
+      {
+        "kind": "email",
+        "value": "alex.kim@example.com",
+        "primary": true
+      }
+    ]
+  },
+  "organizations": {
+    "northstar.example.com": {
+      "name": "Northstar Software",
+      "shortName": "Northstar",
+      "url": "https://northstar.example.com",
+      "kind": "company",
+      "industry": "B2B SaaS",
+      "description": "Fictional SaaS company used to demonstrate repeated tenures and organization references.",
+      "status": "active"
+    }
+  },
+  "experience": [
+    {
+      "id": "northstar-first-tenure",
+      "organizationRef": "northstar.example.com",
+      "kind": "employment",
+      "name": "Northstar Software",
+      "domainAtTime": "northstar.example.com",
+      "dateRange": {
+        "start": {
+          "year": 2018,
+          "month": 4
+        },
+        "end": {
+          "year": 2021,
+          "month": 9
+        }
+      },
+      "positions": [
+        {
+          "id": "northstar-csm-implementation",
+          "title": "Customer Success Manager",
+          "titleVariants": [
+            {
+              "title": "Implementation Manager",
+              "kind": "functional-label",
+              "basis": "Official title was Customer Success Manager, but the role owned onboarding plans, implementation timelines, customer data migration coordination, and launch readiness for enterprise accounts. The label appeared on an implementation-focused 2021 resume.",
+              "audiences": [
+                "implementation",
+                "saas-operations"
+              ],
+              "sourceArtifactId": "artifact-2021-implementation-resume",
+              "sourceArtifact": "2021 implementation-focused resume",
+              "visibility": "shared",
+              "provenance": {
+                "source": "imported",
+                "confidence": 0.85
+              }
+            }
+          ],
+          "seniority": "manager",
+          "employmentType": "full-time",
+          "dateRange": {
+            "start": {
+              "year": 2018,
+              "month": 4
+            },
+            "end": {
+              "year": 2021,
+              "month": 9
+            }
+          },
+          "summary": "Managed enterprise customer onboarding and post-sale adoption for a B2B SaaS platform.",
+          "achievements": [
+            {
+              "id": "northstar-onboarding-compression",
+              "statement": "Reduced enterprise onboarding time from 90 days to 45 days by standardizing launch plans and migration checklists",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "duration",
+                  "from": 90,
+                  "to": 45,
+                  "unit": "days",
+                  "note": "enterprise onboarding timeline"
+                }
+              ],
+              "audiences": [
+                "customer-success",
+                "implementation",
+                "saas-operations"
+              ],
+              "importance": 4,
+              "visibility": "shared",
+              "narrativeVariants": [
+                {
+                  "label": "Implementation resume version",
+                  "audiences": [
+                    "implementation",
+                    "saas-operations"
+                  ],
+                  "statement": "Built repeatable implementation playbooks that cut enterprise go-live timelines in half.",
+                  "sourceArtifactId": "artifact-2021-implementation-resume",
+                  "sourceArtifact": "2021 implementation-focused resume",
+                  "visibility": "shared",
+                  "provenance": {
+                    "source": "imported",
+                    "confidence": 0.8
+                  }
+                },
+                {
+                  "label": "Customer success resume version",
+                  "audiences": [
+                    "customer-success",
+                    "retention"
+                  ],
+                  "statement": "Improved early customer adoption by turning onboarding into a predictable 45-day success motion.",
+                  "sourceArtifactId": "artifact-2026-chat-paste",
+                  "sourceArtifact": "Resume bullets pasted into chat on May 22, 2026",
+                  "visibility": "shared",
+                  "provenance": {
+                    "source": "chat-paste",
+                    "confidence": 0.75
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "northstar-second-tenure",
+      "organizationRef": "northstar.example.com",
+      "kind": "employment",
+      "name": "Northstar Software",
+      "domainAtTime": "northstar.example.com",
+      "dateRange": {
+        "start": {
+          "year": 2024,
+          "month": 1
+        },
+        "end": {
+          "present": true
+        }
+      },
+      "positions": [
+        {
+          "id": "northstar-director-customer-ops",
+          "title": "Director of Customer Operations",
+          "seniority": "director",
+          "employmentType": "full-time",
+          "dateRange": {
+            "start": {
+              "year": 2024,
+              "month": 1
+            },
+            "end": {
+              "present": true
+            }
+          },
+          "summary": "Returned to Northstar to build the customer operations function.",
+          "teamSize": 6,
+          "directReports": 3,
+          "achievements": [
+            {
+              "id": "northstar-renewal-forecasting",
+              "statement": "Created renewal forecasting process that gave account teams a 90-day view of expansion and churn risk",
+              "kind": "accomplishment",
+              "audiences": [
+                "customer-operations",
+                "revenue-operations",
+                "leadership"
+              ],
+              "importance": 4,
+              "visibility": "shared"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "question": "Verify whether the 45-day onboarding result was median, average, or target-state before using it in externally-facing materials.",
+      "context": "Metric recovered from the 2021 implementation-focused resume and 2026 chat paste.",
+      "provenance": {
+        "sourceArtifactId": "artifact-2021-implementation-resume",
+        "source": "imported"
+      },
+      "visibility": "private"
+    }
+  ]
+}

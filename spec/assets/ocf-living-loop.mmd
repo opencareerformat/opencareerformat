@@ -1,0 +1,29 @@
+flowchart TD
+  A[(Old resumes, LinkedIn exports, notes, pasted text)] --> M[(Master OCF)]
+  B[LLM-assisted import] --> M
+  C[OCF editor app] --> M
+  D[Hand editing] --> M
+
+  M --> K[Curator / Deriver]
+  J[Target context: job description, audience, purpose] -. guides .-> K
+
+  K --> O[(Derived OCF)]
+
+  O --> R[Renderer]
+  R --> P[(Resume, cover letter, profile, PDF, HTML)]
+
+  O --> E[Exporter]
+  E --> X[(JSON Resume, LER-RS, Schema.org, LinkedIn paste, ATS import)]
+
+  O --> C2[Coach or reviewer]
+  C2 --> Q{Questions, corrections, new stories}
+
+  P --> U{User Review}
+  X --> U
+  C2 --> U
+
+  U --> F[(Output Files)]
+  U --> Q
+
+  Q --> V{Accepted updates only}
+  V --> M

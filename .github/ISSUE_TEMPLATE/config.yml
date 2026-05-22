@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Open-ended discussion or question
+    url: https://github.com/opencareerformat/opencareerformat/discussions
+    about: For exploratory ideas or questions that don't have a concrete proposal yet. Concrete proposals belong as Issues; open thinking belongs in Discussions.
