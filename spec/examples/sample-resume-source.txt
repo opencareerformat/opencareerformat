@@ -1,0 +1,46 @@
+Maria E. Reyes
+Cybersecurity leader bridging military discipline with enterprise security strategy
+San Antonio, TX, US
+maria.reyes@example.com | +1-555-0142 | https://linkedin.com/in/mariacreyes.example | https://bsky.app/profile/mariacreyes.example
+
+SUMMARY
+Cybersecurity leader with Army cyber operations experience and private-sector healthcare security leadership. Experienced in incident response, SOC leadership, zero trust architecture, compliance, and executive communication.
+
+SKILLS
+Incident Response; Zero Trust Architecture; SIEM; Network Defense; Vulnerability Management; Python; AWS Security; Risk Management Framework; NIST 800-53; SOC 2; FedRAMP; Kubernetes; Terraform; CrowdStrike Falcon; Palo Alto Networks; Personnel Management; Executive Communication
+
+EXPERIENCE
+Meridian Health Systems | Director of Cybersecurity | 2023-03 - Present
+Head of cybersecurity for a healthcare IT company handling PHI for 2M+ patients. Report to CISO. Built the security operations function and led the company through SOC 2 Type II and HITRUST certification.
+- Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months.
+- Led HITRUST r2 certification, passing on first assessment with zero corrective actions.
+- Reduced mean time to detect from 72 hours to under 4 hours through SIEM tuning and automated triage.
+- Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.
+
+Aegis Cyber Defense | Senior Incident Response Consultant | 2021-01 - 2023-02
+Investigated breaches for Fortune 500 clients across healthcare, financial services, and manufacturing.
+- Led incident response for 15+ engagements including nation-state intrusions and ransomware events affecting critical infrastructure.
+- Developed automated forensic triage toolkit adopted by the broader IR team, reducing initial assessment time by 40%.
+
+Tidewater Federal Services | Cybersecurity Analyst | 2018-09 - 2020-12
+DoD contract supporting cyber threat analysis. First civilian role after Army separation.
+- Performed threat analysis supporting DoD network defense operations, authoring 50+ threat intelligence reports.
+
+United States Army | Cyber Operations Specialist | 2016-01 - 2018-08
+Led a 6-person cyber operations team conducting defensive cyber operations and vulnerability assessments for Army networks.
+- Led defensive cyber operations team protecting a 15,000-node enterprise network.
+- Trained and mentored 12 junior soldiers transitioning into the new 17C MOS career field.
+
+United States Army | Signal Support Systems Specialist | 2010-08 - 2015-12
+Maintained and operated signal systems supporting brigade-level communications.
+- Maintained 99.7% uptime on tactical communications systems supporting a 3,500-soldier brigade.
+
+EDUCATION
+University of Texas at San Antonio | MS | Cybersecurity | 2019 - 2021
+University of Maryland Global Campus | BS | Computer Networks and Cybersecurity | 2014 - 2018
+
+CERTIFICATIONS
+CISSP | (ISC)2
+CISM | ISACA
+CompTIA Security+ CE | CompTIA
+AWS Certified Security - Specialty | Amazon Web Services

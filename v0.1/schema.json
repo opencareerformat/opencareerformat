@@ -1,0 +1,3950 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opencareerformat.org/v0.1/schema.json",
+  "title": "Open Career Format (OCF)",
+  "description": "Open Career Format (OCF) v0.1 — A structured format for storing your complete career history in a single, portable file you own and control. The OCF is designed around a three-stage pipeline: (1) MASTER FILE — your complete career record: every role, achievement, certification, note, and context you want to preserve. This is your source of truth. You maintain one master file and update it over the course of your career. It will contain far more than any single resume ever would. (2) DERIVED OCF — a filtered, tailored copy of the master for a specific purpose. A derivation tool reads your master, considers a job description or audience, and produces a reduced OCF. Derivation is both subtractive (dropping items by visibility, importance, or audiences) and transformative (rewording achievements for a target company's terminology, reframing summaries for an audience). The derived file uses the same schema but sets `meta.canonical: false` and `meta.derivedFrom` to trace lineage. This is the file you share — role-targeted, company-targeted, or a general public profile. It serves as the searchable shadow behind the rendered document: a recruiter searching for a skill in your OCF finds you even if the rendered resume omits it. (3) RENDERED OUTPUT — a human-readable resume, cover letter, or other document generated from the derived OCF. Rendering is outside the scope of this schema. Every item carries a `visibility` field (public/shared/private), an `importance` signal (higher numbers = more important), and optional `audiences` tags for relevance filtering. These are advisory signals for the derivation pipeline — the OCF schema defines them but does not enforce how tools or renderers honor them. PRIVACY NOTE: Filtering by visibility does not anonymize your file. A derived OCF with organization names, dates, locations, and metrics can still identify you. Think carefully about what you include when sharing beyond your own files — with recruiters, job portals, or public profiles. Getting hired requires sharing enough to be considered; the tradeoff is yours to make. What a downstream renderer or tool does with the derived OCF is outside the scope of this format definition.",
+  "$comment": "PRIOR ART & MOTIVATION: JSON Resume (https://jsonresume.org) is an open standard for structured resumes. We became aware of it while developing this format and respect the shared idea of giving people a portable, structured way to own their career data. OCF is not a fork of JSON Resume and did not start from its codebase. The key difference: JSON Resume models a resume — a rendered document. OCF models the career behind the resume.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "person"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional JSON Schema URI used by editors and validators. For OCF v0.1 this is normally https://opencareerformat.org/v0.1/schema.json."
+    },
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "meta": {
+      "type": "object",
+      "description": "Provenance and authoring metadata.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A stable UUID (v4) that identifies this file across its lifetime. The master gets one when created and keeps it forever. Derivatives get their own id. This is what derivedFrom points at — not a filename, which can change."
+        },
+        "version": {
+          "type": "string",
+          "description": "A content fingerprint that changes every time the file is meaningfully saved. Typically a short hash (e.g. SHA-256 truncated to 12 hex chars) of the file's content, or an incrementing counter. Derivation tools record the master's version at derivation time in derivedFromVersion so you can answer 'is this derivative stale?' by comparing the two."
+        },
+        "canonical": {
+          "type": "boolean",
+          "description": "True if this is the author's master file (source of truth). False if this is a derived, imported, or translated copy."
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date"
+        },
+        "language": {
+          "type": "string",
+          "description": "BCP-47 tag, e.g. en-US"
+        },
+        "variant": {
+          "type": "string",
+          "enum": [
+            "master",
+            "public-profile",
+            "role-targeted",
+            "company-targeted",
+            "portfolio",
+            "other"
+          ],
+          "description": "What kind of OCF file this is. master = the complete source of truth. public-profile = a general-purpose reduced copy safe for broad sharing (e.g. LinkedIn, personal website) with all private items stripped but no role-specific filtering. role-targeted = filtered for a specific kind of role (e.g. 'cybersecurity director' positions generally). company-targeted = tailored for a specific company and job posting. portfolio = curated for a creative or project-based audience. other = anything else."
+        },
+        "targetRole": {
+          "type": "string",
+          "description": "For role-targeted or company-targeted variants: the role this was filtered for, e.g. 'Director of Cybersecurity', 'Senior Backend Engineer'."
+        },
+        "targetCompany": {
+          "type": "string",
+          "description": "For company-targeted variants: the specific company, e.g. 'Meridian Health Systems'."
+        },
+        "translatedFrom": {
+          "type": "string",
+          "description": "BCP-47 tag of the source language if this file is a translation of another OCF file, e.g. 'en-US'. When present, this file is a derivative work — the original-language file is the source of truth."
+        },
+        "derivedFrom": {
+          "type": "string",
+          "description": "The meta.id of the master file this was derived from. When present, canonical should be false. Derivation is not purely mechanical — a derived file may contain rewritten text (achievement statements reworded to match a company's terminology, summaries reframed for a specific audience). The master remains the source of truth for facts; the derived file adapts how those facts are expressed."
+        },
+        "derivedFromVersion": {
+          "type": "string",
+          "description": "The meta.version of the master file at the time this derivative was created. Compare against the master's current meta.version to determine if this derivative is stale and should be regenerated."
+        },
+        "derivationNotes": {
+          "type": "string",
+          "description": "Freeform notes about how this file was derived: 'Filtered for cybersecurity director roles, emphasis on healthcare compliance. Private items removed. Skills pruned to match Meridian Health JD. Reworded achievements to use their internal terminology (Cyber Defense Center, not SOC).' Helps the author remember why this variant exists and what was changed beyond simple filtering."
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "authored",
+                "derived",
+                "imported",
+                "merged",
+                "translated"
+              ],
+              "description": "authored = written by the person. derived = filtered/reduced from a master OCF file for a specific purpose. imported = pulled from another system (LinkedIn, ATS, etc.). merged = combined from multiple sources. translated = language translation of another OCF file."
+            },
+            "importer": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "person": {
+      "type": "object",
+      "description": "REGIONAL COMPLIANCE AND PRIVACY: Some fields in this section (photo, dateOfBirth, nationality, maritalStatus, gender) are expected or required on resumes in certain countries (Germany, France, Japan, South Korea, much of the Middle East and Latin America) and prohibited or strongly discouraged in others (US, UK, Canada, Australia). Store these in your master file only if they apply to you and you intentionally want them recorded. Derivation tools should include or exclude them based on the target region — never share across borders without understanding local hiring laws. Government identity numbers and secrets such as SSNs, taxpayer IDs, passport numbers, driver's license numbers, bank details, passwords, and API keys do not belong in OCF.",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "object",
+          "$comment": "Reserved future direction: person names are currently compact, but real imports will surface legal names, preferred names, localized names, former names, professional names, transliterations, and audience-specific display choices. Future versions may expand this object with structured name variants rather than adding ad hoc top-level fields.",
+          "required": [
+            "renderAs"
+          ],
+          "properties": {
+            "renderAs": {
+              "type": "string",
+              "description": "The name as it should appear on a resume — professional name, stage name, shortened form, westernized name, whatever you go by. This is the display string; everything else is metadata behind it."
+            },
+            "legalName": {
+              "type": "string",
+              "description": "Full legal name when different from renderAs. Needed for background checks, government resumes, and some international formats."
+            },
+            "legalNameVisibility": {
+              "$ref": "#/$defs/visibilityPrivate"
+            },
+            "nativeScript": {
+              "type": "string",
+              "description": "Regional: name in its original script when the file is otherwise romanized, e.g. '田中太郎' alongside renderAs 'Taro Tanaka', or 'Ελένη Παπαδοπούλου' alongside 'Eleni Papadopoulou'."
+            },
+            "given": {
+              "type": "string"
+            },
+            "family": {
+              "type": "string"
+            },
+            "familyFirst": {
+              "type": "boolean",
+              "description": "Regional: true if the cultural convention is family name first (East Asia, Hungary, etc.). Helps renderers and parsers avoid assuming given-family order."
+            },
+            "preferred": {
+              "type": "string",
+              "description": "Nickname or short form used in conversation, e.g. 'Carmen', 'TJ', 'Sasha'."
+            },
+            "pronouns": {
+              "type": "string"
+            },
+            "otherNames": {
+              "type": "array",
+              "description": "Other names this person has been known by — maiden names, former married names, pen names, stage names, names before legal change, religious names, aliases. Useful for background check matching (private) or crediting published work under a different name (public).",
+              "items": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "kind"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "maiden",
+                      "former",
+                      "alias",
+                      "pen-name",
+                      "stage-name",
+                      "religious",
+                      "birth",
+                      "other"
+                    ],
+                    "description": "maiden = pre-marriage family name; former = any prior legal name (previous marriage, legal change); birth = name at birth if different from maiden context; pen-name / stage-name = professional pseudonyms; religious = name taken upon ordination or conversion."
+                  },
+                  "visibility": {
+                    "$ref": "#/$defs/visibilityPrivate",
+                    "$comment": "A maiden name for background checks stays private; a pen name on published books may be public."
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "headline": {
+          "type": "string",
+          "description": "One-line positioning statement (not a job title)."
+        },
+        "summary": {
+          "type": "string",
+          "description": "Professional profile / about paragraph."
+        },
+        "photo": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to a professional headshot. Regional: required in Germany, France, Japan, South Korea, much of the Middle East, parts of Latin America. Prohibited or discouraged in the US, UK, Canada, Australia."
+        },
+        "photoVisibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        },
+        "dateOfBirth": {
+          "$ref": "#/$defs/partialDate",
+          "description": "Date of birth. Regional: required in Germany, Japan, South Korea, China. Irrelevant or illegal to request in the US, UK, Canada."
+        },
+        "dateOfBirthVisibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        },
+        "nationality": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Nationality or citizenships, e.g. ['US', 'Italian']. Distinct from work authorization — nationality is who you are; work authorization is where you can legally work. Multiple nationalities are common. Regional: required in some countries, irrelevant in others."
+        },
+        "nationalityVisibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        },
+        "maritalStatus": {
+          "type": "string",
+          "description": "Regional: required on resumes in parts of Asia and the Middle East; considered inappropriate or illegal to request in the US, UK, Canada, Australia, and most of Europe. Freeform to accommodate cultural variation."
+        },
+        "maritalStatusVisibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Regional: required on applications in some jurisdictions; prohibited to request in others. Freeform to be inclusive."
+        },
+        "genderVisibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Primary email address."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Primary phone number. Include country code for international use, e.g. '+1-555-867-5309'."
+        },
+        "linkedin": {
+          "type": "string",
+          "format": "uri",
+          "description": "LinkedIn profile URL."
+        },
+        "github": {
+          "type": "string",
+          "format": "uri",
+          "description": "GitHub profile URL."
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "Personal website or portfolio URL."
+        },
+        "contacts": {
+          "type": "array",
+          "description": "Additional ways to reach you beyond the common fields above. Use this for anything not covered by the named fields: Mastodon, Bluesky, X/Twitter, ORCID, Signal, a second email, a fax number, etc.",
+          "items": {
+            "$ref": "#/$defs/contact"
+          }
+        },
+        "locations": {
+          "type": "array",
+          "description": "Where you're currently based. Multiple entries allowed if you split time between cities. This is where you live, not where you're willing to work — use `relocation` for that. Examples: New York, NY, US; London, UK; 'NYC & Las Vegas'.",
+          "items": {
+            "$ref": "#/$defs/location"
+          }
+        },
+        "relocation": {
+          "type": "object",
+          "properties": {
+            "open": {
+              "type": "string",
+              "description": "Whether and how you're open to relocation. Freeform because the nuance varies widely. Examples: 'Yes, self-funded to NYC or Boston', 'Yes, with relocation support', 'Open to remote-first companies anywhere', 'Will relocate to Pacific Northwest on my own', 'Only within the EU'. Leave blank or omit if not open to relocation."
+            },
+            "preferred": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/location"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "workAuthorization": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "country": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "description": "e.g. citizen, permanent-resident, visa-required"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "clearances": {
+          "type": "array",
+          "description": "Clearances are things granted to you based on investigation, employment, or status (e.g. DoD/IC security clearances, TWIC cards, site badges, port access, facility clearances). If you studied for it, tested for it, or earned it (CDL, OSHA 30-Hour, nursing license, bar admission), it belongs in `certifications` even if it also gates job eligibility.",
+          "items": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "e.g. 'Top Secret / SCI', 'TWIC', 'Facility Clearance', 'TSA PreCheck'."
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "security-clearance",
+                  "government-credential",
+                  "access-credential",
+                  "other"
+                ],
+                "description": "security-clearance = DoD/IC clearances (Secret, TS, TS/SCI); government-credential = TWIC, TSA PreCheck, Global Entry — background-check-based credentials; access-credential = site badges, port access, facility clearances."
+              },
+              "level": {
+                "type": "string",
+                "description": "Clearance level if applicable, e.g. 'Secret', 'Top Secret', 'Top Secret / SCI'."
+              },
+              "issuedBy": {
+                "type": "string",
+                "description": "Issuing authority, e.g. 'DoD', 'TSA', 'OSHA'."
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "inactive",
+                  "expired",
+                  "revoked"
+                ],
+                "description": "Current status of the clearance."
+              },
+              "dateRange": {
+                "$ref": "#/$defs/dateRange"
+              },
+              "polygraph": {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "ci",
+                  "full-scope"
+                ],
+                "description": "Type of polygraph associated with this clearance. none = no polygraph required. ci = Counter-Intelligence polygraph. full-scope = Full Scope / Lifestyle polygraph (higher bar, required by NSA, CIA, and some other agencies). Having passed a polygraph is a meaningful differentiator in the cleared workforce — agencies that require one don't have to wait months for you to complete it."
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibilityPrivate",
+                "$comment": "Many clearance holders prefer not to advertise."
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "skills": {
+      "type": "array",
+      "description": "This section contains a long list of all your skills — every tool, technology you've used, regulatory framework, language, and domain term you can legitimately claim. ATS systems want laundry lists; this is that list, but structured. Distinct from `competencies` (which are narrative clusters nested in positions, written for humans). `skills` is the machine-parseable layer; `competencies` is the human-readable layer. Both describe what you know, at different granularities.",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The skill as an ATS would recognize it: 'Salesforce', 'KYC/KYB', 'Python', 'JIRA', 'Agile', 'SOC 2', etc."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "tool",
+              "platform",
+              "language",
+              "framework",
+              "methodology",
+              "regulatory",
+              "domain",
+              "soft-skill",
+              "equipment",
+              "vehicle",
+              "trade",
+              "other"
+            ],
+            "description": "Grouping category. e.g. 'Tools: Salesforce, Jira, HubSpot | Regulatory: KYC, AML, SOC 2'."
+          },
+          "proficiency": {
+            "type": "string",
+            "enum": [
+              "learning",
+              "working",
+              "proficient",
+              "expert"
+            ],
+            "description": "Self-assessed proficiency level. This entire field is optional — omit it if you'd rather not claim a level. If you do include it, the value must be one of the listed options."
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange",
+            "description": "When you used this skill. Start = when you first used it, end = when you last used it. Use `end: { present: true }` if you still use it actively. Enables computing years of experience."
+          },
+          "current": {
+            "type": "boolean",
+            "description": "Whether this skill is current. Useful when dateRange is omitted or when a past skill should remain in the master but be downweighted in derivation."
+          },
+          "aliases": {
+            "type": "array",
+            "description": "Alternate names ATS systems might search for. e.g. 'SFDC' for Salesforce, 'K8s' for Kubernetes.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          },
+          "taxonomies": {
+            "type": "array",
+            "description": "Optional alignment of this skill to one or more external skill taxonomies (ESCO, O*NET, SFIA, Lightcast Open Skills, or any framework URI). The base skill name remains the human-readable label; taxonomy refs add machine-readable graph anchors. Enables LER-RS / HR Open Standards interop, ATS keyword expansion via taxonomy synonyms, and cross-framework skill matching. A single skill may align to multiple taxonomies — e.g. an OCF skill 'Python' might carry both an ESCO URI and an O*NET hot-technology code.",
+            "items": {
+              "type": "object",
+              "required": [
+                "framework",
+                "id"
+              ],
+              "properties": {
+                "framework": {
+                  "type": "string",
+                  "description": "Short identifier for the taxonomy: 'esco' (EU European Skills, Competences, Qualifications and Occupations), 'onet' (US O*NET-SOC), 'sfia' (Skills Framework for the Information Age), 'lightcast' (Lightcast Open Skills), 'credential-engine', or any framework URI when no short name is in common use."
+                },
+                "id": {
+                  "type": "string",
+                  "description": "The skill's identifier within the framework — typically a URI for ESCO ('http://data.europa.eu/esco/skill/...'), a numeric code for O*NET ('15-1252.00'), or an alphanumeric code for SFIA. Stable across framework versions when the framework provides stable IDs."
+                },
+                "label": {
+                  "type": "string",
+                  "description": "The skill's official label in the framework. Optional but useful when the id is opaque."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Version of the framework the id is valid in, when the framework versions its codes (e.g. ESCO v1.1.1, O*NET 28.0)."
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "competencies": {
+      "type": "array",
+      "description": "Cross-career narrative skill themes — 'Security Operations & Incident Response', 'Customer Retention & Renewal Strategy', 'Digital Transformation'. Distinct from granular `skills`: competencies describe what the person repeatedly does with those skills. Position-level competencies describe the same idea within a specific role.",
+      "items": {
+        "type": "object",
+        "required": [
+          "label"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "skills": {
+            "type": "array",
+            "description": "Skill names from the top-level skills list, or freeform skill labels when no exact top-level entry exists.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "organizations": {
+      "type": "object",
+      "description": "Optional registry of organizations referenced from experience entries, education, service, governance, or other sections. Organizations are stable reference data about institutions — companies, military branches, nonprofits, agencies, schools, unions, standards bodies — while `experience` records the person's specific relationship or tenure. Keys are stable local IDs, commonly a domain-like identifier when one exists.",
+      "additionalProperties": {
+        "$ref": "#/$defs/organization"
+      }
+    },
+    "experience": {
+      "type": "array",
+      "description": "This is where all of your work history is recorded as a single chronological list. Each entry is an experience entry: one relationship, tenure, assignment, or period in the person's timeline. Career breaks, homemaker periods, caregiver roles, and retirement are entries too, so the timeline has no gaps and lives in one place. Promotions, projects, role changes, and postings within an experience entry are nested inside `positions`.",
+      "items": {
+        "$ref": "#/$defs/experienceEntry"
+      }
+    },
+    "projects": {
+      "type": "array",
+      "description": "Most projects are nested under the experience entry and role where they happened. This top-level array is for projects not tied to any experience entry — freelance work, personal projects, open-source contributions, creative works, independent research.",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "Project name, e.g. 'Hudson Yards Tower C — MEP Rough-In', 'Avengers: Endgame — VFX Pipeline', 'Open Career Format (OCF)'."
+          },
+          "role": {
+            "type": "string",
+            "description": "Your role on the project, e.g. 'Lead Electrician', 'VFX Supervisor', 'Author'."
+          },
+          "client": {
+            "type": "string",
+            "description": "End client or commissioning party, if applicable."
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange"
+          },
+          "location": {
+            "$ref": "#/$defs/location"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "description": "Project type, e.g. 'construction', 'film', 'consulting', 'open-source', 'research', 'campaign', 'event'."
+          },
+          "scale": {
+            "type": "string",
+            "description": "Freeform scope indicator, e.g. '$4.2M budget', '18-month build', '200-person crew', '3 clinical sites'."
+          },
+          "achievements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/achievement"
+            }
+          },
+          "funding": {
+            "type": "array",
+            "description": "Grants are a special type of project where applying for and receiving the funds is a career achievement in its own right. These fields capture grant-specific details when you played an active role in securing or being named on the grant (PI, co-PI, senior personnel). If you were merely paid by a grant you had no role in winning, use `fundedBy` on the position instead.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "grantor": {
+                  "type": "string",
+                  "description": "Funding body: 'NSF', 'NIH', 'DOD', 'EU Horizon Europe', 'Wellcome Trust', 'Ford Foundation', etc."
+                },
+                "grantNumber": {
+                  "type": "string",
+                  "description": "Grant identifier, e.g. 'NSF IIS-2345678', 'NIH R01-GM123456', 'ERC-2024-STG-101234'."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Grant title if different from the project name."
+                },
+                "amount": {
+                  "type": "number",
+                  "description": "Total award amount."
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "ISO 4217, e.g. 'USD', 'EUR', 'GBP'."
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "pi",
+                    "co-pi",
+                    "senior-personnel",
+                    "consultant",
+                    "subcontract-pi",
+                    "other"
+                  ],
+                  "description": "pi = Principal Investigator, you led the proposal and are accountable for the work. co-pi = Co-Principal Investigator, shared leadership. senior-personnel = named contributor but not a PI. consultant = external expert on the grant. subcontract-pi = PI on a subcontract under a larger award."
+                },
+                "dateRange": {
+                  "$ref": "#/$defs/dateRange"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "awarded",
+                    "active",
+                    "completed",
+                    "pending",
+                    "declined",
+                    "not-funded"
+                  ],
+                  "description": "pending and not-funded let you track submissions that didn't land — useful for your own records."
+                },
+                "visibility": {
+                  "$ref": "#/$defs/visibilityShared"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "skills": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Skills exercised in this project. Freeform strings — use whatever names make sense for the skills involved."
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            },
+            "description": "Links related to this project — GitHub repo, live demo, published paper, news coverage, portfolio page, etc."
+          },
+          "renderAs": {
+            "type": "string",
+            "description": "You know what your career sections should be called better than a schema does. This lets you tell the renderer what heading to use for this project. Projects sharing the same renderAs value can be grouped under that heading. Case is intentional — 'Grants & Funding' stays as 'Grants & Funding'. Examples: 'Grants & Funding', 'Exhibitions & Showcases', 'Consulting Engagements', 'Commissions', 'Open Source'. Renderers may ignore this hint, but when present it represents your preference."
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "education": {
+      "type": "array",
+      "description": "All forms of learning — degrees, executive education, bootcamps, MOOCs, military training, vocational. Not just college.",
+      "items": {
+        "$ref": "#/$defs/education"
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "description": "Professional certifications, licenses, and credentials — anything you studied for, tested for, or earned. CDL, nursing license, bar admission, CISSP, PMP, OSHA 30-Hour, real estate license, pilot's certificate, medical license (NPI/DEA numbers go in credentialId). Even if the credential also gates job eligibility, it belongs here if you earned it. Distinct from `clearances` (in `person`), which covers things granted through investigation or status — security clearances, TWIC, site badges. The rule: earned → certifications; granted → clearances. Also distinct from `education`: a certificate program (bootcamp, MOOC) is a learning experience in `education`; a certification is a credential you earned and maintain here.",
+      "items": {
+        "$ref": "#/$defs/certification"
+      }
+    },
+    "governance": {
+      "type": "array",
+      "description": "Board of directors seats, advisory board roles, board observer seats, trustee positions, nonprofit board membership. These are concurrent with employment, not a subset of it — a board seat is not a job in `experience`. If you're a full-time executive director of a nonprofit, that's `experience`; if you sit on their board while working elsewhere, that's governance. Distinct from `memberships`, which covers belonging to a professional organization (ACM, IEEE, a union local) — you can be a member of an org (memberships) and also sit on its board (governance).",
+      "items": {
+        "type": "object",
+        "required": [
+          "organization",
+          "role"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "board-director",
+              "advisory-board-member",
+              "board-observer",
+              "trustee",
+              "governor",
+              "other"
+            ],
+            "description": "board-director = voting member of a board of directors with fiduciary duty. advisory-board-member = member of an advisory board (non-fiduciary, advisory only). board-observer = non-voting observer of board meetings. trustee = trustee of a nonprofit, foundation, or trust. governor = member of a governing body of a professional or standards organization."
+          },
+          "roleTitle": {
+            "type": "string",
+            "description": "Literal title if different from the enum, e.g. 'Independent Non-Executive Director'."
+          },
+          "committees": {
+            "type": "array",
+            "description": "Board committees served on: audit, compensation, nominating, risk, etc.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange"
+          },
+          "compensated": {
+            "type": "boolean"
+          },
+          "equity": {
+            "type": "boolean",
+            "description": "Whether compensation included equity (common for startup advisory roles)."
+          },
+          "context": {
+            "type": "string",
+            "description": "What the organization does, its stage, why you joined the board."
+          },
+          "achievements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/achievement"
+            }
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "teaching": {
+      "type": "array",
+      "description": "Courses taught, workshops delivered, guest lectures, corporate training, bootcamp instruction, formal mentoring programs, conference tutorials — anywhere you were the instructor, not the student. Separate from `experience`: a professor's employment at a university is in experience; the specific courses they taught go here. The same institution may appear in both sections. Separate from `speaking`: a conference talk or keynote (one-off, audience-facing) goes in speaking; a conference tutorial or workshop (instructional, hands-on) goes here. The boundary is presenting vs teaching.",
+      "items": {
+        "type": "object",
+        "required": [
+          "subject"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "institution": {
+            "type": "string",
+            "description": "University, company (for internal training), conference, or 'independent'."
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "professor",
+              "adjunct",
+              "lecturer",
+              "guest-lecturer",
+              "instructor",
+              "facilitator",
+              "mentor",
+              "teaching-assistant",
+              "other"
+            ]
+          },
+          "subject": {
+            "type": "string",
+            "description": "What you taught — course name, topic area, or workshop title."
+          },
+          "courseId": {
+            "type": "string",
+            "description": "Course catalog number, if applicable."
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange"
+          },
+          "recurring": {
+            "type": "boolean",
+            "description": "True if this was a recurring engagement (e.g., taught every semester), false if one-time."
+          },
+          "audience": {
+            "type": "string",
+            "description": "Who you taught — 'undergrad', 'MBA', 'internal engineering team', 'bootcamp cohort', etc."
+          },
+          "achievements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/achievement"
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            }
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "speaking": {
+      "type": "array",
+      "description": "Conference talks, panel appearances, keynotes, podcast guest spots, webinars, fireside chats, internal all-hands presentations to large audiences. The boundary between speaking and teaching is presenting vs. teaching — a conference talk or panel goes here; a semester-long course, recurring workshop, or training curriculum goes in `teaching`.",
+      "items": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "description": "Talk or appearance title."
+          },
+          "event": {
+            "type": "string",
+            "description": "Conference, podcast, or venue name."
+          },
+          "description": {
+            "type": "string",
+            "description": "Short human-readable description of the talk or appearance."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "keynote",
+              "talk",
+              "panel",
+              "workshop",
+              "podcast",
+              "webinar",
+              "fireside",
+              "other"
+            ]
+          },
+          "date": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "location": {
+            "$ref": "#/$defs/location"
+          },
+          "abstract": {
+            "type": "string"
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            }
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "memberships": {
+      "type": "array",
+      "description": "Professional organizations, trade unions and locals (IBEW Local 357, UA Local 525), standards bodies, industry groups, working committees, fellowships — IETF, IEEE, ACM, bar associations, CFA Institute, local tech meetup organizer roles. For trade workers, union membership is often central to employment, benefits, and credentialing. Being a member of an organization goes here; sitting on its board of directors or advisory board goes in `governance`. You can be both — a member of IEEE (memberships) and on its ethics board (governance).",
+      "items": {
+        "type": "object",
+        "required": [
+          "organization"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "description": "Your role within the organization: 'member', 'fellow', 'chair', 'working-group-member', etc."
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange"
+          },
+          "achievements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/achievement"
+            }
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "service": {
+      "type": "array",
+      "description": "Volunteer work, community service, and civic engagement — volunteer fire/EMS, Peace Corps, AmeriCorps, elected office, nonprofit leadership, civic board membership, community organizing, church leadership, youth coaching, disaster relief. For military service, use `experience` with `kind: military` instead. For formal board seats, use `governance` instead. This section is for service that doesn't fit neatly into either of those. Casual personal pursuits (hiking, woodworking, open-source tinkering) go in `interests` — service implies a commitment to an organization or cause.",
+      "items": {
+        "type": "object",
+        "required": [
+          "organization"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "organizationRef": {
+            "type": "string",
+            "description": "Optional key into the top-level `organizations` registry."
+          },
+          "domainAtTime": {
+            "type": "string",
+            "description": "Domain or web identifier associated with the organization at the time of this service entry. Useful for imports and historical matching when no organizationRef is present."
+          },
+          "role": {
+            "type": "string",
+            "description": "Your role: 'Volunteer Coordinator', 'Squad Captain', 'Precinct Committee Officer', 'Youth Group Leader', etc."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "volunteer",
+              "public-service",
+              "civic",
+              "nonprofit-leadership",
+              "elected-office",
+              "religious",
+              "other"
+            ]
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange"
+          },
+          "description": {
+            "type": "string"
+          },
+          "achievements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/achievement"
+            }
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "patents": {
+      "type": "array",
+      "description": "Independently held patents — inventions you own personally, not assigned to an organization. If a patent was filed through your organization (they're the assignee), nest it under that position in `experience` instead. Each entry is an invention, not a paper about one. If you wrote an academic paper analyzing a patent or patented technology, that goes in `publications` with `kind: patent-paper`.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "filed",
+              "pending",
+              "granted",
+              "expired"
+            ]
+          },
+          "date": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "inventors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "publications": {
+      "type": "array",
+      "description": "Published works — academic papers, books, articles, RFCs, screenplays, teleplays, columns, blog posts, technical documentation, open-source documentation. For authors and screenwriters, this section IS the career. A book written while employed elsewhere is still a publication here — it cross-references the timeline but lives in its own section.",
+      "items": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "book",
+              "chapter",
+              "journal-article",
+              "conference-paper",
+              "thesis",
+              "rfc",
+              "patent-paper",
+              "magazine-article",
+              "newspaper-article",
+              "blog-post",
+              "column",
+              "screenplay",
+              "teleplay",
+              "stage-play",
+              "libretto",
+              "technical-report",
+              "whitepaper",
+              "documentation",
+              "other"
+            ],
+            "description": "What form the publication took. screenplay/teleplay/stage-play/libretto cover dramatic writing credits."
+          },
+          "venue": {
+            "type": "string",
+            "description": "Where it was published: journal name, publisher, conference, magazine, production company, studio, network, blog name."
+          },
+          "publisher": {
+            "type": "string",
+            "description": "For books: the publishing house (Penguin, O'Reilly, self-published). For screenplays: the production company or studio."
+          },
+          "date": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "DOI, RFC number, ISBN, ISSN, ISAN, WGA registration number, etc."
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "All authors/contributors in citation order. Include yourself. For screenplays: credit as it appears ('Written by', 'Story by', 'Teleplay by')."
+          },
+          "role": {
+            "type": "string",
+            "description": "Your specific role if not obvious from authorship: 'lead author', 'contributing author', 'editor', 'translator', 'written by', 'story by', 'teleplay by', 'co-writer', 'ghostwriter'."
+          },
+          "edition": {
+            "type": "string",
+            "description": "For books with multiple editions: '3rd edition', 'revised edition'."
+          },
+          "series": {
+            "type": "string",
+            "description": "Book series or column name, e.g. 'O'Reilly Animal Series', 'weekly security column for Dark Reading'."
+          },
+          "genre": {
+            "type": "string",
+            "description": "For books and screenplays: 'science fiction', 'technical', 'memoir', 'thriller', 'comedy', 'drama'."
+          },
+          "abstract": {
+            "type": "string",
+            "description": "Brief summary or logline. For academic: the abstract. For a screenplay: the logline."
+          },
+          "peerReviewed": {
+            "type": "boolean",
+            "description": "Whether the publication was peer-reviewed."
+          },
+          "citations": {
+            "type": "integer",
+            "description": "Citation count for academic publications, if known."
+          },
+          "production": {
+            "type": "object",
+            "description": "For screenplays and teleplays that were produced (not just written). Links the written work to its production.",
+            "properties": {
+              "produced": {
+                "type": "boolean",
+                "description": "Whether this was actually produced (filmed, staged)."
+              },
+              "productionCompany": {
+                "type": "string"
+              },
+              "releaseDate": {
+                "$ref": "#/$defs/partialDate"
+              },
+              "network": {
+                "type": "string",
+                "description": "Network or platform: 'HBO', 'Netflix', 'Broadway', 'Off-Broadway'."
+              },
+              "imdbUrl": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "additionalProperties": false
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            }
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "mediaAppearances": {
+      "type": "array",
+      "description": "Appearances in media or public professional conversations where the person was featured, interviewed, quoted, or invited to speak: podcasts, video interviews, webinars, panels, press interviews, quoted articles, livestreams, radio, TV, newsletter features, case studies, and customer stories. Hosting or producing a podcast or show is usually an experience tied to an organization; use this section for individual appearances on someone else's outlet, or for specific hosted episodes that matter independently as public evidence.",
+      "items": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Episode, article, segment, webinar, panel, video, or appearance title."
+          },
+          "type": {
+            "type": "string",
+            "description": "Freeform appearance type. Prefer boring reusable labels when possible, e.g. podcast, video-interview, webinar, panel, press-interview, quoted-in-article, conference-talk, livestream, radio, tv, newsletter-feature, case-study, customer-story, other."
+          },
+          "role": {
+            "type": "string",
+            "description": "The person's role in the appearance, e.g. guest, interviewee, panelist, speaker, quoted-source, featured-expert, host, moderator."
+          },
+          "outlet": {
+            "type": "string",
+            "description": "Show, publication, channel, event, podcast, newsletter, or media outlet name."
+          },
+          "publisher": {
+            "type": "string",
+            "description": "Network, company, organizer, community, platform, or publisher behind the outlet."
+          },
+          "date": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Topics, domains, or themes discussed."
+          },
+          "summary": {
+            "type": "string",
+            "description": "Brief summary of what the appearance covered or why it matters."
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/metric"
+            },
+            "description": "Optional reach or impact metrics, e.g. downloads, views, subscribers, audience size, ranking, citations."
+          },
+          "sourceArtifactId": {
+            "type": "string",
+            "description": "Optional source artifact ID for the episode page, transcript, recording, article, screenshot, or announcement."
+          },
+          "relatedExperienceIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional IDs of experience entries this appearance supports or relates to."
+          },
+          "relatedProjectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional IDs of projects this appearance supports or relates to."
+          },
+          "relatedAchievementIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional IDs of achievements this appearance supports or relates to."
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared",
+            "$comment": "Media appearances are often public by nature, but visibility still defaults to shared because OCF requires explicit opt-in before broad public exposure."
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "date"
+            ]
+          },
+          {
+            "required": [
+              "dateRange"
+            ]
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "awards": {
+      "type": "array",
+      "description": "Major external honors, prizes, fellowships, and named recognitions — Nobel, Pulitzer, industry awards, company-wide awards, dean's list, military decorations. Use this section for standalone awards that stand on their own outside any single role. If an award is best understood in context of a specific job or project (e.g. 'Employee of the Quarter' while at Acme Corp), use `achievement` with `kind: recognition` inside that position instead.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "sales-recognition",
+              "performance-award",
+              "industry-award",
+              "company-award",
+              "academic-honor",
+              "military-decoration",
+              "fellowship",
+              "other"
+            ],
+            "description": "Broad award type. Use sales-recognition for President's Club, Chairman's Club, quota clubs, sales incentive trips, and similar sales performance honors."
+          },
+          "category": {
+            "type": "string",
+            "description": "Why the award was earned, when known. Prefer boring reusable labels when possible, e.g. club-qualification, quota-attainment, incentive-trip, revenue-attainment, rank, growth, new-logo, retention, customer-success, leadership, team-award, other."
+          },
+          "awarder": {
+            "type": "string"
+          },
+          "date": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange",
+            "description": "Use for multi-year or recurring recognition, e.g. a sales club or incentive-trip recognition earned across several years."
+          },
+          "description": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "company",
+              "region",
+              "business-unit",
+              "division",
+              "team",
+              "industry",
+              "national",
+              "international",
+              "other"
+            ],
+            "description": "Population or arena for the recognition."
+          },
+          "rank": {
+            "type": "string",
+            "description": "Rank or placement if applicable, e.g. 'top-ranked rep', 'top 5%', 'regional winner'."
+          },
+          "basis": {
+            "type": "string",
+            "description": "Short explanation of the basis for the award, e.g. '142% revenue attainment against FY15 budget' or 'highest new-logo ARR in North America'."
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/metric"
+            },
+            "description": "Structured metrics supporting the recognition, when the user is comfortable storing them here."
+          },
+          "supportingFacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/supportingFact"
+            },
+            "description": "Granular facts behind a broader recognition, e.g. each annual sales-rank fact behind a multi-year club or rank summary."
+          },
+          "importance": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "languages": {
+      "type": "array",
+      "description": "Human languages — spoken, written, signed. Many roles require specific language abilities; this section captures enough detail for ATS matching while allowing nuance (dialect, domain fluency, certifications).",
+      "items": {
+        "type": "object",
+        "required": [
+          "language"
+        ],
+        "properties": {
+          "language": {
+            "type": "string",
+            "description": "Language name, e.g. 'English', 'Spanish', 'Mandarin Chinese', 'American Sign Language'."
+          },
+          "bcp47": {
+            "type": "string",
+            "description": "BCP-47 tag for precision, e.g. 'es-MX', 'zh-Hans', 'pt-BR'. Optional but useful for distinguishing dialects."
+          },
+          "proficiency": {
+            "type": "string",
+            "enum": [
+              "elementary",
+              "limited-working",
+              "professional-working",
+              "full-professional",
+              "native-or-bilingual"
+            ],
+            "description": "Overall proficiency using LinkedIn / ILR-adjacent levels. 'elementary' = basic phrases; 'limited-working' = simple conversations; 'professional-working' = handle most work situations; 'full-professional' = fluent in professional contexts; 'native-or-bilingual' = grew up with it or indistinguishable from native."
+          },
+          "speaking": {
+            "type": "string",
+            "enum": [
+              "elementary",
+              "limited-working",
+              "professional-working",
+              "full-professional",
+              "native-or-bilingual"
+            ],
+            "description": "Speaking ability if it differs from overall proficiency."
+          },
+          "reading": {
+            "type": "string",
+            "enum": [
+              "elementary",
+              "limited-working",
+              "professional-working",
+              "full-professional",
+              "native-or-bilingual"
+            ],
+            "description": "Reading ability — relevant for languages with complex writing systems or when literacy differs from spoken ability."
+          },
+          "writing": {
+            "type": "string",
+            "enum": [
+              "elementary",
+              "limited-working",
+              "professional-working",
+              "full-professional",
+              "native-or-bilingual"
+            ],
+            "description": "Writing ability — may differ significantly from spoken, e.g. heritage speakers who never learned formal writing."
+          },
+          "native": {
+            "type": "boolean",
+            "description": "True if this is a native/first language. A person can have multiple native languages."
+          },
+          "dialect": {
+            "type": "string",
+            "description": "Regional variant if relevant, e.g. 'Castilian', 'Cantonese', 'Brazilian', 'Québécois', 'Bavarian'."
+          },
+          "context": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Where/how you use this language: 'business negotiation', 'technical writing', 'medical interpretation', 'lived abroad 3 years', 'heritage speaker', 'courtroom proceedings'."
+          },
+          "certifications": {
+            "type": "array",
+            "description": "Formal language certifications — DELE, DELF, HSK, JLPT, TOEFL, Cambridge, CELI, etc.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Certification name, e.g. 'DELE B2', 'JLPT N1', 'TOEFL iBT'."
+                },
+                "score": {
+                  "type": "string",
+                  "description": "Score or level achieved, e.g. '105/120', 'B2', 'N1'."
+                },
+                "date": {
+                  "$ref": "#/$defs/partialDate"
+                },
+                "issuer": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "references": {
+      "type": "array",
+      "description": "People who can speak to your work. Default visibility is private — you maintain the list as a personal resource and share selectively. Tracking references here means you always know who to call on for a specific kind of role without scrambling at application time.",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "relationship": {
+            "type": "string",
+            "description": "How you know them: 'former manager at DocuSign', 'co-founder at Prime Trust', 'commanding officer, 3rd Battalion', 'dissertation advisor'."
+          },
+          "organization": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "description": "Their current or relevant title."
+          },
+          "contact": {
+            "$ref": "#/$defs/contact",
+            "description": "Primary contact method retained for backward compatibility. Prefer `contacts` when storing multiple methods."
+          },
+          "contacts": {
+            "type": "array",
+            "description": "Additional contact methods for this reference, e.g. email, phone, LinkedIn, personal site, or assistant contact.",
+            "items": {
+              "$ref": "#/$defs/contact"
+            }
+          },
+          "linkedin": {
+            "type": "string",
+            "format": "uri",
+            "description": "LinkedIn profile URL for this reference."
+          },
+          "strengths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "What this person can specifically speak to: 'technical leadership', 'crisis management', 'my work on the identity platform', 'character and integrity'."
+          },
+          "lastContactDate": {
+            "$ref": "#/$defs/partialDate",
+            "description": "When you last spoke or confirmed their willingness. Stale references are risky."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Private notes — 'prefers email first', 'retired in 2024', 'knows me as Dave'."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityPrivate"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "interests": {
+      "type": "array",
+      "description": "Activities, hobbies, causes, and pursuits outside of work. Some hiring cultures expect these (common in Europe, early-career resumes, and roles where cultural fit matters). Even when not included on a resume, they can surface in interviews and provide common ground. Not the same as `service` (which covers formal volunteer/community roles).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The interest or activity: 'marathon running', 'open-source contribution', 'woodworking', 'youth soccer coaching', 'amateur radio'."
+          },
+          "description": {
+            "type": "string",
+            "description": "Optional context: 'completed 3 Ironman triathlons', 'built a 14-foot sailing dinghy', 'licensed ham radio operator (KD2ABC)'."
+          },
+          "current": {
+            "type": "boolean",
+            "description": "Whether this is an active pursuit."
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityShared"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "extensions": {
+      "$ref": "#/$defs/extensions"
+    },
+    "goals": {
+      "type": "object",
+      "description": "What the user is targeting next. Read by AI tools before tailoring outputs; ignored by renderers. Visibility defaults to private — most users will not want goals leaking into any externally-facing artifact.",
+      "$comment": "v0.1 covers the most common cases: a plain-language summary, targeted role types with preference levels, targeted locations (including 'remote' as a valid value), constraints, and motivations. Real usage will inform what additional structure (e.g. compensation ranges with currency, structured constraint types, timeline shapes) is worth adding in a future revision. The placeholder is here so AI tools have a stable place to read direction from even before the structure is fully built out.",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Plain-language summary of what the user is looking for next. Starting point for any AI conversation about future direction."
+        },
+        "roles": {
+          "type": "array",
+          "description": "Role types the user is targeting. Multiple entries are encouraged; preference levels tell the AI which is primary.",
+          "items": {
+            "type": "object",
+            "required": [
+              "title"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Role title or family, e.g. 'VP Customer Success', 'Implementation Team Lead', 'Director of Engineering'."
+              },
+              "preference": {
+                "type": "string",
+                "enum": [
+                  "primary",
+                  "secondary",
+                  "open-to"
+                ],
+                "description": "primary = first choice; secondary = strong alternative; open-to = would consider in the right context."
+              },
+              "notes": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "locations": {
+          "type": "array",
+          "description": "Where the user is open to working. 'remote' is a valid value; cities, regions, and countries are also valid.",
+          "items": {
+            "type": "object",
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "e.g. 'remote', 'San Francisco', 'New York', 'London', 'EU (any)'."
+              },
+              "preference": {
+                "type": "string",
+                "enum": [
+                  "primary",
+                  "secondary",
+                  "open-to"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Hard or soft constraints that rule out (or strongly discount) certain roles. Freeform strings, e.g. 'no travel above 25%', 'no on-call rotation', 'no Series A or earlier'."
+        },
+        "motivations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Why the user is looking. Helps AI advice land in context. Examples: 'first formal leadership role', 'stepping back from people management', 'work alongside an AI-native team', 'higher compensation after years of mission-driven roles'."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "cautions": {
+      "type": "array",
+      "description": "Things the user explicitly does NOT want claimed on their behalf. The typical entry origin: an AI or coach suggested a framing or claim, the user corrected it, and the correction was captured here to prevent future drafts from repeating the mistake. Cautions are not a list of weaknesses — they are constraints on positioning.",
+      "$comment": "v0.1 is intentionally minimal: claim text plus optional reason, date, and provenance. Real usage will inform whether scope tags ('only for senior-leadership-targeted drafts', 'only when applying to engineering-heavy audiences') become useful additions. Future versions may add a stronger suppression/blacklist mechanism for material the user wants tools not to reintroduce from source artifacts after deletion or explicit rejection.",
+      "items": {
+        "type": "object",
+        "required": [
+          "claim"
+        ],
+        "properties": {
+          "claim": {
+            "type": "string",
+            "description": "The claim or framing to avoid. e.g. 'positioned as a deep ML expert', 'titled as a director before 2022', 'characterized as fluent in Spanish' (when proficiency is closer to working)."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Why this should not be claimed. Optional but helpful for future tools that might otherwise re-suggest the same overclaim."
+          },
+          "addedDate": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "provenance": {
+            "$ref": "#/$defs/provenance"
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityPrivate"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "openQuestions": {
+      "type": "array",
+      "description": "Things to revisit in a future conversation — stories to mine, claims to verify, framings to nail down, achievements to flesh out. Maintained as a working queue between sessions so the user and the AI can pick up where they left off.",
+      "$comment": "v0.1 is intentionally minimal: a question text plus optional context, date, and provenance. Real usage will inform whether priority, status (open/resolved), or assignment fields are useful additions.",
+      "items": {
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "What to come back to. e.g. 'mine more from the Acme Co. role — only one achievement listed but I was there four years'; 'verify the SOC headcount-growth metric against my notes from 2024'."
+          },
+          "context": {
+            "type": "string",
+            "description": "Optional context for where this question came from."
+          },
+          "addedDate": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "provenance": {
+            "$ref": "#/$defs/provenance"
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibilityPrivate"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sourceArtifacts": {
+      "type": "array",
+      "description": "Inputs used to build, import, or enrich this OCF file: old resumes, LinkedIn exports, portfolio bios, application drafts, pasted chat text, interview transcripts, or other career artifacts. Source artifacts are evidence and context; they are not automatically canonical facts. Item-level provenance and narrative/title variants may reference these IDs.",
+      "items": {
+        "$ref": "#/$defs/sourceArtifact"
+      }
+    },
+    "voice": {
+      "type": "object",
+      "description": "How the user wants AI drafts written in their name. Prescriptive at the high level (a small canonical set of named styles) while allowing fine-grained customization through avoid/prefer lists. Most users do not know how to write a voice guide from scratch — picking a canonical style and noting a few personal preferences is enough to materially improve draft quality.",
+      "$comment": "The 'style' enum is intentionally a small canonical set so users can choose without writing voice guides. Real usage will inform whether additional canonical styles are needed and whether per-audience overrides (e.g. one style for cover letters, another for LinkedIn posts) become a common pattern.",
+      "properties": {
+        "style": {
+          "type": "string",
+          "enum": [
+            "plain-direct",
+            "warm-precise",
+            "formal-traditional",
+            "creative-conversational",
+            "executive-terse"
+          ],
+          "description": "Canonical writing style. plain-direct = unfussy, factual, declarative — works for most professional writing. warm-precise = friendly but specific, common in CS / HR / advisory contexts. formal-traditional = standard professional resume voice with conventional vocabulary. creative-conversational = essayistic, suited to cover letters and personal-website prose. executive-terse = compressed, results-first, suited to senior-leadership-targeted drafts."
+        },
+        "avoidPhrases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Words or phrases that should not appear in any AI-drafted output. Common entries: 'leveraged', 'synergize', 'passionate about', 'results-driven', 'team player'."
+        },
+        "preferredPhrases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Phrases the user reaches for and is happy to see in drafts. Helps tools match the user's natural register."
+        },
+        "customNotes": {
+          "type": "string",
+          "description": "Open-text additional voice guidance that doesn't fit the canonical fields."
+        }
+      },
+      "additionalProperties": false
+    },
+    "aiInstructions": {
+      "type": "string",
+      "description": "Open-text instructions that customize or supplement the canonical LLM prompt (spec/llm-prompt.md) for this specific file. Tools using the canonical prompt should append these to it. Examples: 'always push back on optimistic framing — I tend to undersell'; 'prefer paragraphs over bullets in any draft'; 'I'm in the middle of a career pivot from CS leadership to product; weigh recent product-adjacent achievements higher than the importance tags suggest'. Per-file overrides on the canonical prompt without requiring tools to support this explicitly.",
+      "$comment": "Per-file AI instructions are open-text in v0.1. If structured behavior controls (model preferences, max output length, refusal preferences) become common, they may get dedicated fields in a future revision; for now everything is in the string."
+    }
+  },
+  "$defs": {
+    "partialDate": {
+      "description": "A date where month or day may be unknown. Use `present: true` for ongoing ranges.",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "year"
+          ],
+          "properties": {
+            "year": {
+              "type": "integer",
+              "minimum": 1900,
+              "maximum": 2100
+            },
+            "month": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "day": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 31
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "present"
+          ],
+          "properties": {
+            "present": {
+              "type": "boolean",
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "dateRange": {
+      "type": "object",
+      "required": [
+        "start"
+      ],
+      "properties": {
+        "start": {
+          "$ref": "#/$defs/partialDate"
+        },
+        "end": {
+          "$ref": "#/$defs/partialDate"
+        },
+        "dateIsPrivate": {
+          "type": "boolean",
+          "default": false,
+          "description": "When true, the dates remain in the master file but derivation and rendering should suppress them. The containing entry stays visible — only the dates are withheld. Common use: education dates that reveal age, employment dates that expose gaps, or deployment dates with sensitivity concerns."
+        }
+      },
+      "additionalProperties": false
+    },
+    "visibilityShared": {
+      "type": "string",
+      "enum": [
+        "public",
+        "shared",
+        "private"
+      ],
+      "default": "shared",
+      "description": "Controls whether this item appears in derived files. public = safe for anyone to see (ATS uploads, job boards, public profiles). shared = include when the recipient has a reason to see it (a recruiter you're engaging with, a career coach). private = keep in the master file only (exit context, salary, personal notes). Default is shared — items must be explicitly opted into public. Visibility does NOT cascade: a private experience entry can contain public achievements (e.g., a stealth-mode role where you can't name the company but can still claim the work). Derivation tools are responsible for handling these edge cases."
+    },
+    "visibilityPrivate": {
+      "type": "string",
+      "enum": [
+        "public",
+        "shared",
+        "private"
+      ],
+      "default": "private",
+      "description": "Controls whether this item appears in derived files. public = safe for anyone to see. shared = include when the recipient has a reason to see it. private = keep in the master file only. Default is private — this field contains sensitive information that most derivations should exclude."
+    },
+    "provenance": {
+      "type": "object",
+      "$comment": "Recommended common keys for interoperable tooling: source (authored/imported/interview-derived/llm-suggested/curated/translated/merged), tool, date, sourceArtifactId, confidence, sessionTopic, operation, and note. The object remains open in v0.1 so tools can preserve metadata during round-trip, but tools SHOULD use these common keys when possible.",
+      "description": "Open-shape provenance metadata. Tools that author or modify items may record how this item came to be — when, by what tool or session, from what kind of input, with what confidence — but OCF does not hard-validate the internal shape. Any consumer should treat unknown fields as opaque metadata: useful when readable, safe to ignore, and preserved on round-trip. Tools should still use the recommended common keys in the schema comment so provenance stays boring and interoperable. Provenance is the sibling of extensions: extensions carry vendor-specific data the vendor cares about; provenance describes who/when/how this item was produced. Putting provenance on individual items (not just at meta) lets a later tool understand what an earlier tool did without re-prompting the user.",
+      "additionalProperties": true
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Vendor-namespaced extension surface. Each top-level key is a domain name owned by the vendor (e.g. 'greenhouse.com', 'ashbyhq.com', 'mytool.example.com'), and each value is an open-shape object that vendor may use to attach proprietary metadata. Domain names — not arbitrary identifiers — are the convention because they are globally unique and self-asserted: a vendor 'owns' their extension namespace by owning the domain. Other tools MUST leave unknown extensions untouched on round-trip, and SHOULD ignore extensions they do not understand for rendering or derivation purposes. This is how OCF stays small while letting vendors differentiate without forking the schema.",
+      "propertyNames": {
+        "pattern": "^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$",
+        "description": "A domain name owned by the vendor (lowercase, e.g. 'greenhouse.com', 'mytool.example.com'). Must contain at least one dot; subdomains are allowed."
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "Vendor-defined payload. OCF does not constrain its shape.",
+        "additionalProperties": true
+      }
+    },
+    "sourceArtifact": {
+      "type": "object",
+      "$comment": "Reserved future direction: imported artifacts will likely need a structured reviewStatus (e.g. unreviewed, reviewed, partially-mined, superseded, do-not-use) once real importer workflows prove the right lifecycle. v0.1 records source metadata and leaves item trust/review details in provenance/openQuestions.",
+      "required": [
+        "id",
+        "kind",
+        "capturedDate"
+      ],
+      "description": "A historical input artifact used to mine or verify career data. This may be a file, export, pasted text, chat attachment, interview transcript, or manual note. Store enough metadata to trace provenance without requiring the raw artifact to be embedded in the OCF.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable local ID used by provenance, narrativeVariants, titleVariants, openQuestions, and importer notes."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "resume",
+            "cover-letter",
+            "linkedin-export",
+            "portfolio-bio",
+            "application-draft",
+            "chat-paste",
+            "chat-attachment",
+            "interview-transcript",
+            "manual-note",
+            "other"
+          ],
+          "description": "The artifact type. chat-paste covers data pasted into an LLM conversation rather than uploaded as a file."
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-readable label, e.g. '2021 cloud-security resume', 'May 21 2026 ChatGPT paste', 'LinkedIn export'."
+        },
+        "capturedDate": {
+          "$ref": "#/$defs/partialDate",
+          "description": "When this artifact was added to or considered by the OCF workflow."
+        },
+        "artifactDate": {
+          "$ref": "#/$defs/partialDate",
+          "description": "When the artifact itself was created or last modified, if known."
+        },
+        "audience": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Audience or target this artifact was originally tuned for, e.g. implementation, executive, healthcare, federal."
+        },
+        "sourceTool": {
+          "type": "string",
+          "description": "Tool, platform, or person that provided the artifact, e.g. ChatGPT, LinkedIn, Google Docs, manual upload."
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URI for a retained artifact. Avoid linking to sensitive public locations."
+        },
+        "hash": {
+          "type": "string",
+          "description": "Optional content hash if the artifact is retained elsewhere and needs integrity checking."
+        },
+        "rawIncluded": {
+          "type": "boolean",
+          "description": "True if the raw artifact text/content is stored in or alongside this OCF workflow; false if only metadata was retained."
+        },
+        "notes": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "narrativeVariant": {
+      "type": "object",
+      "$comment": "Reserved future direction: narrative variants may eventually carry reviewStatus (e.g. imported-unreviewed, user-approved, stale, do-not-use). v0.1 keeps the field out until importer/curator behavior settles. Future versions may also add explicit language/locale metadata for multilingual variants; v0.1 uses provenance/notes/audiences and the file-level meta.language.",
+      "description": "Audience-specific wording for the same underlying facts. Narrative variants preserve alternate phrasings imported from old resumes, LinkedIn profiles, portfolios, application drafts, or prior derivations without replacing the canonical factual fields. They may reframe, compress, or emphasize, but must not introduce unsupported facts.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-readable label for the variant, e.g. 'Federal resume version', 'Healthcare leadership framing', 'LinkedIn profile wording'."
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Audience tags this wording is useful for, e.g. healthcare, federal, executive, startup, technical-depth."
+        },
+        "targetRole": {
+          "type": "string",
+          "description": "Specific role or role family this wording was created for, if known."
+        },
+        "targetCompany": {
+          "type": "string",
+          "description": "Specific company this wording was created for, if known."
+        },
+        "sourceArtifact": {
+          "type": "string",
+          "description": "Where this wording came from, e.g. '2021 cloud-security resume', 'LinkedIn export', 'federal resume draft'."
+        },
+        "sourceArtifactId": {
+          "type": "string",
+          "description": "ID of an entry in top-level sourceArtifacts."
+        },
+        "headline": {
+          "type": "string",
+          "description": "Audience-specific alternate headline."
+        },
+        "title": {
+          "type": "string",
+          "description": "Audience-specific alternate title or heading."
+        },
+        "summary": {
+          "type": "string",
+          "description": "Audience-specific alternate summary."
+        },
+        "description": {
+          "type": "string",
+          "description": "Audience-specific alternate description."
+        },
+        "statement": {
+          "type": "string",
+          "description": "Audience-specific alternate achievement statement or bullet."
+        },
+        "shortStatement": {
+          "type": "string",
+          "description": "Audience-specific shorter form of a statement."
+        },
+        "longform": {
+          "type": "string",
+          "description": "Audience-specific longform narrative, when the source wording is richer than a bullet."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Notes about why this variant exists or what caveats apply."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "headline"
+          ]
+        },
+        {
+          "required": [
+            "title"
+          ]
+        },
+        {
+          "required": [
+            "summary"
+          ]
+        },
+        {
+          "required": [
+            "description"
+          ]
+        },
+        {
+          "required": [
+            "statement"
+          ]
+        },
+        {
+          "required": [
+            "shortStatement"
+          ]
+        },
+        {
+          "required": [
+            "longform"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "titleVariant": {
+      "type": "object",
+      "$comment": "Reserved future direction: title variants may eventually carry reviewStatus because alternate titles are high-risk presentation choices. v0.1 uses required basis plus provenance as the speed bump. Future versions may add explicit language/locale metadata for translated or region-specific title variants.",
+      "description": "A defensible alternate display title for a position. This is a speed bump: use only when the alternate title helps a specific audience understand the role and the basis is explicit. The canonical position.title remains the official, literal, or best-known title.",
+      "required": [
+        "title",
+        "kind",
+        "basis"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Alternate display title, e.g. Implementation Manager for a Customer Success Manager role with implementation-heavy scope."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "official-alias",
+            "functional-label",
+            "market-normalized",
+            "translated-title",
+            "legacy-title",
+            "other"
+          ],
+          "description": "Why this alternate title exists. functional-label = describes actual work; market-normalized = aligns with terminology in a target market; translated-title = language or regional translation; official-alias = another title the organization used; legacy-title = title from an earlier resume or system."
+        },
+        "basis": {
+          "type": "string",
+          "description": "Required justification for why this title is defensible. Should explain the actual duties, source artifact, official alias, or translation basis. If it would not survive an interview or reference check, do not use it."
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Audience tags this title is useful for, e.g. implementation, customer-success, federal, executive."
+        },
+        "sourceArtifact": {
+          "type": "string",
+          "description": "Where this title variant came from, e.g. '2022 implementation-focused resume'."
+        },
+        "sourceArtifactId": {
+          "type": "string",
+          "description": "ID of an entry in top-level sourceArtifacts."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "additionalProperties": false
+    },
+    "reflection": {
+      "type": "object",
+      "description": "An open-ended, often subjective answer to an interview-prep or self-reflection question about a role or company. Topgrading-style 'what did you like best', 'how would your boss rate you 1-10', 'biggest mistake', 'why you left', and similar. Reflections are raw substrate for interview prep and conversational LLM tools — they preserve voice and texture in a way that derivation outputs cannot. They are not intended to be rendered into resumes or exported to other formats directly. When a reflection contains a distillable achievement, the recommended pattern is to propose a new structured achievement entry while leaving the reflection in place. See spec/interview-prep-questions.md for the canonical kind strings and the standard question set.",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "What the reflection is about. Use canonical kinds from spec/interview-prep-questions.md when applicable (e.g. 'boss-would-rate-1-10', 'liked-most', 'liked-least', 'biggest-success', 'biggest-mistake', 'biggest-lesson', 'why-left', 'proudest-of', 'company-strength', 'company-weakness'), or use a freeform kind for content that doesn't fit those categories. Conventions emerge from tools; the schema does not enforce a fixed list."
+        },
+        "text": {
+          "type": "string",
+          "description": "Open-ended prose answer. Use for narrative reflections."
+        },
+        "value": {
+          "type": "number",
+          "description": "Numeric answer (e.g. 1-10 ratings). Use instead of or alongside text."
+        },
+        "date": {
+          "$ref": "#/$defs/partialDate",
+          "description": "When this reflection was recorded. Useful when reflections evolve across multiple sessions."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate",
+          "description": "Reflections default to private — they are sensitive personal content."
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "text"
+          ]
+        },
+        {
+          "required": [
+            "value"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string",
+          "description": "State/province."
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 preferred."
+        },
+        "remote": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "organization": {
+      "type": "object",
+      "description": "Stable reference data about an organization: a company, military branch, nonprofit, agency, school, union, standards body, or similar institution. This is not a tenure. A person can have multiple experience entries that reference the same organization.",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Canonical or preferred display name for the organization."
+        },
+        "shortName": {
+          "type": "string",
+          "description": "Common short name or abbreviation."
+        },
+        "aliases": {
+          "type": "array",
+          "description": "Former names, alternate spellings, acronyms, or common aliases.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "kind": {
+          "type": "string",
+          "description": "Organization type, e.g. company, nonprofit, military, government, university, union, standards-body, professional-association. Freeform in v0.1 so local and international forms fit without forcing a premature taxonomy."
+        },
+        "industry": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string",
+          "description": "Freeform size context, e.g. '~1,200 employees', '~35,000 students'."
+        },
+        "status": {
+          "type": "string",
+          "description": "Current or historical status, e.g. active, acquired, merged, renamed, closed."
+        },
+        "successor": {
+          "type": "string",
+          "description": "Successor organization name or organization key after a rename, merger, acquisition, or reorganization."
+        },
+        "location": {
+          "$ref": "#/$defs/location"
+        },
+        "wikipedia": {
+          "type": "string",
+          "format": "uri"
+        },
+        "identifiers": {
+          "type": "array",
+          "description": "External organization identifiers such as LEI, ROR, DUNS, CAGE, Wikidata, or domain names.",
+          "items": {
+            "type": "object",
+            "required": [
+              "system",
+              "value"
+            ],
+            "properties": {
+              "system": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "additionalProperties": false
+    },
+    "contact": {
+      "type": "object",
+      "required": [
+        "kind",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "email",
+            "phone",
+            "url",
+            "linkedin",
+            "github",
+            "social",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "primary": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "metric": {
+      "description": "A structured, queryable number extracted from an achievement. Supply either `value` (point) or `from`+`to` (growth).",
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Freeform metric kind. Prefer boring, reusable labels when possible. Common examples: revenue, arr, bookings, pipeline, quotaAttainment, revenueAttainment, budgetAttainment, yoyGrowth, headcount, customerCount, retentionRate, duration, count, safety, output, utilization. This is intentionally not an enum because real careers produce too many metric variants."
+        },
+        "value": {
+          "type": "number",
+          "description": "Point value."
+        },
+        "from": {
+          "type": "number",
+          "description": "Start value, for growth metrics."
+        },
+        "to": {
+          "type": "number",
+          "description": "End value, for growth metrics."
+        },
+        "unit": {
+          "type": "string",
+          "description": "e.g. USD, people, days, %"
+        },
+        "period": {
+          "type": "string",
+          "description": "e.g. annual, monthly"
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "quota",
+            "budget",
+            "plan",
+            "target",
+            "forecast",
+            "prior-year",
+            "baseline",
+            "other"
+          ],
+          "description": "What this metric is measured against, when relevant. Examples: budget for '165% revenue attainment against FY16 budget', quota for sales quota attainment, prior-year for year-over-year growth."
+        },
+        "basisLabel": {
+          "type": "string",
+          "description": "Human-readable basis when the enum is too coarse, e.g. 'FY16 budget', 'annual new-logo quota', 'pre-launch baseline'."
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "value"
+          ]
+        },
+        {
+          "required": [
+            "from",
+            "to"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "supportingFact": {
+      "type": "object",
+      "description": "A granular fact that supports a broader achievement, award, recognition, or sales-performance summary. Use this when the shareable statement blends multiple facts together, e.g. 'top 5 seller 2010-2015' backed by six annual rank records. Supporting facts are evidence and memory; derivation tools may summarize them rather than rendering each fact individually.",
+      "required": [
+        "statement"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable local ID so achievements or awards can reference this fact."
+        },
+        "statement": {
+          "type": "string",
+          "description": "Atomic human-readable fact, e.g. 'Ranked in the top 5 sellers for FY2012'."
+        },
+        "date": {
+          "$ref": "#/$defs/partialDate"
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "sourceArtifactId": {
+          "type": "string",
+          "description": "Optional source artifact ID that supports this fact."
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "note": {
+          "type": "string",
+          "description": "Context, caveat, or source detail for this fact."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate",
+          "$comment": "A supporting fact may be shareable, but private is the safest default because evidence often contains raw numbers, source notes, or confidential context."
+        }
+      },
+      "additionalProperties": false
+    },
+    "achievement": {
+      "type": "object",
+      "$comment": "Reserved future direction: imported or LLM-mined achievements may eventually carry reviewStatus (e.g. unverified, user-confirmed, source-supported, stale, do-not-use). v0.1 uses provenance, confidence, and openQuestions rather than committing to a lifecycle enum.",
+      "required": [
+        "statement"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable local ID so competencies and narratives can reference it."
+        },
+        "statement": {
+          "type": "string",
+          "description": "The bullet as you'd want it to appear on a resume. Plain text, self-contained."
+        },
+        "shortStatement": {
+          "type": "string",
+          "description": "Tighter alternate phrasing of the same achievement. Useful when consumers need a shorter form."
+        },
+        "longform": {
+          "type": "string",
+          "description": "The full story behind the bullet — stakes, context, what you actually did, what you learned, who was involved. Markdown. This is the nuance that doesn't fit on a resume but matters for understanding your career."
+        },
+        "narrativeVariants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/narrativeVariant"
+          },
+          "description": "Audience-specific alternate wording for the same underlying facts. Use to preserve phrasing imported from old resumes or prior derivations without replacing canonical fields."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "accomplishment",
+            "responsibility",
+            "project",
+            "recognition",
+            "other"
+          ],
+          "description": "accomplishment = a specific thing you did; responsibility = what you were accountable for on an ongoing basis; project = a bounded initiative (migration, launch, buildout); recognition = an award, selection, or external acknowledgment."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "supportingFacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/supportingFact"
+          },
+          "description": "Granular facts behind the broader achievement statement. Example: one achievement says 'Top 5 seller from 2010-2015'; supportingFacts stores each annual rank or attainment fact separately."
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Skills demonstrated by this achievement. Freeform strings."
+        },
+        "links": {
+          "type": "array",
+          "description": "Artifacts, press, talks, code, or internal docs that back this up.",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "importance": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange",
+          "description": "Optional. Most useful on spanning achievements at the organization level — e.g., you were fire safety captain for 3 of your 10 years. For achievements inside a position, the position's dateRange provides context and this can usually be omitted."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "additionalProperties": false
+    },
+    "link": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "label": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "press",
+            "talk",
+            "code",
+            "artifact",
+            "publication",
+            "internal",
+            "social",
+            "other"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "position": {
+      "description": "A single role, assignment, billet, posting, or appointment within an organization. Your whole tenure at the organization is the parent entry — facts that span it live there, not here.",
+      "type": "object",
+      "required": [
+        "title",
+        "dateRange"
+      ],
+      "properties": {
+        "importance": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "description": "Literal job title, rank, or billet name for this role. Not comparable across organizations."
+        },
+        "titleVariants": {
+          "type": "array",
+          "description": "Defensible alternate display titles for this role. The canonical `title` remains the actual title, rank, billet, or best-known official title. Title variants require a basis because alternate titles can misrepresent seniority, authority, or credentials if used carelessly.",
+          "items": {
+            "$ref": "#/$defs/titleVariant"
+          }
+        },
+        "seniority": {
+          "type": "string",
+          "enum": [
+            "entry",
+            "ic",
+            "lead",
+            "manager",
+            "director",
+            "vp",
+            "c-suite",
+            "founder",
+            "advisor",
+            "enlisted",
+            "nco",
+            "warrant",
+            "officer",
+            "senior-officer",
+            "general-flag",
+            "faculty",
+            "senior-faculty",
+            "other"
+          ],
+          "description": "Portable, normalized level for cross-organization comparison. Independent of the literal `title`. Corporate: entry through c-suite. Military: enlisted through general-flag. Academic: faculty (assistant/associate prof, lecturer) and senior-faculty (full professor, department chair, dean). Use 'other' with a note when none fit."
+        },
+        "grade": {
+          "type": "string",
+          "description": "Formal classification grade. Military rank (E-4, O-3, OF-5), government pay grade (GS-13, SES-1, EX-IV), union classification (Journeyman Electrician), academic rank (Associate Professor). Freeform because every system is different. Grades and seniority levels are domain-specific and not cross-comparable — an E-7 does not map to a GS-13 or a VP. Do not attempt to normalize seniority across domains."
+        },
+        "occupationalCode": {
+          "type": "object",
+          "description": "Formal occupational classification code from any system. Makes the role findable by people who search these codes.",
+          "properties": {
+            "system": {
+              "type": "string",
+              "description": "The code system: 'MOS' (US Army/Marines), 'AFSC' (US Air Force), 'NEC' (US Navy), 'Rating' (US Navy), 'GS-Series' (US federal), 'SOC' (US BLS), 'NOC' (Canada), 'ISCO-08' (international/ILO), 'ANZSCO' (Australia/NZ), 'KldB' (Germany), etc."
+            },
+            "code": {
+              "type": "string",
+              "description": "The code itself, e.g. '25B', '17S', '2210', '15-1252.00', '2173'."
+            },
+            "title": {
+              "type": "string",
+              "description": "Human-readable title for the code, e.g. 'Information Technology Specialist', 'Cyber Operations Officer'."
+            }
+          },
+          "additionalProperties": false
+        },
+        "employmentType": {
+          "type": "string",
+          "enum": [
+            "full-time",
+            "part-time",
+            "contract",
+            "consultant",
+            "gig",
+            "secondment",
+            "internship",
+            "volunteer",
+            "fellowship",
+            "residency",
+            "apprentice",
+            "other"
+          ]
+        },
+        "placedAt": {
+          "type": "string",
+          "description": "The organization where you actually performed the work, when different from the parent experience entry's organization. Covers two common patterns: staffing/temp agency placements ('Employed by Adecco, placed at Google') and secondments ('Employed by Deloitte, seconded to UK Cabinet Office'). The parent organization or experience entry stays intact; this field captures where you showed up every day. A two-year temp placement at Google is a meaningful signal — don't bury it in a description field."
+        },
+        "workArrangement": {
+          "type": "string",
+          "enum": [
+            "onsite",
+            "hybrid",
+            "remote"
+          ],
+          "description": "Physical work arrangement for this position. This is about where the work happens, not the contractual employment type."
+        },
+        "workArrangementDetail": {
+          "type": "string",
+          "description": "Freeform details about the work arrangement when the enum alone doesn't capture it. Examples: '3 days NYC office, 2 days remote', 'Remote with quarterly on-site sprints in Austin', 'On yacht two days a week', 'Deployed to client site in Frankfurt'."
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange"
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/location"
+          },
+          "description": "Work locations. For military: duty stations. For remote: where you were based."
+        },
+        "summary": {
+          "type": "string"
+        },
+        "achievements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/achievement"
+          }
+        },
+        "deployments": {
+          "type": "array",
+          "description": "Military deployments, TDY assignments, or extended field assignments during this position.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Operation or assignment name, e.g. 'Operation Enduring Freedom', 'KFOR Rotation 23', 'Hurricane Maria Relief'."
+              },
+              "location": {
+                "$ref": "#/$defs/location"
+              },
+              "dateRange": {
+                "$ref": "#/$defs/dateRange"
+              },
+              "description": {
+                "type": "string"
+              },
+              "combat": {
+                "type": "boolean",
+                "description": "Whether this was a combat deployment."
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibilityShared",
+                "$comment": "Deployment details (person + date + location) can be identifying. For public export, consider generalizing: 'Military deployment, 2012–2013' is safer than a specific operation name."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "fundedBy": {
+          "type": "string",
+          "description": "Who or what funded this position, when the funding source is noteworthy but you did not play a role in securing it. Common cases: a postdoc funded by someone else's grant ('NIH R01-GM123456, PI: Dr. Sarah Chen'), a fellowship-funded position ('Fulbright Fellowship'), a position sponsored by a specific program ('Google.org Fellowship via Year Up'), or contract work funded by a specific client through your organization ('DHS EINSTEIN contract'). Provides context about why the position existed and who was paying for it, without implying you won the funding. For grants you actively secured or were named on, use `funding` on a `projects` entry instead."
+        },
+        "hoursPerWeek": {
+          "type": "number",
+          "description": "Average hours per week. Required on US federal resumes (USAJobs). Also useful for distinguishing full-time from reduced-schedule roles."
+        },
+        "supervisor": {
+          "type": "object",
+          "$comment": "Reserved future direction: long careers often need more nuance than a single supervisor. The same senior leader may be a direct manager during one phase and several layers above the person in another; consulting, matrixed, academic, military, and startup reporting lines add more variation. v0.1 keeps `supervisor` simple and private rather than modeling a LinkedIn-style people graph. A future version may add lightweight reporting-relationship history if real workflows need it.",
+          "description": "Direct supervisor or most relevant person the user worked for in this position. Required on US federal resumes (USAJobs). Stored privately by default — useful for Topgrading-style interview prep, reference checks, and application forms that demand it.",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "contact": {
+              "$ref": "#/$defs/contact",
+              "description": "Primary contact method retained for backward compatibility. Prefer `contacts` when storing multiple methods."
+            },
+            "contacts": {
+              "type": "array",
+              "description": "Additional contact methods for this person, e.g. email, phone, LinkedIn, personal site, or assistant contact.",
+              "items": {
+                "$ref": "#/$defs/contact"
+              }
+            },
+            "linkedin": {
+              "type": "string",
+              "format": "uri",
+              "description": "LinkedIn profile URL for the supervisor or person the user worked for. Useful when capturing role context before the user loses easy access to internal directories."
+            },
+            "mayContact": {
+              "type": "boolean",
+              "description": "Whether the applicant permits contacting this supervisor."
+            },
+            "visibility": {
+              "$ref": "#/$defs/visibilityPrivate"
+            }
+          },
+          "additionalProperties": false
+        },
+        "compensation": {
+          "type": "object",
+          "description": "Compensation for this position. Some application systems and federal resumes require salary history, and users often need a private record of what they were actually paid in each year. Default visibility: private. Derivation tools and renderers should exclude this unless the user explicitly includes it for a purpose that requires compensation history.",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "Simple headline amount for this position, such as starting salary, ending salary, hourly rate, or representative annual compensation."
+            },
+            "currency": {
+              "type": "string",
+              "description": "ISO 4217 code, e.g. 'USD', 'EUR', 'GBP'."
+            },
+            "period": {
+              "type": "string",
+              "enum": [
+                "hourly",
+                "weekly",
+                "biweekly",
+                "monthly",
+                "annual",
+                "per-project",
+                "other"
+              ]
+            },
+            "note": {
+              "type": "string",
+              "description": "Context: 'base only', 'including bonus', 'GS-13 Step 5', etc."
+            },
+            "history": {
+              "type": "array",
+              "description": "Private year-by-year or period-by-period compensation history for memory, applications that require salary history, and personal career analysis. Use this for values that should normally never pass downstream: base salary by year, bonus, commission, equity value, total target compensation, actual total compensation, draw, stipend, or hourly rate changes.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "description": "Calendar year for the compensation record."
+                  },
+                  "dateRange": {
+                    "$ref": "#/$defs/dateRange",
+                    "description": "Use when the compensation period is not a calendar year."
+                  },
+                  "currency": {
+                    "type": "string",
+                    "description": "ISO 4217 code, e.g. 'USD', 'EUR', 'GBP'."
+                  },
+                  "period": {
+                    "type": "string",
+                    "enum": [
+                      "hourly",
+                      "weekly",
+                      "biweekly",
+                      "monthly",
+                      "quarterly",
+                      "annual",
+                      "per-project",
+                      "other"
+                    ]
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "Context, caveats, source, or memory aid for this compensation record."
+                  },
+                  "components": {
+                    "type": "array",
+                    "description": "Compensation components for the period. Use flexible component types instead of forcing every pay arrangement into fixed fields. Common types: baseSalary, hourlyWage, bonus, annualBonus, performanceBonus, commission, draw, spiff, equityValue, rsu, stockOption, allowance, relocation, signOnBonus, severance, deferredComp, totalTargetCompensation, actualTotalCompensation, totalCashCompensation, other.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "type",
+                        "amount"
+                      ],
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "description": "Freeform component type. Prefer common labels such as baseSalary, commission, annualBonus, rsu, allowance, totalTargetCompensation, actualTotalCompensation, other."
+                        },
+                        "amount": {
+                          "type": "number"
+                        },
+                        "currency": {
+                          "type": "string",
+                          "description": "ISO 4217 code. Omit when same as the history record currency."
+                        },
+                        "period": {
+                          "type": "string",
+                          "description": "Period for this component if different from the history record period."
+                        },
+                        "label": {
+                          "type": "string",
+                          "description": "Human label from the user's source, e.g. OTE, draw, target bonus, RSU grant."
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "visibility": {
+                    "$ref": "#/$defs/visibilityPrivate"
+                  }
+                },
+                "anyOf": [
+                  {
+                    "required": [
+                      "year"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "dateRange"
+                    ]
+                  }
+                ],
+                "additionalProperties": false
+              }
+            },
+            "visibility": {
+              "$ref": "#/$defs/visibilityPrivate"
+            }
+          },
+          "additionalProperties": false
+        },
+        "salesPerformance": {
+          "type": "array",
+          "description": "Private sales plan and attainment history for this position: quota, bookings, ARR, pipeline, rank, sales club recognition, accelerators, territory changes, or other plan context. This is distinct from resume-ready achievements. Use `achievements.metrics` for claims the user may intentionally share downstream; keep raw plan and pay context here. Default visibility: private.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "period": {
+                "type": "string",
+                "description": "Human-readable period, e.g. 'FY2024', 'Q3 2025', 'H1 2022'."
+              },
+              "dateRange": {
+                "$ref": "#/$defs/dateRange"
+              },
+              "quota": {
+                "type": "number",
+                "description": "Quota or target for the period."
+              },
+              "quotaUnit": {
+                "type": "string",
+                "description": "Unit for the quota, e.g. 'USD ARR', 'USD bookings', 'new logos', 'meetings', '%'."
+              },
+              "attainmentPercent": {
+                "type": "number",
+                "description": "Attainment as a percentage against the stated target, e.g. 135 for 135%."
+              },
+              "attainmentBasis": {
+                "type": "string",
+                "enum": [
+                  "quota",
+                  "budget",
+                  "plan",
+                  "target",
+                  "forecast",
+                  "other"
+                ],
+                "description": "What the attainment percentage is measured against. Use budget for phrases like '142% revenue attainment against FY15 budget'; use quota for ordinary quota attainment."
+              },
+              "attainmentBasisLabel": {
+                "type": "string",
+                "description": "Human-readable basis for attainment, e.g. 'FY16 budget', 'annual ARR quota', 'Q3 plan'."
+              },
+              "bookings": {
+                "type": "number",
+                "description": "Bookings credited for the period."
+              },
+              "arr": {
+                "type": "number",
+                "description": "Annual recurring revenue credited for the period."
+              },
+              "revenue": {
+                "type": "number",
+                "description": "Revenue credited for the period."
+              },
+              "pipelineGenerated": {
+                "type": "number",
+                "description": "Pipeline generated during the period."
+              },
+              "yoyGrowthPercent": {
+                "type": "number",
+                "description": "Year-over-year growth percentage for the period, e.g. 550 for 550% Y/Y growth."
+              },
+              "currency": {
+                "type": "string",
+                "description": "ISO 4217 code for money values, e.g. 'USD'."
+              },
+              "rank": {
+                "type": "string",
+                "description": "Relative performance, e.g. '#2 of 34 AEs', 'top 10%', 'regional leader'."
+              },
+              "recognition": {
+                "type": "string",
+                "description": "Sales recognition tied to the period, e.g. sales club, incentive trip, quota club, regional award. Recognition criteria are company-specific; record the outcome when known without forcing the user to explain every qualification detail."
+              },
+              "supportingFacts": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/supportingFact"
+                },
+                "description": "Granular facts behind this sales-performance record."
+              },
+              "territory": {
+                "type": "string",
+                "description": "Territory, segment, product line, or book of business for this performance period."
+              },
+              "note": {
+                "type": "string",
+                "description": "Private context: plan changes, ramp period, accelerators, clawbacks, territory split, source of the numbers, or caveats."
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibilityPrivate"
+              }
+            },
+            "anyOf": [
+              {
+                "required": [
+                  "period"
+                ]
+              },
+              {
+                "required": [
+                  "dateRange"
+                ]
+              }
+            ],
+            "additionalProperties": false
+          }
+        },
+        "techStack": {
+          "type": "array",
+          "description": "Tools, platforms, equipment, or systems used in this role.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "competencies": {
+          "type": "array",
+          "description": "High-level skill themes demonstrated in this role — 'Customer Retention & Renewal Strategy', 'Digital Transformation', 'Team Building & Organizational Design'. The story-level version of what you exercised here, as opposed to the granular `skills` list. The same competency label may appear across multiple positions; derivation tools can aggregate and deduplicate when building a summary view.",
+          "items": {
+            "type": "object",
+            "required": [
+              "label"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string",
+                "description": "Narrative explanation of this competency as exercised in this role — what it meant here specifically, not a generic definition."
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "leadership",
+                  "domain",
+                  "technical",
+                  "process",
+                  "other"
+                ]
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibilityShared"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "projects": {
+          "type": "array",
+          "description": "Projects done as part of this role. Nesting here makes the relationship structural — no cross-references needed. For independent projects (freelance, personal, open-source) that aren't tied to any role, use the top-level `projects` array instead.",
+          "items": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string",
+                "description": "Your role on the project if different from your position title."
+              },
+              "client": {
+                "type": "string",
+                "description": "End client or commissioning party, if applicable."
+              },
+              "dateRange": {
+                "$ref": "#/$defs/dateRange"
+              },
+              "description": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string",
+                "description": "Project type: 'construction', 'film', 'consulting', 'research', 'migration', 'implementation', etc."
+              },
+              "scale": {
+                "type": "string",
+                "description": "Freeform scope indicator: '$4.2M budget', '18-month build', '200-person crew'."
+              },
+              "renderAs": {
+                "type": "string",
+                "description": "Renderer hint for section heading: 'Grants & Funding', 'Key Projects', 'Exhibitions & Showcases'. Case is intentional and should be preserved."
+              },
+              "achievements": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/achievement"
+                }
+              },
+              "funding": {
+                "type": "array",
+                "description": "Grants or funding you actively secured for this project. If this project was funded by a grant you won, put it here. If your position was funded by someone else's grant, use `fundedBy` on the position instead.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "grantor": {
+                      "type": "string"
+                    },
+                    "grantId": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "number"
+                    },
+                    "currency": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "pi",
+                        "co-pi",
+                        "senior-personnel",
+                        "consultant",
+                        "subcontract-pi",
+                        "other"
+                      ]
+                    },
+                    "dateRange": {
+                      "$ref": "#/$defs/dateRange"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "awarded",
+                        "active",
+                        "completed",
+                        "pending",
+                        "declined",
+                        "not-funded"
+                      ]
+                    },
+                    "visibility": {
+                      "$ref": "#/$defs/visibilityShared"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/link"
+                }
+              },
+              "importance": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+              },
+              "audiences": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibilityShared"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "patents": {
+          "type": "array",
+          "description": "Patents that came out of work done in this role — the organization is the assignee. Nesting here makes the relationship structural. Renderers should display these under this role. For independently held patents (you own it personally), use the top-level `patents` array instead.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "number": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "filed",
+                  "pending",
+                  "granted",
+                  "expired"
+                ]
+              },
+              "date": {
+                "$ref": "#/$defs/partialDate"
+              },
+              "inventors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "importance": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+              },
+              "audiences": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibilityShared"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        },
+        "teamSize": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Approximate size of the team you were a member of, including yourself (peer + reports + supervisor headcount). Useful in resumes ('Member of a 15-person SOC team') and in interview prep. For management positions, directReports is often the more meaningful number."
+        },
+        "directReports": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of direct reports during this position. Distinct from teamSize, which counts the whole team you were on regardless of reporting line. Common Topgrading-style interview question."
+        },
+        "reflections": {
+          "type": "array",
+          "description": "Open-ended, often subjective answers about this specific role. See $defs/reflection for the shape and spec/interview-prep-questions.md for the canonical question set.",
+          "items": {
+            "$ref": "#/$defs/reflection"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "experienceEntry": {
+      "type": "object",
+      "description": "A single entry in your work history: one relationship, tenure, assignment, or period in the timeline. This is separate from `organizations`, which stores reusable reference data about institutions. An experience entry may reference an organization, but it can also stand alone for self-employment, caregiving, homemaking, career breaks, retirement, or messy imported records.",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "organizationRef": {
+          "type": "string",
+          "description": "Optional key into the top-level `organizations` registry. Use when multiple experience entries, education records, service records, or other sections refer to the same institution. `name` remains required as a display snapshot and fallback."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "employment",
+            "self-employment",
+            "consulting",
+            "gig",
+            "seasonal",
+            "military",
+            "government",
+            "homemaker",
+            "caregiver",
+            "career-break",
+            "retirement",
+            "other"
+          ],
+          "default": "employment",
+          "description": "What kind of experience entry this is. gig = platform-mediated work where you set your own schedule but the platform owns the customer relationship (Uber, Lyft, DoorDash, TaskRabbit, Instacart, Fiverr). Distinct from self-employment (you own the client relationship) and contract (typically a defined engagement with one client). military = active duty, reserve, or guard service in any country's armed forces. government = civil service or public-sector employment (federal, state, local, international bodies). seasonal = work that recurs cyclically (construction, agriculture, fishing, tourism). homemaker = full-time management of a household — this is not a gap, it is a role with real responsibilities (budgeting, scheduling, logistics, volunteer coordination, childcare). Use positions and achievements to capture what you actually did: PTA president, household budget manager, homeschool curriculum designer, neighborhood watch coordinator. caregiver = primary caregiver for a family member or dependent — elder care, special-needs care, post-surgical recovery support. Distinct from homemaker in that the caregiving itself is the central activity. career-break covers sabbaticals, travel, relocation, health, or other intentional pauses. retirement marks the end of active employment. Keeps the timeline in one array without forcing consumers to merge separate sections."
+        },
+        "name": {
+          "type": "string",
+          "description": "The organization as it was known when you worked there — company, agency, branch of service, union hall. For career-break, homemaker, or caregiver entries, use a descriptive label like 'Career Break', 'Self', or 'Family Caregiving'."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "domainAtTime": {
+          "type": "string",
+          "description": "Domain or web identifier associated with the organization at the time of this experience entry. Useful for imports, historical matching, and linking to the top-level organizations registry."
+        },
+        "industry": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string",
+          "description": "For military: branch of service (Army, Navy, Air Force, Marine Corps, etc. — any country). For government: department or agency. For union work: local and trade. Freeform because naming varies by country."
+        },
+        "serviceType": {
+          "type": "string",
+          "description": "For military: 'active-duty', 'reserve', 'national-guard', 'conscript', etc. For government: 'competitive', 'excepted', 'ses', 'political-appointee', etc. Freeform — every country's system is different."
+        },
+        "discharge": {
+          "type": "object",
+          "description": "Military separation details. Default visibility is private.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "e.g. 'honorable', 'general', 'other-than-honorable', 'medical', 'completed-service'. Freeform because every country has different categories."
+            },
+            "date": {
+              "$ref": "#/$defs/partialDate"
+            },
+            "repiCode": {
+              "type": "string",
+              "description": "Reenlistment eligibility or separation code, if applicable (US: RE code, SPD code)."
+            },
+            "separationDocument": {
+              "type": "string",
+              "description": "The formal separation document type. In the US this is 'DD-214' (Certificate of Release or Discharge from Active Duty). Other countries have equivalents: UK 'Certificate of Service', Canadian 'CF-98', etc."
+            },
+            "visibility": {
+              "$ref": "#/$defs/visibilityPrivate"
+            }
+          },
+          "additionalProperties": false
+        },
+        "importance": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "contextAtTime": {
+          "type": "object",
+          "description": "Description of the company *as it was when you worked there*, not today.",
+          "properties": {
+            "stage": {
+              "type": "string",
+              "description": "e.g. seed, series-a, public, fortune-500"
+            },
+            "sizeAtJoin": {
+              "type": "integer",
+              "description": "Headcount at join."
+            },
+            "sizeAtExit": {
+              "type": "integer"
+            },
+            "productLine": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "lineage": {
+          "type": "array",
+          "description": "Corporate events during or affecting this tenure (acquisitions, rebrands, spinouts).",
+          "items": {
+            "type": "object",
+            "required": [
+              "event"
+            ],
+            "properties": {
+              "event": {
+                "type": "string",
+                "enum": [
+                  "acquired-by",
+                  "acquired",
+                  "merged-with",
+                  "rebranded-to",
+                  "spun-out-of",
+                  "ipo",
+                  "reorganized",
+                  "base-closure",
+                  "deactivated",
+                  "privatized",
+                  "nationalized"
+                ]
+              },
+              "counterparty": {
+                "type": "string"
+              },
+              "date": {
+                "$ref": "#/$defs/partialDate"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "What this experience was about. For traditional employment, optional — positions carry the detail. For career-break, homemaker, caregiver, or retirement entries, this is the primary narrative: 'Sabbatical year traveling Southeast Asia', 'Full-time caregiver for elderly parent', 'Managed household of five, including homeschool curriculum for three children'."
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange",
+          "description": "Overall date range at this organization. For traditional employment, this is typically derived from the earliest position start to the latest position end. For career-break, homemaker, caregiver, or retirement entries where positions may be empty, this is required to place the entry on the timeline."
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/location"
+          }
+        },
+        "positions": {
+          "type": "array",
+          "description": "One or more roles held at this organization. For career-break, homemaker, caregiver, or retirement entries, positions may be empty — the parent entry itself tells the story via its description and dateRange.",
+          "items": {
+            "$ref": "#/$defs/position"
+          }
+        },
+        "spanning": {
+          "type": "array",
+          "description": "Facts that apply across your whole time at this organization, not tied to a single position — fire safety captain, DEI council member, MOS/AFSC code, unit collateral duties, shop steward, intern mentor, on-call rotation lead, budget owner, hiring committee member.",
+          "items": {
+            "$ref": "#/$defs/achievement"
+          }
+        },
+        "progression": {
+          "type": "object",
+          "description": "Structured advancement facts that span the whole tenure. Lets you say 'I reached E-7' or 'I was promoted twice' or 'I made GS-14' without modeling a second timeline. Title and internal rank are not portable across organizations, so they live here — the portable comparability field is `seniority` on each position. This is a specialized slice of `spanning`; anything that doesn't fit here goes in `spanning`.",
+          "properties": {
+            "finalTitle": {
+              "type": "string",
+              "description": "Literal rank/title at end of time at this organization, if different from or more senior than the last position's title."
+            },
+            "promotionCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "exitContext": {
+          "type": "object",
+          "description": "Why and how you left. Never appears on a resume. Used for interview prep, cover letter generation, and personal records. For military separation, use the `discharge` field on the parent entry instead (or in addition).",
+          "properties": {
+            "reason": {
+              "type": "string",
+              "enum": [
+                "recruited-away",
+                "new-opportunity",
+                "layoff",
+                "reduction",
+                "company-closure",
+                "company-acquisition",
+                "end-of-contract",
+                "end-of-service",
+                "relocated",
+                "personal",
+                "retired",
+                "terminated",
+                "mutual",
+                "rif",
+                "medical",
+                "other"
+              ],
+              "description": "Structured reason code."
+            },
+            "statement": {
+              "type": "string",
+              "description": "How you'd explain it in an interview: 'The company was placed into receivership by Nevada regulators.'"
+            },
+            "longform": {
+              "type": "string",
+              "description": "The full private story — politics, context, lessons learned. Treat as private — never include in a derived file without manual review."
+            },
+            "visibility": {
+              "$ref": "#/$defs/visibilityPrivate"
+            }
+          },
+          "additionalProperties": false
+        },
+        "notes": {
+          "type": "string",
+          "description": "Free-form notes not captured by `progression`, `spanning`, or `exitContext`. Often contains sensitive context (internal politics, personal reasons, health details) — never include in a derived file without manual review."
+        },
+        "notesVisibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        },
+        "reflections": {
+          "type": "array",
+          "description": "Open-ended reflections at the company or experience-entry level (e.g. 'why I left', perceived company strengths and weaknesses, overall takeaway from working there). See $defs/reflection for the shape and spec/interview-prep-questions.md for the canonical kinds.",
+          "items": {
+            "$ref": "#/$defs/reflection"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "education": {
+      "type": "object",
+      "required": [
+        "institution"
+      ],
+      "description": "A single learning experience. Covers everything from a 4-year degree to a weekend workshop to a MOOC certificate.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "institution": {
+          "type": "string"
+        },
+        "organizationRef": {
+          "type": "string",
+          "description": "Optional key into the top-level `organizations` registry for the educational institution."
+        },
+        "domainAtTime": {
+          "type": "string",
+          "description": "Domain or web identifier associated with the institution at the time of attendance. Useful for imports and historical matching when no organizationRef is present."
+        },
+        "location": {
+          "$ref": "#/$defs/location"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "degree",
+            "executive-education",
+            "certificate-program",
+            "bootcamp",
+            "mooc",
+            "professional-development",
+            "military-training",
+            "vocational",
+            "apprenticeship",
+            "self-directed",
+            "other"
+          ],
+          "description": "What form the education took. An apprenticeship is both education and employment simultaneously — a multi-year program (often union-sponsored) combining classroom instruction with paid on-the-job training."
+        },
+        "degree": {
+          "type": "string",
+          "description": "For degree programs: BA, BS, MSc, MBA, PhD, JD, MD, etc. Leave blank for non-degree education."
+        },
+        "field": {
+          "type": "string",
+          "description": "Major, concentration, or subject area."
+        },
+        "minor": {
+          "type": "string"
+        },
+        "thesis": {
+          "type": "string",
+          "description": "For grad students: thesis or dissertation title."
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "in-progress",
+            "incomplete",
+            "audited"
+          ],
+          "description": "Lets you represent currently enrolled, dropped out, or audited courses without pretending you finished."
+        },
+        "gpa": {
+          "type": "number"
+        },
+        "gpaScale": {
+          "type": "number",
+          "description": "e.g. 4.0 for US, 10.0 for India. Without this, GPA is ambiguous."
+        },
+        "honors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Dean's list, cum laude, Phi Beta Kappa, etc."
+        },
+        "notableCourses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relevant coursework. Mostly useful for recent grads or career changers where specific courses signal competence."
+        },
+        "achievements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/achievement"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "importance": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        }
+      },
+      "additionalProperties": false
+    },
+    "certification": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "description": "A professional certification, government-issued license, registration, or credential. Supports the full lifecycle: initial issue, renewals, continuing education, and progression within a certification family. Healthcare professionals: use this for NPI (National Provider Identifier), DEA registration, state medical licenses, board certifications (ABIM, ABMS), hospital privilege credentials, and nursing licenses. Legal professionals: use this for bar admissions by jurisdiction. The `registrationNumber` field holds identifiers like NPI numbers and DEA numbers that are tied to a specific credential.",
+      "$comment": "A future `verification` field is anticipated here when cryptographically-verified credential adoption (Open Badges 3.0, W3C Verifiable Credentials, Velocity Network) is mature enough to commit to a stable representation. The expected shape is an array of verification methods, each tagged with a discriminator (registry / open-badge / verifiable-credential) and a method-appropriate payload (URL, embedded VC JSON-LD, etc.). Until then, v0.1 covers the common cases via existing fields: credentialId for registry-lookup credentials (CISSP cert numbers, NPI, bar numbers); url for hosted-badge assertions (Credly etc.); and structured issuer.identifier (DID) for VC issuer identity. Vendor-specific verification metadata can live under extensions keyed by the vendor's domain (e.g. credly.com, velocitynetwork.foundation) without any schema changes. This $comment marks the slot reserved for future structured verification.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "certification",
+            "license",
+            "permit",
+            "endorsement",
+            "card",
+            "bar-admission",
+            "board-certification",
+            "registration",
+            "other"
+          ],
+          "default": "certification",
+          "description": "certification = voluntary professional credential (CISSP, PMP, AWS SA). license = government-issued, legally required to practice (CDL, contractor's license, nursing license). permit = authorization for specific activity (hazmat, concealed carry). endorsement = addition to an existing license (CDL hazmat endorsement, motorcycle endorsement). card = industry-standard proof of training (OSHA 10/30, TWIC, forklift operator card). bar-admission = admission to practice law in a jurisdiction (State Bar of California, SCOTUS bar, solicitor roll). board-certification = medical or professional board certification (ABIM, ABMS specialties). registration = professional register entry (chartered engineer, registered architect, registered nurse)."
+        },
+        "name": {
+          "type": "string",
+          "description": "The credential name as commonly known: 'CISSP', 'CDL Class A', 'OSHA 30', 'Master Electrician License', etc."
+        },
+        "domainAtTime": {
+          "type": "string",
+          "description": "Domain or web identifier associated with the issuer at the time the credential was earned or recorded. Useful for imports and historical matching when issuer is plain text."
+        },
+        "issuer": {
+          "description": "Issuing body. Plain string form (e.g. '(ISC)²', 'FMCSA', 'State of Nevada') is fine for display-only use. Object form with name + url + identifier enables interop with Verifiable Credentials, LER-RS, Open Badges, and similar credential-aware formats where a structured issuer identity matters. Both forms remain valid; tools that don't care about credential interop can keep using the string.",
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Display name of the issuer."
+            },
+            {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "description": "Structured issuer suitable for credential interop. The name is human-readable; url and identifier give machine-readable handles.",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Display name of the issuer."
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Canonical URL of the issuing body."
+                },
+                "identifier": {
+                  "type": "string",
+                  "description": "Stable identifier for the issuer. A Decentralized Identifier (DID) such as 'did:web:isc2.org' is preferred for VC / LER-RS interop, but any stable scheme is acceptable."
+                },
+                "scheme": {
+                  "type": "string",
+                  "description": "Optional namespace for the identifier when it isn't a DID URI, e.g. 'lei' (Legal Entity Identifier), 'ror' (Research Organization Registry), 'duns'. Omit when identifier is self-describing (DID, URL)."
+                }
+              }
+            }
+          ]
+        },
+        "jurisdiction": {
+          "type": "string",
+          "description": "For government-issued licenses: the issuing jurisdiction — 'Nevada', 'California', 'Federal', 'EU'. Licenses are often jurisdiction-specific."
+        },
+        "family": {
+          "type": "string",
+          "description": "Groups related credentials into a progression or track. Renderer hint: credentials sharing a family can be displayed together to show advancement. Examples: 'AWS Solutions Architect' (Associate → Professional), 'Nursing Practice' (RN → PA-C → NP-BC), 'Electrical Trade' (Apprentice → Journeyman → Master), 'Cisco' (CCNA → CCNP → CCIE). Maintenance certs like ACLS or BLS that don't represent career progression should use a different family or none."
+        },
+        "level": {
+          "type": "string",
+          "description": "Level within the family: 'associate', 'professional', 'specialty', 'master', etc."
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange",
+          "description": "Use start for issue date, end for expiry. `present: true` if still valid."
+        },
+        "credentialId": {
+          "type": "object",
+          "description": "The identifier assigned to you for this credential. What it's called varies: 'NPI Number', 'DEA Number', 'Bar Number', 'Member Number', 'License Number', 'Certificate Number', 'Registration Number'. Some are sensitive (DEA), some are public record (bar numbers, NPI). Store the number and what to call it so a renderer can display it correctly.",
+          "properties": {
+            "number": {
+              "type": "string",
+              "description": "The identifier itself, e.g. '1234567890', 'AB1234567', '12345'."
+            },
+            "label": {
+              "type": "string",
+              "description": "What this identifier is called: 'NPI Number', 'DEA Number', 'Bar Number', 'License Number', 'Certificate ID', 'Member Number'."
+            },
+            "visibility": {
+              "$ref": "#/$defs/visibilityPrivate",
+              "$comment": "Some credential IDs are public record (NPI, bar numbers); others are sensitive (DEA)."
+            }
+          },
+          "additionalProperties": false
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "expired",
+            "lapsed",
+            "in-progress",
+            "revoked"
+          ]
+        },
+        "expectedCompletion": {
+          "$ref": "#/$defs/partialDate",
+          "description": "When you expect to complete an in-progress certification. Optional — only meaningful when status is 'in-progress'."
+        },
+        "renewals": {
+          "type": "array",
+          "description": "History of renewals, for certs with expiration cycles.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "$ref": "#/$defs/partialDate"
+              },
+              "validUntil": {
+                "$ref": "#/$defs/partialDate"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "continuingEducation": {
+          "type": "object",
+          "description": "For certs requiring ongoing CPE/CEU credits.",
+          "properties": {
+            "required": {
+              "type": "number",
+              "description": "Credits required per cycle."
+            },
+            "completed": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "description": "e.g. CPE, CEU, PDU, CLE"
+            },
+            "cycle": {
+              "type": "string",
+              "description": "e.g. 'annual', '3-year', 'biennial'"
+            }
+          },
+          "additionalProperties": false
+        },
+        "supersedes": {
+          "type": "string",
+          "description": "ID of a prior certification this one replaces (e.g., upgrading from Associate to Professional)."
+        },
+        "importance": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Freeform tags for derivation filtering. When building a targeted resume, derivation tools use these to decide what's relevant. Examples: 'engineering-leadership', 'federal', 'healthcare-it', 'startup', 'technical-depth'. Not meaningful in the master file by itself — this is metadata for the derivation pipeline."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "meta": {
+            "required": [
+              "derivedFrom"
+            ]
+          }
+        },
+        "required": [
+          "meta"
+        ]
+      },
+      "then": {
+        "properties": {
+          "meta": {
+            "properties": {
+              "canonical": {
+                "const": false
+              }
+            },
+            "required": [
+              "canonical"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "meta": {
+            "properties": {
+              "variant": {
+                "const": "master"
+              }
+            },
+            "required": [
+              "variant"
+            ]
+          }
+        },
+        "required": [
+          "meta"
+        ]
+      },
+      "then": {
+        "properties": {
+          "meta": {
+            "properties": {
+              "canonical": {
+                "const": true
+              }
+            },
+            "required": [
+              "canonical"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "meta": {
+            "properties": {
+              "variant": {
+                "enum": [
+                  "public-profile",
+                  "role-targeted",
+                  "company-targeted",
+                  "portfolio"
+                ]
+              }
+            },
+            "required": [
+              "variant"
+            ]
+          }
+        },
+        "required": [
+          "meta"
+        ]
+      },
+      "then": {
+        "properties": {
+          "meta": {
+            "properties": {
+              "canonical": {
+                "const": false
+              }
+            },
+            "required": [
+              "canonical",
+              "derivedFrom"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

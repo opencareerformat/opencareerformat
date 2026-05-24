@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Career Format — Your Guide</title>
+<link rel="icon" type="image/png" href="spec/assets/ocf-logo.png">
+<meta property="og:image" content="spec/assets/ocf-logo.png">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --card-bg: #ffffff;
+    --private: #dc2626;
+    --shared: #d97706;
+    --public: #16a34a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+  }
+  .brand-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .brand-mark {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    flex: 0 0 auto;
+  }
+  .brand-copy .subtitle {
+    margin-bottom: 0;
+  }
+  .updated {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+  }
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-top: 0.65rem;
+    font-size: 0.92rem;
+  }
+  .project-links a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .project-links a:hover,
+  .project-links a:focus {
+    text-decoration: underline;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+  }
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  p { margin-bottom: 1rem; }
+  ul {
+    margin: -0.25rem 0 1.5rem 1.25rem;
+    padding-left: 1rem;
+  }
+  li {
+    margin-bottom: 0.55rem;
+  }
+  .callout {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .pipeline {
+    display: flex;
+    gap: 0;
+    margin: 1.5rem 0;
+    align-items: stretch;
+  }
+  .stage-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .stage-group .stage {
+    border-radius: 8px !important;
+    flex: 1;
+  }
+  .stage {
+    flex: 1;
+    padding: 1.25rem 1rem;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    position: relative;
+  }
+  .stage:first-child { border-radius: 8px 0 0 8px; }
+  .stage:last-child { border-radius: 0 8px 8px 0; }
+  .stage h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .stage p { font-size: 0.92rem; margin-bottom: 0; color: var(--muted); }
+  .arrow {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--border);
+    padding: 0 0.15rem;
+  }
+  .vis-row {
+    display: flex;
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .vis-chip {
+    flex: 1;
+    padding: 0.9rem 0.75rem;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .vis-chip span {
+    display: block;
+    font-weight: 400;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    opacity: 0.9;
+  }
+  .vis-public { background: var(--public); }
+  .vis-shared { background: var(--shared); }
+  .vis-private { background: var(--private); }
+
+  .example {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.92rem;
+  }
+  .example .label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .section-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .section-item {
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-item strong { font-weight: 600; }
+  .section-item span { color: var(--muted); font-size: 0.85rem; }
+  .tip {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .tip strong { color: #92400e; }
+  .warning {
+    background: #fee2e2;
+    border-left: 4px solid #dc2626;
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+  }
+  .warning strong { color: #991b1b; }
+  .warning p:last-child { margin-bottom: 0; }
+  .diagram {
+    margin: 1.5rem 0;
+  }
+  .diagram img {
+    display: block;
+    width: min(100%, 360px);
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+  }
+  .diagram figcaption {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  @media (max-width: 600px) {
+    .brand-header { align-items: flex-start; }
+    .brand-mark { width: 64px; height: 64px; border-radius: 12px; }
+    .pipeline { flex-direction: column; }
+    .arrow { justify-content: center; transform: rotate(90deg); padding: 0.25rem 0; }
+    .stage:first-child { border-radius: 8px 8px 0 0; }
+    .stage:last-child { border-radius: 0 0 8px 8px; }
+    .stage-group { flex-direction: column; }
+    .section-list { grid-template-columns: 1fr; }
+    .vis-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="brand-header">
+  <img class="brand-mark" src="spec/assets/ocf-logo.png" alt="Open Career Format logo">
+  <div class="brand-copy">
+    <h1>Open Career Format</h1>
+    <p class="subtitle">A private career notebook that becomes every resume you'll ever need.</p>
+    <p>OCF is for preserving your own career history as it happens: what you did, what changed, what you learned, and what mattered.</p>
+    <p class="updated">Last updated: 2026-05-23</p>
+    <nav class="project-links" aria-label="Project links">
+      <a href="https://github.com/opencareerformat/opencareerformat">GitHub repo</a>
+      <a href="schema.json">Schema</a>
+      <a href="llms.txt">For LLMs</a>
+      <a href="https://github.com/opencareerformat/opencareerformat/issues/new/choose">Suggest a change</a>
+    </nav>
+  </div>
+</header>
+
+<div class="callout">
+  <p><strong>If you're an individual, get started quickly.</strong> If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and a job description. Do not include anything you would not want that tool to process. Then say: "Using <code>https://opencareerformat.org</code>, my attached resume, and this job description, help me create a better resume and cover letter for this role. Use the current OCF schema at <code>https://opencareerformat.org/schema.json</code>, treat my resume as source material, ask questions to improve my positioning, and suggest what should be saved for next time."</p>
+  <p><strong>If you're looking to leverage OCF in some other way:</strong> start with <a href="spec/usage-patterns.md"><code>spec/usage-patterns.md</code></a>.</p>
+</div>
+
+<h2>The Problem</h2>
+<p>Most career details disappear before you need them. The numbers, stories, decisions, and context that explain your work are scattered across memory, old documents, performance reviews, dashboards, notes, and systems you may not use forever.</p>
+<p>The Open Career Format (OCF) solves this. You build and update <em>one master file</em> that holds your private career memory — every job, every skill, every certification, every achievement, every useful note. Then, when you need a resume, profile, interview packet, or career-coach brief, a tool reads your master file and curates the version you need from memory you already trust.</p>
+
+<h2>Two Ways to Use OCF</h2>
+<p>Most people will use OCF first as structure for a conversation. They will bring the file to an LLM, coach, advisor, mentor, or trusted reviewer so the conversation has concrete career memory to work from. In that setting, curation and export are not heavyweight software requirements; they are the mental model that tells the conversation what to do. First decide what parts of your career history should be used, reviewed, ranked, filtered, and/or improved. Then export the type of content in the format the person needs.</p>
+<p>If you are using an LLM, point it at this guide and the current schema: <code>https://opencareerformat.org/schema.json</code>. Versioned schemas remain available at paths such as <code>https://opencareerformat.org/v0.2/schema.json</code> for files that need a pinned schema.</p>
+<p>For LLMs and tools, OCF also publishes a compact site map at <code>https://opencareerformat.org/llms.txt</code>, with links to the starter/core authoring shape, full schema, authoring prompt, recommended LLM prompt, and curation guidance.</p>
+<p>The second path is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.</p>
+
+<h2>What OCF Does and Does Not Do</h2>
+<p>OCF is a schema, not a full career app. It does not prescribe one interview flow, one resume style, one scoring model, or one exporter.</p>
+<p>But OCF is not just a blank schema either. The project includes bare-bones reference guidance so people, LLMs, and tool builders have a practical starting point: a starter/core authoring shape, an authoring prompt, a curation prompt, an interview-prep question set, and examples.</p>
+<p>The boundary is intentional: OCF defines what gets preserved and how it stays portable. Tools decide how to ask questions, curate for a target, score relevance, and export finished files.</p>
+
+<h2>File Roles</h2>
+<p>OCF is the file format. A candidate-owned master is one important use of it, not the only one.</p>
+<ul>
+  <li><strong>Candidate-owned master:</strong> the person's private, durable career memory.</li>
+  <li><strong>Candidate-curated/export-ready:</strong> a reduced working set prepared from the master for a specific audience, role, or output.</li>
+  <li><strong>Imported starter:</strong> a first-pass file built from old resumes, LinkedIn exports, notes, or conversations and waiting for review.</li>
+  <li><strong>Third-party working OCF:</strong> a recruiter, coach, agency, employer, or tool's working file about a person. It may be useful, but it is not the person's private master.</li>
+</ul>
+<p>The top-level person is always the <strong>subject</strong> of the OCF: the person whose career is described. The controller of the file and the editor of individual items may be someone else. Anything that flows from a working or imported file into the candidate-owned master should be proposed, reviewed, and accepted by the person first.</p>
+
+<h2>How It Works: A Living Loop</h2>
+<p>OCF is best understood as a living loop:</p>
+<ul>
+  <li>Old resumes, LinkedIn exports, pasted notes, photos of your comp plan, LLM conversations, editor apps, and hand edits all feed your private local master OCF file.</li>
+  <li>When needed, a curator reads the master and prepares content for a specific audience or purpose.</li>
+  <li>Curation can produce proposed master improvements, export-ready input for a resume or profile, an export to another schema or system, or a working set for a coach, including an LLM-based coach.</li>
+  <li>User review is the gate before anything becomes an output file.</li>
+  <li>Corrections, missing stories, or better wording discovered during review or coaching come back as proposed updates to the master, accepted by the user before they become durable.</li>
+</ul>
+
+<figure class="diagram">
+  <img src="spec/assets/ocf-living-loop.png" alt="Diagram showing sources feeding the master OCF, curation producing exports, coaching, user review, output files, and accepted updates flowing back to the master.">
+  <figcaption>The master OCF improves over time as reviewed downstream work feeds accepted updates back into it.</figcaption>
+</figure>
+
+<div class="callout">
+  <p><strong>You build the master once and maintain it over time.</strong> Adding a new job, a new cert, or a new achievement is a few minutes of work. You never start from scratch again.</p>
+</div>
+
+<h2>Your File, On Your Computer</h2>
+<p>OCF is a file format, not a platform. The master file is yours.</p>
+<ul>
+  <li>Keep the master OCF locally, in your own storage, under your own backup and versioning habits.</li>
+  <li>Share curated/export-ready content only when you choose to, not the whole private master by default.</li>
+  <li>Validation checks structure; you still own the truth, privacy, and final wording of anything you send.</li>
+</ul>
+
+<h2>How to Keep OCF Useful</h2>
+<h3>Update OCF When You Are Not Looking for a Role</h3>
+<ul>
+  <li>After reviews, quota years, launches, incidents, promotions, reorganizations, major deals, certifications, or project closes, add the facts while they are fresh.</li>
+  <li>Save source material: a comp-plan photo, performance-review excerpt, quarterly self-review, dashboard screenshot, or quick note can become a <code>sourceArtifact</code>.</li>
+  <li>The goal is memory, not publication. Raw salary, quota, plan, and caveat details can stay private until a reviewed claim is needed later.</li>
+</ul>
+
+<h3>Every Conversation Should Improve the File</h3>
+<ul>
+  <li>Bring the OCF to the next LLM, coach, advisor, mentor, or reviewer conversation instead of starting from scratch.</li>
+  <li>Use the conversation to answer questions, improve wording, find missing stories, and identify facts that need verification.</li>
+  <li>At the end, accept, edit, or reject proposed master updates so the file leaves the conversation richer than it entered.</li>
+</ul>
+
+<h3>Old Resumes Are Source Material and a Version of the Truth</h3>
+<p>Old resumes, LinkedIn exports, portfolio bios, application drafts, and role-targeted documents are not obsolete trash and not automatic truth. They are historical artifacts: evidence of what the person thought was relevant for a specific audience at a specific time.</p>
+<ul>
+  <li>If an old bullet never appears again, ask why: different audience, page limit, stale claim, unsupported metric, or something worth restoring?</li>
+  <li>Preserve useful alternate wording as <code>narrativeVariants</code>; promote new verified facts into canonical fields.</li>
+  <li>When an old claim is uncertain, preserve provenance and create an <code>openQuestions</code> item instead of overwriting the master blindly.</li>
+</ul>
+
+<h2>Feedback and Suggestions</h2>
+<p>OCF should improve from real workflows, not only from abstract schema design. If you are using an LLM, editor, exporter, career coach, or hand-written file and you run into a missing capability, send that use case back to the project. You do not need to be a developer. A plain-language example is useful: "I wanted to store both my English and Spanish versions of the same achievement and have tools preserve both."</p>
+<p>For ideas, missing capabilities, or "why can't OCF do this?" moments, use the suggestion form at <a href="https://github.com/opencareerformat/opencareerformat/issues/new/choose">github.com/opencareerformat/opencareerformat/issues/new/choose</a>. For open-ended questions, early ideas, or thanks, use <a href="https://github.com/opencareerformat/opencareerformat/discussions">GitHub Discussions</a>.</p>
+
+<h2>Go Deeper</h2>
+<p>This homepage is the short version. The detailed guide explains the full schema, reflections, visibility, provenance, curation, exporters, regional fields, federal resumes, and non-goals.</p>
+<ul>
+  <li><a href="spec/guide.html">Read the full OCF guide</a></li>
+  <li><a href="schema.json">Use the current schema</a></li>
+  <li><a href="schema-core.json">Use the starter/core authoring shape</a></li>
+  <li><a href="spec/authoring-prompt.md">Read the authoring prompt</a></li>
+  <li><a href="llms.txt">Read the LLM/tool site map</a></li>
+</ul>
+
+<footer>
+  <p>Open Career Format (OCF) v0.2 — <a href="https://opencareerformat.org/">opencareerformat.org</a></p>
+  <p>Project: <a href="https://github.com/opencareerformat/opencareerformat">github.com/opencareerformat/opencareerformat</a></p>
+  <p>Schema: <code>https://opencareerformat.org/schema.json</code></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+flowchart TD
+  S[(Old resumes, LinkedIn exports, notes, photos, conversations, hand edits)] --> C[Curation]
+  M[(Master OCF)] --> C
+  T[Target, audience, purpose, import, or review question] -. guides .-> C
+
+  C --> E[(Export-ready content)]
+  C --> I[(Proposed improvements / initial master)]
+
+  E --> U{User review}
+  I --> U
+
+  U --> X[Exporter]
+  X --> O[(Resume, cover letter, profile, PDF, JSON, paste bundle, LER input)]
+  U --> A{Accepted updates only}
+  A --> M
+
+  style M stroke:#1c1917,stroke-width:4px
+  style C stroke:#1c1917,stroke-width:4px
+  linkStyle 1 stroke:#1c1917,stroke-width:4px

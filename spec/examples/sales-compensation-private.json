@@ -1,0 +1,437 @@
+{
+  "$schema": "https://opencareerformat.org/v0.2/schema.json",
+  "schemaVersion": "0.2",
+  "meta": {
+    "canonical": true,
+    "fileRole": "candidate-master",
+    "variant": "master",
+    "lastModified": "2026-05-22",
+    "language": "en-US",
+    "source": {
+      "kind": "authored"
+    }
+  },
+  "person": {
+    "name": {
+      "renderAs": "Jordan Kim"
+    },
+    "headline": "Enterprise account executive"
+  },
+  "mediaAppearances": [
+    {
+      "title": "Building Durable Enterprise Territories",
+      "type": "podcast",
+      "role": "guest",
+      "outlet": "Revenue Operators Roundtable",
+      "publisher": "Revenue Operators Network",
+      "date": {
+        "year": 2025,
+        "month": 2
+      },
+      "url": "https://example.com/revenue-operators-roundtable/jordan-kim",
+      "topics": [
+        "Enterprise Sales",
+        "Territory Development",
+        "Vertical Strategy"
+      ],
+      "summary": "Discussed building a new enterprise vertical, preserving sales performance history, and turning raw quota records into defensible public claims.",
+      "importance": 3,
+      "visibility": "public"
+    }
+  ],
+  "awards": [
+    {
+      "title": "President's Club",
+      "type": "sales-recognition",
+      "category": "club-qualification",
+      "awarder": "Northstar Data",
+      "date": {
+        "year": 2022
+      },
+      "description": "Annual company sales club recognition for FY2022.",
+      "scope": "company",
+      "basis": "Qualified for the company sales club in FY2022.",
+      "importance": 5,
+      "visibility": "shared"
+    },
+    {
+      "title": "President's Club",
+      "type": "sales-recognition",
+      "category": "club-qualification",
+      "awarder": "Northstar Data",
+      "date": {
+        "year": 2023
+      },
+      "description": "Annual company sales club recognition for FY2023.",
+      "scope": "company",
+      "basis": "Qualified for the company sales club in FY2023.",
+      "importance": 5,
+      "visibility": "shared"
+    },
+    {
+      "title": "President's Club",
+      "type": "sales-recognition",
+      "category": "club-qualification",
+      "awarder": "Northstar Data",
+      "date": {
+        "year": 2024
+      },
+      "description": "Annual company sales club recognition for FY2024.",
+      "scope": "company",
+      "basis": "Qualified for the company sales club in FY2024.",
+      "importance": 5,
+      "visibility": "shared"
+    },
+    {
+      "title": "Regional Sales Rank Recognition",
+      "type": "sales-recognition",
+      "category": "rank",
+      "awarder": "Northstar Data",
+      "date": {
+        "year": 2023
+      },
+      "scope": "region",
+      "rank": "Top 5% of enterprise account executives",
+      "importance": 4,
+      "visibility": "shared"
+    },
+    {
+      "title": "Company Sales Rank Recognition",
+      "type": "sales-recognition",
+      "category": "rank",
+      "awarder": "Northstar Data",
+      "date": {
+        "year": 2024
+      },
+      "scope": "company",
+      "rank": "#2 of 34 enterprise account executives",
+      "importance": 5,
+      "visibility": "shared"
+    }
+  ],
+  "experience": [
+    {
+      "kind": "employment",
+      "name": "Northstar Data",
+      "positions": [
+        {
+          "title": "Enterprise Account Executive",
+          "employmentType": "full-time",
+          "dateRange": {
+            "start": {
+              "year": 2022
+            },
+            "end": {
+              "present": true
+            }
+          },
+          "achievements": [
+            {
+              "statement": "Met or exceeded annual quota in every full year in the role",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "quotaAttainment",
+                  "value": 100,
+                  "unit": "%",
+                  "period": "minimum annual attainment"
+                },
+                {
+                  "kind": "count",
+                  "value": 3,
+                  "unit": "years"
+                }
+              ],
+              "supportingFacts": [
+                {
+                  "statement": "Met or exceeded quota for FY2022.",
+                  "date": {
+                    "year": 2022
+                  },
+                  "visibility": "private"
+                },
+                {
+                  "statement": "Met or exceeded quota for FY2023.",
+                  "date": {
+                    "year": 2023
+                  },
+                  "visibility": "private"
+                },
+                {
+                  "statement": "Met or exceeded quota for FY2024.",
+                  "date": {
+                    "year": 2024
+                  },
+                  "visibility": "private"
+                }
+              ],
+              "importance": 5,
+              "visibility": "shared"
+            },
+            {
+              "statement": "Ranked as a top 5 enterprise seller for three consecutive years",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "count",
+                  "value": 3,
+                  "unit": "years"
+                }
+              ],
+              "supportingFacts": [
+                {
+                  "statement": "Ranked in the top 5 enterprise sellers for FY2022.",
+                  "date": {
+                    "year": 2022
+                  },
+                  "visibility": "private"
+                },
+                {
+                  "statement": "Ranked in the top 5 enterprise sellers for FY2023.",
+                  "date": {
+                    "year": 2023
+                  },
+                  "visibility": "private"
+                },
+                {
+                  "statement": "Ranked in the top 5 enterprise sellers for FY2024.",
+                  "date": {
+                    "year": 2024
+                  },
+                  "visibility": "private"
+                }
+              ],
+              "importance": 5,
+              "visibility": "shared"
+            },
+            {
+              "statement": "Reached 138% quota attainment in FY2024 while growing revenue 550% year over year",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "quotaAttainment",
+                  "value": 138,
+                  "unit": "%",
+                  "period": "FY2024",
+                  "basis": "quota",
+                  "basisLabel": "FY2024 bookings quota"
+                },
+                {
+                  "kind": "yoyGrowth",
+                  "value": 550,
+                  "unit": "%",
+                  "period": "FY2024",
+                  "basis": "prior-year",
+                  "basisLabel": "FY2023 revenue"
+                }
+              ],
+              "importance": 5,
+              "visibility": "shared"
+            },
+            {
+              "id": "northstar-renewal-book-fy2024",
+              "statement": "Managed a $20M enterprise healthcare renewal book in FY2024, renewing $18M while keeping $2M of churn non-regretted.",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "renewalBookValue",
+                  "value": 20000000,
+                  "unit": "USD ARR",
+                  "period": "FY2024"
+                },
+                {
+                  "kind": "renewedArr",
+                  "value": 18000000,
+                  "unit": "USD ARR",
+                  "period": "FY2024"
+                },
+                {
+                  "kind": "nonRegrettedChurnArr",
+                  "value": 2000000,
+                  "unit": "USD ARR",
+                  "period": "FY2024"
+                }
+              ],
+              "provenance": {
+                "source": "curated",
+                "date": "2026-05-24",
+                "sourceItemId": "northstar-book-fy2024",
+                "confidence": 0.82,
+                "operation": "promoted-private-book-to-shareable-achievement",
+                "note": "Shareable summary derived from private book-of-business record."
+              },
+              "importance": 5,
+              "visibility": "shared"
+            },
+            {
+              "statement": "Created and built a new enterprise vertical from an unassigned segment into a formal territory",
+              "kind": "accomplishment",
+              "skills": [
+                "Enterprise Sales",
+                "Vertical Strategy",
+                "Territory Development",
+                "Industry Segmentation"
+              ],
+              "importance": 5,
+              "visibility": "shared"
+            }
+          ],
+          "compensation": {
+            "amount": 220000,
+            "currency": "USD",
+            "period": "annual",
+            "note": "2024 OTE; base plus target commission",
+            "history": [
+              {
+                "year": 2023,
+                "currency": "USD",
+                "period": "annual",
+                "components": [
+                  {
+                    "type": "baseSalary",
+                    "amount": 105000
+                  },
+                  {
+                    "type": "commission",
+                    "amount": 72000
+                  },
+                  {
+                    "type": "totalTargetCompensation",
+                    "amount": 210000,
+                    "label": "OTE"
+                  },
+                  {
+                    "type": "actualTotalCompensation",
+                    "amount": 177000
+                  }
+                ],
+                "visibility": "private"
+              },
+              {
+                "year": 2024,
+                "currency": "USD",
+                "period": "annual",
+                "components": [
+                  {
+                    "type": "baseSalary",
+                    "amount": 110000
+                  },
+                  {
+                    "type": "commission",
+                    "amount": 151800
+                  },
+                  {
+                    "type": "totalTargetCompensation",
+                    "amount": 220000,
+                    "label": "OTE"
+                  },
+                  {
+                    "type": "actualTotalCompensation",
+                    "amount": 261800
+                  }
+                ],
+                "visibility": "private"
+              }
+            ],
+            "visibility": "private"
+          },
+          "salesPerformance": [
+            {
+              "period": "FY2024",
+              "quota": 3000000,
+              "quotaUnit": "USD bookings",
+              "attainmentPercent": 138,
+              "attainmentBasis": "quota",
+              "attainmentBasisLabel": "FY2024 bookings quota",
+              "bookings": 4100000,
+              "pipelineGenerated": 9500000,
+              "currency": "USD",
+              "rank": "#2 of 34 enterprise AEs",
+              "recognition": "President's Club",
+              "territory": "West enterprise healthcare",
+              "note": "Private raw sales-plan record. Caveats such as ramp, territory changes, split credit, or plan resets can be kept here when useful, but should not clutter the shareable achievement unless the user wants that nuance preserved.",
+              "visibility": "private",
+              "yoyGrowthPercent": 550
+            }
+          ],
+          "visibility": "shared",
+          "bookOfBusiness": [
+            {
+              "id": "northstar-book-fy2024",
+              "year": 2024,
+              "period": "FY2024",
+              "scope": "West enterprise healthcare renewal book",
+              "territory": "West enterprise healthcare",
+              "accountCount": 28,
+              "arrManaged": 20000000,
+              "renewalBookValue": 20000000,
+              "currency": "USD",
+              "outcomes": [
+                {
+                  "id": "northstar-renewals-fy2024",
+                  "kind": "renewed-arr",
+                  "value": 18000000,
+                  "unit": "USD ARR",
+                  "statement": "Renewed $18M of the FY2024 enterprise healthcare renewal book.",
+                  "visibility": "private",
+                  "provenance": {
+                    "source": "imported",
+                    "tool": "crm-export-importer.example.com",
+                    "date": "2026-01-15",
+                    "confidence": 0.82,
+                    "sourceArtifactId": "northstar-crm-export-2026-01-15",
+                    "note": "Imported from year-end CRM export."
+                  }
+                },
+                {
+                  "id": "northstar-churn-context-fy2024",
+                  "kind": "non-regretted-churn-arr",
+                  "value": 2000000,
+                  "unit": "USD ARR",
+                  "statement": "$2M of churn was classified as non-regretted.",
+                  "visibility": "private",
+                  "provenance": {
+                    "source": "imported",
+                    "tool": "crm-export-importer.example.com",
+                    "date": "2026-01-15",
+                    "confidence": 0.72,
+                    "sourceArtifactId": "northstar-crm-export-2026-01-15",
+                    "note": "Imported from year-end CRM export; churn classification may need user review before public use."
+                  }
+                }
+              ],
+              "supportingFacts": [
+                {
+                  "statement": "Strategic account ACME-123 renewed at $4M ARR with 20% expansion over the prior term.",
+                  "date": {
+                    "year": 2024
+                  },
+                  "visibility": "private",
+                  "note": "Example account-level fact retained privately as support for the aggregate renewal-book claim."
+                }
+              ],
+              "note": "Private book-of-business memory: portfolio responsibility and renewal outcomes, not compensation and not quota attainment.",
+              "visibility": "private",
+              "provenance": {
+                "source": "imported",
+                "tool": "crm-export-importer.example.com",
+                "date": "2026-01-15",
+                "confidence": 0.82,
+                "sourceArtifactId": "northstar-crm-export-2026-01-15",
+                "note": "Imported from year-end CRM export."
+              },
+              "extensions": {
+                "crm.example.com": {
+                  "territoryId": "west-healthcare-fy2024",
+                  "accountListId": "acct-list-8842",
+                  "lastSyncedAt": "2026-01-15T18:22:00Z"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "visibility": "shared"
+    }
+  ]
+}

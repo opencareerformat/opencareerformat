@@ -1,0 +1,531 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opencareerformat.org/schema-core.json",
+  "title": "Open Career Format Starter/Core Authoring Shape",
+  "description": "A small LLM-friendly entry point for creating a starter OCF. This is not a replacement for the full OCF schema. Use https://opencareerformat.org/schema.json for canonical validation. Use this core shape when converting a resume, LinkedIn export, notes, or a job-search conversation into a useful first OCF file, usually a candidate-owned master or imported starter.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "person"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "description": "For a canonical OCF file, use https://opencareerformat.org/schema.json."
+    },
+    "schemaVersion": {
+      "type": "string",
+      "description": "The OCF schema version used by the file, for example 0.2."
+    },
+    "meta": {
+      "type": "object",
+      "description": "Basic file metadata. Starter files should set fileRole and lastModified when known. A candidate-owned master usually sets canonical=true, fileRole=candidate-master, and variant=master. A first-pass import that still needs user review may use fileRole=imported-starter.",
+      "properties": {
+        "canonical": {
+          "type": "boolean"
+        },
+        "fileRole": {
+          "type": "string",
+          "enum": [
+            "candidate-master",
+            "candidate-curated",
+            "imported-starter",
+            "third-party-working",
+            "export-ready",
+            "other"
+          ]
+        },
+        "variant": {
+          "type": "string",
+          "enum": [
+            "master",
+            "public-profile",
+            "role-targeted",
+            "company-targeted",
+            "portfolio",
+            "other"
+          ]
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date"
+        },
+        "language": {
+          "type": "string"
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "authored",
+                "derived",
+                "imported",
+                "merged",
+                "translated"
+              ]
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "person": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "description": "The subject of this OCF: the person whose career is described. The subject is not necessarily the controller of this file or the actor that created/edited its contents. Avoid government identifiers and account secrets.",
+      "properties": {
+        "name": {
+          "type": "object",
+          "required": [
+            "renderAs"
+          ],
+          "properties": {
+            "renderAs": {
+              "type": "string"
+            },
+            "given": {
+              "type": "string"
+            },
+            "family": {
+              "type": "string"
+            },
+            "preferred": {
+              "type": "string"
+            },
+            "pronouns": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "headline": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "primary": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "sourceArtifacts": {
+      "type": "array",
+      "description": "Old resumes, LinkedIn exports, pasted notes, screenshots, photos, job descriptions, or conversations used as source material.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "date": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "experience": {
+      "type": "array",
+      "description": "All work history in one chronological list. Include jobs, self-employment, military service, caregiving, career breaks, and similar periods when relevant.",
+      "items": {
+        "type": "object",
+        "required": [
+          "kind",
+          "name"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange"
+          },
+          "positions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/position"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "institution": {
+            "type": "string"
+          },
+          "degree": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          },
+          "dateRange": {
+            "$ref": "#/$defs/dateRange"
+          },
+          "achievements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/achievement"
+            }
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibility"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "current": {
+            "type": "boolean"
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibility"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "cautions": {
+      "type": "array",
+      "description": "Claims, framings, phrases, or assumptions the user does not want tools to make.",
+      "items": {
+        "type": "object",
+        "required": [
+          "statement"
+        ],
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibility"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "openQuestions": {
+      "type": "array",
+      "description": "Questions that should be asked later instead of inventing facts now.",
+      "items": {
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/$defs/visibility"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "position": {
+      "type": "object",
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange"
+        },
+        "description": {
+          "type": "string"
+        },
+        "achievements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/achievement"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibility"
+        }
+      },
+      "additionalProperties": true
+    },
+    "achievement": {
+      "type": "object",
+      "required": [
+        "statement"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string"
+        },
+        "longform": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "attribution": {
+          "type": "object",
+          "description": "How directly the subject contributed to the outcome. Use this to keep verbs honest in downstream wording.",
+          "properties": {
+            "role": {
+              "type": "string",
+              "enum": [
+                "owned",
+                "led",
+                "drove",
+                "contributed-to",
+                "supported",
+                "advised",
+                "observed",
+                "other"
+              ]
+            },
+            "scope": {
+              "type": "string"
+            },
+            "ownedBudget": {
+              "type": "boolean"
+            },
+            "ownedHeadcount": {
+              "type": "boolean"
+            },
+            "reportedUpward": {
+              "type": "boolean"
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "narrativeVariants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "statement": {
+                "type": "string"
+              },
+              "audience": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "supportingFacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "statement"
+            ],
+            "properties": {
+              "statement": {
+                "type": "string"
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibility"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "importance": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibility"
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "metric": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "period": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "string"
+        },
+        "basisLabel": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibility"
+        }
+      },
+      "additionalProperties": true
+    },
+    "partialDate": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "integer"
+        },
+        "month": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "day": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31
+        },
+        "present": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "dateRange": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/$defs/partialDate"
+        },
+        "end": {
+          "$ref": "#/$defs/partialDate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "shared",
+        "private"
+      ]
+    }
+  }
+}

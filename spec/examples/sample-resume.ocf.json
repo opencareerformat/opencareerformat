@@ -1,0 +1,1328 @@
+{
+  "$schema": "https://opencareerformat.org/v0.2/schema.json",
+  "schemaVersion": "0.2",
+  "meta": {
+    "canonical": true,
+    "fileRole": "candidate-master",
+    "variant": "master",
+    "lastModified": "2026-05-24",
+    "language": "en-US",
+    "source": {
+      "kind": "authored"
+    },
+    "id": "c94ffaa9-31fd-40d7-96cd-a66725a9784a",
+    "version": "db2a5a6fc562"
+  },
+  "person": {
+    "name": {
+      "renderAs": "Maria E. Reyes",
+      "given": "Maria",
+      "family": "Reyes",
+      "preferred": "Maria",
+      "pronouns": "she/her"
+    },
+    "headline": "Cybersecurity leader bridging military discipline with enterprise security strategy",
+    "summary": "Eight years of Army service in signal and cyber operations followed by a decade in private-sector cybersecurity. Led SOC teams, built zero-trust architectures, and earned CISSP and CISM certifications. Comfortable briefing generals and board members alike.",
+    "contacts": [
+      {
+        "kind": "email",
+        "value": "maria.reyes@example.com",
+        "primary": true
+      },
+      {
+        "kind": "phone",
+        "value": "+1-555-0142",
+        "label": "mobile"
+      },
+      {
+        "kind": "linkedin",
+        "value": "https://linkedin.com/in/mariacreyes.example"
+      },
+      {
+        "kind": "social",
+        "label": "Bluesky",
+        "value": "https://bsky.app/profile/mariacreyes.example"
+      }
+    ],
+    "locations": [
+      {
+        "city": "San Antonio",
+        "region": "TX",
+        "country": "US"
+      }
+    ],
+    "workAuthorization": [
+      {
+        "country": "US",
+        "status": "citizen"
+      }
+    ],
+    "clearances": [
+      {
+        "name": "Top Secret / SCI",
+        "type": "security-clearance",
+        "level": "Top Secret / SCI",
+        "issuedBy": "DoD",
+        "status": "inactive",
+        "dateRange": {
+          "start": {
+            "year": 2012
+          },
+          "end": {
+            "year": 2022
+          }
+        },
+        "polygraph": "ci",
+        "visibility": "shared"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "name": "Incident Response",
+      "category": "domain",
+      "proficiency": "expert",
+      "current": true
+    },
+    {
+      "name": "Zero Trust Architecture",
+      "category": "domain",
+      "proficiency": "expert",
+      "current": true
+    },
+    {
+      "name": "SIEM (Splunk, Sentinel)",
+      "category": "tool",
+      "proficiency": "expert",
+      "current": true
+    },
+    {
+      "name": "Network Defense",
+      "category": "domain",
+      "proficiency": "expert",
+      "current": true
+    },
+    {
+      "name": "Vulnerability Management",
+      "category": "domain",
+      "proficiency": "proficient",
+      "current": true
+    },
+    {
+      "name": "Python",
+      "category": "language",
+      "proficiency": "proficient",
+      "current": true
+    },
+    {
+      "name": "AWS Security",
+      "category": "platform",
+      "proficiency": "proficient",
+      "current": true
+    },
+    {
+      "name": "Risk Management Framework (RMF)",
+      "category": "regulatory",
+      "proficiency": "expert",
+      "current": true
+    },
+    {
+      "name": "NIST 800-53",
+      "category": "regulatory",
+      "proficiency": "expert",
+      "current": true
+    },
+    {
+      "name": "SOC 2",
+      "category": "regulatory",
+      "proficiency": "proficient",
+      "current": true
+    },
+    {
+      "name": "FedRAMP",
+      "category": "regulatory",
+      "proficiency": "proficient",
+      "current": true
+    },
+    {
+      "name": "Kubernetes",
+      "category": "platform",
+      "proficiency": "working",
+      "current": true
+    },
+    {
+      "name": "Terraform",
+      "category": "tool",
+      "proficiency": "working",
+      "current": true
+    },
+    {
+      "name": "CrowdStrike Falcon",
+      "category": "tool",
+      "proficiency": "proficient",
+      "current": true
+    },
+    {
+      "name": "Palo Alto Networks",
+      "category": "tool",
+      "proficiency": "proficient",
+      "current": true
+    },
+    {
+      "name": "Personnel Management",
+      "category": "soft-skill",
+      "proficiency": "expert",
+      "current": true
+    },
+    {
+      "name": "Briefing / Executive Communication",
+      "category": "soft-skill",
+      "proficiency": "expert",
+      "current": true
+    }
+  ],
+  "competencies": [
+    {
+      "label": "Security Operations & Incident Response",
+      "description": "Built and led SOC teams from scratch in both military and corporate settings. Defined playbooks, triage workflows, and escalation procedures. Responded to nation-state intrusions and ransomware events.",
+      "skills": [
+        "Incident Response",
+        "SIEM (Splunk, Sentinel)",
+        "CrowdStrike Falcon",
+        "Network Defense"
+      ]
+    },
+    {
+      "label": "Security Architecture & Zero Trust",
+      "description": "Designed zero-trust network architectures for hybrid cloud environments. Led FedRAMP authorization for a SaaS product. Translated military DISA STIG experience into enterprise hardening standards.",
+      "skills": [
+        "Zero Trust Architecture",
+        "AWS Security",
+        "NIST 800-53",
+        "FedRAMP",
+        "Terraform"
+      ]
+    },
+    {
+      "label": "Leadership & Cross-Functional Communication",
+      "description": "Led teams of 8-40 across military and civilian contexts. Briefed flag officers, C-suite executives, and board audit committees on risk posture and incident status. Mentored junior analysts through career transitions.",
+      "skills": [
+        "Personnel Management",
+        "Briefing / Executive Communication"
+      ]
+    }
+  ],
+  "organizations": {
+    "army.mil": {
+      "name": "United States Army",
+      "shortName": "U.S. Army",
+      "url": "https://www.army.mil",
+      "kind": "military",
+      "description": "The land warfare branch of the U.S. Armed Forces. Largest branch by active-duty headcount.",
+      "size": "~480,000 active duty",
+      "status": "active",
+      "wikipedia": "https://en.wikipedia.org/wiki/United_States_Army"
+    },
+    "fortgordon.army.mil": {
+      "name": "U.S. Army Cyber Center of Excellence",
+      "shortName": "CyCoE",
+      "url": "https://cybercoe.army.mil",
+      "kind": "military",
+      "description": "Signal and cyber training center at Fort Gordon (renamed Fort Eisenhower in 2023), GA. Trains all Army signal and cyber MOS fields.",
+      "location": {
+        "city": "Fort Eisenhower",
+        "region": "GA",
+        "country": "US"
+      },
+      "status": "renamed",
+      "successor": "Fort Eisenhower"
+    },
+    "meridianhealth.example.com": {
+      "name": "Meridian Health Systems",
+      "shortName": "Meridian",
+      "kind": "company",
+      "industry": "Healthcare IT",
+      "description": "Mid-market healthcare IT company providing EHR and patient portal platforms to regional hospital networks. Private equity-backed.",
+      "size": "~1,200 employees",
+      "status": "active",
+      "location": {
+        "city": "San Antonio",
+        "region": "TX",
+        "country": "US"
+      }
+    },
+    "vetsintech.org": {
+      "name": "VetsinTech",
+      "url": "https://vetsintech.co",
+      "kind": "nonprofit",
+      "description": "National nonprofit helping military veterans transition into technology careers through training, networking, and mentorship programs.",
+      "status": "active",
+      "location": {
+        "city": "San Francisco",
+        "region": "CA",
+        "country": "US"
+      }
+    },
+    "utsa.edu": {
+      "name": "University of Texas at San Antonio",
+      "shortName": "UTSA",
+      "url": "https://www.utsa.edu",
+      "kind": "university",
+      "industry": "Higher Education",
+      "description": "Public research university with a nationally recognized cybersecurity program. NSA/DHS designated Center of Academic Excellence in Cyber Defense.",
+      "size": "~35,000 students",
+      "status": "active",
+      "location": {
+        "city": "San Antonio",
+        "region": "TX",
+        "country": "US"
+      },
+      "wikipedia": "https://en.wikipedia.org/wiki/University_of_Texas_at_San_Antonio"
+    },
+    "aegiscyber.example.com": {
+      "name": "Aegis Cyber Defense",
+      "shortName": "Aegis",
+      "url": "https://www.aegiscyber.example.com",
+      "kind": "company",
+      "industry": "Cybersecurity",
+      "description": "Endpoint security and incident response firm. Known for hands-on IR engagements against advanced persistent threats.",
+      "size": "~2,500 employees",
+      "status": "active",
+      "location": {
+        "city": "Austin",
+        "region": "TX",
+        "country": "US"
+      }
+    },
+    "tidewaterfederal.example.com": {
+      "name": "Tidewater Federal Services",
+      "shortName": "Tidewater",
+      "url": "https://www.tidewaterfederal.example.com",
+      "kind": "company",
+      "industry": "Defense Consulting",
+      "description": "Defense and federal IT consulting firm supporting DoD and intelligence community cybersecurity programs.",
+      "size": "~12,000 employees",
+      "status": "active",
+      "location": {
+        "city": "McLean",
+        "region": "VA",
+        "country": "US"
+      }
+    }
+  },
+  "experience": [
+    {
+      "kind": "employment",
+      "organizationRef": "meridianhealth.example.com",
+      "name": "Meridian Health Systems",
+      "domainAtTime": "meridianhealth.example.com",
+      "industry": "Healthcare IT",
+      "importance": 5,
+      "contextAtTime": {
+        "stage": "private-equity",
+        "sizeAtJoin": 1200,
+        "productLine": "EHR and patient portal platform"
+      },
+      "locations": [
+        {
+          "city": "San Antonio",
+          "region": "TX",
+          "country": "US"
+        }
+      ],
+      "positions": [
+        {
+          "title": "Director of Cybersecurity",
+          "seniority": "director",
+          "grade": "Band 8",
+          "employmentType": "full-time",
+          "dateRange": {
+            "start": {
+              "year": 2023,
+              "month": 3
+            },
+            "end": {
+              "present": true
+            }
+          },
+          "summary": "Head of cybersecurity for a healthcare IT company handling PHI for 2M+ patients. Report to CISO. Built the security operations function and led the company through SOC 2 Type II and HITRUST certification.",
+          "supervisor": {
+            "name": "Alicia Moreno",
+            "title": "Chief Information Security Officer",
+            "linkedin": "https://linkedin.com/in/aliciamoreno-example",
+            "visibility": "private"
+          },
+          "achievements": [
+            {
+              "statement": "Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "headcountGrowth",
+                  "from": 0,
+                  "to": 12,
+                  "unit": "analysts"
+                }
+              ],
+              "importance": 5,
+              "visibility": "public",
+              "attribution": {
+                "role": "owned",
+                "scope": "Owned SOC buildout plan, hiring model, coverage target, and operating cadence; direct managers and team leads handled some day-to-day execution as the team scaled.",
+                "ownedBudget": true,
+                "ownedHeadcount": true,
+                "reportedUpward": true,
+                "notes": "A future review should clarify which parts Maria personally managed versus delegated through leads once the team reached 12 analysts."
+              }
+            },
+            {
+              "statement": "Led HITRUST r2 certification, passing on first assessment with zero corrective actions",
+              "kind": "accomplishment",
+              "importance": 4,
+              "visibility": "public"
+            },
+            {
+              "statement": "Reduced mean time to detect (MTTD) from 72 hours to under 4 hours through SIEM tuning and automated triage",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "duration",
+                  "from": 72,
+                  "to": 4,
+                  "unit": "hours",
+                  "note": "MTTD improvement"
+                }
+              ],
+              "importance": 5,
+              "visibility": "public"
+            },
+            {
+              "id": "mhs-ransomware-2024",
+              "kind": "accomplishment",
+              "statement": "Led response to a hospital-wide ransomware incident — performed forensic analysis on the attacker tooling, advised leadership against paying the ransom based on observed decryption failures in adjacent engagements, and executed an alternate recovery path from offline backups; restored critical clinical systems within 41 hours with zero patient-care impact.",
+              "shortStatement": "Led ransomware response and recommended against paying based on attacker-tooling analysis; restored systems from backups in 41 hours.",
+              "longform": "On a Friday evening, ransomware encrypted a significant portion of Meridian's EHR-adjacent infrastructure. Hospital leadership's first instinct was to pay quickly to restore operations — patient care was at stake, and the demand (in the low seven figures) was small relative to estimated downtime costs.\n\nI personally led the forensic analysis on the dropped tooling. Indicators tied the activity to a family whose decryptor had a documented failure rate of ~30% in adjacent engagements I had visibility into — paying carried real risk of getting the decryption key and still losing material data. I argued the case to the CFO and the CEO with the evidence, recommended we proceed with backup restoration, and committed to a 48-hour timeline. We brought critical clinical systems back in 41 hours with no patient-care impact and no payment.\n\nTwo lessons I take from this. First, the value of having walked the forensic detail myself — leadership would not have accepted a 'paying is risky' framing from a layer of indirection; they accepted it when I could describe specifically why the attacker's decryptor failed in observed cases. Second, the importance of pre-committing to a timeline. The 48-hour commitment turned the conversation from 'should we pay' to 'can we execute' — and gave the team something concrete to drive to.\n\nI also note: the decision could have gone the wrong way. If our backups had been compromised (we checked) or if our restoration runbooks had failed to hold up, the cost would have been a career and a hospital's trust. This story is recorded here in full because the nuance matters: leadership judgment that turns out right is not the same as the same judgment turning out wrong. The forensic basis was what made it the right call.",
+              "metrics": [
+                {
+                  "kind": "duration",
+                  "value": 41,
+                  "unit": "hours",
+                  "note": "time-to-restore: critical clinical systems back online from offline backups"
+                },
+                {
+                  "kind": "other",
+                  "value": 0,
+                  "unit": "patients",
+                  "note": "patient_care_impact: zero patient-care incidents attributed to the outage"
+                },
+                {
+                  "kind": "other",
+                  "value": 0,
+                  "unit": "USD",
+                  "note": "ransom_paid: no ransom was paid; recommendation against payment was accepted by leadership"
+                }
+              ],
+              "skills": [
+                "Incident Response Leadership",
+                "Ransomware Analysis",
+                "Executive Risk Communication",
+                "Backup Recovery Operations",
+                "Forensic Tooling Triage"
+              ],
+              "importance": 5,
+              "audiences": [
+                "incident-response",
+                "ciso-track",
+                "healthcare",
+                "executive-judgment",
+                "player-coach"
+              ],
+              "visibility": "shared",
+              "provenance": {
+                "source": "interview-derived",
+                "tool": "Recommended OCF LLM prompt",
+                "date": "2026-05-21",
+                "sessionTopic": "Tailoring resume for CISO-track role",
+                "confidence": 0.9,
+                "note": "Mined through targeted probing during a conversation about a CISO-track role posting. The original resume bullet under this position read 'Led incident response for ransomware event'; the conversation surfaced the specific judgment call, the forensic basis, and the lessons. The longform deliberately captures both what went right and the counterfactual (it could have gone wrong), which interview prep needs but a resume does not.",
+                "sourceArtifactId": "ciso-track-refinement-2026-05-21"
+              },
+              "narrativeVariants": [
+                {
+                  "id": "mhs-ransomware-public-resume",
+                  "label": "Public resume bullet",
+                  "audiences": [
+                    "resume",
+                    "public-profile",
+                    "incident-response"
+                  ],
+                  "statement": "Led ransomware response that restored critical clinical systems from offline backups within 41 hours with no patient-care impact.",
+                  "notes": "Public-safe version omits the ransom-payment debate, attacker-family detail, and internal executive-room context.",
+                  "visibility": "public",
+                  "provenance": {
+                    "source": "curated",
+                    "date": "2026-05-21",
+                    "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+                    "operation": "public-safe-rewrite",
+                    "confidence": 0.9
+                  }
+                },
+                {
+                  "id": "mhs-ransomware-interview-prep",
+                  "label": "Interview-prep framing",
+                  "audiences": [
+                    "interview-prep",
+                    "executive-judgment",
+                    "ciso-track"
+                  ],
+                  "longform": "Use this story to show executive judgment under pressure: Maria did the forensic analysis herself, explained the risk of paying in business terms, committed to a 48-hour recovery path, and owned the recommendation when the outcome was uncertain.",
+                  "notes": "Useful for preparing the story, not for direct resume output.",
+                  "visibility": "private",
+                  "provenance": {
+                    "source": "curated",
+                    "date": "2026-05-21",
+                    "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+                    "operation": "interview-prep-framing",
+                    "confidence": 0.85
+                  }
+                },
+                {
+                  "id": "mhs-ransomware-healthcare-security",
+                  "label": "Healthcare security framing",
+                  "audiences": [
+                    "healthcare",
+                    "patient-safety",
+                    "security-leadership"
+                  ],
+                  "statement": "Protected patient-care continuity during a ransomware event by leading evidence-based recovery from offline backups and restoring critical clinical systems within 41 hours.",
+                  "notes": "Emphasizes care-continuity impact for healthcare audiences without naming the affected clinical system.",
+                  "visibility": "shared",
+                  "provenance": {
+                    "source": "curated",
+                    "date": "2026-05-21",
+                    "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+                    "operation": "audience-specific-rewrite",
+                    "confidence": 0.9
+                  }
+                }
+              ]
+            },
+            {
+              "id": "mhs-mssp-transition",
+              "kind": "accomplishment",
+              "statement": "Managed transition from an external MSSP to an in-house tier-1 alert triage capability during a 30% security budget reduction; maintained 24/7 coverage and improved alert quality through tuning.",
+              "importance": 2,
+              "audiences": [
+                "cost-management",
+                "ops-efficiency",
+                "team-building"
+              ],
+              "visibility": "shared",
+              "provenance": {
+                "source": "authored",
+                "note": "Keep this in the master because it is useful for ops-leadership, budget-stewardship, and cost-management audiences. Usually omit it from CISO-track or strategic-leadership resumes unless the target role specifically values efficiency work; stronger executive-judgment stories should take priority when space is tight."
+              }
+            }
+          ],
+          "techStack": [
+            "Splunk",
+            "CrowdStrike Falcon",
+            "AWS Security Hub",
+            "Terraform",
+            "Jira"
+          ],
+          "teamSize": 18,
+          "directReports": 12,
+          "reflections": [
+            {
+              "kind": "boss-would-rate-1-10",
+              "value": 9,
+              "visibility": "private",
+              "provenance": {
+                "source": "interview-derived",
+                "date": "2026-05-21",
+                "note": "Self-assessed during Topgrading-style prep. She would likely rate me 9 — strong on incident response and SOC scaling, slightly less strong on board-level communication, which is the area we'd both flag for development."
+              }
+            },
+            {
+              "kind": "proudest-of",
+              "text": "The ransomware response. Most of my proudest moments in this role were team accomplishments, but the moment that taught me the most about leadership was sitting in the executive conference room on a Friday night, walking the CEO and CFO through why I thought paying the ransom would fail. I had to make the technical case in language they could verify, commit to a timeline, and own the outcome. The team did the recovery work; my contribution was the analysis and the commitment. Looking back, I'm proudest that I did the forensic work myself instead of delegating it — leadership wouldn't have accepted a derivative argument.",
+              "visibility": "private",
+              "provenance": {
+                "source": "interview-derived",
+                "date": "2026-05-21",
+                "sessionTopic": "Topgrading-style reflection elicitation",
+                "note": "This reflection seeded the mhs-ransomware-2024 achievement entry. The raw voice is preserved here; the structured derivative is in achievements. Future conversations can probe further (e.g. 'what would you have done if backups had failed') without re-eliciting the core memory.",
+                "seededAchievement": "mhs-ransomware-2024"
+              }
+            },
+            {
+              "kind": "biggest-mistake",
+              "text": "Underinvesting in the security awareness program in the first nine months. I prioritized technical controls because the SOC was being built, but the phishing click-through rate stayed stubbornly above 20% well into year two. I should have run a parallel awareness track from the start — it took us 18 months to get below 8%, and the early window was wasted. The lesson is that technical controls and human factors have different time-to-impact curves, and the right move with a fresh budget is to fund both early rather than sequentially.",
+              "visibility": "private",
+              "provenance": {
+                "source": "interview-derived",
+                "date": "2026-05-21",
+                "note": "Not yet distilled into a structured achievement — this is a candidate for mining in a future conversation. There's likely a phishing-rate-reduction achievement (20%+ → <8%) that should exist with metrics, but the framing for the resume version isn't obvious yet because it has to lead with the lesson rather than the win. Left as a reflection for now."
+              }
+            }
+          ]
+        }
+      ],
+      "reflections": [
+        {
+          "kind": "would-work-again",
+          "value": 8,
+          "text": "Yes, if the operational maturity were two years further along than it was when I joined. Building from greenfield is energizing for a tour; a second tour would want to be a build-and-scale or a turnaround, not another start-from-zero.",
+          "visibility": "private"
+        }
+      ]
+    },
+    {
+      "kind": "employment",
+      "organizationRef": "aegiscyber.example.com",
+      "name": "Aegis Cyber Defense",
+      "domainAtTime": "aegiscyber.example.com",
+      "industry": "Cybersecurity",
+      "importance": 4,
+      "contextAtTime": {
+        "stage": "public",
+        "sizeAtJoin": 4500,
+        "productLine": "Falcon endpoint protection platform"
+      },
+      "locations": [
+        {
+          "city": "Austin",
+          "region": "TX",
+          "country": "US",
+          "remote": true
+        }
+      ],
+      "positions": [
+        {
+          "title": "Senior Incident Response Consultant",
+          "seniority": "ic",
+          "employmentType": "full-time",
+          "dateRange": {
+            "start": {
+              "year": 2021,
+              "month": 1
+            },
+            "end": {
+              "year": 2023,
+              "month": 2
+            }
+          },
+          "summary": "Frontline IR consultant on Aegis Cyber Defense's services team. Investigated breaches for Fortune 500 clients across healthcare, financial services, and manufacturing.",
+          "achievements": [
+            {
+              "statement": "Led incident response for 15+ engagements including 3 nation-state intrusions and 2 ransomware events affecting critical infrastructure",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "count",
+                  "value": 15,
+                  "unit": "IR engagements",
+                  "period": "2 years"
+                }
+              ],
+              "importance": 4,
+              "visibility": "public"
+            },
+            {
+              "statement": "Developed automated forensic triage toolkit adopted by the broader IR team, reducing initial assessment time by 40%",
+              "kind": "project",
+              "metrics": [
+                {
+                  "kind": "percentChange",
+                  "value": -40,
+                  "unit": "%",
+                  "note": "initial assessment time reduction"
+                }
+              ],
+              "importance": 3,
+              "visibility": "public"
+            }
+          ],
+          "techStack": [
+            "CrowdStrike Falcon",
+            "Splunk",
+            "Volatility",
+            "Wireshark",
+            "Python"
+          ]
+        }
+      ],
+      "progression": {
+        "promotionCount": 0,
+        "note": "Lateral move into leadership role at Meridian"
+      }
+    },
+    {
+      "kind": "employment",
+      "organizationRef": "tidewaterfederal.example.com",
+      "name": "Tidewater Federal Services",
+      "industry": "Defense Consulting",
+      "importance": 3,
+      "locations": [
+        {
+          "city": "Fort Meade",
+          "region": "MD",
+          "country": "US"
+        }
+      ],
+      "positions": [
+        {
+          "title": "Cybersecurity Analyst",
+          "seniority": "ic",
+          "grade": "Senior Consultant",
+          "employmentType": "full-time",
+          "dateRange": {
+            "start": {
+              "year": 2018,
+              "month": 9
+            },
+            "end": {
+              "year": 2020,
+              "month": 12
+            }
+          },
+          "summary": "DoD contract supporting cyber threat analysis. First civilian role after Army separation. Applied military cyber experience to defense contractor environment.",
+          "achievements": [
+            {
+              "statement": "Performed threat analysis supporting DoD network defense operations, authoring 50+ threat intelligence reports",
+              "kind": "responsibility",
+              "importance": 3,
+              "visibility": "public"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "military",
+      "organizationRef": "army.mil",
+      "name": "United States Army",
+      "domainAtTime": "army.mil",
+      "branch": "U.S. Army",
+      "serviceType": "active-duty",
+      "industry": "Military",
+      "importance": 5,
+      "discharge": {
+        "type": "honorable",
+        "date": {
+          "year": 2018,
+          "month": 8
+        },
+        "separationDocument": "DD-214",
+        "visibility": "public"
+      },
+      "locations": [
+        {
+          "city": "Fort Gordon",
+          "region": "GA",
+          "country": "US"
+        },
+        {
+          "city": "Fort Hood",
+          "region": "TX",
+          "country": "US"
+        }
+      ],
+      "positions": [
+        {
+          "title": "Cyber Operations Specialist",
+          "seniority": "nco",
+          "grade": "E-6 (Staff Sergeant)",
+          "occupationalCode": {
+            "system": "MOS",
+            "code": "17C",
+            "title": "Cyber Operations Specialist"
+          },
+          "employmentType": "full-time",
+          "dateRange": {
+            "start": {
+              "year": 2016,
+              "month": 1
+            },
+            "end": {
+              "year": 2018,
+              "month": 8
+            }
+          },
+          "locations": [
+            {
+              "city": "Fort Gordon",
+              "region": "GA",
+              "country": "US"
+            }
+          ],
+          "summary": "Led a 6-person cyber operations team conducting defensive cyber operations and vulnerability assessments for Army networks.",
+          "achievements": [
+            {
+              "statement": "Led defensive cyber operations team protecting 15,000-node enterprise network, maintaining zero successful intrusions during 18-month tenure",
+              "kind": "responsibility",
+              "metrics": [
+                {
+                  "kind": "count",
+                  "value": 15000,
+                  "unit": "network nodes"
+                }
+              ],
+              "importance": 5,
+              "visibility": "public"
+            },
+            {
+              "statement": "Trained and mentored 12 junior soldiers transitioning into the new 17C MOS career field",
+              "kind": "accomplishment",
+              "importance": 3,
+              "visibility": "public"
+            }
+          ],
+          "deployments": [
+            {
+              "name": "Operation Inherent Resolve",
+              "location": {
+                "country": "KW"
+              },
+              "dateRange": {
+                "start": {
+                  "year": 2017,
+                  "month": 3
+                },
+                "end": {
+                  "year": 2017,
+                  "month": 9
+                }
+              },
+              "description": "Deployed as part of ARCYBER forward element supporting OIR cyber operations.",
+              "combat": false,
+              "visibility": "public"
+            }
+          ]
+        },
+        {
+          "title": "Signal Support Systems Specialist",
+          "seniority": "enlisted",
+          "grade": "E-4 (Specialist) → E-5 (Sergeant)",
+          "occupationalCode": {
+            "system": "MOS",
+            "code": "25U",
+            "title": "Signal Support Systems Specialist"
+          },
+          "employmentType": "full-time",
+          "dateRange": {
+            "start": {
+              "year": 2010,
+              "month": 8
+            },
+            "end": {
+              "year": 2015,
+              "month": 12
+            }
+          },
+          "locations": [
+            {
+              "city": "Fort Hood",
+              "region": "TX",
+              "country": "US"
+            }
+          ],
+          "summary": "Maintained and operated signal systems supporting brigade-level communications. Progressed from Specialist to Sergeant.",
+          "achievements": [
+            {
+              "statement": "Maintained 99.7% uptime on tactical communications systems supporting a 3,500-soldier brigade",
+              "kind": "responsibility",
+              "metrics": [
+                {
+                  "kind": "utilization",
+                  "value": 99.7,
+                  "unit": "%"
+                }
+              ],
+              "importance": 4,
+              "visibility": "public"
+            }
+          ],
+          "deployments": [
+            {
+              "name": "Operation Enduring Freedom",
+              "location": {
+                "country": "AF"
+              },
+              "dateRange": {
+                "start": {
+                  "year": 2012,
+                  "month": 2
+                },
+                "end": {
+                  "year": 2013,
+                  "month": 1
+                }
+              },
+              "description": "11-month deployment providing signal support to brigade combat team.",
+              "combat": true,
+              "visibility": "public"
+            }
+          ]
+        }
+      ],
+      "progression": {
+        "finalTitle": "Staff Sergeant (E-6)",
+        "promotionCount": 3,
+        "note": "Entered as E-2 (PV2), promoted to E-6 over 8 years. Reclassified from 25U to 17C in 2016 when Army stood up the cyber MOS."
+      },
+      "spanning": [
+        {
+          "statement": "Army Commendation Medal (x2), Army Achievement Medal (x3)",
+          "kind": "recognition",
+          "importance": 3,
+          "visibility": "public"
+        },
+        {
+          "statement": "Held TS/SCI clearance throughout service with CI polygraph",
+          "kind": "responsibility",
+          "importance": 4,
+          "visibility": "shared"
+        }
+      ],
+      "exitContext": {
+        "reason": "new-opportunity",
+        "statement": "Completed service obligation and transitioned to defense contracting to stay in the cyber field with better pay.",
+        "visibility": "private"
+      }
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Texas at San Antonio",
+      "domainAtTime": "utsa.edu",
+      "kind": "degree",
+      "degree": "MS",
+      "field": "Cybersecurity",
+      "dateRange": {
+        "start": {
+          "year": 2019
+        },
+        "end": {
+          "year": 2021
+        }
+      },
+      "status": "completed",
+      "honors": [
+        "4.0 GPA"
+      ],
+      "achievements": [
+        {
+          "statement": "Thesis: 'Automated Threat Hunting in Zero Trust Environments Using Machine Learning'",
+          "kind": "accomplishment",
+          "importance": 3,
+          "visibility": "public"
+        }
+      ],
+      "importance": 4
+    },
+    {
+      "institution": "University of Maryland Global Campus",
+      "kind": "degree",
+      "degree": "BS",
+      "field": "Computer Networks and Cybersecurity",
+      "dateRange": {
+        "start": {
+          "year": 2014
+        },
+        "end": {
+          "year": 2018
+        }
+      },
+      "status": "completed",
+      "achievements": [
+        {
+          "statement": "Completed degree while serving active duty, using military tuition assistance",
+          "kind": "accomplishment",
+          "importance": 2,
+          "visibility": "public"
+        }
+      ],
+      "importance": 3
+    }
+  ],
+  "certifications": [
+    {
+      "name": "CISSP",
+      "type": "certification",
+      "issuer": "(ISC)²",
+      "domainAtTime": "isc2.org",
+      "dateRange": {
+        "start": {
+          "year": 2020,
+          "month": 6
+        }
+      },
+      "status": "active",
+      "importance": 5
+    },
+    {
+      "name": "CISM",
+      "type": "certification",
+      "issuer": "ISACA",
+      "dateRange": {
+        "start": {
+          "year": 2022,
+          "month": 3
+        }
+      },
+      "status": "active",
+      "importance": 4
+    },
+    {
+      "name": "CompTIA Security+ CE",
+      "type": "certification",
+      "issuer": "CompTIA",
+      "family": "CompTIA",
+      "level": "Security+",
+      "dateRange": {
+        "start": {
+          "year": 2015,
+          "month": 1
+        }
+      },
+      "status": "active",
+      "importance": 3
+    },
+    {
+      "name": "AWS Certified Security - Specialty",
+      "type": "certification",
+      "issuer": "Amazon Web Services",
+      "domainAtTime": "aws.amazon.com",
+      "dateRange": {
+        "start": {
+          "year": 2022,
+          "month": 9
+        }
+      },
+      "status": "active",
+      "importance": 3
+    }
+  ],
+  "service": [
+    {
+      "organization": "VetsinTech",
+      "domainAtTime": "vetsintech.org",
+      "role": "Volunteer Mentor",
+      "dateRange": {
+        "start": {
+          "year": 2019
+        },
+        "end": {
+          "present": true
+        }
+      },
+      "description": "Mentor transitioning veterans through tech career workshops and resume reviews. Lead the San Antonio chapter's cybersecurity track.",
+      "importance": 3,
+      "visibility": "public"
+    }
+  ],
+  "speaking": [
+    {
+      "title": "From MOS to SOC: Building Cyber Careers After Service",
+      "event": "BSides San Antonio",
+      "date": {
+        "year": 2024
+      },
+      "description": "Keynote on military-to-civilian cyber career transitions.",
+      "importance": 3
+    }
+  ],
+  "publications": [
+    {
+      "title": "Automated Threat Hunting in Zero Trust Environments",
+      "venue": "UTSA Cybersecurity Research Lab",
+      "date": {
+        "year": 2021,
+        "month": 5
+      },
+      "identifier": "UTSA-CS-2021-017",
+      "importance": 2
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "proficiency": "native-or-bilingual",
+      "native": true
+    },
+    {
+      "language": "Spanish",
+      "proficiency": "professional-working",
+      "dialect": "Mexican",
+      "context": [
+        "heritage speaker",
+        "business conversations",
+        "technical interviews"
+      ],
+      "speaking": "full-professional",
+      "writing": "limited-working"
+    }
+  ],
+  "references": [
+    {
+      "name": "COL (Ret.) James Whitfield",
+      "relationship": "Battalion Commander at Fort Gordon, oversaw cyber operations team",
+      "title": "VP of Cyber Programs, Raytheon",
+      "linkedin": "https://linkedin.com/in/jameswhitfield-example",
+      "strengths": [
+        "military leadership",
+        "technical capability",
+        "character and integrity"
+      ],
+      "lastContactDate": {
+        "year": 2025,
+        "month": 11
+      },
+      "notes": "Prefers phone. Very supportive of my transition.",
+      "visibility": "private"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Capture The Flag (CTF) competitions",
+      "description": "Active competitor on DefCon CTF team 'VetSec'. Placed top 20 in 2024.",
+      "current": true
+    },
+    {
+      "name": "Youth STEM mentoring",
+      "description": "Volunteer instructor for CyberPatriot, Air Force Association's youth cyber education program.",
+      "current": true
+    }
+  ],
+  "goals": {
+    "summary": "Build or lead a security organization at an established company, ideally a CISO or VP Security role. Strong second preference: lead a focused security capability (SOC, IR, security engineering) at a fast-growing pre-IPO company where there's room to shape function from the ground up.",
+    "roles": [
+      {
+        "title": "CISO",
+        "preference": "primary",
+        "notes": "Established companies preferred to true greenfield startups; want to inherit something rather than build from zero again."
+      },
+      {
+        "title": "VP Security",
+        "preference": "primary"
+      },
+      {
+        "title": "Head of SOC / IR",
+        "preference": "secondary",
+        "notes": "Open to functional leadership at larger scale if title is right."
+      },
+      {
+        "title": "Director of Security Engineering",
+        "preference": "open-to"
+      }
+    ],
+    "locations": [
+      {
+        "value": "Austin",
+        "preference": "primary"
+      },
+      {
+        "value": "remote",
+        "preference": "primary"
+      },
+      {
+        "value": "San Antonio",
+        "preference": "secondary"
+      },
+      {
+        "value": "Dallas-Fort Worth",
+        "preference": "secondary"
+      },
+      {
+        "value": "Washington DC area",
+        "preference": "open-to"
+      }
+    ],
+    "constraints": [
+      "No on-call rotation as a primary contributor — willing to be the executive escalation for major incidents",
+      "No travel above 25%",
+      "No companies under 50 employees — want operating scale, not a true zero-to-one build"
+    ],
+    "motivations": [
+      "Lead a function at organizational scale rather than continuing to be a player-coach builder",
+      "Sit at the executive table on security strategy rather than translate it up",
+      "Mentor a deeper security bench than I have today"
+    ],
+    "visibility": "private"
+  },
+  "cautions": [
+    {
+      "claim": "characterized as a Big Four consulting alumnus",
+      "reason": "Tidewater Federal is a defense consulting firm with similar work but a different brand bucket. Some recruiters group them together; the user prefers to be positioned against defense consulting peers, not Deloitte / EY / KPMG / PwC.",
+      "visibility": "private",
+      "addedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 21
+      },
+      "provenance": {
+        "source": "interview-derived",
+        "date": "2026-05-21",
+        "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+        "operation": "positioning-correction",
+        "confidence": 0.9
+      }
+    },
+    {
+      "claim": "claimed as an AI / ML security specialist",
+      "reason": "Has good operational exposure to ML-based detection tooling but does not have research-level expertise. Past LLM draft positioned this too strongly; corrected here.",
+      "visibility": "private",
+      "provenance": {
+        "source": "interview-derived",
+        "note": "Captured after an earlier draft over-positioned ML expertise; the user pushed back during review.",
+        "date": "2026-05-21",
+        "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+        "operation": "overclaim-correction"
+      },
+      "addedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 21
+      }
+    }
+  ],
+  "openQuestions": [
+    {
+      "question": "Mine the biggest-mistake reflection (security awareness underinvestment) into a structured achievement — the frame should lead with the lesson, not the win, and that framing isn't obvious yet.",
+      "context": "Surfaced during reflections elicitation; left as a reflection for now.",
+      "visibility": "private",
+      "addedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 21
+      },
+      "provenance": {
+        "source": "interview-derived",
+        "date": "2026-05-21",
+        "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+        "operation": "reflection-mining-follow-up",
+        "confidence": 0.8
+      }
+    },
+    {
+      "question": "Clarify whether the ransomware-response achievement should name the affected clinical system or keep the description generic.",
+      "context": "The current achievement is strong, but more specificity may improve interview storytelling while also increasing sensitivity. Decide during review before using it in external materials.",
+      "visibility": "private",
+      "addedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 21
+      },
+      "provenance": {
+        "source": "interview-derived",
+        "date": "2026-05-21",
+        "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+        "operation": "sensitivity-review-follow-up",
+        "confidence": 0.85
+      }
+    },
+    {
+      "question": "Explore whether Maria has civilian-sector examples of handling hard staffing issues, such as coaching, performance plans, reassignments, or managing out poor performers, after moving from military leadership into healthcare security leadership.",
+      "context": "Her military roles emphasize mentoring junior personnel, but the healthcare leadership material does not yet show how she handles difficult performance-management situations in a civilian organization. This is a common gap to probe for military-to-civilian leadership transitions and could become either a private reflection or a carefully framed leadership achievement.",
+      "visibility": "private",
+      "addedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 24
+      },
+      "provenance": {
+        "source": "llm-suggested",
+        "date": "2026-05-24",
+        "sessionTopic": "Military-to-civilian leadership review",
+        "operation": "coaching-gap-detection",
+        "confidence": 0.75,
+        "note": "Added during a later review pass that looked for leadership gaps not obvious from the source resume."
+      }
+    },
+    {
+      "question": "For the SOC buildout, clarify what Maria directly owned versus what her managers or team leads owned as the team scaled from 0 to 12 analysts.",
+      "context": "The achievement is strong, but attribution precision will help curators choose honest verbs. Explore budget ownership, hiring authority, headcount responsibility, and who reported progress upward.",
+      "visibility": "private",
+      "addedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 24
+      },
+      "provenance": {
+        "source": "llm-suggested",
+        "date": "2026-05-24",
+        "sessionTopic": "Attribution precision review",
+        "operation": "attribution-follow-up",
+        "confidence": 0.8,
+        "note": "Added after attribution fields were introduced to prompt a cleaner distinction between owned, led, and delegated work."
+      }
+    }
+  ],
+  "voice": {
+    "style": "plain-direct",
+    "avoidPhrases": [
+      "leveraged",
+      "synergize",
+      "passionate about",
+      "results-driven",
+      "team player",
+      "thought leader"
+    ],
+    "preferredPhrases": [
+      "led",
+      "owned",
+      "built",
+      "reduced",
+      "recovered",
+      "decided"
+    ],
+    "customNotes": "Active voice, past tense for completed work. Short sentences over compound ones. When in doubt between two framings, pick the one that names what was actually done rather than what was 'contributed to'."
+  },
+  "aiInstructions": "Push back when I undersell. Default to plain-direct voice. When drafting for a CISO-track role, prioritize executive-judgment achievements over technical-depth achievements unless the JD specifically calls for deep technical hands-on work. When unsure about something I might have said in a previous session, ask before drafting — do not pattern-match from generic security-leader resumes I have not approved.",
+  "sourceArtifacts": [
+    {
+      "id": "sample-resume-source-2026-05",
+      "kind": "resume",
+      "label": "Sample source resume for Maria E. Reyes",
+      "capturedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 20
+      },
+      "artifactDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 20
+      },
+      "audience": [
+        "cybersecurity-leadership",
+        "healthcare-security"
+      ],
+      "sourceTool": "manual-example",
+      "fileName": "sample-resume-source.txt",
+      "rawIncluded": false,
+      "notes": "Fictional source resume captured before later refinement passes. The source resume is intentionally shorter than the OCF to demonstrate how source material can become richer career memory after review.",
+      "visibility": "private"
+    },
+    {
+      "id": "ciso-track-refinement-2026-05-21",
+      "kind": "chat-paste",
+      "label": "CISO-track refinement conversation",
+      "capturedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 21
+      },
+      "audience": [
+        "ciso-track",
+        "executive-judgment"
+      ],
+      "sourceTool": "Recommended OCF LLM prompt",
+      "rawIncluded": false,
+      "notes": "Fictional LLM-assisted review conversation that expanded a compressed ransomware bullet into structured facts, private reflections, narrative variants, cautions, and open questions.",
+      "visibility": "private"
+    }
+  ]
+}
