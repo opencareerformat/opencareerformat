@@ -10,5 +10,6 @@ Canonical example OCF files used by the validator and by tool authors as referen
 | `sample-job-description.txt` | Fictional target job description used by the reference curator examples. |
 | `repeated-organization-variants.json` | A compact fictional example showing a reusable `organizations` record referenced by two separate tenures, a `sourceArtifacts` registry for old resumes / pasted chat data, bullet-level `narrativeVariants`, and position-level `titleVariants` with required basis. |
 | `sales-compensation-private.json` | A compact fictional example showing private compensation history and sales quota records alongside shareable quota-attainment achievements and a public podcast appearance. |
+| `open-source-project.json` | A compact fictional example showing independent open-source work as a top-level `projects` entry with a GitHub repository link, public achievements, skills, and renderer grouping. |
 
 All files in this directory validate against `../schema.json` and are exercised by `reference/validator/validate.js`. They are fictional; do not infer real persons or events.

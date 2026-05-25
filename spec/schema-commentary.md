@@ -26,6 +26,7 @@ OCF is deliberately a file format, not a platform. The schema defines what can b
 - [Visibility](#visibility)
 - [`experience`](#experience)
 - [`organizations`](#organizations)
+- [Projects And Open Source](#projects-and-open-source)
 - [Achievements](#achievements)
 - [Attribution](#attribution)
 - [Metrics](#metrics)
@@ -344,6 +345,14 @@ Example:
 ```
 
 Use `domainAtTime` when an organization used a different domain during that tenure.
+
+## Projects And Open Source
+
+Use top-level `projects` for meaningful work that is not tied to a specific employer, client, or position: independent open-source work, personal projects, creative work, independent research, or freelance-like projects where the project itself is the durable career signal.
+
+If the project happened as part of a role, prefer `position.projects` so the relationship to the job stays structural. If the project stands on its own, use top-level `projects` with `category: "open-source"` and a `links` entry for the GitHub repository.
+
+See `spec/examples/open-source-project.json` for a compact example using Open Career Format as an open-source project with a public GitHub repo link.
 
 ## Achievements
 

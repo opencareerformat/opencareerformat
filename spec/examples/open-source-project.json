@@ -1,0 +1,84 @@
+{
+  "$schema": "https://opencareerformat.org/v0.2/schema.json",
+  "schemaVersion": "0.2",
+  "meta": {
+    "canonical": true,
+    "fileRole": "candidate-master",
+    "variant": "master",
+    "lastModified": "2026-05-24",
+    "language": "en-US",
+    "source": {
+      "kind": "authored"
+    }
+  },
+  "person": {
+    "name": {
+      "renderAs": "Alex Example"
+    },
+    "headline": "Schema author and open-source maintainer"
+  },
+  "projects": [
+    {
+      "id": "open-career-format",
+      "name": "Open Career Format",
+      "role": "Founder and Maintainer",
+      "category": "open-source",
+      "dateRange": {
+        "start": {
+          "year": 2026,
+          "month": 5
+        },
+        "end": {
+          "present": true
+        }
+      },
+      "description": "Created and maintain an open schema for preserving private career history and preparing purpose-specific career artifacts.",
+      "achievements": [
+        {
+          "id": "ocf-v02-release",
+          "statement": "Designed and published Open Career Format v0.2, including the JSON schema, examples, LLM authoring guidance, reference importers, curators, exporters, and GitHub Pages documentation.",
+          "kind": "accomplishment",
+          "skills": [
+            "Schema Design",
+            "Technical Writing",
+            "Open Source",
+            "LLM Workflow Design"
+          ],
+          "visibility": "public",
+          "provenance": {
+            "source": "authored",
+            "date": "2026-05-24",
+            "confidence": 0.9
+          }
+        }
+      ],
+      "skills": [
+        "JSON Schema",
+        "Career Data Modeling",
+        "Documentation",
+        "Reference Tooling"
+      ],
+      "links": [
+        {
+          "url": "https://github.com/opencareerformat/opencareerformat",
+          "label": "GitHub repository",
+          "kind": "code"
+        },
+        {
+          "url": "https://opencareerformat.org",
+          "label": "Project website",
+          "kind": "artifact"
+        }
+      ],
+      "renderAs": "Open Source",
+      "importance": 5,
+      "audiences": [
+        "open-source",
+        "schema-design",
+        "technical-writing",
+        "developer-tools"
+      ],
+      "visibility": "public"
+    }
+  ]
+}
