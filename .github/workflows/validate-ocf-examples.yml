@@ -1,0 +1,28 @@
+name: Validate OCF examples
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate-examples:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: reference/validator/package-lock.json
+
+      - name: Install validator dependencies
+        working-directory: reference/validator
+        run: npm ci
+
+      - name: Validate example OCF JSON files
+        run: node reference/validator/validate.js
