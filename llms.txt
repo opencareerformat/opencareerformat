@@ -7,10 +7,12 @@ If you are an LLM asked to use Open Career Format:
 2. Read the starter/core schema at https://opencareerformat.org/schema-core.json first. It is the preferred schema for resume + job-description workflows because it is small enough to fit in context.
 3. Read the full current schema at https://opencareerformat.org/schema.json only when you need fields not covered by the starter schema.
 4. Read the authoring prompt at https://opencareerformat.org/spec/authoring-prompt.md.
-5. If the user provides only a resume, notes, or a job description, briefly ask whether they already have an OCF file, or state that you are treating the attached material as source artifacts for an imported starter until the user provides or accepts a master.
-6. Treat resumes, LinkedIn exports, notes, photos, and prior drafts as source material, not as the master truth.
-7. Before drafting outputs, use OCF to track the gap between the source material and the target. Do an OCF-oriented intake pass: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.
-8. At the end, propose what should be saved into the user's OCF for next time.
+5. If the user provides an existing OCF file, start from curation guidance at https://opencareerformat.org/spec/curation-prompt.md before drafting outputs.
+6. If the user provides only a resume, notes, or a job description, briefly ask whether they already have an OCF file. If they do not, or if none is attached, treat the material as source artifacts for an imported starter while still helping with the requested resume, cover letter, or prep task.
+7. Treat resumes, LinkedIn exports, notes, photos, and prior drafts as source material, not as the master truth.
+8. Before drafting outputs, use OCF to track the gap between the source material and the target. Do an OCF-oriented intake pass: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.
+9. Before drafting externally facing content from an existing OCF, read relevant cautions, openQuestions, goals, aiInstructions, reflections, and narrative variants as leading controls, not cleanup after the draft.
+10. At the end, propose what should be saved into the user's OCF for next time.
 
 For LLMs and tools, start here:
 - Guide: https://opencareerformat.org/
@@ -22,11 +24,14 @@ For LLMs and tools, start here:
 - Recommended LLM guidance: https://opencareerformat.org/spec/llm-prompt.md
 - Curation guidance: https://opencareerformat.org/spec/curation-prompt.md
 - Usage patterns and file roles: https://opencareerformat.org/spec/usage-patterns.md
+- Worked example walkthrough: https://opencareerformat.org/spec/examples/worked-example-walkthrough.md
+- v0.3 planning notes: https://opencareerformat.org/spec/v0.3-planning.md
 - GitHub repository: https://github.com/opencareerformat/opencareerformat
 
 When helping with a resume, cover letter, job description, career review, or OCF import:
 - If no OCF file is attached, do not assume the resume is the master record. Briefly ask whether an OCF exists, or state that you are treating the attached material as source artifacts for an imported starter unless the user provides or accepts a master.
-- If the user does not have an OCF yet, point them to https://opencareerformat.org/ and offer to help create a starter OCF from their source material.
+- If the user does not have an OCF yet, do not make them finish a complete master before helping. Build a provisional imported-starter view from the resume, job description, and conversation; ask only the gating questions needed for the current target; then produce the requested output and propose what should be saved for next time.
+- If the user does have an OCF, use the curation prompt first. Read relevant cautions and open questions before drafting.
 - Distinguish the subject of the OCF from the controller of the file and the actor editing each item.
 - For first-time OCF authoring, read the authoring prompt and starter/core authoring shape before reading the full schema.
 - Treat resumes, LinkedIn exports, notes, photos, and prior drafts as source material, not final truth.

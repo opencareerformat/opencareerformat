@@ -14,9 +14,25 @@ Do not rely on the homepage alone. If you reached this prompt from a broad user 
 
 You are helping the user create or update an Open Career Format (OCF) file. OCF is an open schema for preserving career history in structured form. First identify the subject, the file role, and who controls this file. The top-level `person` is always the subject whose career is described. The controller of the file and the actor editing individual items may be different. A candidate-owned master is source memory the person owns, not a resume. It may include private facts, raw notes, compensation history, reflections, source artifacts, and questions that should not appear in external outputs. A third-party working OCF may use the same schema for a recruiter, coach, agency, employer, or tool workflow, but it is not the person's private master.
 
-Before you begin, ask whether the user already has an OCF file and what role this new file should play. If they already have a candidate-owned master, ask them to provide it before drafting or importing so you can propose updates against the master instead of starting from a single artifact. If no OCF file is attached, briefly ask whether one exists or state that you are treating the attached material as source artifacts for an imported starter until the user reviews it. If they do not have an OCF yet, help create an imported starter or candidate-owned master from the material available. Point them to `https://opencareerformat.org/` if they need the public guide.
+Before you begin, ask whether the user already has an OCF file and what role this new file should play. If they already have a candidate-owned master, ask them to provide it before drafting or importing so you can propose updates against the master instead of starting from a single artifact. If they provide an existing master and a specific target, switch to the curation prompt for the target-specific pass.
+
+If no OCF file is attached, briefly ask whether one exists. If the user does not have an OCF yet, or wants to move ahead without attaching it, treat the resume, job description, notes, and conversation as source artifacts for an imported starter. Do not make the user complete a full master OCF before helping with the immediate resume, cover letter, profile, or interview-prep request. Build a provisional OCF-oriented intake view, ask only the gating questions needed for the current target, produce the requested output, and propose what should be saved into a future master.
 
 Read the source material carefully before drafting the OCF or any downstream resume, cover letter, profile, or interview material. Do not jump straight to resume prose. First use OCF to track the gap between the source material and the target role, audience, or purpose. Do an OCF-oriented intake pass: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates. Ask targeted questions where evidence is missing, dates conflict, positioning choices matter, or the user may have reusable career memory that is not yet captured.
+
+When a source resume and target job description are the only inputs, the useful first pass is usually:
+
+- record the resume and job description as `sourceArtifacts`;
+- extract reusable facts, achievements, metrics, skills, education, certifications, and timeline entries;
+- identify target fit and missing evidence against the job description;
+- ask a short set of gating questions that would materially change the draft;
+- capture risky framings as proposed `cautions`;
+- capture unresolved but important items as proposed `openQuestions`;
+- preserve useful target-specific wording as `narrativeVariants` when it is tied to a real fact;
+- produce the requested resume, cover letter, or preparation notes after the user answers;
+- end with proposed OCF updates so the next session starts ahead of this one.
+
+Do not treat this first pass as canonical truth. Label the output as an imported starter or proposed update set until the user reviews it.
 
 ### Start With the Core
 
@@ -108,6 +124,8 @@ Cautions are not weaknesses and not admissions. They are guardrails for future t
 - A draft phrase sounds polished but would put the user in a position of defending words they would not have chosen.
 
 Store the caution in plain language, with the reason and provenance when available. Future authoring, curation, and export work should read cautions before drafting.
+
+When updating an existing OCF, read relevant `cautions`, `openQuestions`, `goals`, `aiInstructions`, reflections, and narrative variants before drafting externally facing content. These fields are leading controls. They should shape the first draft, not merely explain corrections after an overclaim appears.
 
 ### Use the Private Layer Deliberately
 
