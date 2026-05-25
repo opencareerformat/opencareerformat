@@ -4,7 +4,7 @@ Learning and Employment Record Resume Standard (LER-RS) is closer to credential 
 
 ## Direction
 
-Primary direction: `derived OCF + credential evidence -> LER-RS`.
+Primary direction: `export-ready OCF file + credential evidence -> LER-RS`.
 
 OCF alone should not claim cryptographic verification. If a credential is merely recorded in OCF, export it as an asserted credential fact unless the exporter also has access to verifiable credential payloads, badge assertions, registry confirmations, or wallet data.
 
@@ -48,7 +48,7 @@ LER-RS is not the right home for:
 - alternate prose variants that are only useful for resume wording
 - unsupported title variants
 
-These should remain in OCF unless the user has a specific reason to include them in a derived export.
+These should remain in OCF unless the user has a specific reason to include them in a curated export.
 
 ## Import Guidance
 

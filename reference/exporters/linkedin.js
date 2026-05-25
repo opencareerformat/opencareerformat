@@ -128,7 +128,23 @@ function main() {
   }
 
   const doc = readOcf(inputPath);
-  writeOutput(outputPath, toLinkedInBundle(doc));
+  const bundle = toLinkedInBundle(doc);
+  writeOutput(outputPath, bundle);
+  printExportSummary(doc, bundle, outputPath || "stdout");
+}
+
+function printExportSummary(doc, bundle, outputPath) {
+  const sectionCount = (bundle.match(/^## /gm) || []).length;
+  const bulletCount = (bundle.match(/^- /gm) || []).length;
+  console.error("OCF reference LinkedIn exporter summary");
+  console.error("This is a bare-bones proof-of-concept exporter that creates a paste bundle, not a LinkedIn API integration.");
+  console.error(`Wrote LinkedIn paste bundle: ${outputPath}`);
+  console.error(`Sections exported: ${sectionCount}`);
+  console.error(`Bullets exported: ${bulletCount}`);
+  console.error(`Private OCF items are not exported by this reference tool.`);
+  if (doc.meta?.fileRole !== "export-ready") {
+    console.error(`Input fileRole is ${doc.meta?.fileRole || "unspecified"}; review curation before treating this as final output.`);
+  }
 }
 
 if (require.main === module) {

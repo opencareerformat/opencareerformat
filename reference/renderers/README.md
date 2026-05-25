@@ -9,7 +9,7 @@ A toy renderer that emits an unattractive or poorly paginated PDF would not prov
 Planned future work:
 
 - choose a practical rendering stack
-- render a derived OCF into a clean PDF resume
+- render an export-ready OCF file into a clean PDF resume
 - handle page breaks and section ordering deliberately
-- keep the rendered output clearly separate from the master and derived OCF files
+- keep the rendered output clearly separate from the master and export-ready OCF files
 - remind users to review every word before sending

@@ -4,7 +4,7 @@ LinkedIn is both a public profile and a platform with its own editing UI. OCF sh
 
 ## Direction
 
-Primary direction: `public-profile or audience-specific derived OCF -> LinkedIn paste/update bundle`.
+Primary direction: `public-profile or audience-specific export-ready OCF file -> LinkedIn paste/update bundle`.
 
 Reverse direction: `LinkedIn export/profile text -> source artifact for OCF import`.
 
@@ -53,6 +53,6 @@ When importing from LinkedIn:
 
 ## Privacy
 
-LinkedIn is broadly public even when profile visibility is restricted. Exporters should use a public-profile derived OCF by default and should warn before including phone, email, exact address, private reflections, source artifacts, salary, exit context, or sensitive demographic fields.
+LinkedIn is broadly public even when profile visibility is restricted. Exporters should use a public-profile export-ready OCF file by default and should warn before including phone, email, exact address, private reflections, source artifacts, salary, exit context, or sensitive demographic fields.
 
 Public social/profile links are appropriate when selected by the user, but they still reveal identity and activity outside the resume. Treat Bluesky, Mastodon, X/Twitter, GitHub, ORCID, Google Scholar, YouTube, and similar accounts as public profile choices, not harmless metadata.

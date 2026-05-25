@@ -16,8 +16,8 @@ function importResumeText(text, sourceFileName = "resume.txt") {
     meta: {
       id: crypto.randomUUID(),
       version: `imported-${now}`,
-      canonical: true,
-      variant: "master",
+      canonical: false,
+      fileRole: "imported-starter",
       lastModified: now,
       language: "en-US",
       source: { kind: "imported" },
@@ -276,6 +276,27 @@ function main() {
   const doc = importResumeText(text, inputPath);
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, `${JSON.stringify(doc, null, 2)}\n`);
+  printImportSummary(doc, outputPath);
+}
+
+function printImportSummary(doc, outputPath) {
+  const positions = (doc.experience || []).reduce((count, entry) => count + (entry.positions || []).length, 0);
+  const achievements = (doc.experience || []).reduce((count, entry) => {
+    return count + (entry.positions || []).reduce((inner, position) => inner + (position.achievements || []).length, 0);
+  }, 0);
+
+  console.error("OCF reference importer summary");
+  console.error("This is a bare-bones proof-of-concept importer, not a production resume parser.");
+  console.error(`Wrote imported starter: ${outputPath}`);
+  console.error(`Source artifacts: ${(doc.sourceArtifacts || []).length}`);
+  console.error(`Experience entries: ${(doc.experience || []).length}`);
+  console.error(`Positions: ${positions}`);
+  console.error(`Achievements: ${achievements}`);
+  console.error(`Skills: ${(doc.skills || []).length}`);
+  console.error(`Education entries: ${(doc.education || []).length}`);
+  console.error(`Certifications: ${(doc.certifications || []).length}`);
+  console.error(`Open questions: ${(doc.openQuestions || []).length}`);
+  console.error("Review and validate this file before treating any imported claim as durable career memory.");
 }
 
 if (require.main === module) {

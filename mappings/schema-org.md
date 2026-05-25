@@ -1,10 +1,10 @@
 # OCF to Schema.org Mapping
 
-Schema.org JSON-LD is useful for publishing public profile data on a personal website or portfolio. It is not a resume master and should usually be generated from a public-profile derived OCF.
+Schema.org JSON-LD is useful for publishing public profile data on a personal website or portfolio. It is not a resume master and should usually be generated from a public-profile export-ready OCF file.
 
 ## Direction
 
-Primary direction: `public-profile derived OCF -> Schema.org JSON-LD`.
+Primary direction: `public-profile export-ready OCF file -> Schema.org JSON-LD`.
 
 Reverse import from Schema.org is possible but typically low fidelity. Treat it as a source artifact, not as a replacement for the master OCF.
 
@@ -26,7 +26,7 @@ Use `Person` as the main object. Add related objects where useful:
 | `person.headline` | `Person.jobTitle` or `description` | Use carefully; `jobTitle` may imply current role. |
 | `person.website` | `Person.url` | Prefer canonical personal site. |
 | `person.linkedin`, `person.github`, `person.contacts[]` | `Person.sameAs` | Use for public profile URLs: LinkedIn, GitHub, Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitLab, YouTube, and similar identity/profile pages. |
-| `person.email` | `Person.email` | Include only in a public-profile derivative when intentional. |
+| `person.email` | `Person.email` | Include only in a public-profile export-ready OCF file when intentional. |
 | `person.location` | `Person.homeLocation` or `address` | Use coarse location unless the user explicitly wants detailed address data public. |
 | selected current position | `Person.worksFor`, `jobTitle` | Avoid exposing stealth or private employers. |
 | education | `Person.alumniOf` | Can point to `Organization` objects. |
@@ -36,7 +36,7 @@ Use `Person` as the main object. Add related objects where useful:
 
 ## Visibility
 
-Schema.org is public web metadata. Exporters should require a public-profile derived OCF or an explicit public export decision. Do not include private or shared-only material by default.
+Schema.org is public web metadata. Exporters should require a public-profile export-ready OCF file or an explicit public export decision. Do not include private or shared-only material by default.
 
 Fields that are especially risky in public JSON-LD:
 
@@ -51,7 +51,7 @@ Fields that are especially risky in public JSON-LD:
 
 ## Social and Profile Links
 
-Schema.org `sameAs` is the right place for public identity/profile URLs. Exporters should include only profiles the user intentionally made public in the derived OCF. For generic social contacts, use `contacts[].kind = "social"` and the `label` to name the service.
+Schema.org `sameAs` is the right place for public identity/profile URLs. Exporters should include only profiles the user intentionally made public in the export-ready OCF file. For generic social contacts, use `contacts[].kind = "social"` and the `label` to name the service.
 
 Examples:
 

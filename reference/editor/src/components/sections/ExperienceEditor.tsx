@@ -210,7 +210,7 @@ function ExperienceEntryEditor({ value, onChange }: { value: ExperienceEntry; on
           value={value.exitContext?.longform ?? ""}
           onChange={(v) => up("exitContext", { ...value.exitContext, longform: v || undefined })}
           multiline
-          hint="The full story — never appears in a derived file"
+          hint="The full story — never appears in curated/exported files without review"
         />
       </Collapsible>
 

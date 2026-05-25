@@ -4,13 +4,13 @@ This file holds the OCF community's recommended question set for tools that help
 
 This document is **not** part of the OCF schema. Tools may use these questions verbatim, adapt them, or invent their own. The point is that the canonical `kind` strings stay consistent across tools, so a user's reflections are portable. If a tool introduces a new reflection kind, it should use a clear, lowercase-hyphenated string and ideally contribute it back to this document.
 
-Reflections default to `visibility: private` and should not appear in derived OCFs or rendered outputs without explicit user permission.
+Reflections default to `visibility: private` and should not appear in curated OCFs, export-ready OCFs, or rendered outputs without explicit user permission.
 
 ## Why these questions
 
 The Topgrading interview methodology (Smart, *Who: The A Method for Hiring*, 2008) popularized a structured set of questions that hiring managers ask about every role on a candidate's resume. Whether or not the candidate's interviewer follows Topgrading literally, the *questions* surface answers candidates often haven't thought through — and answering them once, into a master file, dramatically improves interview readiness for any subsequent role.
 
-The questions also surface achievement material that resumes typically miss. "What are you proudest of?" frequently elicits a story that the user never wrote down because they didn't think it counted. A conversational tool that captures the reflection in raw form, and then proposes a structured achievement entry derived from it, builds the master file over time.
+The questions also surface achievement material that resumes typically miss. "What are you proudest of?" frequently elicits a story that the user never wrote down because they didn't think it counted. A conversational tool that captures the reflection in raw form, and then proposes a structured achievement entry distilled from it, builds the master file over time.
 
 ## Per-position questions
 
@@ -54,7 +54,7 @@ A tool that uses these questions to elicit reflections should follow the pattern
 
 1. **Surface gaps proactively.** When a user opens their OCF and a position has no reflections, the tool can offer to ask the standard set. Users who don't want to fill them in skip the prompt; users who do get a structured conversation.
 2. **Capture answers in the user's voice.** Store reflections as the user said them. Don't sanitize or normalize the prose. The texture matters for interview prep.
-3. **Look for distillable achievements.** When a reflection — especially `biggest-success`, `proudest-of`, or `biggest-lesson` — contains a story that should also exist as a structured achievement, propose adding the achievement, with provenance linking it to the originating reflection. Keep the reflection in place; the achievement is the structured derivative, the reflection is the raw voice.
+3. **Look for distillable achievements.** When a reflection — especially `biggest-success`, `proudest-of`, or `biggest-lesson` — contains a story that should also exist as a structured achievement, propose adding the achievement, with provenance linking it to the originating reflection. Keep the reflection in place; the achievement is the structured claim, the reflection is the raw voice.
 4. **Respect privacy defaults.** Reflections are `private` by default. Don't surface them in any externally-facing output without the user explicitly opting that reflection up to `shared` or `public`.
 
 ## Adding new kinds

@@ -17,6 +17,7 @@ For LLMs and tools, start here:
 - Current schema: https://opencareerformat.org/schema.json
 - Starter/core authoring shape: https://opencareerformat.org/schema-core.json
 - Annotated schema commentary: https://opencareerformat.org/spec/schema-commentary.md
+- Implementer quick reference: https://opencareerformat.org/spec/implementer-quick-reference.md
 - Authoring prompt: https://opencareerformat.org/spec/authoring-prompt.md
 - Recommended LLM guidance: https://opencareerformat.org/spec/llm-prompt.md
 - Curation guidance: https://opencareerformat.org/spec/curation-prompt.md

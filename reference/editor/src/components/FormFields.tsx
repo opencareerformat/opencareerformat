@@ -338,7 +338,7 @@ export function DateRangeField({
         label="Hide dates"
         checked={dr.dateIsPrivate ?? false}
         onChange={(v) => onChange({ ...dr, dateIsPrivate: v || undefined })}
-        hint="Dates stay in master but are suppressed in derived resumes"
+        hint="Dates stay in master but are suppressed in curated/exported resumes"
       />
     </div>
   );

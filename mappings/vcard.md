@@ -4,9 +4,9 @@ vCard is a contact-card format. It is useful for exporting a lightweight profile
 
 ## Direction
 
-Primary direction: `derived OCF -> vCard`.
+Primary direction: `export-ready OCF file -> vCard`.
 
-Export from a public-profile or contact-card derivative, not from the master OCF.
+Export from a public-profile or contact-card export-ready file, not from the master OCF.
 
 ## Core Mapping
 
@@ -33,6 +33,6 @@ vCard has no good home for:
 - provenance
 - private reflections
 - goals, cautions, open questions, voice, or AI instructions
-- derivation rationale
+- curation rationale
 
 Do not stuff resume content into `NOTE`. If the user needs a resume, export a rendered resume or another structured profile format instead.

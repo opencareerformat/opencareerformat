@@ -100,6 +100,51 @@
     margin: 1.5rem 0;
   }
   .callout p:last-child { margin-bottom: 0; }
+  .prompt-details {
+    margin: 0.75rem 0 1rem;
+  }
+  .prompt-details summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .prompt-panel {
+    margin-top: 0.75rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .prompt-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .copy-prompt {
+    border: 1px solid var(--border);
+    background: #f5f5f4;
+    color: var(--fg);
+    border-radius: 6px;
+    padding: 0.35rem 0.65rem;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .copy-prompt:hover,
+  .copy-prompt:focus {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .prompt-panel pre {
+    margin: 0;
+    padding: 0.9rem;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
   .llm-instructions {
     display: none;
   }
@@ -261,7 +306,7 @@
     <h1>Open Career Format</h1>
     <p class="subtitle">A private career notebook that becomes every resume you'll ever need.</p>
     <p>OCF is for preserving your own career history as it happens: what you did, what changed, what you learned, and what mattered.</p>
-    <p class="updated">Last updated: 2026-05-23</p>
+    <p class="updated">Last updated: 2026-05-25</p>
     <nav class="project-links" aria-label="Project links">
       <a href="https://github.com/opencareerformat/opencareerformat">GitHub repo</a>
       <a href="schema.json">Schema</a>
@@ -272,7 +317,27 @@
 </header>
 
 <div class="callout">
-  <p><strong>If you're an individual, get started quickly.</strong> If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and a job description. Do not include anything you would not want that tool to process. Then say: "Using only these OCF references: <code>https://opencareerformat.org/llms.txt</code>, <code>https://opencareerformat.org/schema-core.json</code>, and <code>https://opencareerformat.org/spec/authoring-prompt.md</code>, plus my attached resume and job description, help me create a better resume and cover letter for this role. Do not search for general prompt-writing, resume, schema, or background advice unless I ask you to. If no OCF file is attached, ask briefly whether one exists or treat the attached material as source artifacts for an imported starter until I review it. Before writing, use OCF to track the gaps between my source material and the target role: map my source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates. Ask targeted questions where needed. After I answer, draft the resume and cover letter. Finally, suggest what should be saved into my OCF for next time."</p>
+  <p><strong>If you're an individual, get started quickly.</strong> If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and a job description. Do not include anything you would not want that tool to process.</p>
+  <details class="prompt-details">
+    <summary>Show copyable LLM prompt</summary>
+    <div class="prompt-panel">
+      <div class="prompt-toolbar">
+        <button class="copy-prompt" type="button" data-copy-target="quickstart-prompt">Copy prompt</button>
+      </div>
+      <pre><code id="quickstart-prompt">Using only these OCF references:
+https://opencareerformat.org/llms.txt
+https://opencareerformat.org/schema-core.json
+https://opencareerformat.org/spec/authoring-prompt.md
+
+plus my attached resume and job description, help me create a better resume and cover letter for this role.
+
+Do not search for general prompt-writing, resume, schema, or background advice unless I ask you to. If no OCF file is attached, ask briefly whether one exists or treat the attached material as source artifacts for an imported starter until I review it.
+
+Before writing, use OCF to track the gaps between my source material and the target role: map my source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.
+
+Ask targeted questions where needed. After I answer, draft the resume and cover letter. Finally, suggest what should be saved into my OCF for next time.</code></pre>
+    </div>
+  </details>
   <p><strong>If you're looking to leverage OCF in some other way:</strong> start with <a href="spec/usage-patterns.md"><code>spec/usage-patterns.md</code></a>.</p>
 </div>
 
@@ -365,8 +430,10 @@
   <li><a href="spec/guide.html">Read the full OCF guide</a></li>
   <li><a href="schema.json">Use the current schema</a></li>
   <li><a href="schema-core.json">Use the starter/core authoring shape</a></li>
+  <li><a href="spec/implementer-quick-reference.md">Read the implementer quick reference</a></li>
   <li><a href="spec/authoring-prompt.md">Read the authoring prompt</a></li>
   <li><a href="llms.txt">Read the LLM/tool site map</a></li>
+  <li><a href="https://github.com/opencareerformat/opencareerformat">Read the GitHub README and repository</a></li>
 </ul>
 
 <footer>
@@ -374,6 +441,25 @@
   <p>Project: <a href="https://github.com/opencareerformat/opencareerformat">github.com/opencareerformat/opencareerformat</a></p>
   <p>Schema: <code>https://opencareerformat.org/schema.json</code></p>
 </footer>
+
+<script>
+  document.querySelectorAll(".copy-prompt").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const target = document.getElementById(button.dataset.copyTarget);
+      if (!target) return;
+      const originalText = button.textContent;
+      try {
+        await navigator.clipboard.writeText(target.textContent.trim());
+        button.textContent = "Copied";
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1600);
+      } catch {
+        button.textContent = "Select text";
+      }
+    });
+  });
+</script>
 
 </body>
 </html>

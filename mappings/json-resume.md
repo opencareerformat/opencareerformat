@@ -1,10 +1,10 @@
 # OCF to JSON Resume Mapping
 
-JSON Resume models a resume. OCF models the career record behind one or many resumes. Exporters should therefore map a derived OCF to JSON Resume, not the master OCF.
+JSON Resume models a resume. OCF models the career record behind one or many resumes. Exporters should therefore map an export-ready OCF file to JSON Resume, not the master OCF.
 
 ## Direction
 
-Primary direction: `derived OCF -> JSON Resume`.
+Primary direction: `export-ready OCF file -> JSON Resume`.
 
 Reverse import from JSON Resume is possible, but should be treated as importing a source artifact into a master OCF. A JSON Resume file usually lacks enough provenance, private context, variants, reflections, and source detail to reconstruct a complete master.
 
@@ -12,19 +12,19 @@ Reverse import from JSON Resume is possible, but should be treated as importing 
 
 | OCF | JSON Resume | Notes |
 |---|---|---|
-| `person.name.renderAs` | `basics.name` | Prefer the display name selected for this derived file. |
-| `person.headline` | `basics.label` | Use only if visible in the derived file. |
+| `person.name.renderAs` | `basics.name` | Prefer the display name selected for this export-ready file. |
+| `person.headline` | `basics.label` | Use only if visible in the export-ready file. |
 | `person.email` | `basics.email` | Export only when present and visible. |
 | `person.phone` | `basics.phone` | Export only when present and visible. |
 | `person.website` | `basics.url` | Prefer the canonical personal site or portfolio. |
 | `person.linkedin`, `person.github`, `person.contacts[]` | `basics.profiles` | Map recognizable social/profile links into `profiles`. Use contact `label` for services such as Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitLab, YouTube, or a portfolio network. |
 | `person.location` | `basics.location` | Preserve city, region, country where possible. |
-| `summary` or derived profile text | `basics.summary` | A curator may generate this from OCF evidence; do not invent unsupported claims. |
+| `summary` or curated profile text | `basics.summary` | A curator may generate this from OCF evidence; do not invent unsupported claims. |
 | `skills` | `skills` | Grouping is exporter-defined. Preserve names and keywords. |
-| `experience[].positions[]` | `work[]` | JSON Resume work items are role-shaped; split multi-position experience entries into separate work entries unless the derived output intentionally combines them. |
+| `experience[].positions[]` | `work[]` | JSON Resume work items are role-shaped; split multi-position experience entries into separate work entries unless the export-ready output intentionally combines them. |
 | `education` | `education` | Map institution, area, study type, dates, score, courses when available. |
 | `certifications` | `certificates` | Use certificate name, issuer, date, URL. |
-| `projects` | `projects` | Include only top-level or selected nested projects relevant to the derived file. |
+| `projects` | `projects` | Include only top-level or selected nested projects relevant to the export-ready file. |
 | `publications` | `publications` | Map title/name, publisher, release date, URL, summary. |
 | `awards` | `awards` | Map title, awarder, date, summary. |
 | `languages` | `languages` | Map language and fluency. |
@@ -54,7 +54,7 @@ JSON Resume `basics.profiles[]` expects a network name plus URL or username. Exp
 - `contacts[].kind = "social"` to the network named by `label`, such as `Bluesky`, `Mastodon`, `X/Twitter`, `ORCID`, `Google Scholar`, `GitLab`, or `YouTube`
 - `contacts[].kind = "url"` to `basics.url` only when it is the primary personal site; otherwise export it as a profile when the label names a recognizable network
 
-Do not export private contact methods or social accounts that are not present in the derived OCF.
+Do not export private contact methods or social accounts that are not present in the export-ready OCF file.
 
 ## Lossy Areas
 
@@ -66,7 +66,7 @@ JSON Resume does not have first-class homes for many OCF concepts:
 - private reflections
 - goals, cautions, open questions, voice, and AI instructions
 - top-level organizations registry
-- detailed visibility and derivation metadata
+- detailed visibility and curation metadata
 - structured metrics beyond prose highlights
 
 An exporter should not force these into JSON Resume unless using a clearly namespaced extension supported by the target tool.

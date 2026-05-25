@@ -18,6 +18,7 @@ OCF is deliberately a file format, not a platform. The schema defines what can b
 
 - [Core Mental Model](#core-mental-model)
 - [Naming Files](#naming-files)
+- [v0.2 Compatibility Names Replaced In v0.3](#v02-compatibility-names-replaced-in-v03)
 - [`meta`](#meta)
 - [`person`](#person)
 - [`sourceArtifacts`](#sourceartifacts)
@@ -73,6 +74,12 @@ Directory layout is a workflow choice. See `usage-patterns.md` for import, curat
 OCF does not force structure into filenames, but humans often benefit from names that describe the purpose. For example, a file generated specifically for a CISO role at Acme in May 2026 should have a name that reflects that context.
 
 Use explicit names before introducing abbreviations. A future curated example might be named `sample-resume.public-profile.ocf.json` or `sample-resume.acme-ciso.ocf.json`; do not assume a shorthand such as `.c.ocf.json` until usage proves it helpful.
+
+## v0.2 Compatibility Names Replaced In v0.3
+
+OCF v0.2 still carries a few schema names from the earlier "derived file" vocabulary: `meta.derivedFrom`, `meta.derivedFromVersion`, `meta.derivationNotes`, and `meta.source.kind: "derived"`. Treat these as compatibility names in v0.2. Tooling should preserve and read them, but new docs and UI should describe the workflow as curation and export-ready preparation.
+
+v0.3 should replace these fields and enum values with names that match the current language directly. Do not confuse them with provenance values such as `interview-derived`, which remain useful for describing how an item was elicited.
 
 ## `meta`
 

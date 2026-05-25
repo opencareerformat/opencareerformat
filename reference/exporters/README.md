@@ -2,7 +2,7 @@
 
 These are small, dependency-free example exporters. They demonstrate the mapping guidance in `mappings/`; they are not intended to be production renderers.
 
-Exporters should normally consume a derived OCF rather than the private master. The sample commands below use the fictional examples so the scripts are easy to try.
+Exporters should normally consume an export-ready OCF file rather than the private master. The sample commands below use the fictional examples so the scripts are easy to try.
 
 ## JSON Resume
 

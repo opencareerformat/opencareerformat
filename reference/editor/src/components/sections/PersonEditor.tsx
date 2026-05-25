@@ -162,7 +162,7 @@ export default function PersonEditor() {
       {/* Regional / Sensitive Fields */}
       <Collapsible title="Regional & Sensitive Fields">
         <p className="text-xs text-gray-500 mb-4">
-          These fields are required on resumes in some countries and prohibited in others. Store them if they apply to you — derivation tools handle regional rules.
+          These fields are required on resumes in some countries and prohibited in others. Store them if they apply to you — curators and exporters handle regional rules.
         </p>
         <TextField
           label="Photo URL"

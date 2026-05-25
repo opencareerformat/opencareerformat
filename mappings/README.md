@@ -8,18 +8,18 @@ These files are prose specifications, not code. They describe expected behavior 
 
 | Mapping | Direction | Purpose |
 |---|---|---|
-| [JSON Resume](json-resume.md) | OCF derived file -> JSON Resume | Export a resume-shaped OCF into the established JSON Resume ecosystem. |
-| [LER-RS](ler-rs.md) | OCF derived file + credential evidence -> LER-RS | Bridge OCF career narrative into learning and employment record infrastructure. |
-| [Schema.org](schema-org.md) | OCF derived file -> Schema.org JSON-LD | Publish public profile data in search-friendly structured data. |
-| [LinkedIn](linkedin.md) | OCF derived file -> LinkedIn paste/update bundle | Help users update LinkedIn without treating LinkedIn as the source of truth. |
-| [vCard](vcard.md) | OCF derived file -> vCard | Export contact/profile information for address books and lightweight profile exchange. |
+| [JSON Resume](json-resume.md) | OCF export-ready file -> JSON Resume | Export a resume-shaped OCF into the established JSON Resume ecosystem. |
+| [LER-RS](ler-rs.md) | OCF export-ready file + credential evidence -> LER-RS | Bridge OCF career narrative into learning and employment record infrastructure. |
+| [Schema.org](schema-org.md) | OCF export-ready file -> Schema.org JSON-LD | Publish public profile data in search-friendly structured data. |
+| [LinkedIn](linkedin.md) | OCF export-ready file -> LinkedIn paste/update bundle | Help users update LinkedIn without treating LinkedIn as the source of truth. |
+| [vCard](vcard.md) | OCF export-ready file -> vCard | Export contact/profile information for address books and lightweight profile exchange. |
 
 ## General Principles
 
-- Export from a derived OCF by default, not from the master.
+- Export from an export-ready OCF file by default, not from the master.
 - Preserve the master OCF as the source of truth. Exported files are outputs, not authoritative updates.
-- Respect `visibility`; do not export `private` items unless the user explicitly chose a private recipient-specific derivative.
+- Respect `visibility`; do not export `private` items unless the user explicitly chose a private recipient-specific curated or export-ready file.
 - Preserve facts separately from display wording. Use canonical fields for factual claims and variants for audience-specific phrasing.
-- Include provenance or derivation notes when the target format has a reasonable place for them; otherwise keep them in the OCF.
+- Include provenance or curation notes when the target format has a reasonable place for them; otherwise keep them in the OCF.
 - Do not invent missing facts to satisfy a target schema. Leave fields empty, omit them, or ask an open question.
 - The user owns every exported word and should review the output before sending, posting, or importing it elsewhere.

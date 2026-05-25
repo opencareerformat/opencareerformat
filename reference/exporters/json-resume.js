@@ -156,6 +156,22 @@ function main() {
   const doc = readOcf(inputPath);
   const exported = toJsonResume(doc);
   writeOutput(outputPath, `${JSON.stringify(exported, null, 2)}\n`);
+  printExportSummary(doc, exported, outputPath || "stdout");
+}
+
+function printExportSummary(doc, exported, outputPath) {
+  const workHighlights = (exported.work || []).reduce((count, item) => count + (item.highlights || []).length, 0);
+  console.error("OCF reference JSON Resume exporter summary");
+  console.error("This is a bare-bones proof-of-concept exporter, not a production resume renderer.");
+  console.error(`Wrote JSON Resume output: ${outputPath}`);
+  console.error(`Work entries exported: ${(exported.work || []).length}`);
+  console.error(`Work highlights exported: ${workHighlights}`);
+  console.error(`Skills exported: ${(exported.skills || []).length}`);
+  console.error(`Projects exported: ${(exported.projects || []).length}`);
+  console.error(`Private OCF items are not exported by this reference tool.`);
+  if (doc.meta?.fileRole !== "export-ready") {
+    console.error(`Input fileRole is ${doc.meta?.fileRole || "unspecified"}; review curation before treating this as final output.`);
+  }
 }
 
 if (require.main === module) {

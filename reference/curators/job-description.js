@@ -6,7 +6,7 @@ const crypto = require("crypto");
 
 function curateForJob(doc, jobText, options = {}) {
   if (!doc.meta?.id) {
-    throw new Error("Cannot derive OCF: input master is missing meta.id.");
+    throw new Error("Cannot curate OCF: input master is missing meta.id.");
   }
 
   const visibilityMode = options.visibilityMode || "shared";
@@ -21,13 +21,14 @@ function curateForJob(doc, jobText, options = {}) {
     .map(({ item }) => item);
   const visibilityNote = visibilityMode === "public" ? "removed private and shared items" : "removed private items";
 
-  return filterVisibility(prune({
+  const curated = filterVisibility(prune({
     $schema: doc.$schema,
     schemaVersion: doc.schemaVersion,
     meta: {
       id: crypto.randomUUID(),
-      version: `derived-${now}`,
+      version: `curated-${now}`,
       canonical: false,
+      fileRole: "candidate-curated",
       variant: "role-targeted",
       lastModified: now,
       language: doc.meta?.language,
@@ -35,7 +36,7 @@ function curateForJob(doc, jobText, options = {}) {
         kind: "derived",
       },
       derivedFrom: doc.meta.id,
-      derivationNotes: `Proof-of-concept curator: keyword scored the target context, ${visibilityNote}, and kept a small subset of matching experience, skills, and certifications. This derived OCF is intentionally incomplete and should not overwrite the master.`,
+      derivationNotes: `Proof-of-concept curator: keyword scored the target context, ${visibilityNote}, and kept a small subset of matching experience, skills, and certifications. This curated OCF is intentionally incomplete and should not overwrite the master.`,
     },
     person: filterVisibility(doc.person, visibilityMode),
     experience: selectedExperience,
@@ -55,6 +56,8 @@ function curateForJob(doc, jobText, options = {}) {
     interests: filterVisibility(doc.interests, visibilityMode),
     funding: filterVisibility(doc.funding, visibilityMode),
   }), visibilityMode);
+
+  return curated;
 }
 
 function selectExperience(doc, terms, visibilityMode) {
@@ -155,6 +158,64 @@ function isVisibilityAllowed(item, visibilityMode, options = {}) {
   return visibility !== "private";
 }
 
+function countCollection(doc, key) {
+  return Array.isArray(doc?.[key]) ? doc[key].length : 0;
+}
+
+function countPositions(doc) {
+  return (doc.experience || []).reduce((count, entry) => count + (entry.positions || []).length, 0);
+}
+
+function countAchievements(doc) {
+  return (doc.experience || []).reduce((count, entry) => {
+    return count + (entry.positions || []).reduce((inner, position) => inner + (position.achievements || []).length, 0);
+  }, 0);
+}
+
+function countVisibility(value, visibility) {
+  if (Array.isArray(value)) {
+    return value.reduce((count, item) => count + countVisibility(item, visibility), 0);
+  }
+  if (value && typeof value === "object") {
+    const own = value.visibility === visibility ? 1 : 0;
+    return own + Object.values(value).reduce((count, item) => count + countVisibility(item, visibility), 0);
+  }
+  return 0;
+}
+
+function summarizeCuration(source, curated, visibilityMode) {
+  const privateItems = countVisibility(source, "private");
+  const sharedItems = countVisibility(source, "shared");
+  return {
+    visibilityMode,
+    privateItemsRemoved: privateItems,
+    sharedItemsRemoved: visibilityMode === "public" ? sharedItems : 0,
+    sourceExperienceEntries: countCollection(source, "experience"),
+    keptExperienceEntries: countCollection(curated, "experience"),
+    sourcePositions: countPositions(source),
+    keptPositions: countPositions(curated),
+    sourceAchievements: countAchievements(source),
+    keptAchievements: countAchievements(curated),
+    keptSkills: countCollection(curated, "skills"),
+    keptCertifications: countCollection(curated, "certifications"),
+  };
+}
+
+function printCurationSummary(summary, outputPath) {
+  console.error("OCF reference curator summary");
+  console.error("This is a bare-bones proof-of-concept curator, not a production relevance engine.");
+  console.error(`Wrote curated OCF: ${outputPath}`);
+  console.error(`Visibility mode: ${summary.visibilityMode}`);
+  console.error(`Removed private items: ${summary.privateItemsRemoved}`);
+  if (summary.visibilityMode === "public") console.error(`Removed shared items: ${summary.sharedItemsRemoved}`);
+  console.error(`Experience entries kept: ${summary.keptExperienceEntries}/${summary.sourceExperienceEntries}`);
+  console.error(`Positions kept: ${summary.keptPositions}/${summary.sourcePositions}`);
+  console.error(`Achievements kept: ${summary.keptAchievements}/${summary.sourceAchievements}`);
+  console.error(`Skills kept: ${summary.keptSkills}`);
+  console.error(`Certifications kept: ${summary.keptCertifications}`);
+  console.error("Review the curated file before using it as export-ready input.");
+}
+
 function issuerName(issuer) {
   if (!issuer) return "";
   return typeof issuer === "string" ? issuer : issuer.name;
@@ -184,15 +245,17 @@ function prune(value) {
 function main() {
   const { inputPath, jobPath, outputPath, visibilityMode } = parseArgs(process.argv.slice(2));
   if (!inputPath || !jobPath || !outputPath) {
-    console.error("Usage: node reference/curators/job-description.js [--public-only] <master.ocf.json> <job-description.txt> <derived.ocf.json>");
+    console.error("Usage: node reference/curators/job-description.js [--public-only] <master.ocf.json> <job-description.txt> <curated.ocf.json>");
     process.exit(2);
   }
 
   const doc = JSON.parse(fs.readFileSync(inputPath, "utf8"));
   const jobText = fs.readFileSync(jobPath, "utf8");
-  const derived = curateForJob(doc, jobText, { visibilityMode });
+  const curated = curateForJob(doc, jobText, { visibilityMode });
+  const summary = summarizeCuration(doc, curated, visibilityMode);
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, `${JSON.stringify(derived, null, 2)}\n`);
+  fs.writeFileSync(outputPath, `${JSON.stringify(curated, null, 2)}\n`);
+  printCurationSummary(summary, outputPath);
 }
 
 function parseArgs(args) {

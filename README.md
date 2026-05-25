@@ -8,11 +8,19 @@ A candidate-owned, portable file format for an entire career. One master file, m
 
 OCF is designed for two kinds of use. Most people will use the structure directly in conversation: upload or open an OCF with an LLM, coach, advisor, or reviewer so the conversation has concrete career memory to work from. The curation and export language gives that conversation a mental model: first decide what parts of the person's career history should be used, reviewed, ranked, filtered, and/or improved; then export the type of content in the format the person needs.
 
-If you are using an LLM, tell it to read the LLM instructions, the current schema, and the authoring prompt before drafting. Point it at <https://opencareerformat.org/llms.txt>, <https://opencareerformat.org/schema.json>, and <https://opencareerformat.org/spec/authoring-prompt.md>. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
+If you are using an LLM, tell it to read the LLM instructions, the starter/core schema, and the authoring prompt before drafting. Point it at <https://opencareerformat.org/llms.txt>, <https://opencareerformat.org/schema-core.json>, and <https://opencareerformat.org/spec/authoring-prompt.md>. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
 
 The second use is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.
 
 OCF is currently at **v0.2** and should be treated as pre-1.0 beta. The canonical guide lives at <https://opencareerformat.org/>; the current schema URL is <https://opencareerformat.org/schema.json>. The current alias may change as feedback comes in. Tools that need stability should pin to a versioned schema URL such as <https://opencareerformat.org/v0.2/schema.json>. Breaking changes may occur before 1.0 and will be documented in the changelog.
+
+## Start Here
+
+- **If you are an individual using OCF with a resume, job description, or LLM:** start with <https://opencareerformat.org/>.
+- **If you are reading the schema:** start with [`spec/guide.html`](spec/guide.html), then [`spec/schema-commentary.md`](spec/schema-commentary.md).
+- **If you are building a tool:** start with [`spec/implementer-quick-reference.md`](spec/implementer-quick-reference.md), [`spec/usage-patterns.md`](spec/usage-patterns.md), and [`schema.json`](schema.json).
+- **If you want runnable examples:** start with [`reference/README.md`](reference/README.md).
+- **If you are mapping OCF to another format:** start with [`mappings/README.md`](mappings/README.md).
 
 ## Repository Layout
 
@@ -23,6 +31,7 @@ spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
   schema.json     # The JSON Schema definition for OCF files.
   guide.html      # The human-readable specification, written for the curious reader.
   schema-commentary.md # Non-normative annotated schema commentary with examples.
+  implementer-quick-reference.md # Compact field tiers and tool behavior guidance.
   usage-patterns.md # File roles: candidate-owned master, imported starter, third-party working files, etc.
   authoring-prompt.md # Optional prompt for LLMs creating or updating a master OCF.
   examples/       # Canonical example OCF files.
