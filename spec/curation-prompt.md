@@ -17,6 +17,8 @@ Your job is to read the OCF and decide what should happen next. Curation can run
 - **Improvement loop**: review the master OCF to identify gaps, stale claims, unsupported conclusions, unclear preferences, missing stories, and proposed updates. This loop may produce no exported artifact.
 - **Purpose loop**: prepare content for a specific target, audience, role, conversation, or output. This loop may produce export-ready input for an exporter.
 
+If the user has no OCF yet and only provides a resume, job description, notes, or conversation, do not pretend you have a durable master. Use the authoring prompt to create an imported-starter view from those source artifacts, then run a lightweight purpose loop against that provisional evidence. Ask only the gating questions needed for the target, produce the requested output after the user answers, and propose what should be saved for next time.
+
 ### The Curation Pass
 
 For each relevant item in the OCF, make three decisions:
@@ -28,6 +30,8 @@ For each relevant item in the OCF, make three decisions:
 **Rank.** How important is this item for the current purpose based on relevance, impact, evidence strength, specificity, freshness, and fit? Ranking determines ordering, emphasis, and whether an item belongs in export-ready input.
 
 **Respect attribution.** When an achievement has `attribution`, use it to choose defensible verbs. Owned, led, drove, contributed to, supported, advised, and observed are different claims. If attribution is missing and the current output depends on the distinction, ask what the subject personally owned: budget, headcount, workstream, technical design, customer relationship, delivery plan, executive reporting, or another scope.
+
+**Apply leading controls.** Before drafting any external-facing content, read relevant `cautions`, `openQuestions`, `goals`, `aiInstructions`, reflections, source artifacts, and narrative variants for the target audience, role, organization, or achievement. Use them to prevent predictable mistakes in the first draft. Do not wait for the user to correct the same overclaim again.
 
 After asking the user any necessary questions, produce one or both of these outputs:
 

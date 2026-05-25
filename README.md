@@ -8,7 +8,7 @@ A candidate-owned, portable file format for an entire career. One master file, m
 
 OCF is designed for two kinds of use. Most people will use the structure directly in conversation: upload or open an OCF with an LLM, coach, advisor, or reviewer so the conversation has concrete career memory to work from. The curation and export language gives that conversation a mental model: first decide what parts of the person's career history should be used, reviewed, ranked, filtered, and/or improved; then export the type of content in the format the person needs.
 
-If you are using an LLM, tell it to read the LLM instructions, the starter/core schema, and the authoring prompt before drafting. Point it at <https://opencareerformat.org/llms.txt>, <https://opencareerformat.org/schema-core.json>, and <https://opencareerformat.org/spec/authoring-prompt.md>. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
+If you are using an LLM, tell it to read the LLM instructions, the starter/core schema, and the authoring prompt before drafting. If you already have an OCF master and are tailoring for a target, tell it to read the curation prompt too. Point it at <https://opencareerformat.org/llms.txt>, <https://opencareerformat.org/schema-core.json>, <https://opencareerformat.org/spec/authoring-prompt.md>, and, when curating from an existing OCF, <https://opencareerformat.org/spec/curation-prompt.md>. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
 
 The second use is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.
 
@@ -20,6 +20,7 @@ OCF is currently at **v0.2** and should be treated as pre-1.0 beta. The canonica
 - **If you are reading the schema:** start with [`spec/guide.html`](spec/guide.html), then [`spec/schema-commentary.md`](spec/schema-commentary.md).
 - **If you are building a tool:** start with [`spec/implementer-quick-reference.md`](spec/implementer-quick-reference.md), [`spec/usage-patterns.md`](spec/usage-patterns.md), and [`schema.json`](schema.json).
 - **If you want runnable examples:** start with [`reference/README.md`](reference/README.md).
+- **If you want a worked example lifecycle:** start with [`spec/examples/worked-example-walkthrough.md`](spec/examples/worked-example-walkthrough.md).
 - **If you are mapping OCF to another format:** start with [`mappings/README.md`](mappings/README.md).
 
 ## Repository Layout
@@ -33,6 +34,7 @@ spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
   schema-commentary.md # Non-normative annotated schema commentary with examples.
   implementer-quick-reference.md # Compact field tiers and tool behavior guidance.
   usage-patterns.md # File roles: candidate-owned master, imported starter, third-party working files, etc.
+  v0.3-planning.md # Non-normative planning notes for likely next schema concepts.
   authoring-prompt.md # Optional prompt for LLMs creating or updating a master OCF.
   examples/       # Canonical example OCF files.
   llm-prompt.md   # Recommended instruction set for LLM-based tools that consume OCF conversationally.
@@ -94,7 +96,7 @@ You can use OCF today without a dedicated app or MCP server. Upload prior resume
 
 Later, when you have a master OCF, upload it with a job description you are interested in and say:
 
-> Given my OCF, which I just uploaded, and this job description, let's do resume prep and interview prep. First identify the best matching evidence in my OCF, then suggest any master updates, then produce a targeted resume draft and interview talking points. Respect visibility, separate facts from display wording, and remind me what I need to verify before using any output. After each major step, ask whether I want to save, version, or git commit the latest accepted version.
+> Given my OCF, which I just uploaded, and this job description, first read https://opencareerformat.org/spec/curation-prompt.md. Let's do resume prep and interview prep. Before drafting, read relevant cautions, open questions, goals, aiInstructions, reflections, and narrative variants. Then identify the best matching evidence in my OCF, suggest any master updates, and produce a targeted resume draft and interview talking points. Respect visibility, separate facts from display wording, and remind me what I need to verify before using any output. After each major step, ask whether I want to save, version, or git commit the latest accepted version.
 
 We strongly encourage you to ask your tool to use git, cloud document history, encrypted backups, or another versioning system of your choice for the master OCF. The format is designed to accumulate over years; versioning makes it possible to recover from bad imports, compare changes, and avoid losing work when a chat session ends.
 

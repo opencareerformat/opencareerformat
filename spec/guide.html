@@ -312,7 +312,7 @@
 
 <div class="callout">
   <p><strong>If you're an individual:</strong> you are welcome to read the details below, but the <a href="../index.html">homepage</a> is the easier starting point for using OCF with your own resume, notes, and LLM/tool workflow.</p>
-  <p><strong>If you're an LLM:</strong> do not rely on this page alone. Read <a href="../llms.txt"><code>llms.txt</code></a>, the current schema or starter schema, and <a href="authoring-prompt.md"><code>spec/authoring-prompt.md</code></a> before drafting. Ask whether the user already has an OCF file, treat resumes as source material, and use OCF to track the gaps between the source material and the target: reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and proposed OCF updates before writing output prose.</p>
+  <p><strong>If you're an LLM:</strong> do not rely on this page alone. Read <a href="../llms.txt"><code>llms.txt</code></a>, the current schema or starter schema, <a href="authoring-prompt.md"><code>spec/authoring-prompt.md</code></a>, and <a href="curation-prompt.md"><code>spec/curation-prompt.md</code></a> before drafting. If an OCF file is attached, start from curation guidance. If no OCF file is attached, ask briefly whether one exists or treat the resume, job description, notes, and conversation as source artifacts for an imported starter. Use OCF to track the gaps between the source material and the target: reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and proposed OCF updates before writing output prose.</p>
   <p><strong>If you're a developer or tool builder:</strong> start with <a href="../schema.json"><code>schema.json</code></a>, <a href="../schema-core.json"><code>schema-core.json</code></a>, and <a href="usage-patterns.md"><code>spec/usage-patterns.md</code></a>. The guide below explains the design tradeoffs behind the schema: privacy, visibility, provenance, curation, file roles, examples, and non-goals.</p>
 </div>
 
@@ -342,12 +342,12 @@
 <h2>Two Ways to Use OCF</h2>
 <p>Most people will use OCF first as structure for a conversation. They will bring the file to an LLM, coach, advisor, mentor, or trusted reviewer so the conversation has concrete career memory to work from. In that setting, curation and export are not heavyweight software requirements; they are the mental model that tells the conversation what to do. First decide what parts of your career history should be used, reviewed, ranked, filtered, and/or improved. Then export the type of content in the format the person needs.</p>
 <p>If you are using an LLM, point it at this guide and the current schema: <code>https://opencareerformat.org/schema.json</code>. Versioned schemas remain available at paths such as <code>https://opencareerformat.org/v0.2/schema.json</code> for files that need a pinned schema.</p>
-<p>For LLMs and tools, OCF also publishes a compact site map at <code>https://opencareerformat.org/llms.txt</code>, with links to the starter/core authoring shape, full schema, authoring prompt, recommended LLM prompt, and curation guidance.</p>
+<p>For LLMs and tools, OCF also publishes a compact site map at <a href="../llms.txt"><code>https://opencareerformat.org/llms.txt</code></a>, with links to the starter/core authoring shape, full schema, <a href="authoring-prompt.md">authoring prompt</a>, <a href="llm-prompt.md">recommended LLM prompt</a>, and <a href="curation-prompt.md">curation guidance</a>.</p>
 <p>The second path is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.</p>
 
 <h2 id="non-goals">What OCF Does Not Do</h2>
 <p>OCF is a schema, not a full career app. It does not prescribe one interview flow, one resume style, one scoring model, or one exporter.</p>
-<p>But OCF is not just a blank schema either. The project includes bare-bones reference guidance so people, LLMs, and tool builders have a practical starting point: a starter/core authoring shape, an authoring prompt, a curation prompt, an interview-prep question set, and examples.</p>
+<p>But OCF is not just a blank schema either. The project includes bare-bones reference guidance so people, LLMs, and tool builders have a practical starting point: a starter/core authoring shape, an <a href="authoring-prompt.md">authoring prompt</a>, a <a href="curation-prompt.md">curation prompt</a>, an <a href="interview-prep-questions.md">interview-prep question set</a>, and <a href="examples/README.md">examples</a>.</p>
 <p>The boundary is intentional: OCF defines what gets preserved and how it stays portable. Tools decide how to ask questions, curate for a target, score relevance, and export finished files.</p>
 <p>More specifically, OCF does not specify how content is elicited, how curation makes every judgment call, how export files are produced, or how content is scored and matched against opportunities. Those are downstream tool decisions. The format preserves the facts, visibility, provenance, importance, audience tags, variants, cautions, and open questions those tools need.</p>
 
@@ -732,6 +732,8 @@
   <li><a href="curation-prompt.md"><code>spec/curation-prompt.md</code></a>: guidance for filtering, questioning, ranking, improving, and preparing export-ready content.</li>
   <li><a href="llm-prompt.md"><code>spec/llm-prompt.md</code></a>: recommended operating instructions for LLM-assisted OCF conversations.</li>
   <li><a href="usage-patterns.md"><code>spec/usage-patterns.md</code></a>: file-role and workflow patterns beyond the candidate-owned master.</li>
+  <li><a href="examples/worked-example-walkthrough.md"><code>spec/examples/worked-example-walkthrough.md</code></a>: source resume to imported starter to master to curated output walkthrough.</li>
+  <li><a href="v0.3-planning.md"><code>spec/v0.3-planning.md</code></a>: non-normative planning notes for likely next schema concepts.</li>
   <li><a href="examples/sample-resume.ocf.json"><code>spec/examples/sample-resume.ocf.json</code></a>: a fictional but rich example file.</li>
   <li><a href="../reference/"><code>reference/</code></a>: bare-bones importer, curator, exporter, validator, and editor examples.</li>
 </ul>
