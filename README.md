@@ -8,7 +8,7 @@ A candidate-owned, portable file format for an entire career. One master file, m
 
 OCF is designed for two kinds of use. Most people will use the structure directly in conversation: upload or open an OCF with an LLM, coach, advisor, or reviewer so the conversation has concrete career memory to work from. The curation and export language gives that conversation a mental model: first decide what parts of the person's career history should be used, reviewed, ranked, filtered, and/or improved; then export the type of content in the format the person needs.
 
-If you are using an LLM, point it at the guide and the current schema: <https://opencareerformat.org/schema.json>. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
+If you are using an LLM, tell it to read the LLM instructions, the current schema, and the authoring prompt before drafting. Point it at <https://opencareerformat.org/llms.txt>, <https://opencareerformat.org/schema.json>, and <https://opencareerformat.org/spec/authoring-prompt.md>. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
 
 The second use is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.
 
@@ -81,7 +81,7 @@ OCF publishes a recommended LLM prompt at [`spec/llm-prompt.md`](spec/llm-prompt
 
 You can use OCF today without a dedicated app or MCP server. Upload prior resumes or career artifacts to an LLM that can read attachments and say:
 
-> Using the three copies of my resume I just uploaded to you, and the current OCF schema at https://opencareerformat.org/schema.json, please walk me through the OCF process to create my master OCF. Treat prior resumes as source artifacts, preserve useful audience-specific wording as narrative variants, and propose uncertain claims as open questions instead of inventing facts. After each major step, ask whether I want to save, version, or git commit the latest accepted version.
+> Using the three copies of my resume I just uploaded to you, first read https://opencareerformat.org/llms.txt, the current OCF schema at https://opencareerformat.org/schema.json, and the authoring prompt at https://opencareerformat.org/spec/authoring-prompt.md. Then walk me through the OCF process to create my master OCF. Treat prior resumes as source artifacts, preserve useful audience-specific wording as narrative variants, and propose uncertain claims as open questions instead of inventing facts. After each major step, ask whether I want to save, version, or git commit the latest accepted version.
 
 Later, when you have a master OCF, upload it with a job description you are interested in and say:
 

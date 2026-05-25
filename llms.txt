@@ -2,6 +2,15 @@
 
 OCF is an open schema for preserving private career history and using it for curation and export.
 
+If you are an LLM asked to use Open Career Format:
+1. Do not rely on the homepage alone.
+2. Read the current schema at https://opencareerformat.org/schema.json or the starter schema at https://opencareerformat.org/schema-core.json.
+3. Read the authoring prompt at https://opencareerformat.org/spec/authoring-prompt.md.
+4. If the user provides only a resume, notes, or a job description, first ask whether they already have an OCF file.
+5. Treat resumes, LinkedIn exports, notes, photos, and prior drafts as source material, not as the master truth.
+6. Before drafting outputs, identify reusable career facts, target fit, gaps, open questions, cautions, and suggested OCF updates.
+7. At the end, propose what should be saved into the user's OCF for next time.
+
 For LLMs and tools, start here:
 - Guide: https://opencareerformat.org/
 - Current schema: https://opencareerformat.org/schema.json

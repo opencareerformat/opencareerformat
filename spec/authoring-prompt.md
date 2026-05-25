@@ -6,6 +6,8 @@ For a smaller entry point, read the starter/core authoring shape first: `https:/
 
 For canonical validation, use the full current schema: `https://opencareerformat.org/schema.json`.
 
+Do not rely on the homepage alone. If you reached this prompt from a broad user request such as "use opencareerformat.org with my resume and job description," read `https://opencareerformat.org/llms.txt`, this prompt, and the relevant schema before drafting outputs.
+
 ---
 
 ## The Prompt

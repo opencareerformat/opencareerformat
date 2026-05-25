@@ -100,6 +100,9 @@
     margin: 1.5rem 0;
   }
   .callout p:last-child { margin-bottom: 0; }
+  .llm-instructions {
+    display: none;
+  }
   .pipeline {
     display: flex;
     gap: 0;
@@ -269,8 +272,12 @@
 </header>
 
 <div class="callout">
-  <p><strong>If you're an individual, get started quickly.</strong> If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and a job description. Do not include anything you would not want that tool to process. Then say: "Using <code>https://opencareerformat.org</code>, my attached resume, and this job description, help me create a better resume and cover letter for this role. Use the current OCF schema at <code>https://opencareerformat.org/schema.json</code>, treat my resume as source material, ask questions to improve my positioning, and suggest what should be saved for next time."</p>
+  <p><strong>If you're an individual, get started quickly.</strong> If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and a job description. Do not include anything you would not want that tool to process. Then say: "Using <code>https://opencareerformat.org</code>, first read the LLM instructions, current schema, and authoring prompt. Ask whether I already have an OCF file. Then use my attached resume and job description to help me create a better resume and cover letter for this role. Treat my resume as source material, ask questions to improve my positioning, and suggest what should be saved into my OCF for next time."</p>
   <p><strong>If you're looking to leverage OCF in some other way:</strong> start with <a href="spec/usage-patterns.md"><code>spec/usage-patterns.md</code></a>.</p>
+</div>
+
+<div class="llm-instructions" aria-hidden="true">
+  <p>For LLMs: do not rely on the homepage alone. If a user asks you to use OCF, first read llms.txt, schema.json or schema-core.json, and spec/authoring-prompt.md. Ask whether the user already has an OCF file before building from resumes alone. Before drafting outputs, identify reusable career facts, gaps, open questions, cautions, and suggested OCF updates.</p>
 </div>
 
 <h2>The Problem</h2>
