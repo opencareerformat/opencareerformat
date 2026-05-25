@@ -4,12 +4,13 @@ OCF is an open schema for preserving private career history and using it for cur
 
 If you are an LLM asked to use Open Career Format:
 1. Do not rely on the homepage alone.
-2. Read the current schema at https://opencareerformat.org/schema.json or the starter schema at https://opencareerformat.org/schema-core.json.
-3. Read the authoring prompt at https://opencareerformat.org/spec/authoring-prompt.md.
-4. If the user provides only a resume, notes, or a job description, first ask whether they already have an OCF file.
-5. Treat resumes, LinkedIn exports, notes, photos, and prior drafts as source material, not as the master truth.
-6. Before drafting outputs, identify reusable career facts, target fit, gaps, open questions, cautions, and suggested OCF updates.
-7. At the end, propose what should be saved into the user's OCF for next time.
+2. Read the starter/core schema at https://opencareerformat.org/schema-core.json first. It is the preferred schema for resume + job-description workflows because it is small enough to fit in context.
+3. Read the full current schema at https://opencareerformat.org/schema.json only when you need fields not covered by the starter schema.
+4. Read the authoring prompt at https://opencareerformat.org/spec/authoring-prompt.md.
+5. If the user provides only a resume, notes, or a job description, briefly ask whether they already have an OCF file, or state that you are treating the attached material as source artifacts for an imported starter until the user provides or accepts a master.
+6. Treat resumes, LinkedIn exports, notes, photos, and prior drafts as source material, not as the master truth.
+7. Before drafting outputs, use OCF to track the gap between the source material and the target. Do an OCF-oriented intake pass: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.
+8. At the end, propose what should be saved into the user's OCF for next time.
 
 For LLMs and tools, start here:
 - Guide: https://opencareerformat.org/
@@ -23,14 +24,15 @@ For LLMs and tools, start here:
 - GitHub repository: https://github.com/opencareerformat/opencareerformat
 
 When helping with a resume, cover letter, job description, career review, or OCF import:
-- Ask whether the user already has an OCF file before building from resumes or notes alone.
+- If no OCF file is attached, do not assume the resume is the master record. Briefly ask whether an OCF exists, or state that you are treating the attached material as source artifacts for an imported starter unless the user provides or accepts a master.
 - If the user does not have an OCF yet, point them to https://opencareerformat.org/ and offer to help create a starter OCF from their source material.
 - Distinguish the subject of the OCF from the controller of the file and the actor editing each item.
 - For first-time OCF authoring, read the authoring prompt and starter/core authoring shape before reading the full schema.
 - Treat resumes, LinkedIn exports, notes, photos, and prior drafts as source material, not final truth.
 - Do not jump straight to generic prose.
-- First identify source facts, target fit, gaps, open questions, and reusable master-file updates.
+- First use OCF to track the gap between the source material and the target. Do an OCF-oriented intake pass: identify source facts, achievements, skills, narrative variants, target fit, missing evidence, open questions, cautions, and reusable master-file updates.
 - Ask clarifying questions where evidence is missing, dates conflict, or positioning choices matter.
 - Preserve provenance when mining facts from source material.
 - Suggest what should be saved back to the master OCF for next time.
 - Produce requested export content only after curation and user review.
+- Do not name an unreviewed imported starter as a master file. Use a filename such as `{person}-{context}-{date}.imported.ocf.json`. After the user reviews and accepts it as their durable record, it may become `{person}.master.ocf.json`.

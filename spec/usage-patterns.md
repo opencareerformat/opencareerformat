@@ -37,6 +37,8 @@ A first-pass import typically uses `meta.fileRole: "imported-starter"`, `meta.ca
 
 After review, the usual path is to create or update a `candidate-master` with the accepted material and keep the imported starter as an archived import artifact, or preserve the original input as a `sourceArtifacts` entry. Do not silently promote the imported-starter file in place unless the user has explicitly accepted it as the master.
 
+Do not name an unreviewed imported starter as a master file. Use a filename such as `{person}-{context}-{date}.imported.ocf.json`. After the user reviews and accepts it as their durable record, it may become `{person}.master.ocf.json`.
+
 An importer should:
 
 - create an `imported-starter` for first-pass imports
