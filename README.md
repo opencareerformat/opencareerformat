@@ -36,6 +36,7 @@ spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
   usage-patterns.md # File roles: candidate-owned master, imported starter, third-party working files, etc.
   v0.3-planning.md # Non-normative planning notes for likely next schema concepts.
   authoring-prompt.md # Optional prompt for LLMs creating or updating a master OCF.
+  coaching-prompt.md # Optional prompt for helping users discover story, voice, goals, and boundaries.
   examples/       # Canonical example OCF files.
   llm-prompt.md   # Recommended instruction set for LLM-based tools that consume OCF conversationally.
   curation-prompt.md # Optional prompt for curation tools that improve OCF or prepare export-ready input.
@@ -88,7 +89,7 @@ OCF deliberately does not specify how content is elicited (the interviewing laye
 
 The most accessible way to use OCF is to bring it into a conversation: with a human coach, advisor, mentor, trusted reviewer, or an LLM. The point is the same either way: the conversation has structured context about what you have done, what changed, what mattered, and what evidence you can draw on. The recommended pattern is bidirectional — the conversation uses OCF as substrate AND proposes updates to the master file at the end. Over time, every meaningful interaction leaves the file richer rather than starting from scratch.
 
-OCF publishes a recommended LLM prompt at [`spec/llm-prompt.md`](spec/llm-prompt.md). Tools may use it verbatim, adapt it, or replace it. See the guide section *"OCF as Input to a Conversation (Human or LLM)"* for the full discussion.
+OCF publishes a recommended LLM prompt at [`spec/llm-prompt.md`](spec/llm-prompt.md). It also includes separate prompts for [`authoring`](spec/authoring-prompt.md), [`curation`](spec/curation-prompt.md), and [`coaching`](spec/coaching-prompt.md). Tools may use them verbatim, adapt them, or replace them. See the guide section *"OCF as Input to a Conversation (Human or LLM)"* for the full discussion.
 
 You can use OCF today without a dedicated app or MCP server. Upload prior resumes or career artifacts to an LLM that can read attachments and say:
 

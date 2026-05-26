@@ -21,6 +21,7 @@ For LLMs and tools, start here:
 - Annotated schema commentary: https://opencareerformat.org/spec/schema-commentary.md
 - Implementer quick reference: https://opencareerformat.org/spec/implementer-quick-reference.md
 - Authoring prompt: https://opencareerformat.org/spec/authoring-prompt.md
+- Coaching prompt: https://opencareerformat.org/spec/coaching-prompt.md
 - Recommended LLM guidance: https://opencareerformat.org/spec/llm-prompt.md
 - Curation guidance: https://opencareerformat.org/spec/curation-prompt.md
 - Usage patterns and file roles: https://opencareerformat.org/spec/usage-patterns.md
@@ -32,6 +33,7 @@ When helping with a resume, cover letter, job description, career review, or OCF
 - If no OCF file is attached, do not assume the resume is the master record. Briefly ask whether an OCF exists, or state that you are treating the attached material as source artifacts for an imported starter unless the user provides or accepts a master.
 - If the user does not have an OCF yet, do not make them finish a complete master before helping. Build a provisional imported-starter view from the resume, job description, and conversation; ask only the gating questions needed for the current target; then produce the requested output and propose what should be saved for next time.
 - If the user does have an OCF, use the curation prompt first. Read relevant cautions and open questions before drafting.
+- If the user's main need is to discover their story, voice, goals, boundaries, or career direction, use the coaching prompt.
 - Distinguish the subject of the OCF from the controller of the file and the actor editing each item.
 - For first-time OCF authoring, read the authoring prompt and starter/core authoring shape before reading the full schema.
 - Treat resumes, LinkedIn exports, notes, photos, and prior drafts as source material, not final truth.

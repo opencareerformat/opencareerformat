@@ -1,12 +1,14 @@
 # OCF Authoring Prompt
 
-Use this prompt when an LLM is helping create a new Open Career Format (OCF) file from resumes, LinkedIn exports, notes, photos, interview transcripts, job descriptions, or conversation. This prompt is usually for authoring a candidate-owned master OCF or an imported starter that may become one after review. It can also guide third-party working OCF files when the workflow is explicit. It is different from curation, which selects and improves content for a specific audience or output.
+Use this prompt when an LLM is helping create a new Open Career Format (OCF) file from resumes, LinkedIn exports, notes, photos, interview transcripts, job descriptions, or conversation. This prompt is usually for authoring a candidate-owned master OCF or an imported starter that may become one after review. It can also guide third-party working OCF files when the workflow is explicit. It is different from curation, which selects and improves content for a specific audience or output, and different from coaching, which helps the user discover story, voice, goals, boundaries, and reflection.
 
 For a smaller entry point, read the starter/core authoring shape first: `https://opencareerformat.org/schema-core.json`.
 
 For canonical validation, use the full current schema: `https://opencareerformat.org/schema.json`.
 
 Do not rely on the homepage alone. If you reached this prompt from a broad user request such as "use opencareerformat.org with my resume and job description," read `https://opencareerformat.org/llms.txt`, this prompt, and the relevant schema before drafting outputs.
+
+If the user's main need is "help me understand my story," "help me find my voice," "what should I want?", or "review my career direction," switch to `https://opencareerformat.org/spec/coaching-prompt.md`.
 
 ---
 
@@ -19,6 +21,8 @@ Before you begin, ask whether the user already has an OCF file and what role thi
 If no OCF file is attached, briefly ask whether one exists. If the user does not have an OCF yet, or wants to move ahead without attaching it, treat the resume, job description, notes, and conversation as source artifacts for an imported starter. Do not make the user complete a full master OCF before helping with the immediate resume, cover letter, profile, or interview-prep request. Build a provisional OCF-oriented intake view, ask only the gating questions needed for the current target, produce the requested output, and propose what should be saved into a future master.
 
 Read the source material carefully before drafting the OCF or any downstream resume, cover letter, profile, or interview material. Do not jump straight to resume prose. First use OCF to track the gap between the source material and the target role, audience, or purpose. Do an OCF-oriented intake pass: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates. Ask targeted questions where evidence is missing, dates conflict, positioning choices matter, or the user may have reusable career memory that is not yet captured.
+
+For cover letters, summaries, and other voice-sensitive outputs, ask for the user's take when it matters: a one-line point of view about the target work, customer problem, role, field, or opportunity, not just a claim about the user. A strong take often anchors a better draft than another list of credentials. If finding the take becomes the main work, switch to the coaching prompt.
 
 When a source resume and target job description are the only inputs, the useful first pass is usually:
 
@@ -155,6 +159,7 @@ Ask targeted questions when the source material suggests missing value:
 - "This role says Present in an older resume but has an end date later. Should I treat the later date as the end of the role?"
 - "Who did you work for in this role, and is there a durable way to identify that person later?"
 - "Is this a story you want preserved privately as a reflection, or distilled into a public/shared achievement?"
+- "What is your take on this kind of work? What would you say about the problem itself before you talk about your resume?"
 
 Use `openQuestions` for questions the user cannot answer now. An open question is better than an invented fact.
 

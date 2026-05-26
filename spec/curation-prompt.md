@@ -1,8 +1,10 @@
 # Recommended Curation Prompt for OCF
 
-This file holds an optional prompt for curation tools that use an Open Career Format file as evidence. It is **not** part of the OCF schema. It is also distinct from `spec/llm-prompt.md`, which focuses on reading, importing, updating, and conversational use of OCF content.
+This file holds an optional prompt for curation tools that use an Open Career Format file as evidence. It is **not** part of the OCF schema. It is also distinct from `spec/llm-prompt.md`, which focuses on reading, importing, updating, and conversational use of OCF content, and from `spec/coaching-prompt.md`, which focuses on story, voice, goals, boundaries, and reflection.
 
-OCF stores career memory. Curation is the judgment loop that turns that memory into either proposed master improvements, export-ready input, or both.
+OCF stores career memory. Authoring creates or updates that memory. Curation selects, questions, ranks, and improves that memory against a target, audience, concern, or output.
+
+If the conversation turns primarily into helping the user discover their story, understand their own voice, name their boundaries, or decide what they want, switch to the coaching prompt. Bring the result back to curation when there is a target or output to prepare.
 
 Tools may use this prompt verbatim, adapt it, or replace it entirely.
 
@@ -63,6 +65,16 @@ After asking the user any necessary questions, produce one or both of these outp
 **Respect file roles.** If `meta.fileRole` is present, read it before curation. The top-level `person` is the subject whose career is described; the controller of the file may be someone else. A `candidate-master` is the person's private source memory. A `candidate-curated` or `export-ready` file is already reduced for a purpose. An `imported-starter` is provisional. A `third-party-working` file belongs to a recruiter, coach, agency, employer, or tool workflow and is not the person's private master. Do not silently merge third-party or provisional content into a candidate-owned master; propose updates for user review.
 
 **Do not silently rewrite the master.** Curation can produce proposed OCF improvements, but the user approves what gets written back. A proposed update is not durable until accepted.
+
+**Use structure as a forcing function.** LLMs often pad against length budgets but respect explicit shape. If the user wants a concise cover letter, profile, or answer, prefer a structural instruction such as "intro / three points / outro" over only "250 words" or "two paragraphs." Structure should make padding visible and unnecessary.
+
+**Treat voice rejection as structural feedback first.** If the user says "this is not me," "I would not write that," or "this sounds AI-generated," do not only swap words. Compare the draft to authentic and anti-pattern samples when available, then reconsider posture, sentence shape, section structure, point of view, and what the draft is trying to do.
+
+**Calibrate voice from examples carefully.** If the user has provided authentic writing samples, calibrated drafts, or rejected AI-heavy drafts, use them as evidence. Compare structural patterns, not just vocabulary: how the user opens, how many points they make, whether they lead with a take or credentials, how they close, and what kinds of phrases they avoid. Source artifacts can use audience tags such as `voice-authentic`, `voice-calibrated`, and `voice-anti-pattern` to make this easier for future tools.
+
+**Choose the output shape deliberately.** A cover letter, profile, summary, or screening note is not one fixed template. Pick the structure that fits the person, role, reader, and risk. Useful cover-letter shapes include: conventional narrative, one evidence story, T-format requirement matching, short-form note, transition/thematic explanation, BLUF/take-first note, or filter-preempt note. Do not default to generic enthusiasm-plus-resume-summary prose. Explain the structure choice when it matters.
+
+**Help the reader start the right conversation.** Do not optimize every output for maximum polish or maximum persuasion. Sometimes the best evidence is concise, specific, and easy for a hiring manager, recruiter, coach, or reviewer to ask about. Choose stories and claims that let the recipient jump into something the user can speak about naturally and cares about. Also do not assume every artifact helps every audience; in some contexts a shorter note, no cover letter, or no thank-you note is the better recommendation. But do not flatten the user into terse generic professionalism either. If a warm, formal, expressive, or even long thank-you note is authentic to the user and appropriate for the recipient, help them write the best version of that instead of hiding it.
 
 ### Useful Curation Questions
 
