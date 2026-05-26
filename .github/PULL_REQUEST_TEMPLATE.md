@@ -8,7 +8,7 @@
 
 ## Scope
 
-- [ ] Spec change (touches `spec/` or `mappings/`) — CC-BY 4.0
+- [ ] Spec/docs/prompt change (touches `spec/`, `mappings/`, `prompts/`, schemas, examples, or project docs) — CC BY 4.0
 - [ ] Reference code change (touches `reference/`) — MIT
 - [ ] Both
 
@@ -23,7 +23,7 @@
 - [ ] CHANGELOG entry added under `[Unreleased]`
 - [ ] Documentation updated (`spec/guide.html` and related)
 - [ ] If this changes example files, they still validate
-- [ ] If this adds a new reflection `kind`, an audience tag, or another canonical string, it's added to the relevant doc (`spec/interview-prep-questions.md`, etc.)
+- [ ] If this adds a new reflection `kind`, an audience tag, or another canonical string, it's added to the relevant doc (`prompts/interview-prep-questions.md`, etc.)
 
 ## Notes for reviewer
 

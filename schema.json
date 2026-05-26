@@ -1843,7 +1843,7 @@
     },
     "aiInstructions": {
       "type": "string",
-      "description": "Open-text instructions that customize or supplement the canonical LLM prompt (spec/llm-prompt.md) for this specific file. Tools using the canonical prompt should append these to it. Examples: 'always push back on optimistic framing — I tend to undersell'; 'prefer paragraphs over bullets in any draft'; 'I'm in the middle of a career pivot from CS leadership to product; weigh recent product-adjacent achievements higher than the importance tags suggest'. Per-file overrides on the canonical prompt without requiring tools to support this explicitly.",
+      "description": "Open-text instructions that customize or supplement the canonical LLM prompt (https://opencareerformat.org/prompts/llm-operating.md) for this specific file. Tools using the canonical prompt should append these to it. Examples: 'always push back on optimistic framing — I tend to undersell'; 'prefer paragraphs over bullets in any draft'; 'I'm in the middle of a career pivot from CS leadership to product; weigh recent product-adjacent achievements higher than the importance tags suggest'. Per-file overrides on the canonical prompt without requiring tools to support this explicitly.",
       "$comment": "Per-file AI instructions are open-text in v0.2. If structured behavior controls (model preferences, max output length, refusal preferences) become common, they may get dedicated fields in a future revision; for now everything is in the string."
     }
   },
@@ -2194,14 +2194,14 @@
     },
     "reflection": {
       "type": "object",
-      "description": "An open-ended, often subjective answer to an interview-prep or self-reflection question about a role or company. Topgrading-style 'what did you like best', 'how would your boss rate you 1-10', 'biggest mistake', 'why you left', and similar. Reflections are raw substrate for interview prep and conversational LLM tools — they preserve voice and texture in a way that derivation outputs cannot. They are not intended to be rendered into resumes or exported to other formats directly. When a reflection contains a distillable achievement, the recommended pattern is to propose a new structured achievement entry while leaving the reflection in place. See spec/interview-prep-questions.md for the canonical kind strings and the standard question set.",
+      "description": "An open-ended, often subjective answer to an interview-prep or self-reflection question about a role or company. Topgrading-style 'what did you like best', 'how would your boss rate you 1-10', 'biggest mistake', 'why you left', and similar. Reflections are raw substrate for interview prep and conversational LLM tools — they preserve voice and texture in a way that derivation outputs cannot. They are not intended to be rendered into resumes or exported to other formats directly. When a reflection contains a distillable achievement, the recommended pattern is to propose a new structured achievement entry while leaving the reflection in place. See https://opencareerformat.org/prompts/interview-prep-questions.md for the canonical kind strings and the standard question set.",
       "required": [
         "kind"
       ],
       "properties": {
         "kind": {
           "type": "string",
-          "description": "What the reflection is about. Use canonical kinds from spec/interview-prep-questions.md when applicable (e.g. 'boss-would-rate-1-10', 'liked-most', 'liked-least', 'biggest-success', 'biggest-mistake', 'biggest-lesson', 'why-left', 'proudest-of', 'company-strength', 'company-weakness'), or use a freeform kind for content that doesn't fit those categories. Conventions emerge from tools; the schema does not enforce a fixed list."
+          "description": "What the reflection is about. Use canonical kinds from https://opencareerformat.org/prompts/interview-prep-questions.md when applicable (e.g. 'boss-would-rate-1-10', 'liked-most', 'liked-least', 'biggest-success', 'biggest-mistake', 'biggest-lesson', 'why-left', 'proudest-of', 'company-strength', 'company-weakness'), or use a freeform kind for content that doesn't fit those categories. Conventions emerge from tools; the schema does not enforce a fixed list."
         },
         "text": {
           "type": "string",
@@ -3468,7 +3468,7 @@
         },
         "reflections": {
           "type": "array",
-          "description": "Open-ended, often subjective answers about this specific role. See $defs/reflection for the shape and spec/interview-prep-questions.md for the canonical question set.",
+          "description": "Open-ended, often subjective answers about this specific role. See $defs/reflection for the shape and https://opencareerformat.org/prompts/interview-prep-questions.md for the canonical question set.",
           "items": {
             "$ref": "#/$defs/reflection"
           }
@@ -3729,7 +3729,7 @@
         },
         "reflections": {
           "type": "array",
-          "description": "Open-ended reflections at the company or experience-entry level (e.g. 'why I left', perceived company strengths and weaknesses, overall takeaway from working there). See $defs/reflection for the shape and spec/interview-prep-questions.md for the canonical kinds.",
+          "description": "Open-ended reflections at the company or experience-entry level (e.g. 'why I left', perceived company strengths and weaknesses, overall takeaway from working there). See $defs/reflection for the shape and https://opencareerformat.org/prompts/interview-prep-questions.md for the canonical kinds.",
           "items": {
             "$ref": "#/$defs/reflection"
           }

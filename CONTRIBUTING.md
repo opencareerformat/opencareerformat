@@ -34,6 +34,15 @@ The repository accepts contributions in five rough categories. Each has its own 
 
 **Reference implementations** — code in `reference/` (validators, curators, renderers, exporters, importers, editor). These are MIT-licensed (see `LICENSE-code`) and the bar is "does it work, is it readable, does it match the spec." No requirement to match a specific style or framework.
 
+## Licensing
+
+OCF is dual-licensed by artifact type:
+
+- Specification, mapping, prompt, example, and project documentation contributions are licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). This includes `spec/`, `mappings/`, `prompts/`, root documentation, schemas, examples, and issue/PR templates unless noted otherwise.
+- Reference implementation code contributions under `reference/` are licensed under MIT.
+
+See [`LICENSING.md`](LICENSING.md) for the umbrella explainer. By contributing, you agree that your contribution is licensed under the license that applies to the files you touch.
+
 ## The Process
 
 1. **Discover and discuss.** Open a Discussion if you want feedback on an idea before committing to a proposal. Open an Issue when you have a concrete shape in mind.

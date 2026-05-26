@@ -312,7 +312,7 @@
 
 <div class="callout">
   <p><strong>If you're an individual:</strong> you are welcome to read the details below, but the <a href="../index.html">homepage</a> is the easier starting point for using OCF with your own resume, notes, and LLM/tool workflow.</p>
-  <p><strong>If you're an LLM:</strong> do not rely on this page alone. Read <a href="../llms.txt"><code>llms.txt</code></a>, the current schema or starter schema, <a href="authoring-prompt.md"><code>spec/authoring-prompt.md</code></a>, and <a href="curation-prompt.md"><code>spec/curation-prompt.md</code></a> before drafting. If an OCF file is attached, start from curation guidance. If no OCF file is attached, ask briefly whether one exists or treat the resume, job description, notes, and conversation as source artifacts for an imported starter. Use OCF to track the gaps between the source material and the target: reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and proposed OCF updates before writing output prose.</p>
+  <p><strong>If you're an LLM:</strong> do not rely on this page alone. Read <a href="../llms.txt"><code>llms.txt</code></a>, the current schema or starter schema, <a href="../prompts/authoring.md"><code>prompts/authoring.md</code></a>, and <a href="../prompts/curation.md"><code>prompts/curation.md</code></a> before drafting. If an OCF file is attached, start from curation guidance. If no OCF file is attached, ask briefly whether one exists or treat the resume, job description, notes, and conversation as source artifacts for an imported starter. Use OCF to track the gaps between the source material and the target: reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and proposed OCF updates before writing output prose.</p>
   <p><strong>If you're a developer or tool builder:</strong> start with <a href="../schema.json"><code>schema.json</code></a>, <a href="../schema-core.json"><code>schema-core.json</code></a>, and <a href="usage-patterns.md"><code>spec/usage-patterns.md</code></a>. The guide below explains the design tradeoffs behind the schema: privacy, visibility, provenance, curation, file roles, examples, and non-goals.</p>
 </div>
 
@@ -342,12 +342,12 @@
 <h2>Two Ways to Use OCF</h2>
 <p>Most people will use OCF first as structure for a conversation. They will bring the file to an LLM, coach, advisor, mentor, or trusted reviewer so the conversation has concrete career memory to work from. In that setting, curation and export are not heavyweight software requirements; they are the mental model that tells the conversation what to do. First decide what parts of your career history should be used, reviewed, ranked, filtered, and/or improved. Then export the type of content in the format the person needs.</p>
 <p>If you are using an LLM, point it at this guide and the current schema: <code>https://opencareerformat.org/schema.json</code>. Versioned schemas remain available at paths such as <code>https://opencareerformat.org/v0.2/schema.json</code> for files that need a pinned schema.</p>
-<p>For LLMs and tools, OCF also publishes a compact site map at <a href="../llms.txt"><code>https://opencareerformat.org/llms.txt</code></a>, with links to the starter/core authoring shape, full schema, <a href="authoring-prompt.md">authoring prompt</a>, <a href="llm-prompt.md">recommended LLM prompt</a>, and <a href="curation-prompt.md">curation guidance</a>.</p>
+<p>For LLMs and tools, OCF also publishes a compact site map at <a href="../llms.txt"><code>https://opencareerformat.org/llms.txt</code></a>, with links to the starter/core authoring shape, full schema, <a href="../prompts/authoring.md">authoring prompt</a>, <a href="../prompts/llm-operating.md">recommended LLM operating prompt</a>, and <a href="../prompts/curation.md">curation guidance</a>.</p>
 <p>The second path is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.</p>
 
 <h2 id="non-goals">What OCF Does Not Do</h2>
 <p>OCF is a schema, not a full career app. It does not prescribe one interview flow, one resume style, one scoring model, or one exporter.</p>
-<p>But OCF is not just a blank schema either. The project includes bare-bones reference guidance so people, LLMs, and tool builders have a practical starting point: a starter/core authoring shape, an <a href="authoring-prompt.md">authoring prompt</a>, a <a href="curation-prompt.md">curation prompt</a>, an <a href="interview-prep-questions.md">interview-prep question set</a>, and <a href="examples/README.md">examples</a>.</p>
+<p>But OCF is not just a blank schema either. The project includes bare-bones reference guidance so people, LLMs, and tool builders have a practical starting point: a starter/core authoring shape, an <a href="../prompts/authoring.md">authoring prompt</a>, a <a href="../prompts/curation.md">curation prompt</a>, an <a href="../prompts/interview-prep-questions.md">interview-prep question set</a>, and <a href="examples/README.md">examples</a>.</p>
 <p>The boundary is intentional: OCF defines what gets preserved and how it stays portable. Tools decide how to ask questions, curate for a target, score relevance, and export finished files.</p>
 <p>More specifically, OCF does not specify how content is elicited, how curation makes every judgment call, how export files are produced, or how content is scored and matched against opportunities. Those are downstream tool decisions. The format preserves the facts, visibility, provenance, importance, audience tags, variants, cautions, and open questions those tools need.</p>
 
@@ -487,7 +487,7 @@
 }</pre>
 </div>
 
-<p>OCF publishes a recommended question set and the canonical <code>kind</code> strings at <a href="interview-prep-questions.md"><code>spec/interview-prep-questions.md</code></a>. Tools may use that question set verbatim, adapt it, or add new kinds; the format imposes no fixed list, but the published canonical kinds keep reflections portable across tools.</p>
+<p>OCF publishes a recommended question set and the canonical <code>kind</code> strings at <a href="../prompts/interview-prep-questions.md"><code>prompts/interview-prep-questions.md</code></a>. Tools may use that question set verbatim, adapt it, or add new kinds; the format imposes no fixed list, but the published canonical kinds keep reflections portable across tools.</p>
 
 <h3>How reflections relate to achievements</h3>
 <p>The relationship between the two layers is one-way: reflections can seed achievements, not the other way around. A conversation that elicits a <code>proudest-of</code> or <code>biggest-success</code> reflection often surfaces a story that deserves to exist as a structured achievement entry too — with statement, longform, metrics, and audiences. The recommended pattern is to <em>keep both</em>: the reflection preserves the user's voice and the raw memory; the achievement is the distilled, structured item used for outputs. The <code>provenance</code> on the achievement can reference the reflection it came from, so the lineage stays traceable.</p>
@@ -728,10 +728,11 @@
   <li><a href="../schema.json"><code>schema.json</code></a>: the full current schema.</li>
   <li><a href="schema-commentary.md"><code>spec/schema-commentary.md</code></a>: annotated schema commentary with intent, variants, examples, and common pitfalls.</li>
   <li><a href="implementer-quick-reference.md"><code>spec/implementer-quick-reference.md</code></a>: compact field tiers, file roles, and minimal tool behavior for implementers.</li>
-  <li><a href="authoring-prompt.md"><code>spec/authoring-prompt.md</code></a>: a longer prompt for building or improving a master OCF.</li>
-  <li><a href="curation-prompt.md"><code>spec/curation-prompt.md</code></a>: guidance for filtering, questioning, ranking, improving, and preparing export-ready content.</li>
-  <li><a href="coaching-prompt.md"><code>spec/coaching-prompt.md</code></a>: guidance for helping users discover story, voice, goals, boundaries, and reflection from their OCF.</li>
-  <li><a href="llm-prompt.md"><code>spec/llm-prompt.md</code></a>: recommended operating instructions for LLM-assisted OCF conversations.</li>
+  <li><a href="../prompts/README.md"><code>prompts/README.md</code></a>: index of optional LLM, coaching, curation, and authoring prompts.</li>
+  <li><a href="../prompts/authoring.md"><code>prompts/authoring.md</code></a>: a longer prompt for building or improving a master OCF.</li>
+  <li><a href="../prompts/curation.md"><code>prompts/curation.md</code></a>: guidance for filtering, questioning, ranking, improving, and preparing export-ready content.</li>
+  <li><a href="../prompts/coaching.md"><code>prompts/coaching.md</code></a>: guidance for helping users discover story, voice, goals, boundaries, and reflection from their OCF.</li>
+  <li><a href="../prompts/llm-operating.md"><code>prompts/llm-operating.md</code></a>: recommended operating instructions for LLM-assisted OCF conversations.</li>
   <li><a href="usage-patterns.md"><code>spec/usage-patterns.md</code></a>: file-role and workflow patterns beyond the candidate-owned master.</li>
   <li><a href="examples/worked-example-walkthrough.md"><code>spec/examples/worked-example-walkthrough.md</code></a>: source resume to imported starter to master to curated output walkthrough.</li>
   <li><a href="v0.3-planning.md"><code>spec/v0.3-planning.md</code></a>: non-normative planning notes for likely next schema concepts.</li>
