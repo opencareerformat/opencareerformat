@@ -186,7 +186,7 @@ Do not store government identity numbers, account secrets, passwords, passport n
 
 Source artifacts are inputs, not truth.
 
-Use `sourceArtifacts` for old resumes, LinkedIn exports, pasted chat text, uploaded notes, interview transcripts, portfolio bios, comp-plan photos, and other material used to build or improve the OCF.
+Use `sourceArtifacts` for old resumes, cover letters, LinkedIn exports, pasted chat text, uploaded notes, interview transcripts, portfolio bios, comp-plan photos, job descriptions, and other material used to build or improve the OCF.
 
 Example:
 
@@ -220,6 +220,10 @@ Good importer behavior:
 - avoid treating imported material as intentionally shareable just because normal authored items default to `shared`
 
 `sourceArtifact.kind` and `provenance.source` are deliberately different vocabularies. `sourceArtifact.kind` describes the artifact itself (`resume`, `linkedin-export`, `chat-paste`, `interview-transcript`). `provenance.source` describes how the OCF item came into the file (`authored`, `imported`, `interview-derived`, `llm-suggested`, `curated`, `translated`, `merged`). For example, wording pasted into chat should usually have a `sourceArtifact.kind` of `chat-paste` and a `provenance.source` of `imported` or `llm-suggested`, with `sourceArtifactId` linking the two.
+
+OCF v0.2 does not include `job-description` as a `sourceArtifact.kind` enum value. For now, use `application-draft`, `manual-note`, or `other` for job descriptions depending on the source and workflow. `job-description` is a likely v0.3 addition because resume-plus-JD workflows are common.
+
+`sourceArtifacts.audience` is free-form and can also support voice calibration. Useful tags include `voice-authentic` for writing that sounds like the person, `voice-calibrated` for assisted writing the person has accepted as representative, and `voice-anti-pattern` for AI-heavy or rejected drafts that future tools should not imitate.
 
 ## `provenance`
 
@@ -327,6 +331,10 @@ Example:
 
 Use `dateRange.end.present: true` to mean present as of the source or current file context. When importing multiple resumes, remember that "Present" in an old resume means "present when that resume was written," not necessarily present today.
 
+If a person has separate periods doing similar work for the same organization or client, model them as separate positions with the same or similar title and different `dateRange` values. This is clearer than hiding a gap inside prose. A future schema may add richer repeated-period support if this pattern becomes common.
+
+Do not use organization address as a proxy for the person's work location, residence, or tax-sensitive location history. A resume may reasonably show the company, office, or market location without implying where the person lived or performed all work. If role-location nuance matters, preserve it separately and keep sensitive residence or tax details private. Until OCF has first-class position-level location fields, use `extensions.user.local` for private/local location notes and curate only the location facts the user intentionally wants to disclose.
+
 ## `organizations`
 
 Use top-level `organizations` when the same organization appears in multiple places, when its identity changed, or when organization metadata is useful across experience entries.
@@ -423,6 +431,8 @@ Use attribution to distinguish:
 - observed
 
 This is not formal verification. It is a structured prompt for honest wording. RACI-like questions can help clarify responsibility, but OCF does not encode a formal RACI model.
+
+The `role` values are common cases, not a complete vocabulary for every collaboration pattern. If the precise truth is "co-led," "jointly owned," or "led one workstream inside a larger program," use the closest role value and put the nuance in `scope` or `notes` so a curator can choose accurate verbs.
 
 ## Metrics
 
@@ -557,6 +567,8 @@ Example:
 Write `claim` as the claim or framing a tool might make, such as "claimed as..." or "positioned as...". Do not require first-person wording; cautions are often easiest to apply when they describe the risky output phrase directly.
 
 Use cautions when a tool, coach, recruiter, or draft overstates something and the user corrects it. Cautions are not weaknesses; they are positioning constraints.
+
+Cautions can also capture writing anti-patterns, not only factual overclaims. A useful caution might be "do not describe this as a transformational journey" or "do not use the phrase uniquely positioned" when the user has rejected that voice. These are still guardrails for future curation: things the tool should not claim, imply, or sound like on the person's behalf.
 
 ## Open Questions
 
@@ -778,6 +790,8 @@ Example:
 ```
 
 Use a domain you control as the namespace. Tools that do not understand an extension should preserve it.
+
+By interim convention, use `extensions.user.local` for user-controlled scratch metadata that has no vendor owner and no first-class schema field yet. It is valid under the v0.2 extension key pattern, but it is not a v0.2 normative schema commitment. Portable data should still prefer first-class schema fields when they exist, and vendor-owned metadata should use a domain the vendor controls.
 
 ## Importer Guidance
 
