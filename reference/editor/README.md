@@ -11,7 +11,7 @@ npm run dev
 
 Then open `http://localhost:3000`.
 
-The editor has no LLM dependency and no server-side API-key requirement. Import, curation, and export workflows are demonstrated separately as minimal bare-bones code examples in `reference/importers`, `reference/curators`, and `reference/exporters`. LLM-assisted workflows are described in `spec/llm-prompt.md` and the guide, and can be used with any LLM tool that can follow the schema.
+The editor has no LLM dependency and no server-side API-key requirement. Import, curation, and export workflows are demonstrated separately as minimal bare-bones code examples in `reference/importers`, `reference/curators`, and `reference/exporters`. LLM-assisted workflows are described in `prompts/llm-operating.md` and the guide, and can be used with any LLM tool that can follow the schema.
 
 ## Scope
 

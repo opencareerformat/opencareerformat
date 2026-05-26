@@ -8,7 +8,7 @@ A candidate-owned, portable file format for an entire career. One master file, m
 
 OCF is designed for two kinds of use. Most people will use the structure directly in conversation: upload or open an OCF with an LLM, coach, advisor, or reviewer so the conversation has concrete career memory to work from. The curation and export language gives that conversation a mental model: first decide what parts of the person's career history should be used, reviewed, ranked, filtered, and/or improved; then export the type of content in the format the person needs.
 
-If you are using an LLM, tell it to read the LLM instructions, the starter/core schema, and the authoring prompt before drafting. If you already have an OCF master and are tailoring for a target, tell it to read the curation prompt too. Point it at <https://opencareerformat.org/llms.txt>, <https://opencareerformat.org/schema-core.json>, <https://opencareerformat.org/spec/authoring-prompt.md>, and, when curating from an existing OCF, <https://opencareerformat.org/spec/curation-prompt.md>. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
+If you are using an LLM, tell it to read the LLM instructions, the starter/core schema, and the authoring prompt before drafting. If you already have an OCF master and are tailoring for a target, tell it to read the curation prompt too. Point it at <https://opencareerformat.org/llms.txt>, <https://opencareerformat.org/schema-core.json>, <https://opencareerformat.org/prompts/authoring.md>, and, when curating from an existing OCF, <https://opencareerformat.org/prompts/curation.md>. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
 
 The second use is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.
 
@@ -35,15 +35,17 @@ spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
   implementer-quick-reference.md # Compact field tiers and tool behavior guidance.
   usage-patterns.md # File roles: candidate-owned master, imported starter, third-party working files, etc.
   v0.3-planning.md # Non-normative planning notes for likely next schema concepts.
-  authoring-prompt.md # Optional prompt for LLMs creating or updating a master OCF.
-  coaching-prompt.md # Optional prompt for helping users discover story, voice, goals, and boundaries.
   examples/       # Canonical example OCF files.
-  llm-prompt.md   # Recommended instruction set for LLM-based tools that consume OCF conversationally.
-  curation-prompt.md # Optional prompt for curation tools that improve OCF or prepare export-ready input.
 
 schema.json       # Current schema alias, suitable for new files and tools that want "latest".
 schema-core.json  # Starter/core authoring shape for LLMs and first-time OCF creation.
 llms.txt          # LLM/tool site map pointing to the guide, schemas, and prompts.
+
+prompts/          # OPTIONAL OPERATING GUIDANCE — LLM/coach/curator prompts that can evolve separately.
+  authoring.md    # Prompt for creating or updating a master OCF or imported starter.
+  coaching.md     # Prompt for discovering story, voice, goals, boundaries, and reflection.
+  curation.md     # Prompt for target-specific filtering, questioning, ranking, and improvement.
+  llm-operating.md # Baseline instruction set for conversational OCF use.
 
 mappings/         # CROSS-FORMAT DOCS — prose-only specifications for how OCF
                   # maps to / from neighbouring formats (JSON Resume, LER-RS,
@@ -89,15 +91,15 @@ OCF deliberately does not specify how content is elicited (the interviewing laye
 
 The most accessible way to use OCF is to bring it into a conversation: with a human coach, advisor, mentor, trusted reviewer, or an LLM. The point is the same either way: the conversation has structured context about what you have done, what changed, what mattered, and what evidence you can draw on. The recommended pattern is bidirectional — the conversation uses OCF as substrate AND proposes updates to the master file at the end. Over time, every meaningful interaction leaves the file richer rather than starting from scratch.
 
-OCF publishes a recommended LLM prompt at [`spec/llm-prompt.md`](spec/llm-prompt.md). It also includes separate prompts for [`authoring`](spec/authoring-prompt.md), [`curation`](spec/curation-prompt.md), and [`coaching`](spec/coaching-prompt.md). Tools may use them verbatim, adapt them, or replace them. See the guide section *"OCF as Input to a Conversation (Human or LLM)"* for the full discussion.
+OCF publishes a recommended LLM operating prompt at [`prompts/llm-operating.md`](prompts/llm-operating.md). It also includes separate prompts for [`authoring`](prompts/authoring.md), [`curation`](prompts/curation.md), and [`coaching`](prompts/coaching.md). Tools may use them verbatim, adapt them, or replace them. See the guide section *"OCF as Input to a Conversation (Human or LLM)"* for the full discussion.
 
 You can use OCF today without a dedicated app or MCP server. Upload prior resumes or career artifacts to an LLM that can read attachments and say:
 
-> Using the three copies of my resume I just uploaded to you, first read https://opencareerformat.org/llms.txt, the current OCF schema at https://opencareerformat.org/schema.json, and the authoring prompt at https://opencareerformat.org/spec/authoring-prompt.md. Then walk me through the OCF process to create my master OCF. Treat prior resumes as source artifacts, preserve useful audience-specific wording as narrative variants, and propose uncertain claims as open questions instead of inventing facts. After each major step, ask whether I want to save, version, or git commit the latest accepted version.
+> Using the three copies of my resume I just uploaded to you, first read https://opencareerformat.org/llms.txt, the current OCF schema at https://opencareerformat.org/schema.json, and the authoring prompt at https://opencareerformat.org/prompts/authoring.md. Then walk me through the OCF process to create my master OCF. Treat prior resumes as source artifacts, preserve useful audience-specific wording as narrative variants, and propose uncertain claims as open questions instead of inventing facts. After each major step, ask whether I want to save, version, or git commit the latest accepted version.
 
 Later, when you have a master OCF, upload it with a job description you are interested in and say:
 
-> Given my OCF, which I just uploaded, and this job description, first read https://opencareerformat.org/spec/curation-prompt.md. Let's do resume prep and interview prep. Before drafting, read relevant cautions, open questions, goals, aiInstructions, reflections, and narrative variants. Then identify the best matching evidence in my OCF, suggest any master updates, and produce a targeted resume draft and interview talking points. Respect visibility, separate facts from display wording, and remind me what I need to verify before using any output. After each major step, ask whether I want to save, version, or git commit the latest accepted version.
+> Given my OCF, which I just uploaded, and this job description, first read https://opencareerformat.org/prompts/curation.md. Let's do resume prep and interview prep. Before drafting, read relevant cautions, open questions, goals, aiInstructions, reflections, and narrative variants. Then identify the best matching evidence in my OCF, suggest any master updates, and produce a targeted resume draft and interview talking points. Respect visibility, separate facts from display wording, and remind me what I need to verify before using any output. After each major step, ask whether I want to save, version, or git commit the latest accepted version.
 
 We strongly encourage you to ask your tool to use git, cloud document history, encrypted backups, or another versioning system of your choice for the master OCF. The format is designed to accumulate over years; versioning makes it possible to recover from bad imports, compare changes, and avoid losing work when a chat session ends.
 
@@ -131,7 +133,7 @@ node reference/validator/validate.js
 
 ## License
 
-OCF is dual-licensed. The specification (everything in `spec/` and `mappings/`) is licensed under [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). The reference implementations (everything in `reference/`) are licensed under the [MIT License](LICENSE-code). See [LICENSING.md](LICENSING.md) for the umbrella explainer.
+OCF is dual-licensed. The specification, mappings, prompts, examples, and project documentation are licensed under [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). The reference implementations (everything in `reference/`) are licensed under the [MIT License](LICENSE-code). See [LICENSING.md](LICENSING.md) for the umbrella explainer.
 
 ## Status
 

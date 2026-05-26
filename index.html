@@ -327,8 +327,8 @@
       <pre><code id="quickstart-prompt">Using only these OCF references:
 https://opencareerformat.org/llms.txt
 https://opencareerformat.org/schema-core.json
-https://opencareerformat.org/spec/authoring-prompt.md
-https://opencareerformat.org/spec/curation-prompt.md
+https://opencareerformat.org/prompts/authoring.md
+https://opencareerformat.org/prompts/curation.md
 
 plus my attached resume and job description, help me create a better resume and cover letter for this role.
 
@@ -343,7 +343,7 @@ Ask targeted questions where needed. After I answer, draft the resume and cover 
 </div>
 
 <div class="llm-instructions" aria-hidden="true">
-  <p>For LLMs: do not rely on the homepage alone. If a user asks you to use OCF, first read these absolute URLs: https://opencareerformat.org/llms.txt, https://opencareerformat.org/schema-core.json, https://opencareerformat.org/spec/authoring-prompt.md, and https://opencareerformat.org/spec/curation-prompt.md. Use https://opencareerformat.org/schema.json only if the core schema is insufficient. If an OCF file is attached, start with curation guidance. If no OCF file is attached, ask briefly whether one exists or treat the attached material as source artifacts for an imported starter until the user reviews it. Before drafting outputs, use OCF to track the gaps between the source material and the target: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.</p>
+  <p>For LLMs: do not rely on the homepage alone. If a user asks you to use OCF, first read these absolute URLs: https://opencareerformat.org/llms.txt, https://opencareerformat.org/schema-core.json, https://opencareerformat.org/prompts/authoring.md, and https://opencareerformat.org/prompts/curation.md. Use https://opencareerformat.org/schema.json only if the core schema is insufficient. If an OCF file is attached, start with curation guidance. If no OCF file is attached, ask briefly whether one exists or treat the attached material as source artifacts for an imported starter until the user reviews it. Before drafting outputs, use OCF to track the gaps between the source material and the target: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.</p>
 </div>
 
 <h2>The Problem</h2>
@@ -353,12 +353,12 @@ Ask targeted questions where needed. After I answer, draft the resume and cover 
 <h2>Two Ways to Use OCF</h2>
 <p>Most people will use OCF first as structure for a conversation. They will bring the file to an LLM, coach, advisor, mentor, or trusted reviewer so the conversation has concrete career memory to work from. In that setting, curation and export are not heavyweight software requirements; they are the mental model that tells the conversation what to do. First decide what parts of your career history should be used, reviewed, ranked, filtered, and/or improved. Then export the type of content in the format the person needs.</p>
 <p>If you are using an LLM, point it at this guide and the current schema: <code>https://opencareerformat.org/schema.json</code>. Versioned schemas remain available at paths such as <code>https://opencareerformat.org/v0.2/schema.json</code> for files that need a pinned schema.</p>
-<p>For LLMs and tools, OCF also publishes a compact site map at <a href="llms.txt"><code>https://opencareerformat.org/llms.txt</code></a>, with links to the starter/core authoring shape, full schema, <a href="spec/authoring-prompt.md">authoring prompt</a>, <a href="spec/llm-prompt.md">recommended LLM prompt</a>, and <a href="spec/curation-prompt.md">curation guidance</a>.</p>
+<p>For LLMs and tools, OCF also publishes a compact site map at <a href="llms.txt"><code>https://opencareerformat.org/llms.txt</code></a>, with links to the starter/core authoring shape, full schema, <a href="prompts/authoring.md">authoring prompt</a>, <a href="prompts/llm-operating.md">recommended LLM operating prompt</a>, and <a href="prompts/curation.md">curation guidance</a>.</p>
 <p>The second path is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.</p>
 
 <h2>What OCF Does and Does Not Do</h2>
 <p>OCF is a schema, not a full career app. It does not prescribe one interview flow, one resume style, one scoring model, or one exporter.</p>
-<p>But OCF is not just a blank schema either. The project includes bare-bones reference guidance so people, LLMs, and tool builders have a practical starting point: a starter/core authoring shape, an <a href="spec/authoring-prompt.md">authoring prompt</a>, a <a href="spec/curation-prompt.md">curation prompt</a>, an <a href="spec/interview-prep-questions.md">interview-prep question set</a>, and <a href="spec/examples/README.md">examples</a>.</p>
+<p>But OCF is not just a blank schema either. The project includes bare-bones reference guidance so people, LLMs, and tool builders have a practical starting point: a starter/core authoring shape, an <a href="prompts/authoring.md">authoring prompt</a>, a <a href="prompts/curation.md">curation prompt</a>, an <a href="prompts/interview-prep-questions.md">interview-prep question set</a>, and <a href="spec/examples/README.md">examples</a>.</p>
 <p>The boundary is intentional: OCF defines what gets preserved and how it stays portable. Tools decide how to ask questions, curate for a target, score relevance, and export finished files.</p>
 
 <h2>File Roles</h2>
@@ -432,9 +432,10 @@ Ask targeted questions where needed. After I answer, draft the resume and cover 
   <li><a href="schema.json">Use the current schema</a></li>
   <li><a href="schema-core.json">Use the starter/core authoring shape</a></li>
   <li><a href="spec/implementer-quick-reference.md">Read the implementer quick reference</a></li>
-  <li><a href="spec/authoring-prompt.md">Read the authoring prompt</a></li>
-  <li><a href="spec/curation-prompt.md">Read the curation prompt</a></li>
-  <li><a href="spec/coaching-prompt.md">Read the coaching prompt</a></li>
+  <li><a href="prompts/README.md">Read the prompt index</a></li>
+  <li><a href="prompts/authoring.md">Read the authoring prompt</a></li>
+  <li><a href="prompts/curation.md">Read the curation prompt</a></li>
+  <li><a href="prompts/coaching.md">Read the coaching prompt</a></li>
   <li><a href="spec/examples/worked-example-walkthrough.md">Read the worked example walkthrough</a></li>
   <li><a href="llms.txt">Read the LLM/tool site map</a></li>
   <li><a href="https://github.com/opencareerformat/opencareerformat">Read the GitHub README and repository</a></li>
