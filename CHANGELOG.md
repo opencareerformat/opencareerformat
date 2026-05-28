@@ -10,6 +10,7 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 - Added `spec/usage-patterns.md` and updated the guide, README, prompts, starter/core schema, and examples to clarify that a candidate-owned master is one important OCF use case, not the only possible OCF file role. The top-level `person` is the subject of the OCF; the controller of the file and editors of individual items may be different.
 - Added optional `achievement.attribution` to capture the subject's role in an outcome (`owned`, `led`, `drove`, `contributed-to`, `supported`, `advised`, `observed`, `other`) plus optional budget/headcount/upward-reporting context.
 - Reframed reflections as a private review and conversation layer, with interview prep as one use case rather than the whole concept.
+- Moved active LLM and coaching prompts from `spec/` to top-level `prompts/` paths (`prompts/authoring.md`, `prompts/curation.md`, `prompts/coaching.md`, `prompts/llm-operating.md`, and `prompts/interview-prep-questions.md`). The old `spec/*` prompt paths remain as compatibility stubs.
 
 ## [0.1.0] — Initial release
 
