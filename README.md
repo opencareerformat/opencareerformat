@@ -91,7 +91,7 @@ OCF deliberately does not specify how content is elicited (the interviewing laye
 
 The most accessible way to use OCF is to bring it into a conversation: with a human coach, advisor, mentor, trusted reviewer, or an LLM. The point is the same either way: the conversation has structured context about what you have done, what changed, what mattered, and what evidence you can draw on. The recommended pattern is bidirectional — the conversation uses OCF as substrate AND proposes updates to the master file at the end. Over time, every meaningful interaction leaves the file richer rather than starting from scratch.
 
-OCF publishes a recommended LLM operating prompt at [`prompts/llm-operating.md`](prompts/llm-operating.md). It also includes separate prompts for [`authoring`](prompts/authoring.md), [`curation`](prompts/curation.md), and [`coaching`](prompts/coaching.md). Tools may use them verbatim, adapt them, or replace them. See the guide section *"OCF as Input to a Conversation (Human or LLM)"* for the full discussion.
+OCF publishes a recommended LLM operating prompt at [`prompts/llm-operating.md`](prompts/llm-operating.md). It also includes separate prompts for [`authoring`](prompts/authoring.md), [`curation`](prompts/curation.md), and [`coaching`](prompts/coaching.md). Tools may use them verbatim, adapt them, or replace them. The prompts mix schema-aware instructions with behavioral advice; [`prompts/README.md`](prompts/README.md) explains that boundary. See the guide section *"OCF as Input to a Conversation (Human or LLM)"* for the full discussion.
 
 You can use OCF today without a dedicated app or MCP server. Upload prior resumes or career artifacts to an LLM that can read attachments and say:
 
