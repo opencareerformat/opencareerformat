@@ -19,7 +19,7 @@ ollama pull llama3.1:8b
 
 ## Author From Source Material
 
-Use this when the user has source material but no master OCF yet:
+Use this when the user has source material but no master OCF yet and wants a reviewable transcript:
 
 ```bash
 node reference/ollama/ocf-local-llm.js \
@@ -38,7 +38,37 @@ The script reads:
 - the resume/source material you provide
 - the job description if provided
 
-It asks the local model to produce an OCF-oriented intake pass and proposed next steps. The output is a Markdown transcript, not a validated OCF file.
+It asks the local model to produce an OCF-oriented intake pass and proposed next steps. The default output is a Markdown transcript, not a validated OCF file.
+
+## Emit an Imported Starter
+
+Use `--output imported-starter` when you want the local model to return OCF JSON that can be passed directly to the validator:
+
+```bash
+node reference/ollama/ocf-local-llm.js \
+  --mode authoring \
+  --output imported-starter \
+  --model qwen2.5:14b \
+  --sample-resume \
+  --out /tmp/ocf-local-sample.imported.ocf.json
+
+node reference/validator/validate.js /tmp/ocf-local-sample.imported.ocf.json
+```
+
+`--sample-resume` uses `spec/examples/sample-resume-source.txt`. For another resume or source text, use `--resume <source.txt>` instead:
+
+```bash
+node reference/ollama/ocf-local-llm.js \
+  --mode authoring \
+  --output imported-starter \
+  --model qwen2.5:14b \
+  --resume spec/examples/sample-resume-source.txt \
+  --out /tmp/ocf-local-imported.ocf.json
+```
+
+In this mode the script gives Ollama a compact full-validator contract, asks for strict JSON, extracts the first JSON object if the model wraps it, writes pretty-printed JSON, and prints the validator command. It does not repair schema mistakes in the generated object. Validation is still a separate step, and a passing file still needs human review for truth, privacy, and judgment.
+
+Model choice matters. In local testing, `qwen2.5:14b` produced validator-ready JSON for the bundled sample resume with this prompt. Smaller models may return valid JSON that still fails the full OCF schema; treat that as a prompt/model capability result, not something this script silently fixes.
 
 ## Curate From an Existing OCF
 
@@ -63,7 +93,7 @@ The script reads:
 
 ## Privacy Boundary
 
-This script only calls `http://127.0.0.1:11434/api/generate`. It does not call hosted LLM APIs.
+This script invokes the local `ollama` command, using `/usr/local/bin/ollama` when present or `OLLAMA_BIN` when set. It does not call hosted LLM APIs.
 
 That does not make the workflow magically risk-free. The input files, generated output, shell history, editor temp files, model logs, backups, and the laptop itself are still your responsibility. Treat OCF files like other sensitive personal documents.
 

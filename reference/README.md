@@ -29,7 +29,7 @@ These tools are intentionally bare bones. They prove the concept and make the da
 | `exporters/json-resume.js` | Minimal mapper | Converts visible OCF content into JSON Resume shape. | Loses OCF-only concepts such as cautions, open questions, provenance detail, and private memory. |
 | `exporters/linkedin.js` | Minimal paste-bundle mapper | Produces Markdown organized around LinkedIn editing areas. | Does not call LinkedIn APIs; users must review and paste manually. |
 | `editor/` | Partial local editor | Lets a user open, edit, and save common OCF sections locally. | Covers only part of the schema; unsupported sections may round-trip as JSON but are not fully editable in the UI. |
-| `ollama/ocf-local-llm.js` | Local LLM proof of concept | Sends OCF prompts, schema-core, and user-provided files to a local Ollama model. | Requires local Ollama and a model; output is prose and still needs user review and validator checks. |
+| `ollama/ocf-local-llm.js` | Local LLM proof of concept | Sends OCF prompts, schema-core, and user-provided files to a local Ollama model; can write either a transcript or an imported-starter JSON draft. | Requires local Ollama and a model; model-authored JSON still needs validator checks and human review. |
 
 ## End-to-End Demo
 
@@ -58,6 +58,13 @@ Run a local LLM intake pass with Ollama:
 
 ```bash
 node reference/ollama/ocf-local-llm.js --mode authoring --model llama3.1:8b --resume spec/examples/sample-resume-source.txt --job spec/examples/sample-job-description.txt --out /tmp/ocf-local-authoring-response.md
+```
+
+Use the bundled sample resume to ask Ollama for a validator-ready imported starter:
+
+```bash
+node reference/ollama/ocf-local-llm.js --mode authoring --output imported-starter --model qwen2.5:14b --sample-resume --out /tmp/ocf-local-sample.imported.ocf.json
+node reference/validator/validate.js /tmp/ocf-local-sample.imported.ocf.json
 ```
 
 The importer intentionally creates only a skeleton. The curator intentionally creates only a partial curated OCF. The point is to prove the pipeline: source artifact -> imported starter -> curated working file -> downstream export.
