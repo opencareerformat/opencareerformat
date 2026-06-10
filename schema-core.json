@@ -52,6 +52,12 @@
           "type": "string",
           "format": "date"
         },
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
         "language": {
           "type": "string"
         },
@@ -69,10 +75,10 @@
               ]
             }
           },
-          "additionalProperties": true
+          "additionalProperties": false
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "person": {
       "type": "object",
@@ -103,7 +109,7 @@
               "type": "string"
             }
           },
-          "additionalProperties": true
+          "additionalProperties": false
         },
         "headline": {
           "type": "string"
@@ -167,7 +173,7 @@
           }
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "sourceArtifacts": {
       "type": "array",
@@ -211,7 +217,7 @@
             "type": "string"
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       }
     },
     "experience": {
@@ -253,7 +259,7 @@
             }
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       }
     },
     "education": {
@@ -286,7 +292,7 @@
             "$ref": "#/$defs/visibility"
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       }
     },
     "skills": {
@@ -330,7 +336,7 @@
             "$ref": "#/$defs/visibility"
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       }
     },
     "cautions": {
@@ -358,7 +364,7 @@
             "$ref": "#/$defs/visibility"
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       }
     },
     "openQuestions": {
@@ -386,11 +392,14 @@
             "$ref": "#/$defs/visibility"
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       }
+    },
+    "extensions": {
+      "$ref": "#/$defs/extensions"
     }
   },
-  "additionalProperties": true,
+  "additionalProperties": false,
   "$defs": {
     "position": {
       "type": "object",
@@ -424,7 +433,7 @@
           "$ref": "#/$defs/visibility"
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "achievement": {
       "type": "object",
@@ -516,7 +525,7 @@
                 "$ref": "#/$defs/provenance"
               }
             },
-            "additionalProperties": true
+            "additionalProperties": false
           }
         },
         "supportingFacts": {
@@ -534,7 +543,7 @@
                 "$ref": "#/$defs/visibility"
               }
             },
-            "additionalProperties": true
+            "additionalProperties": false
           }
         },
         "importance": {
@@ -548,7 +557,7 @@
           "$ref": "#/$defs/provenance"
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "metric": {
       "type": "object",
@@ -607,12 +616,25 @@
           ]
         }
       ],
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "provenance": {
       "type": "object",
       "description": "Open-shape provenance metadata. Prefer common keys such as source, tool, date, sourceArtifactId, confidence, operation, and note.",
       "additionalProperties": true
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Vendor or user-local extension metadata. Use domain-owned keys for vendors and top-level user.local for user-owned incubation.",
+      "propertyNames": {
+        "pattern": "^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$",
+        "description": "A domain name owned by the vendor, or the interim user.local namespace for user-owned incubation. Must contain at least one dot; subdomains are allowed."
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "Extension payload. OCF does not constrain its shape.",
+        "additionalProperties": true
+      }
     },
     "partialDate": {
       "type": "object",

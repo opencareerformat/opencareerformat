@@ -82,6 +82,8 @@ Important caveat: validation checks structure, not truth or shareability. A vali
 
 You do not need a complete career archive before OCF becomes useful. A small master with person information, one experience entry, one position, and a few achievements is enough to validate, prepare a first output, and improve through later conversations.
 
+Many people should first experience OCF through a concrete application, not a blank-file exercise. If you have a resume and a job description but no OCF yet, ask the tool to help with the application now and create an imported starter as a by-product. The starter can preserve useful facts, cautions, open questions, and source artifacts for next time without making you finish a complete career archive before getting a resume, cover letter, or interview-prep help.
+
 ## What OCF Is Not
 
 OCF deliberately does not specify how content is elicited (the interviewing layer), how export files are produced (the export layer), or how content is scored against opportunities (the matching layer). Those are tool concerns. By staying focused on *what gets persisted*, OCF stays small enough that an individual can understand their own file and that developers/vendors can compete on tooling without forking the format.
@@ -96,6 +98,10 @@ OCF publishes a recommended LLM operating prompt at [`prompts/llm-operating.md`]
 You can use OCF today without a dedicated app or MCP server. Upload prior resumes or career artifacts to an LLM that can read attachments and say:
 
 > Using the three copies of my resume I just uploaded to you, first read https://opencareerformat.org/llms.txt, the current OCF schema at https://opencareerformat.org/schema.json, and the authoring prompt at https://opencareerformat.org/prompts/authoring.md. Then walk me through the OCF process to create my master OCF. Treat prior resumes as source artifacts, preserve useful audience-specific wording as narrative variants, and propose uncertain claims as open questions instead of inventing facts. After each major step, ask whether I want to save, version, or git commit the latest accepted version.
+
+If your first need is a specific application, say:
+
+> I do not have an OCF yet. Using my resume and this job description, first read https://opencareerformat.org/llms.txt and https://opencareerformat.org/prompts/authoring.md. Help me with this application now: identify the best matching evidence, ask only the gating questions that would materially change the output, produce the requested resume or cover letter after I answer, and create an imported-starter OCF/update proposal as the by-product for next time. Treat the job description as source material, not as a career fact.
 
 Later, when you have a master OCF, upload it with a job description you are interested in and say:
 

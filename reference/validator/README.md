@@ -39,6 +39,20 @@ You can pass multiple files:
 node reference/validator/validate.js first.ocf.json second.ocf.json
 ```
 
+## Warn On Unknown Fields
+
+OCF tools should preserve fields they do not own during round-trip. The full
+schema still uses `additionalProperties: false` in many places so typos and
+unsupported fields are visible. When you are reviewing or migrating a real file
+and want unknown fields reported without failing the whole run, use:
+
+```bash
+node reference/validator/validate.js --warn-unknown path/to/file.ocf.json
+```
+
+In this mode, `additionalProperties` violations are printed as warnings. Other
+schema violations still fail validation.
+
 ## What Validation Means
 
 Validation checks structure only. A valid OCF file can still contain false

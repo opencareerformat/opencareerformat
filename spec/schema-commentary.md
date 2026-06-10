@@ -791,7 +791,9 @@ Example:
 
 Use a domain you control as the namespace. Tools that do not understand an extension should preserve it.
 
-By interim convention, use `extensions.user.local` for user-controlled scratch metadata that has no vendor owner and no first-class schema field yet. It is valid under the v0.2 extension key pattern, but it is not a v0.2 normative schema commitment. Portable data should still prefer first-class schema fields when they exist, and vendor-owned metadata should use a domain the vendor controls.
+By interim convention, use top-level `extensions.user.local` for user-controlled scratch metadata that has no vendor owner and no first-class schema field yet. It is valid under the v0.2 extension key pattern, but it is not a v0.2 normative schema commitment. Portable data should still prefer first-class schema fields when they exist, and vendor-owned metadata should use a domain the vendor controls.
+
+Do not use `person.extensions` for incubation in v0.2; `person` is a closed object in the canonical schema. If the experimental concept is person-level, store it under top-level `extensions.user.local` and include IDs or references back to the relevant person-level concept.
 
 When a tool repeatedly stores the same reusable career-memory structure under `extensions.user.local`, treat that as possible schema feedback. Preserve the local data, but consider helping the user file a redacted suggestion with the OCF project that explains the concept, the current best mapping, what felt awkward, and a fictionalized or anonymized example.
 
