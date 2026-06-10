@@ -148,6 +148,19 @@
     margin: 1.5rem 0;
   }
   .callout p:last-child { margin-bottom: 0; }
+  .save-line {
+    font-weight: 700;
+  }
+  .vignette {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+  }
+  .vignette h2 {
+    margin-top: 0;
+  }
   .prompt-details {
     margin: 0.75rem 0 1rem;
   }
@@ -354,7 +367,7 @@
     <h1>Open Career Format</h1>
     <p class="subtitle">A private career notebook that becomes every resume you'll ever need.</p>
     <p>OCF is for preserving your own career history as it happens: what you did, what changed, what you learned, and what mattered.</p>
-    <p class="updated">Last updated: 2026-06-09</p>
+    <p class="updated">Last updated: <span id="last-updated">2026-06-10</span></p>
     <nav class="project-links" aria-label="Project links">
       <a href="https://github.com/opencareerformat/opencareerformat">GitHub repo</a>
       <a href="schema.json">Schema</a>
@@ -365,33 +378,34 @@
 </header>
 
 <div class="callout">
-  <p><strong>If you're an individual, get started quickly.</strong> If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and a job description. Do not include anything you would not want that tool to process.</p>
-  <details class="prompt-details">
-    <summary>Show copyable LLM prompt</summary>
+  <p><strong>Applying for a job right now?</strong> If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and the job description. Do not include anything that tool should not process.</p>
+  <details class="prompt-details" open>
+    <summary>Copyable LLM prompt</summary>
     <div class="prompt-panel">
       <div class="prompt-toolbar">
         <button class="copy-prompt" type="button" data-copy-target="quickstart-prompt">Copy prompt</button>
       </div>
-      <pre><code id="quickstart-prompt">Using only these OCF references:
-https://opencareerformat.org/llms.txt
-https://opencareerformat.org/schema-core.json
-https://opencareerformat.org/prompts/authoring.md
-https://opencareerformat.org/prompts/curation.md
+      <pre><code id="quickstart-prompt">Using only this OCF bootstrap:
+https://opencareerformat.org/prompts/application-bootstrap.md
 
 plus my attached resume and job description, help me create a better resume and cover letter for this role.
 
-Do not search for general prompt-writing, resume, schema, or background advice unless I ask you to. If I attach an existing OCF, use the curation prompt first. If no OCF file is attached, ask briefly whether one exists or treat the attached material as source artifacts for an imported starter until I review it.
+Do not search for general prompt-writing, resume, schema, or background advice unless I ask you to.
 
-Before writing, use OCF to track the gaps between my source material and the target role: map my source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.
-
-Ask targeted questions where needed. After I answer, draft the resume and cover letter. Finally, suggest what should be saved into my OCF for next time.</code></pre>
+First give me the gap read: what the job asks for, what my resume proves, and what is missing or under-evidenced. Ask no more than three targeted questions. After I answer, draft the resume and cover letter. Then create an imported-starter OCF file or proposed OCF update set for next time, and remind me to save it next to my resume.</code></pre>
     </div>
   </details>
-  <p><strong>If you're looking to leverage OCF in some other way:</strong> start with <a href="spec/usage-patterns.md"><code>spec/usage-patterns.md</code></a>.</p>
+  <p class="save-line">Save the OCF file next to your resume. Next time, attach both.</p>
+  <p><strong>Building tools or using OCF another way?</strong> Start with <a href="spec/usage-patterns.md"><code>spec/usage-patterns.md</code></a> or the <a href="spec/guide.html">full guide</a>.</p>
 </div>
 
+<section class="vignette" aria-labelledby="real-session-title">
+  <h2 id="real-session-title">What This Looks Like In Practice</h2>
+  <p>A real first session started with a resume and a job description. The model named the gap between what the role wanted and what the resume proved, then asked one focused question. That question surfaced a missing story that had been pushed out of every resume version. The user got a better draft for the application and a starter file that remembered the story for next time.</p>
+</section>
+
 <div class="llm-instructions" aria-hidden="true">
-  <p>For LLMs: do not rely on the homepage alone. If a user asks you to use OCF, first read these absolute URLs: https://opencareerformat.org/llms.txt, https://opencareerformat.org/schema-core.json, https://opencareerformat.org/prompts/authoring.md, and https://opencareerformat.org/prompts/curation.md. Use https://opencareerformat.org/schema.json only if the core schema is insufficient. If an OCF file is attached, start with curation guidance. If no OCF file is attached, ask briefly whether one exists or treat the attached material as source artifacts for an imported starter until the user reviews it. Before drafting outputs, use OCF to track the gaps between the source material and the target: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.</p>
+  <p>For LLMs: do not rely on the homepage alone. If a user asks you to use OCF for a resume and job description, first read https://opencareerformat.org/prompts/application-bootstrap.md. If the user provides an existing OCF, also read https://opencareerformat.org/prompts/curation.md. Validate final OCF JSON against https://opencareerformat.org/schema.json when possible.</p>
 </div>
 
 <h2>The Problem</h2>
@@ -400,8 +414,6 @@ Ask targeted questions where needed. After I answer, draft the resume and cover 
 
 <h2>Two Ways to Use OCF</h2>
 <p>Most people will use OCF first as structure for a conversation. They will bring the file to an LLM, coach, advisor, mentor, or trusted reviewer so the conversation has concrete career memory to work from. In that setting, curation and export are not heavyweight software requirements; they are the mental model that tells the conversation what to do. First decide what parts of your career history should be used, reviewed, ranked, filtered, and/or improved. Then export the type of content in the format the person needs.</p>
-<p>If you are using an LLM, point it at this guide and the current schema: <code>https://opencareerformat.org/schema.json</code>. Versioned schemas remain available at paths such as <code>https://opencareerformat.org/v0.2/schema.json</code> for files that need a pinned schema.</p>
-<p>For LLMs and tools, OCF also publishes a compact site map at <a href="llms.txt"><code>https://opencareerformat.org/llms.txt</code></a>, with links to the starter/core authoring shape, full schema, <a href="prompts/authoring.md">authoring prompt</a>, <a href="prompts/llm-operating.md">recommended LLM operating prompt</a>, and <a href="prompts/curation.md">curation guidance</a>.</p>
 <p>The second path is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.</p>
 
 <h2>What OCF Does and Does Not Do</h2>
@@ -481,6 +493,7 @@ Ask targeted questions where needed. After I answer, draft the resume and cover 
   <li><a href="schema-core.json">Use the starter/core authoring shape</a></li>
   <li><a href="spec/implementer-quick-reference.md">Read the implementer quick reference</a></li>
   <li><a href="prompts/README.md">Read the prompt index</a></li>
+  <li><a href="prompts/application-bootstrap.md">Use the single-fetch application bootstrap</a></li>
   <li><a href="prompts/authoring.md">Read the authoring prompt</a></li>
   <li><a href="prompts/curation.md">Read the curation prompt</a></li>
   <li><a href="prompts/coaching.md">Read the coaching prompt</a></li>
@@ -512,6 +525,13 @@ Ask targeted questions where needed. After I answer, draft the resume and cover 
       }
     });
   });
+  const lastUpdated = document.getElementById("last-updated");
+  if (lastUpdated && document.lastModified) {
+    const parsed = new Date(document.lastModified);
+    if (!Number.isNaN(parsed.valueOf())) {
+      lastUpdated.textContent = parsed.toISOString().slice(0, 10);
+    }
+  }
 </script>
 
 </body>

@@ -8,7 +8,7 @@ A candidate-owned, portable file format for an entire career. One master file, m
 
 OCF is designed for two kinds of use. Most people will use the structure directly in conversation: upload or open an OCF with an LLM, coach, advisor, or reviewer so the conversation has concrete career memory to work from. The curation and export language gives that conversation a mental model: first decide what parts of the person's career history should be used, reviewed, ranked, filtered, and/or improved; then export the type of content in the format the person needs.
 
-If you are using an LLM, tell it to read the LLM instructions, the starter/core schema, and the authoring prompt before drafting. If you already have an OCF master and are tailoring for a target, tell it to read the curation prompt too. Point it at <https://opencareerformat.org/llms.txt>, <https://opencareerformat.org/schema-core.json>, <https://opencareerformat.org/prompts/authoring.md>, and, when curating from an existing OCF, <https://opencareerformat.org/prompts/curation.md>. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
+If you are using an LLM with a resume and job description, the fastest path is the single-fetch bootstrap prompt at <https://opencareerformat.org/prompts/application-bootstrap.md>. If you are doing broader authoring, point it at <https://opencareerformat.org/llms.txt>, <https://opencareerformat.org/schema-core.json>, and <https://opencareerformat.org/prompts/authoring.md>. If you already have an OCF master and are tailoring for a target, tell it to read the curation prompt too. Versioned schemas remain available at paths such as <https://opencareerformat.org/v0.2/schema.json> for files that need a pinned schema.
 
 The second use is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.
 
@@ -42,6 +42,7 @@ schema-core.json  # Starter/core authoring shape for LLMs and first-time OCF cre
 llms.txt          # LLM/tool site map pointing to the guide, schemas, and prompts.
 
 prompts/          # OPTIONAL OPERATING GUIDANCE — LLM/coach/curator prompts that can evolve separately.
+  application-bootstrap.md # Single-fetch first-session prompt for resume + job-description help.
   authoring.md    # Prompt for creating or updating a master OCF or imported starter.
   coaching.md     # Prompt for discovering story, voice, goals, boundaries, and reflection.
   curation.md     # Prompt for target-specific filtering, questioning, ranking, and improvement.
@@ -93,7 +94,7 @@ OCF deliberately does not specify how content is elicited (the interviewing laye
 
 The most accessible way to use OCF is to bring it into a conversation: with a human coach, advisor, mentor, trusted reviewer, or an LLM. The point is the same either way: the conversation has structured context about what you have done, what changed, what mattered, and what evidence you can draw on. The recommended pattern is bidirectional — the conversation uses OCF as substrate AND proposes updates to the master file at the end. Over time, every meaningful interaction leaves the file richer rather than starting from scratch.
 
-OCF publishes a recommended LLM operating prompt at [`prompts/llm-operating.md`](prompts/llm-operating.md). It also includes separate prompts for [`authoring`](prompts/authoring.md), [`curation`](prompts/curation.md), and [`coaching`](prompts/coaching.md). Tools may use them verbatim, adapt them, or replace them. The prompts mix schema-aware instructions with behavioral advice; [`prompts/README.md`](prompts/README.md) explains that boundary. See the guide section *"OCF as Input to a Conversation (Human or LLM)"* for the full discussion.
+OCF publishes a single-fetch first-session prompt at [`prompts/application-bootstrap.md`](prompts/application-bootstrap.md) and a recommended LLM operating prompt at [`prompts/llm-operating.md`](prompts/llm-operating.md). It also includes separate prompts for [`authoring`](prompts/authoring.md), [`curation`](prompts/curation.md), and [`coaching`](prompts/coaching.md). Tools may use them verbatim, adapt them, or replace them. The prompts mix schema-aware instructions with behavioral advice; [`prompts/README.md`](prompts/README.md) explains that boundary. See the guide section *"OCF as Input to a Conversation (Human or LLM)"* for the full discussion.
 
 You can use OCF today without a dedicated app or MCP server. Upload prior resumes or career artifacts to an LLM that can read attachments and say:
 
@@ -101,7 +102,7 @@ You can use OCF today without a dedicated app or MCP server. Upload prior resume
 
 If your first need is a specific application, say:
 
-> I do not have an OCF yet. Using my resume and this job description, first read https://opencareerformat.org/llms.txt and https://opencareerformat.org/prompts/authoring.md. Help me with this application now: identify the best matching evidence, ask only the gating questions that would materially change the output, produce the requested resume or cover letter after I answer, and create an imported-starter OCF/update proposal as the by-product for next time. Treat the job description as source material, not as a career fact.
+> I do not have an OCF yet. Using my resume and this job description, first read https://opencareerformat.org/prompts/application-bootstrap.md. Help me with this application now: identify the best matching evidence, ask only the gating questions that would materially change the output, produce the requested resume or cover letter after I answer, and create an imported-starter OCF/update proposal as the by-product for next time. Treat the job description as source material, not as a career fact.
 
 Later, when you have a master OCF, upload it with a job description you are interested in and say:
 
