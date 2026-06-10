@@ -143,6 +143,8 @@ Store the caution in plain language, with the reason and provenance when availab
 
 When updating an existing OCF, read relevant `cautions`, `openQuestions`, `goals`, `aiInstructions`, reflections, and narrative variants before drafting externally facing content. These fields are leading controls. They should shape the first draft, not merely explain corrections after an overclaim appears.
 
+If you store reusable career-memory structure under `extensions.user.local` because no first-class OCF field fits, tell the user this may be useful schema feedback. Do not send anything automatically. Offer to help them create a redacted or fictionalized suggestion for the OCF project that explains the concept, the current best mapping, what felt awkward, and what private details were removed.
+
 ### Use the Private Layer Deliberately
 
 The master OCF may hold private context so the user does not lose it. That does not mean the context belongs in a resume.
