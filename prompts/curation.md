@@ -76,6 +76,8 @@ After asking the user any necessary questions, produce one or both of these outp
 
 **Respect file roles.** If `meta.fileRole` is present, read it before curation. The top-level `person` is the subject whose career is described; the controller of the file may be someone else. A `candidate-master` is the person's private source memory. A `candidate-curated` or `export-ready` file is already reduced for a purpose. An `imported-starter` is provisional. A `third-party-working` file belongs to a recruiter, coach, agency, employer, or tool workflow and is not the person's private master. Do not silently merge third-party or provisional content into a candidate-owned master; propose updates for user review.
 
+**Do not let reduced files masquerade as masters.** If curation filters, reduces, tailors, or exports from a master, the resulting file must be labeled `candidate-curated` or `export-ready`, not `candidate-master`, unless it is a complete, user-accepted replacement for the prior master. The reduced file may still reveal improvements for the master; propose those as reviewable updates with provenance instead of overwriting the master with the reduced file.
+
 **Do not silently rewrite the master.** Curation can produce proposed OCF improvements, but the user approves what gets written back. A proposed update is not durable until accepted.
 
 **Use structure as a forcing function.** LLMs often pad against length budgets but respect explicit shape. If the user wants a concise cover letter, profile, or answer, prefer a structural instruction such as "intro / three points / outro" over only "250 words" or "two paragraphs." Structure should make padding visible and unnecessary.

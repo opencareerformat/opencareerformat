@@ -59,6 +59,10 @@ A `candidate-curated` or `export-ready` OCF is a reduced working set prepared fr
 
 These files should preserve lineage back to the source file when possible, but they are intentionally narrower than the master. Curation filters, ranks, questions, and prepares content. Exporters turn prepared content into files or target schemas.
 
+A file produced by filtering, reducing, tailoring, or exporting from a master is not a master. It must not retain `meta.fileRole: "candidate-master"` unless it is a complete, user-accepted replacement for the prior master.
+
+Curated, export-ready, imported, or third-party working files may still surface new facts, better wording, cautions, open questions, narrative variants, or other improvements. Those changes should be proposed back to the candidate-owned master as reviewable updates with provenance, not applied by treating the reduced file as the new master.
+
 Use `candidate-curated` for a candidate-controlled working set prepared for review, coaching, tailoring, or later export. It may still contain proposed improvements or review questions.
 
 Use `export-ready` for a handoff to a specific exporter or downstream system. Selection and visibility review should already be done.
@@ -135,5 +139,6 @@ Match the contents of an OCF file to the role the file is playing:
 - Imported starter to master: review, correct, accept selected material into the master, and archive or retain the starter as import evidence.
 - Third-party working to candidate master: propose updates, do not merge silently.
 - Curated/export-ready to export file: produce the artifact without treating it as the master.
+- Curated/export-ready to candidate master: propose specific improvements with provenance; do not replace the master with the reduced file.
 
 The principle is simple: OCF files can move through many workflows, but the candidate-owned master remains special because it is controlled by the person whose career it describes.

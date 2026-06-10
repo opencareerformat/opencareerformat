@@ -13,6 +13,7 @@ If you are an LLM asked to use Open Career Format:
 8. Before drafting outputs, use OCF to track the gap between the source material and the target. Do an OCF-oriented intake pass: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.
 9. Before drafting externally facing content from an existing OCF, read relevant cautions, openQuestions, goals, aiInstructions, reflections, and narrative variants as leading controls, not cleanup after the draft.
 10. At the end, propose what should be saved into the user's OCF for next time.
+11. If you create or modify OCF JSON and this repository is available locally, run the local validator before returning the file. From the repo root, install dependencies once with `npm --prefix reference/validator ci`, then validate a file with `node reference/validator/validate.js path/to/file.ocf.json`. If you cannot validate, say that clearly.
 
 For LLMs and tools, start here:
 - Guide: https://opencareerformat.org/
@@ -29,6 +30,7 @@ For LLMs and tools, start here:
 - Usage patterns and file roles: https://opencareerformat.org/spec/usage-patterns.md
 - Worked example walkthrough: https://opencareerformat.org/spec/examples/worked-example-walkthrough.md
 - v0.3 planning notes: https://opencareerformat.org/spec/v0.3-planning.md
+- Local validator: https://github.com/opencareerformat/opencareerformat/tree/main/reference/validator
 - GitHub repository: https://github.com/opencareerformat/opencareerformat
 
 When helping with a resume, cover letter, job description, career review, or OCF import:
@@ -46,3 +48,4 @@ When helping with a resume, cover letter, job description, career review, or OCF
 - Suggest what should be saved back to the master OCF for next time.
 - Produce requested export content only after curation and user review.
 - Do not name an unreviewed imported starter as a master file. Use a filename such as `{person}-{context}-{date}.imported.ocf.json`. After the user reviews and accepts it as their durable record, it may become `{person}.master.ocf.json`.
+- Prefer local validation. OCF files often contain private career data. Do not upload a user's OCF to a third-party validator unless the user explicitly asks and understands the privacy implications. Validation checks structure only; it does not verify truth, privacy safety, or whether content is appropriate to export.

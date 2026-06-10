@@ -55,6 +55,7 @@ Curators should:
 - Preserve lineage with `meta.derivedFrom`, `sourceFileId`, `sourceItemId`, or item provenance where practical.
 - Produce proposed OCF improvements separately from export-ready content.
 - Be explicit about what was removed, skipped, or left unresolved.
+- Label reduced files as `candidate-curated` or `export-ready`, not `candidate-master`. A subset may discover improvements for the master, but those should be proposed back with provenance rather than replacing the master.
 
 Exporters should:
 
@@ -68,6 +69,30 @@ Editors should:
 - Make unsupported schema sections visible as unsupported instead of implying full coverage.
 - Preserve unknown fields, `extensions`, IDs, and provenance on round-trip.
 - Distinguish untouched imported material from user-reviewed material where possible.
+
+## Local Validation
+
+OCF includes a local reference validator in `reference/validator/`. Prefer local
+validation because OCF files often contain private career data.
+
+Install validator dependencies once:
+
+```bash
+npm --prefix reference/validator ci
+```
+
+Validate one or more files from the repository root:
+
+```bash
+node reference/validator/validate.js path/to/file.ocf.json
+```
+
+With no file arguments, the validator checks every JSON file in `spec/examples/`
+against `spec/schema.json`.
+
+Validation checks structure only. It does not verify whether claims are true,
+whether private content is safe to share, or whether a file is appropriate for a
+specific export or recipient.
 
 ## Naming Conventions
 
