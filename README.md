@@ -102,7 +102,7 @@ You can use OCF today without a dedicated app or MCP server. Upload prior resume
 
 If your first need is a specific application, say:
 
-> I do not have an OCF yet. Using my resume and this job description, first read https://opencareerformat.org/prompts/application-bootstrap.md. Help me with this application now: identify the best matching evidence, ask only the gating questions that would materially change the output, produce the requested resume or cover letter after I answer, ask me for one story I would never put on a formal resume, and create an imported-starter OCF/update proposal as the by-product for next time. Treat the job description as source material, not as a career fact.
+> I do not have an OCF yet. Using my resume and this job description, first read https://opencareerformat.org/prompts/application-bootstrap.md. Help me with this application now: identify the best matching evidence, ask only the gating questions that would materially change the output, produce the requested resume or cover letter after I answer, ask me for one story about my work I would never put on a formal resume, and create an imported-starter OCF/update proposal as the by-product for next time. Treat the job description as source material, not as a career fact.
 
 Later, when you have a master OCF, upload it with a job description you are interested in and say:
 
