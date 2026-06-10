@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF Implementer Quick Reference — Open Career Format</title>
+<meta name="description" content="A compact tool-builder view of Open Career Format.">
+<link rel="canonical" href="https://opencareerformat.org/spec/implementer-quick-reference.html">
+<link rel="icon" type="image/png" href="./assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF Implementer Quick Reference">
+<meta property="og:description" content="A compact tool-builder view of Open Career Format.">
+<meta property="og:url" content="https://opencareerformat.org/spec/implementer-quick-reference.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF Implementer Quick Reference">
+<meta name="twitter:description" content="A compact tool-builder view of Open Career Format.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF Implementer Quick Reference",
+  "name": "OCF Implementer Quick Reference",
+  "url": "https://opencareerformat.org/spec/implementer-quick-reference.html",
+  "description": "A compact tool-builder view of Open Career Format.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="./assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./implementer-quick-reference.md">View the Markdown source</a>.</p>
+<h1>OCF Implementer Quick Reference</h1>
+
+<p>This is the compact tool-builder view of Open Career Format. Read <code>guide.html</code> for intent, <code>schema-commentary.md</code> for field-level examples, and <code>usage-patterns.md</code> for file roles and workflow patterns.</p>
+
+<p>OCF is an open schema for preserving career memory, curating it for a purpose, and exporting it into other formats. A partial, honest OCF is better than a complete-looking file full of invented certainty.</p>
+
+<h2>Field Tiers</h2>
+
+<table>
+<thead><tr><th>Tier</th><th>Sections and fields</th><th>Implementer expectation</th></tr></thead>
+<tbody>
+<tr><td>Core</td><td><code>$schema</code>, <code>schemaVersion</code>, <code>meta</code>, <code>person</code>, <code>sourceArtifacts</code>, <code>experience</code>, <code>experience[].positions</code>, <code>achievements</code>, <code>skills</code>, <code>education</code>, <code>certifications</code>, <code>openQuestions</code>, <code>cautions</code></td><td>Most authoring, import, curation, and export tools should understand these well enough to preserve them.</td></tr>
+<tr><td>Common optional</td><td><code>organizations</code>, <code>projects</code>, <code>publications</code>, <code>awards</code>, <code>languages</code>, <code>service</code>, <code>memberships</code>, <code>governance</code>, <code>teaching</code>, <code>speaking</code>, <code>patents</code>, <code>interests</code></td><td>Support when relevant to the user's career or target output; omit cleanly when absent.</td></tr>
+<tr><td>Private memory</td><td><code>reflections</code>, <code>exitContext</code>, compensation fields, <code>salesPerformance</code>, <code>bookOfBusiness</code>, private <code>sourceArtifacts</code>, private notes</td><td>Preserve carefully. Do not export by default. Treat as the reason the master file is useful, not as ordinary resume content.</td></tr>
+<tr><td>Curation signals</td><td><code>visibility</code>, <code>importance</code>, <code>audiences</code>, <code>narrativeVariants</code>, <code>titleVariants</code>, <code>supportingFacts</code>, <code>attribution</code>, <code>dateIsPrivate</code></td><td>Use these to decide what can be selected, what needs review, and how claims can be worded. Do not treat them as final display text by themselves.</td></tr>
+<tr><td>Provenance and interop</td><td><code>id</code>, <code>provenance</code>, <code>sourceArtifactId</code>, <code>sourceFileId</code>, <code>sourceItemId</code>, <code>extensions</code>, <code>meta.derivedFrom</code>, <code>meta.derivedFromVersion</code>, <code>meta.derivationNotes</code></td><td>Preserve on round-trip. Stable IDs and boring provenance make files reviewable and mergeable.</td></tr>
+<tr><td>Advanced or likely to evolve</td><td>verification/review lifecycle, richer trust tiers, renderer hints, region-specific export policy, third-party workflow metadata</td><td>Use <code>extensions</code> or provenance notes for now unless the current schema has a first-class field. Expect feedback-driven changes before 1.0.</td></tr>
+</tbody>
+</table>
+
+<h2>v0.2 Compatibility Names Replaced In v0.3</h2>
+
+<p>OCF v0.2 still contains a few schema names from the earlier &quot;derived file&quot; vocabulary:</p>
+
+<ul>
+<li><code>meta.derivedFrom</code></li>
+<li><code>meta.derivedFromVersion</code></li>
+<li><code>meta.derivationNotes</code></li>
+<li><code>meta.source.kind: &quot;derived&quot;</code></li>
+</ul>
+
+<p>Tools should preserve and read these fields for v0.2 compatibility. New documentation should describe the workflow as curation and export-ready preparation, not derivation. v0.3 should replace these fields and enum values with names that match the current language directly.</p>
+
+<p>Do not confuse these with provenance values such as <code>interview-derived</code>. That phrase describes how an item was elicited from an interview or conversation and is still useful.</p>
+
+<h2>File Roles</h2>
+
+<table>
+<thead><tr><th><code>meta.fileRole</code></th><th>Use when</th><th>Important behavior</th></tr></thead>
+<tbody>
+<tr><td><code>candidate-master</code></td><td>The person controls the durable private career memory file.</td><td>Preserve history, nuance, private material, source artifacts, cautions, and open questions.</td></tr>
+<tr><td><code>imported-starter</code></td><td>A tool creates a provisional first pass from resumes, LinkedIn exports, notes, photos, or transcripts.</td><td>Keep it visibly provisional. Do not name it <code>*.master.ocf.json</code> until reviewed and accepted.</td></tr>
+<tr><td><code>candidate-curated</code></td><td>A tool/person selects and improves a working set for a purpose, but review is still active.</td><td>Preserve lineage to the master and keep proposed improvements separate from export-ready content.</td></tr>
+<tr><td><code>export-ready</code></td><td>Selection and visibility review are complete enough for a specific exporter or downstream system.</td><td>Exporters should prefer this over the private master.</td></tr>
+<tr><td><code>third-party-working</code></td><td>A recruiter, coach, employer, agency, or tool controls an OCF-shaped file about a person.</td><td>The top-level <code>person</code> is still the subject, but the subject may not control or see the file.</td></tr>
+</tbody>
+</table>
+
+<h2>Minimal Tool Behavior</h2>
+
+<p>Importers should:</p>
+
+<ul>
+<li>Register inputs in <code>sourceArtifacts</code>.</li>
+<li>Create <code>imported-starter</code> files when the user has not accepted the result as a master.</li>
+<li>Add provenance and confidence when mining facts.</li>
+<li>Use <code>openQuestions</code> for conflicting dates, unsupported metrics, unclear attribution, and missing evidence.</li>
+<li>Avoid marking imported material as public by default.</li>
+</ul>
+
+<p>Curators should:</p>
+
+<ul>
+<li>Read the target purpose carefully: job description, audience, region, output type, review question, or user preference.</li>
+<li>Filter by <code>visibility</code> first, then relevance and recency.</li>
+<li>Preserve lineage with <code>meta.derivedFrom</code>, <code>sourceFileId</code>, <code>sourceItemId</code>, or item provenance where practical.</li>
+<li>Produce proposed OCF improvements separately from export-ready content.</li>
+<li>Be explicit about what was removed, skipped, or left unresolved.</li>
+<li>Label reduced files as <code>candidate-curated</code> or <code>export-ready</code>, not <code>candidate-master</code>. A subset may discover improvements for the master, but those should be proposed back with provenance rather than replacing the master.</li>
+</ul>
+
+<p>Exporters should:</p>
+
+<ul>
+<li>Prefer <code>export-ready</code> input.</li>
+<li>Never include <code>private</code> items unless the user explicitly chose a private recipient-specific output.</li>
+<li>Treat JSON Resume, LinkedIn, Schema.org, LER-RS, vCard, PDF, and DOCX as lossy targets.</li>
+<li>Emit review warnings when the input is not export-ready or when important OCF concepts cannot be represented.</li>
+</ul>
+
+<p>Editors should:</p>
+
+<ul>
+<li>Make unsupported schema sections visible as unsupported instead of implying full coverage.</li>
+<li>Preserve unknown fields, <code>extensions</code>, IDs, and provenance on round-trip.</li>
+<li>Distinguish untouched imported material from user-reviewed material where possible.</li>
+<li>When applying accepted updates to a candidate-owned master, preserve <code>meta.id</code>, refresh <code>meta.version</code> and <code>meta.lastModified</code> if the tool manages those fields, preserve IDs/provenance/extensions/unknown fields, and validate when possible. OCF does not require a particular external versioning system.</li>
+</ul>
+
+<h2>Local Validation</h2>
+
+<p>OCF includes a local reference validator in <code>reference/validator/</code>. Prefer local validation because OCF files often contain private career data.</p>
+
+<p>Install validator dependencies once:</p>
+
+<pre><code class="language-bash">npm --prefix reference/validator ci</code></pre>
+
+<p>Validate one or more files from the repository root:</p>
+
+<pre><code class="language-bash">node reference/validator/validate.js path/to/file.ocf.json</code></pre>
+
+<p>With no file arguments, the validator checks every JSON file in <code>spec/examples/</code> against <code>spec/schema.json</code>.</p>
+
+<p>Validation checks structure only. It does not verify whether claims are true, whether private content is safe to share, or whether a file is appropriate for a specific export or recipient.</p>
+
+<h2>Naming Conventions</h2>
+
+<p>OCF does not force filenames. Human-readable names make workflows easier to inspect.</p>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>david-madeo.master.ocf.json</code></li>
+<li><code>david-madeo-sona-2026-05-24.imported.ocf.json</code></li>
+<li><code>sona-head-of-enablement.candidate-curated.ocf.json</code></li>
+<li><code>sona-head-of-enablement.export-ready.ocf.json</code></li>
+<li><code>sona-head-of-enablement.resume.json</code></li>
+</ul>
+
+<p>Use directory structure if it helps: <code>imports/</code>, <code>curated/</code>, <code>exports/</code>, <code>archive/</code>.</p>
+
+<h2>Compatibility Rules</h2>
+
+<ul>
+<li>Unknown object keys should be preserved when possible.</li>
+<li>Unknown <code>extensions</code> namespaces must not be deleted on round-trip.</li>
+<li>Stable item IDs should survive edits.</li>
+<li><code>visibility</code> defaults should be conservative when the author is a tool rather than the person.</li>
+<li>The master is the source of truth for career memory; exported files are outputs.</li>
+</ul>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./implementer-quick-reference.md"><code>spec/implementer-quick-reference.md</code></a>.</p>
+</footer>
+</body>
+</html>

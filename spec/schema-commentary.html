@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF Schema Commentary — Open Career Format</title>
+<meta name="description" content="Annotated Open Career Format schema commentary with examples and common pitfalls.">
+<link rel="canonical" href="https://opencareerformat.org/spec/schema-commentary.html">
+<link rel="icon" type="image/png" href="./assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF Schema Commentary">
+<meta property="og:description" content="Annotated Open Career Format schema commentary with examples and common pitfalls.">
+<meta property="og:url" content="https://opencareerformat.org/spec/schema-commentary.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF Schema Commentary">
+<meta name="twitter:description" content="Annotated Open Career Format schema commentary with examples and common pitfalls.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF Schema Commentary",
+  "name": "OCF Schema Commentary",
+  "url": "https://opencareerformat.org/spec/schema-commentary.html",
+  "description": "Annotated Open Career Format schema commentary with examples and common pitfalls.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="./assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./schema-commentary.md">View the Markdown source</a>.</p>
+<h1>Annotated OCF Schema Commentary</h1>
+
+<p>This is not a schema. It is a developer and LLM-facing commentary file for people trying to understand how to use the Open Career Format (OCF) schema well.</p>
+
+<p><code>guide.html</code> explains OCF's intent for human readers. This file explains schema use for tool authors, LLMs, importers, curators, and exporters.</p>
+
+<p>Use:</p>
+
+<ul>
+<li><code>../schema-core.json</code> when you need the starter shape for first-pass authoring.</li>
+<li><code>../schema.json</code> when you need the full current schema.</li>
+<li><code>guide.html</code> when you need the human-facing explanation and rationale.</li>
+<li><code>usage-patterns.md</code> when you need file-role workflows, subject/controller/editor distinctions, and movement between candidate-owned, imported, curated, export-ready, and third-party files.</li>
+<li>this file when you need intent, examples, tradeoffs, and common variants.</li>
+</ul>
+
+<p>OCF is deliberately a file format, not a platform. The schema defines what can be preserved. Importers, curators, reviewers, coaches, exporters, LLMs, and applications decide how to ask questions, rank relevance, apply user preferences, and produce outputs.</p>
+
+<h2>Contents</h2>
+
+<ul>
+<li><a href="#core-mental-model">Core Mental Model</a></li>
+<li><a href="#naming-files">Naming Files</a></li>
+<li><a href="#v02-compatibility-names-replaced-in-v03">v0.2 Compatibility Names Replaced In v0.3</a></li>
+<li><a href="#meta"><code>meta</code></a></li>
+<li><a href="#person"><code>person</code></a></li>
+<li><a href="#sourceartifacts"><code>sourceArtifacts</code></a></li>
+<li><a href="#provenance"><code>provenance</code></a></li>
+<li><a href="#stable-ids">Stable IDs</a></li>
+<li><a href="#visibility">Visibility</a></li>
+<li><a href="#experience"><code>experience</code></a></li>
+<li><a href="#organizations"><code>organizations</code></a></li>
+<li><a href="#projects-and-open-source">Projects And Open Source</a></li>
+<li><a href="#achievements">Achievements</a></li>
+<li><a href="#attribution">Attribution</a></li>
+<li><a href="#metrics">Metrics</a></li>
+<li><a href="#narrative-variants">Narrative Variants</a></li>
+<li><a href="#reflections">Reflections</a></li>
+<li><a href="#cautions">Cautions</a></li>
+<li><a href="#open-questions">Open Questions</a></li>
+<li><a href="#goals-voice-and-ai-instructions">Goals, Voice, And AI Instructions</a></li>
+<li><a href="#compensation-sales-plan-and-book-of-business-history">Compensation, Sales Plan, And Book Of Business History</a></li>
+<li><a href="#supervisors-and-references">Supervisors And References</a></li>
+<li><a href="#certifications-and-credentials">Certifications And Credentials</a></li>
+<li><a href="#skills-and-taxonomies">Skills And Taxonomies</a></li>
+<li><a href="#vendor-extensions">Vendor Extensions</a></li>
+<li><a href="#importer-guidance">Importer Guidance</a></li>
+<li><a href="#curator-guidance">Curator Guidance</a></li>
+<li><a href="#exporter-guidance">Exporter Guidance</a></li>
+<li><a href="#common-pitfalls">Common Pitfalls</a></li>
+<li><a href="#minimal-useful-ocf">Minimal Useful OCF</a></li>
+</ul>
+
+<h2>Core Mental Model</h2>
+
+<p>An OCF file is a structured career memory. The top-level <code>person</code> is always the subject of the file: the person whose career is described. For file-role and controller distinctions, see <code>usage-patterns.md</code>.</p>
+
+<p>The same career fact may appear in several forms:</p>
+
+<ul>
+<li>canonical fact: what happened</li>
+<li><code>longform</code>: the fuller story behind a claim</li>
+<li><code>narrativeVariants</code>: alternate audience-specific wording</li>
+<li><code>reflections</code>: private review or coaching material</li>
+<li><code>openQuestions</code>: things to revisit before using or improving the claim</li>
+<li><code>cautions</code>: things not to claim on the subject's behalf</li>
+</ul>
+
+<h2>Naming Files</h2>
+
+<p>Recommended filename pattern:</p>
+
+<ul>
+<li><code>master.ocf.json</code></li>
+<li><code>sample-resume.ocf.json</code></li>
+<li><code>acme-ciso-2026-05-24.ocf.json</code></li>
+<li><code>public-profile.ocf.json</code></li>
+</ul>
+
+<p>Directory layout is a workflow choice. See <code>usage-patterns.md</code> for import, curated, and export directory examples.</p>
+
+<p>OCF does not force structure into filenames, but humans often benefit from names that describe the purpose. For example, a file generated specifically for a CISO role at Acme in May 2026 should have a name that reflects that context.</p>
+
+<p>Use explicit names before introducing abbreviations. A future curated example might be named <code>sample-resume.public-profile.ocf.json</code> or <code>sample-resume.acme-ciso.ocf.json</code>; do not assume a shorthand such as <code>.c.ocf.json</code> until usage proves it helpful.</p>
+
+<h2>v0.2 Compatibility Names Replaced In v0.3</h2>
+
+<p>OCF v0.2 still carries a few schema names from the earlier &quot;derived file&quot; vocabulary: <code>meta.derivedFrom</code>, <code>meta.derivedFromVersion</code>, <code>meta.derivationNotes</code>, and <code>meta.source.kind: &quot;derived&quot;</code>. Treat these as compatibility names in v0.2. Tooling should preserve and read them, but new docs and UI should describe the workflow as curation and export-ready preparation.</p>
+
+<p>v0.3 should replace these fields and enum values with names that match the current language directly. Do not confuse them with provenance values such as <code>interview-derived</code>, which remain useful for describing how an item was elicited.</p>
+
+<h2><code>meta</code></h2>
+
+<p><code>meta</code> describes the file, not the person.</p>
+
+<p>Important fields:</p>
+
+<ul>
+<li><code>id</code>: stable ID for this OCF file across its lifetime.</li>
+<li><code>version</code>: content version or fingerprint.</li>
+<li><code>canonical</code>: whether this file is canonical in its own authoring context.</li>
+<li><code>fileRole</code>: what role this file plays in a workflow.</li>
+<li><code>variant</code>: what kind of filtered or targeted form this file is.</li>
+<li><code>targetRole</code>: role target for role-targeted or company-targeted files.</li>
+<li><code>targetCompany</code>: company target for company-targeted files.</li>
+<li><code>lastModified</code>: when this file last changed.</li>
+<li><code>source</code>: how this file came to be.</li>
+</ul>
+
+<h3>File Role Examples</h3>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;fileRole&quot;: &quot;candidate-master&quot;,
+    &quot;canonical&quot;: true,
+    &quot;variant&quot;: &quot;master&quot;
+  }
+}</code></pre>
+
+<p>Use this for the person's own durable master file.</p>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;fileRole&quot;: &quot;candidate-curated&quot;,
+    &quot;canonical&quot;: false,
+    &quot;variant&quot;: &quot;role-targeted&quot;,
+    &quot;targetRole&quot;: &quot;CISO&quot;
+  }
+}</code></pre>
+
+<p>Use this for a candidate-controlled curated working set. See <code>usage-patterns.md</code> for how this differs from <code>export-ready</code>.</p>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;fileRole&quot;: &quot;export-ready&quot;,
+    &quot;canonical&quot;: false,
+    &quot;variant&quot;: &quot;company-targeted&quot;,
+    &quot;targetCompany&quot;: &quot;Example Health&quot;
+  }
+}</code></pre>
+
+<p>Use this for a handoff to a specific exporter or downstream system.</p>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;fileRole&quot;: &quot;third-party-working&quot;,
+    &quot;canonical&quot;: true,
+    &quot;source&quot;: {
+      &quot;kind&quot;: &quot;imported&quot;
+    }
+  }
+}</code></pre>
+
+<p>Use this when a recruiter, coach, agency, employer, or tool controls a working file about a person. This is not the person's private master.</p>
+
+<h2><code>person</code></h2>
+
+<p><code>person</code> identifies the subject of the OCF. It should not be confused with the controller of the file.</p>
+
+<p>Minimum useful shape:</p>
+
+<pre><code class="language-json">{
+  &quot;person&quot;: {
+    &quot;name&quot;: {
+      &quot;renderAs&quot;: &quot;Maria E. Reyes&quot;,
+      &quot;given&quot;: &quot;Maria&quot;,
+      &quot;family&quot;: &quot;Reyes&quot;,
+      &quot;preferred&quot;: &quot;Maria&quot;
+    },
+    &quot;headline&quot;: &quot;Cybersecurity leader bridging military discipline with enterprise security strategy&quot;,
+    &quot;contacts&quot;: [
+      {
+        &quot;kind&quot;: &quot;email&quot;,
+        &quot;value&quot;: &quot;maria.reyes@example.com&quot;,
+        &quot;primary&quot;: true
+      }
+    ]
+  }
+}</code></pre>
+
+<p>Use <code>renderAs</code> for the name that should appear in ordinary outputs. <code>given</code>, <code>family</code>, and <code>preferred</code> are structured helper fields for tools; <code>renderAs</code> remains the display string because not every professional name decomposes cleanly. Put legal names, former names, native-script names, and regional fields behind the appropriate fields and visibility controls.</p>
+
+<p>Do not store government identity numbers, account secrets, passwords, passport numbers, taxpayer IDs, bank details, or API keys in OCF.</p>
+
+<h2><code>sourceArtifacts</code></h2>
+
+<p>Source artifacts are inputs, not truth.</p>
+
+<p>Use <code>sourceArtifacts</code> for old resumes, cover letters, LinkedIn exports, pasted chat text, uploaded notes, interview transcripts, portfolio bios, comp-plan photos, job descriptions, and other material used to build or improve the OCF.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;sourceArtifacts&quot;: [
+    {
+      &quot;id&quot;: &quot;sample-resume-source-2026-05&quot;,
+      &quot;kind&quot;: &quot;resume&quot;,
+      &quot;label&quot;: &quot;Sample source resume for Maria E. Reyes&quot;,
+      &quot;capturedDate&quot;: {
+        &quot;year&quot;: 2026,
+        &quot;month&quot;: 5,
+        &quot;day&quot;: 20
+      },
+      &quot;audience&quot;: [&quot;cybersecurity-leadership&quot;, &quot;healthcare-security&quot;],
+      &quot;fileName&quot;: &quot;sample-resume-source.txt&quot;,
+      &quot;rawIncluded&quot;: false,
+      &quot;visibility&quot;: &quot;private&quot;
+    }
+  ]
+}</code></pre>
+
+<p>Good importer behavior:</p>
+
+<ul>
+<li>preserve the source artifact</li>
+<li>mark imported material conservatively</li>
+<li>add provenance to mined items</li>
+<li>create <code>openQuestions</code> for uncertainty</li>
+<li>avoid treating imported material as intentionally shareable just because normal authored items default to <code>shared</code></li>
+</ul>
+
+<p><code>sourceArtifact.kind</code> and <code>provenance.source</code> are deliberately different vocabularies. <code>sourceArtifact.kind</code> describes the artifact itself (<code>resume</code>, <code>linkedin-export</code>, <code>chat-paste</code>, <code>interview-transcript</code>). <code>provenance.source</code> describes how the OCF item came into the file (<code>authored</code>, <code>imported</code>, <code>interview-derived</code>, <code>llm-suggested</code>, <code>curated</code>, <code>translated</code>, <code>merged</code>). For example, wording pasted into chat should usually have a <code>sourceArtifact.kind</code> of <code>chat-paste</code> and a <code>provenance.source</code> of <code>imported</code> or <code>llm-suggested</code>, with <code>sourceArtifactId</code> linking the two.</p>
+
+<p>OCF v0.2 does not include <code>job-description</code> as a <code>sourceArtifact.kind</code> enum value. For now, use <code>application-draft</code>, <code>manual-note</code>, or <code>other</code> for job descriptions depending on the source and workflow. <code>job-description</code> is a likely v0.3 addition because resume-plus-JD workflows are common.</p>
+
+<p><code>sourceArtifacts.audience</code> is free-form and can also support voice calibration. Useful tags include <code>voice-authentic</code> for writing that sounds like the person, <code>voice-calibrated</code> for assisted writing the person has accepted as representative, and <code>voice-anti-pattern</code> for AI-heavy or rejected drafts that future tools should not imitate.</p>
+
+<h2><code>provenance</code></h2>
+
+<p>Provenance explains how an item came to be.</p>
+
+<p>Recommended boring keys:</p>
+
+<pre><code class="language-json">{
+  &quot;source&quot;: &quot;interview-derived&quot;,
+  &quot;tool&quot;: &quot;example-interview-tool&quot;,
+  &quot;date&quot;: &quot;2026-05-21&quot;,
+  &quot;sourceArtifactId&quot;: &quot;sample-resume-source-2026-05&quot;,
+  &quot;confidence&quot;: 0.82,
+  &quot;sessionTopic&quot;: &quot;CISO resume refresh&quot;,
+  &quot;operation&quot;: &quot;mined-achievement&quot;,
+  &quot;note&quot;: &quot;Recovered from prior resume and confirmed in conversation.&quot;
+}</code></pre>
+
+<p><code>confidence</code> is the tool's own 0-1 estimate that the item is accurate as recorded. It is not an LLM log probability, user self-rating, source-quality score, external verification tier, or proof that the claim is true.</p>
+
+<p>Examples:</p>
+
+<ul>
+<li>cleanly parsed from a resume: <code>0.7</code></li>
+<li>OCR from a messy screenshot: <code>0.4</code></li>
+<li>user confirmed in conversation: <code>0.9</code></li>
+<li>inferred from inconsistent source documents: <code>0.3</code> plus an <code>openQuestions</code> entry</li>
+</ul>
+
+<p>Do not use <code>confidence</code> as a substitute for future review status, verification, or attestation.</p>
+
+<h2>Stable IDs</h2>
+
+<p>Use stable IDs on records tools may need to reference later: source artifacts, experience entries, positions, achievements, reflections, variants, open questions, and other durable items.</p>
+
+<p>Recommended:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;mhs-ransomware-2024&quot;
+}</code></pre>
+
+<p>Slug-style IDs are easier for humans to review and diff. UUIDs are acceptable when collision safety matters more than readability. Do not put a tool name or model name in the item ID; put that in <code>provenance.tool</code>.</p>
+
+<h2>Visibility</h2>
+
+<p>Visibility is a curation hint, not a security boundary.</p>
+
+<p>Values:</p>
+
+<ul>
+<li><code>public</code>: safe for broad exposure in the relevant workflow</li>
+<li><code>shared</code>: usable for recruiter, coach, hiring manager, or trusted-party contexts</li>
+<li><code>private</code>: keep inside the controlling file or workflow</li>
+</ul>
+
+<p>Candidate-owned master example:</p>
+
+<pre><code class="language-json">{
+  &quot;statement&quot;: &quot;Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months&quot;,
+  &quot;visibility&quot;: &quot;public&quot;
+}</code></pre>
+
+<p>This is an explicit opt-up to <code>public</code>. Ordinary hand-authored material defaults to <code>shared</code> unless a field or tool sets a narrower or broader visibility.</p>
+
+<p>Private coaching example:</p>
+
+<pre><code class="language-json">{
+  &quot;kind&quot;: &quot;biggest-mistake&quot;,
+  &quot;text&quot;: &quot;Underinvesting in the security awareness program in the first nine months...&quot;,
+  &quot;visibility&quot;: &quot;private&quot;
+}</code></pre>
+
+<p>Public-only export paths should include only <code>public</code> material. The reference curator demonstrates this with <code>--public-only</code>, which strips both <code>private</code> and <code>shared</code> content.</p>
+
+<p>Filtering by visibility does not anonymize a file. Organization names, dates, locations, rare skills, metrics, and combinations of facts can identify someone.</p>
+
+<h2><code>experience</code></h2>
+
+<p><code>experience</code> is one chronological list of career periods: jobs, military service, self-employment, consulting, caregiving, career breaks, academic appointments, or other work-like periods.</p>
+
+<p>Each experience entry can contain positions. This lets one organization tenure hold promotions, lateral moves, assignments, and multiple roles.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;kind&quot;: &quot;employment&quot;,
+  &quot;name&quot;: &quot;Meridian Health Systems&quot;,
+  &quot;positions&quot;: [
+    {
+      &quot;title&quot;: &quot;Director of Cybersecurity&quot;,
+      &quot;dateRange&quot;: {
+        &quot;start&quot;: { &quot;year&quot;: 2023, &quot;month&quot;: 3 },
+        &quot;end&quot;: { &quot;present&quot;: true }
+      },
+      &quot;achievements&quot;: []
+    }
+  ]
+}</code></pre>
+
+<p>Use <code>dateRange.end.present: true</code> to mean present as of the source or current file context. When importing multiple resumes, remember that &quot;Present&quot; in an old resume means &quot;present when that resume was written,&quot; not necessarily present today.</p>
+
+<p>If a person has separate periods doing similar work for the same organization or client, model them as separate positions with the same or similar title and different <code>dateRange</code> values. This is clearer than hiding a gap inside prose. A future schema may add richer repeated-period support if this pattern becomes common.</p>
+
+<p>Do not use organization address as a proxy for the person's work location, residence, or tax-sensitive location history. A resume may reasonably show the company, office, or market location without implying where the person lived or performed all work. If role-location nuance matters, preserve it separately and keep sensitive residence or tax details private. Until OCF has first-class position-level location fields, use <code>extensions.user.local</code> for private/local location notes and curate only the location facts the user intentionally wants to disclose.</p>
+
+<h2><code>organizations</code></h2>
+
+<p>Use top-level <code>organizations</code> when the same organization appears in multiple places, when its identity changed, or when organization metadata is useful across experience entries.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;organizations&quot;: {
+    &quot;meridianhealth.example.com&quot;: {
+      &quot;name&quot;: &quot;Meridian Health Systems&quot;,
+      &quot;kind&quot;: &quot;company&quot;,
+      &quot;domain&quot;: &quot;meridianhealth.example.com&quot;
+    }
+  },
+  &quot;experience&quot;: [
+    {
+      &quot;organizationRef&quot;: &quot;meridianhealth.example.com&quot;,
+      &quot;name&quot;: &quot;Meridian Health Systems&quot;
+    }
+  ]
+}</code></pre>
+
+<p>Use <code>domainAtTime</code> when an organization used a different domain during that tenure.</p>
+
+<h2>Projects And Open Source</h2>
+
+<p>Use top-level <code>projects</code> for meaningful work that is not tied to a specific employer, client, or position: independent open-source work, personal projects, creative work, independent research, or freelance-like projects where the project itself is the durable career signal.</p>
+
+<p>If the project happened as part of a role, prefer <code>position.projects</code> so the relationship to the job stays structural. If the project stands on its own, use top-level <code>projects</code> with <code>category: &quot;open-source&quot;</code> and a <code>links</code> entry for the GitHub repository.</p>
+
+<p>See <code>spec/examples/open-source-project.json</code> for a compact example using Open Career Format as an open-source project with a public GitHub repo link.</p>
+
+<h2>Achievements</h2>
+
+<p>Achievements are canonical claims. They store what happened, not just how it should be worded in a resume.</p>
+
+<p>Good achievement:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;mhs-ransomware-2024&quot;,
+  &quot;kind&quot;: &quot;accomplishment&quot;,
+  &quot;statement&quot;: &quot;Led response to a hospital-wide ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.&quot;,
+  &quot;metrics&quot;: [
+    {
+      &quot;kind&quot;: &quot;duration&quot;,
+      &quot;value&quot;: 41,
+      &quot;unit&quot;: &quot;hours&quot;
+    },
+    {
+      &quot;kind&quot;: &quot;other&quot;,
+      &quot;value&quot;: 0,
+      &quot;unit&quot;: &quot;patients&quot;,
+      &quot;note&quot;: &quot;zero patient-care incidents attributed to the outage&quot;
+    }
+  ],
+  &quot;visibility&quot;: &quot;shared&quot;
+}</code></pre>
+
+<p>Use <code>longform</code> for the fuller story: stakes, context, judgment, lessons, tradeoffs, and caveats.</p>
+
+<p>Use <code>importance</code> and <code>audiences</code> to help curators choose among many valid achievements.</p>
+
+<h2>Attribution</h2>
+
+<p>Attribution keeps verbs honest.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;statement&quot;: &quot;Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months&quot;,
+  &quot;attribution&quot;: {
+    &quot;role&quot;: &quot;owned&quot;,
+    &quot;scope&quot;: &quot;Owned SOC buildout plan, hiring model, coverage target, and operating cadence.&quot;,
+    &quot;ownedBudget&quot;: true,
+    &quot;ownedHeadcount&quot;: true,
+    &quot;reportedUpward&quot;: true
+  }
+}</code></pre>
+
+<p>Use attribution to distinguish:</p>
+
+<ul>
+<li>owned</li>
+<li>led</li>
+<li>drove</li>
+<li>contributed to</li>
+<li>supported</li>
+<li>advised</li>
+<li>observed</li>
+</ul>
+
+<p>This is not formal verification. It is a structured prompt for honest wording. RACI-like questions can help clarify responsibility, but OCF does not encode a formal RACI model.</p>
+
+<p>The <code>role</code> values are common cases, not a complete vocabulary for every collaboration pattern. If the precise truth is &quot;co-led,&quot; &quot;jointly owned,&quot; or &quot;led one workstream inside a larger program,&quot; use the closest role value and put the nuance in <code>scope</code> or <code>notes</code> so a curator can choose accurate verbs.</p>
+
+<h2>Metrics</h2>
+
+<p>Metrics are flexible because careers have many kinds of numbers.</p>
+
+<p>Examples:</p>
+
+<pre><code class="language-json">{
+  &quot;kind&quot;: &quot;headcountGrowth&quot;,
+  &quot;from&quot;: 0,
+  &quot;to&quot;: 12,
+  &quot;unit&quot;: &quot;analysts&quot;
+}</code></pre>
+
+<pre><code class="language-json">{
+  &quot;kind&quot;: &quot;percentage&quot;,
+  &quot;value&quot;: 165,
+  &quot;unit&quot;: &quot;% quota attainment&quot;
+}</code></pre>
+
+<pre><code class="language-json">{
+  &quot;kind&quot;: &quot;currency&quot;,
+  &quot;value&quot;: 20000000,
+  &quot;unit&quot;: &quot;USD ARR&quot;
+}</code></pre>
+
+<p>Metric <code>kind</code> is a hint. Do not overfit it. Use <code>note</code> when the number needs context.</p>
+
+<h2>Narrative Variants</h2>
+
+<p>Narrative variants are alternate wording for the same underlying facts.</p>
+
+<p>They are not competing facts and not separate achievements.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;narrativeVariants&quot;: [
+    {
+      &quot;id&quot;: &quot;mhs-ransomware-public-resume&quot;,
+      &quot;label&quot;: &quot;Public resume bullet&quot;,
+      &quot;audiences&quot;: [&quot;resume&quot;, &quot;public-profile&quot;],
+      &quot;statement&quot;: &quot;Led ransomware response that restored critical clinical systems from offline backups within 41 hours with no patient-care impact.&quot;,
+      &quot;visibility&quot;: &quot;public&quot;
+    },
+    {
+      &quot;id&quot;: &quot;mhs-ransomware-healthcare-security&quot;,
+      &quot;label&quot;: &quot;Healthcare security framing&quot;,
+      &quot;audiences&quot;: [&quot;healthcare&quot;, &quot;patient-safety&quot;],
+      &quot;statement&quot;: &quot;Protected patient-care continuity during a ransomware event by leading evidence-based recovery from offline backups.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;
+    },
+    {
+      &quot;id&quot;: &quot;mhs-ransomware-interview-prep&quot;,
+      &quot;label&quot;: &quot;Interview-prep framing&quot;,
+      &quot;audiences&quot;: [&quot;interview-prep&quot;, &quot;executive-judgment&quot;],
+      &quot;longform&quot;: &quot;Use this story to show executive judgment under pressure...&quot;,
+      &quot;visibility&quot;: &quot;private&quot;
+    }
+  ]
+}</code></pre>
+
+<p>Use variants for:</p>
+
+<ul>
+<li>old resume wording</li>
+<li>LinkedIn profile wording</li>
+<li>federal-resume wording</li>
+<li>role-targeted wording</li>
+<li>public-safe wording</li>
+<li>interview-prep framing</li>
+<li>translated or localized wording</li>
+</ul>
+
+<p>If a variant introduces a new fact, promote that fact into canonical structured fields or create an <code>openQuestions</code> item.</p>
+
+<h2>Reflections</h2>
+
+<p>Reflections are private review and conversation material. They are not resume bullets.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;kind&quot;: &quot;proudest-of&quot;,
+  &quot;text&quot;: &quot;The ransomware response. Most of my proudest moments in this role were team accomplishments...&quot;,
+  &quot;visibility&quot;: &quot;private&quot;,
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;date&quot;: &quot;2026-05-21&quot;
+  }
+}</code></pre>
+
+<p>Use reflections for material that helps a person prepare, improve, or remember:</p>
+
+<ul>
+<li>proudest work</li>
+<li>biggest mistake</li>
+<li>why they left</li>
+<li>what they learned</li>
+<li>how a manager would rate them</li>
+<li>difficult working relationships</li>
+<li>transition stories</li>
+</ul>
+
+<p>Reflections can seed achievements. Keep both when useful: the reflection preserves raw memory and voice; the achievement stores the distilled shareable claim.</p>
+
+<h2>Cautions</h2>
+
+<p>Cautions are claims the subject does not want made on their behalf.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;claim&quot;: &quot;claimed as an AI / ML security specialist&quot;,
+  &quot;reason&quot;: &quot;Has operational exposure to ML-based detection tooling but not research-level expertise.&quot;,
+  &quot;addedDate&quot;: {
+    &quot;year&quot;: 2026,
+    &quot;month&quot;: 5,
+    &quot;day&quot;: 21
+  },
+  &quot;visibility&quot;: &quot;private&quot;
+}</code></pre>
+
+<p>Write <code>claim</code> as the claim or framing a tool might make, such as &quot;claimed as...&quot; or &quot;positioned as...&quot;. Do not require first-person wording; cautions are often easiest to apply when they describe the risky output phrase directly.</p>
+
+<p>Use cautions when a tool, coach, recruiter, or draft overstates something and the user corrects it. Cautions are not weaknesses; they are positioning constraints.</p>
+
+<p>Cautions can also capture writing anti-patterns, not only factual overclaims. A useful caution might be &quot;do not describe this as a transformational journey&quot; or &quot;do not use the phrase uniquely positioned&quot; when the user has rejected that voice. These are still guardrails for future curation: things the tool should not claim, imply, or sound like on the person's behalf.</p>
+
+<h2>Open Questions</h2>
+
+<p>Open questions are a working queue.</p>
+
+<p>Examples:</p>
+
+<pre><code class="language-json">{
+  &quot;question&quot;: &quot;Clarify whether the ransomware-response achievement should name the affected clinical system or keep the description generic.&quot;,
+  &quot;context&quot;: &quot;More specificity may improve interview storytelling while also increasing sensitivity.&quot;,
+  &quot;addedDate&quot;: {
+    &quot;year&quot;: 2026,
+    &quot;month&quot;: 5,
+    &quot;day&quot;: 21
+  },
+  &quot;visibility&quot;: &quot;private&quot;
+}</code></pre>
+
+<pre><code class="language-json">{
+  &quot;question&quot;: &quot;For the SOC buildout, clarify what Maria directly owned versus what managers or team leads owned.&quot;,
+  &quot;context&quot;: &quot;Attribution precision will help curators choose honest verbs.&quot;,
+  &quot;visibility&quot;: &quot;private&quot;
+}</code></pre>
+
+<p>Good open questions should be answerable by the subject or by reviewing their source material. Use them for unresolved career facts, positioning choices, sensitivity decisions, attribution questions, or stories that need more detail.</p>
+
+<p>Do not use a person's <code>openQuestions</code> for schema housekeeping, exporter wishlist items, or mapper TODOs. Put those in a project issue tracker, exporter documentation, or a vendor extension namespace instead.</p>
+
+<h2>Goals, Voice, And AI Instructions</h2>
+
+<p>These fields guide future conversations.</p>
+
+<p><code>goals</code> describes where the person is trying to go.</p>
+
+<p><code>voice</code> describes how drafts should sound.</p>
+
+<p><code>aiInstructions</code> customizes tool behavior for this file.</p>
+
+<p>For the longer rationale behind these fields, see <code>guide.html</code> and its discussion of OCF as input to a career conversation.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;voice&quot;: {
+    &quot;style&quot;: &quot;plain-direct&quot;,
+    &quot;avoidPhrases&quot;: [&quot;leveraged&quot;, &quot;thought leader&quot;],
+    &quot;preferredPhrases&quot;: [&quot;led&quot;, &quot;owned&quot;, &quot;built&quot;]
+  },
+  &quot;aiInstructions&quot;: &quot;Push back when I undersell. Ask before drafting from uncertain prior-session claims.&quot;
+}</code></pre>
+
+<p>Keep these private by default. They are not resume content.</p>
+
+<h2>Compensation, Sales Plan, And Book Of Business History</h2>
+
+<p>Compensation and plan details are memory fields, not ordinary downstream output. While completely optional, the reason OCF offers to store this sensitive data is because it is relatively easy to collect while you are employed and almost impossible to do afterwards.</p>
+
+<p>Use them to preserve:</p>
+
+<ul>
+<li>base salary</li>
+<li>bonus</li>
+<li>commission</li>
+<li>equity</li>
+<li>quota</li>
+<li>attainment</li>
+<li>rank</li>
+<li>President's Club or similar recognition</li>
+<li>territory or plan caveats</li>
+<li>book of business, renewal base, managed ARR, account count, retention, and churn context</li>
+</ul>
+
+<p>Keep raw comp and plan details private unless a specific workflow requires sharing them.</p>
+
+<p>Use <code>position.bookOfBusiness</code> for account, territory, renewal, or portfolio responsibility in a specific role. It is repeatable by year or period because a person's book can change materially inside the same role. This is where a sales, customer-success, account-management, partner, or revenue leader can remember facts like &quot;managed $2M ARR in my territory&quot; or &quot;owned $20M of successful renewals in 2025; all churn was non-regretted.&quot;</p>
+
+<p>Keep <code>bookOfBusiness</code> distinct from <code>salesPerformance</code>: sales performance records plan, quota, attainment, rank, or club outcomes; book of business records what portfolio the person was responsible for and what happened to it. A shareable resume claim can still become an achievement with reviewed metrics, while the private annual book details stay in the master.</p>
+
+<p>Metric <code>kind</code> values often use camelCase in examples because they behave like compact analytic labels (<code>quotaAttainment</code>, <code>renewalBookValue</code>, <code>nonRegrettedChurnArr</code>). Book-of-business outcome <code>kind</code> values often use kebab-case because they behave more like event labels (<code>renewed-arr</code>, <code>non-regretted-churn-arr</code>). Treat both as hints, not controlled vocabularies; consistency inside a tool matters more than forcing every author into one style.</p>
+
+<p>Resume-ready sales claims should usually be achievements with reviewed metrics:</p>
+
+<pre><code class="language-json">{
+  &quot;statement&quot;: &quot;Achieved 165% revenue attainment against FY16 budget&quot;,
+  &quot;metrics&quot;: [
+    {
+      &quot;kind&quot;: &quot;percentage&quot;,
+      &quot;value&quot;: 165,
+      &quot;unit&quot;: &quot;% revenue attainment&quot;
+    }
+  ],
+  &quot;visibility&quot;: &quot;shared&quot;
+}</code></pre>
+
+<p>If a statement blends multiple facts, use <code>supportingFacts</code> for the individual annual records when available. This matters for sales recognition because the public claim is often a summary:</p>
+
+<pre><code class="language-json">{
+  &quot;statement&quot;: &quot;Qualified for President's Club 2 out of 3 eligible years&quot;,
+  &quot;kind&quot;: &quot;recognition&quot;,
+  &quot;metrics&quot;: [
+    {
+      &quot;kind&quot;: &quot;count&quot;,
+      &quot;value&quot;: 2,
+      &quot;unit&quot;: &quot;years&quot;
+    },
+    {
+      &quot;kind&quot;: &quot;count&quot;,
+      &quot;value&quot;: 3,
+      &quot;unit&quot;: &quot;eligible years&quot;,
+      &quot;note&quot;: &quot;Denominator for the 2-out-of-3 recognition claim.&quot;
+    }
+  ],
+  &quot;supportingFacts&quot;: [
+    {
+      &quot;statement&quot;: &quot;Qualified for President's Club in FY2022.&quot;,
+      &quot;date&quot;: {
+        &quot;year&quot;: 2022
+      },
+      &quot;visibility&quot;: &quot;private&quot;
+    },
+    {
+      &quot;statement&quot;: &quot;Did not qualify for President's Club in FY2023.&quot;,
+      &quot;date&quot;: {
+        &quot;year&quot;: 2023
+      },
+      &quot;visibility&quot;: &quot;private&quot;,
+      &quot;note&quot;: &quot;Stored as private memory; usually not rendered in public outputs.&quot;
+    },
+    {
+      &quot;statement&quot;: &quot;Qualified for President's Club in FY2024.&quot;,
+      &quot;date&quot;: {
+        &quot;year&quot;: 2024
+      },
+      &quot;visibility&quot;: &quot;private&quot;
+    }
+  ],
+  &quot;visibility&quot;: &quot;shared&quot;
+}</code></pre>
+
+<p>The shareable achievement can stay concise while the master keeps enough annual detail to defend or revise it later.</p>
+
+<h2>Supervisors And References</h2>
+
+<p>Supervisor and reference details are private by default.</p>
+
+<p>Use <code>position.supervisor</code> for the most relevant person the subject worked for in that role. This is useful for Topgrading-style prep, federal applications, and reference checks.</p>
+
+<p>Keep the shape lightweight. OCF is not trying to become a LinkedIn-style people graph.</p>
+
+<h2>Certifications And Credentials</h2>
+
+<p>Use simple issuer strings when that is all the person has:</p>
+
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;CISSP&quot;,
+  &quot;issuer&quot;: &quot;(ISC)²&quot;,
+  &quot;status&quot;: &quot;active&quot;
+}</code></pre>
+
+<p>Use structured issuer metadata when importing verified credentials or preparing exports that need stronger issuer identity.</p>
+
+<p>Questions in a person's OCF should affect that person's file. Schema housekeeping, exporter wishlist items, and mapper TODOs belong in the project issue tracker, exporter documentation, or a vendor extension namespace. A good credential question for the person's OCF would be &quot;Do you have the badge URL or certificate number?&quot;</p>
+
+<h2>Skills And Taxonomies</h2>
+
+<p>Skills can be plain names:</p>
+
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;Incident Response&quot;
+}</code></pre>
+
+<p>They can also carry external taxonomy references when a tool has them. Do not force casual authors to fill taxonomy data by hand.</p>
+
+<p>For example, a tool working with European hiring data might align a human-readable OCF skill to ESCO, the EU taxonomy for skills, competences, qualifications, and occupations:</p>
+
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;Incident Response&quot;,
+  &quot;taxonomies&quot;: [
+    {
+      &quot;framework&quot;: &quot;esco&quot;,
+      &quot;id&quot;: &quot;http://data.europa.eu/esco/skill/example-incident-response&quot;,
+      &quot;label&quot;: &quot;incident response&quot;,
+      &quot;version&quot;: &quot;ESCO v1.1.2&quot;
+    }
+  ]
+}</code></pre>
+
+<p>The exact taxonomy identifier should come from the importing or matching tool. The OCF author can keep the plain skill name; the taxonomy reference is an interoperability layer.</p>
+
+<h2>Vendor Extensions</h2>
+
+<p>Use <code>extensions</code> for vendor-specific metadata that should round-trip through tools.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;extensions&quot;: {
+    &quot;example-ats.com&quot;: {
+      &quot;candidateId&quot;: &quot;abc123&quot;,
+      &quot;pipelineStage&quot;: &quot;screening&quot;
+    }
+  }
+}</code></pre>
+
+<p>Use a domain you control as the namespace. Tools that do not understand an extension should preserve it.</p>
+
+<p>By interim convention, use top-level <code>extensions.user.local</code> for user-controlled scratch metadata that has no vendor owner and no first-class schema field yet. It is valid under the v0.2 extension key pattern, but it is not a v0.2 normative schema commitment. Portable data should still prefer first-class schema fields when they exist, and vendor-owned metadata should use a domain the vendor controls.</p>
+
+<p>Do not use <code>person.extensions</code> for incubation in v0.2; <code>person</code> is a closed object in the canonical schema. If the experimental concept is person-level, store it under top-level <code>extensions.user.local</code> and include IDs or references back to the relevant person-level concept.</p>
+
+<p>When a tool repeatedly stores the same reusable career-memory structure under <code>extensions.user.local</code>, treat that as possible schema feedback. Preserve the local data, but consider helping the user file a redacted suggestion with the OCF project that explains the concept, the current best mapping, what felt awkward, and a fictionalized or anonymized example.</p>
+
+<h2>Importer Guidance</h2>
+
+<p>Importers should be conservative.</p>
+
+<p>See <code>usage-patterns.md</code> for the full imported-starter workflow. At the field level, an importer should:</p>
+
+<ul>
+<li>add a <code>sourceArtifacts</code> entry</li>
+<li>preserve provenance on imported items</li>
+<li>default mined items to <code>private</code> or <code>shared</code> based on source and workflow</li>
+<li>create <code>openQuestions</code> for uncertain dates, metrics, titles, and claims</li>
+<li>do not silently treat raw imported notes as public</li>
+</ul>
+
+<p>An importer can parse:</p>
+
+<pre><code class="language-text">Maria E. Reyes
+Cybersecurity leader bridging military discipline with enterprise security strategy</code></pre>
+
+<p>But it cannot know whether every claim is current, defensible, or appropriate for a target role. That is why review and provenance matter.</p>
+
+<h2>Curator Guidance</h2>
+
+<p>A curator reads an OCF plus a target, audience, purpose, review question, or source artifact. It should:</p>
+
+<ul>
+<li>filter based on visibility, rules, relevance, and recency</li>
+<li>preserve lineage for selected material</li>
+<li>keep proposed improvements separate from export-ready content</li>
+</ul>
+
+<p>For selected material, preserve lineage in <code>provenance</code> with the source file and item IDs when the tool has them:</p>
+
+<pre><code class="language-json">{
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;curated&quot;,
+    &quot;sourceFileId&quot;: &quot;master-ocf-7f3a&quot;,
+    &quot;sourceItemId&quot;: &quot;mhs-ransomware-2024&quot;,
+    &quot;operation&quot;: &quot;selected-for-export&quot;
+  }
+}</code></pre>
+
+<p>For proposed improvements, keep the suggested update distinct from export-ready content. In v0.2, tools can do this with a vendor extension, a candidate-curated working file, or an external review queue:</p>
+
+<pre><code class="language-json">{
+  &quot;extensions&quot;: {
+    &quot;curator.example.com&quot;: {
+      &quot;proposedUpdates&quot;: [
+        {
+          &quot;targetItemId&quot;: &quot;mhs-ransomware-2024&quot;,
+          &quot;suggestion&quot;: &quot;Add whether the recovery target was met or exceeded.&quot;,
+          &quot;status&quot;: &quot;needs-user-review&quot;
+        }
+      ]
+    }
+  }
+}</code></pre>
+
+<p>See <code>usage-patterns.md</code> for the broader movement from master to curated or export-ready files.</p>
+
+<h2>Exporter Guidance</h2>
+
+<p>An exporter turns export-ready input into files:</p>
+
+<ul>
+<li>PDF</li>
+<li>DOCX</li>
+<li>HTML</li>
+<li>JSON Resume</li>
+<li>LER-RS input</li>
+<li>Schema.org JSON-LD</li>
+<li>LinkedIn paste bundle</li>
+<li>cover letter</li>
+<li>interview-prep packet</li>
+</ul>
+
+<p>Exporters should not decide which private career facts belong. That is curation.</p>
+
+<h2>Common Pitfalls</h2>
+
+<ul>
+<li>Treating a curated file as the master.</li>
+<li>Treating imported source material as truth.</li>
+<li>Treating <code>visibility</code> as anonymization.</li>
+<li>Putting schema/tooling TODOs into a person’s <code>openQuestions</code>.</li>
+<li>Using <code>provenance.source</code> and <code>sourceArtifact.kind</code> interchangeably.</li>
+<li>Using <code>confidence</code> as external verification.</li>
+<li>Letting narrative variants introduce unsupported facts.</li>
+<li>Letting an exporter make curation decisions.</li>
+<li>Assuming &quot;Present&quot; in an old resume means present today.</li>
+<li>Using a third-party working file as if it were the candidate’s own master.</li>
+</ul>
+
+<h2>Minimal Useful OCF</h2>
+
+<p>A useful OCF can be tiny:</p>
+
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://opencareerformat.org/v0.2/schema.json&quot;,
+  &quot;schemaVersion&quot;: &quot;0.2&quot;,
+  &quot;meta&quot;: {
+    &quot;fileRole&quot;: &quot;candidate-master&quot;,
+    &quot;canonical&quot;: true,
+    &quot;lastModified&quot;: &quot;2026-05-24&quot;
+  },
+  &quot;person&quot;: {
+    &quot;name&quot;: {
+      &quot;renderAs&quot;: &quot;Maria E. Reyes&quot;
+    }
+  },
+  &quot;experience&quot;: [
+    {
+      &quot;kind&quot;: &quot;employment&quot;,
+      &quot;name&quot;: &quot;Meridian Health Systems&quot;,
+      &quot;positions&quot;: [
+        {
+          &quot;title&quot;: &quot;Director of Cybersecurity&quot;,
+          &quot;dateRange&quot;: {
+            &quot;start&quot;: { &quot;year&quot;: 2023, &quot;month&quot;: 3 },
+            &quot;end&quot;: { &quot;present&quot;: true }
+          },
+          &quot;achievements&quot;: [
+            {
+              &quot;statement&quot;: &quot;Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months&quot;,
+              &quot;visibility&quot;: &quot;public&quot;
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code></pre>
+
+<p>A partial, honest OCF is better than a complete-looking file full of invented certainty.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./schema-commentary.md"><code>spec/schema-commentary.md</code></a>.</p>
+</footer>
+</body>
+</html>

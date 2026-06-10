@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF Format Mappings — Open Career Format</title>
+<meta name="description" content="Mappings between Open Career Format and related career, resume, and profile formats.">
+<link rel="canonical" href="https://opencareerformat.org/mappings/index.html">
+<link rel="icon" type="image/png" href="../spec/assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF Format Mappings">
+<meta property="og:description" content="Mappings between Open Career Format and related career, resume, and profile formats.">
+<meta property="og:url" content="https://opencareerformat.org/mappings/index.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF Format Mappings">
+<meta name="twitter:description" content="Mappings between Open Career Format and related career, resume, and profile formats.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF Format Mappings",
+  "name": "OCF Format Mappings",
+  "url": "https://opencareerformat.org/mappings/index.html",
+  "description": "Mappings between Open Career Format and related career, resume, and profile formats.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="../spec/assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./README.md">View the Markdown source</a>.</p>
+<h1>OCF Mappings</h1>
+
+<p>This directory documents how Open Career Format maps to and from neighboring career-data formats and systems.</p>
+
+<p>These files are prose specifications, not code. They describe expected behavior for importers and exporters so independent tools can make similar decisions without sharing an implementation.</p>
+
+<h2>Available Mappings</h2>
+
+<table>
+<thead><tr><th>Mapping</th><th>Direction</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><a href="json-resume.md">JSON Resume</a></td><td>OCF export-ready file -&gt; JSON Resume</td><td>Export a resume-shaped OCF into the established JSON Resume ecosystem.</td></tr>
+<tr><td><a href="ler-rs.md">LER-RS</a></td><td>OCF export-ready file + credential evidence -&gt; LER-RS</td><td>Bridge OCF career narrative into learning and employment record infrastructure.</td></tr>
+<tr><td><a href="schema-org.md">Schema.org</a></td><td>OCF export-ready file -&gt; Schema.org JSON-LD</td><td>Publish public profile data in search-friendly structured data.</td></tr>
+<tr><td><a href="linkedin.md">LinkedIn</a></td><td>OCF export-ready file -&gt; LinkedIn paste/update bundle</td><td>Help users update LinkedIn without treating LinkedIn as the source of truth.</td></tr>
+<tr><td><a href="vcard.md">vCard</a></td><td>OCF export-ready file -&gt; vCard</td><td>Export contact/profile information for address books and lightweight profile exchange.</td></tr>
+</tbody>
+</table>
+
+<h2>General Principles</h2>
+
+<ul>
+<li>Export from an export-ready OCF file by default, not from the master.</li>
+<li>Preserve the master OCF as the source of truth. Exported files are outputs, not authoritative updates.</li>
+<li>Respect <code>visibility</code>; do not export <code>private</code> items unless the user explicitly chose a private recipient-specific curated or export-ready file.</li>
+<li>Preserve facts separately from display wording. Use canonical fields for factual claims and variants for audience-specific phrasing.</li>
+<li>Include provenance or curation notes when the target format has a reasonable place for them; otherwise keep them in the OCF.</li>
+<li>Do not invent missing facts to satisfy a target schema. Leave fields empty, omit them, or ask an open question.</li>
+<li>The user owns every exported word and should review the output before sending, posting, or importing it elsewhere.</li>
+</ul>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./README.md"><code>mappings/README.md</code></a>.</p>
+</footer>
+</body>
+</html>

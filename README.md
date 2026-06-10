@@ -138,6 +138,16 @@ Or from the repo root:
 node reference/validator/validate.js
 ```
 
+## Generating Website Docs
+
+Some reader-facing Markdown files have checked-in HTML siblings for the public
+website. The Markdown files remain the source of truth; regenerate the HTML from
+the repo root after editing those docs:
+
+```bash
+node tools/generate-doc-html.js
+```
+
 ## License
 
 OCF is dual-licensed. The specification, mappings, prompts, examples, and project documentation are licensed under [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). The reference implementations (everything in `reference/`) are licensed under the [MIT License](LICENSE-code). See [LICENSING.md](LICENSING.md) for the umbrella explainer.

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF Usage Patterns — Open Career Format</title>
+<meta name="description" content="File-role and workflow patterns for Open Career Format.">
+<link rel="canonical" href="https://opencareerformat.org/spec/usage-patterns.html">
+<link rel="icon" type="image/png" href="./assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF Usage Patterns">
+<meta property="og:description" content="File-role and workflow patterns for Open Career Format.">
+<meta property="og:url" content="https://opencareerformat.org/spec/usage-patterns.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF Usage Patterns">
+<meta name="twitter:description" content="File-role and workflow patterns for Open Career Format.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF Usage Patterns",
+  "name": "OCF Usage Patterns",
+  "url": "https://opencareerformat.org/spec/usage-patterns.html",
+  "description": "File-role and workflow patterns for Open Career Format.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="./assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./usage-patterns.md">View the Markdown source</a>.</p>
+<h1>OCF Usage Patterns</h1>
+
+<p>OCF is a schema. A candidate-owned master is one important usage pattern, not the only one.</p>
+
+<p>Use this file when deciding what kind of OCF file you are creating, who controls it, and how it should move through a workflow. Use <code>schema-commentary.md</code> when you need field-level guidance and JSON examples.</p>
+
+<p>The top-level <code>person</code> is always the <strong>subject</strong> of the career record: the person whose career the file describes. The subject is not always the person or organization that controls this particular file, and is not necessarily the actor that created or edited each item.</p>
+
+<p>Keep these roles separate:</p>
+
+<ul>
+<li><strong>Subject</strong>: the person whose career is described by <code>person</code>.</li>
+<li><strong>Controller</strong>: the person, organization, or workflow that controls this particular OCF file.</li>
+<li><strong>Editor or authoring actor</strong>: the person, tool, recruiter, coach, LLM, importer, or workflow that created or changed specific content. Item-level <code>provenance</code> is the usual place to record this.</li>
+</ul>
+
+<p>In a candidate-owned master, these roles often collapse: the subject is the candidate, the controller is the candidate, and editors are the candidate or tools acting for the candidate. In a recruiter or coach workflow, they may be different: the subject is still the candidate, while the controller may be a recruiter, agency, coach, employer, or tool workspace.</p>
+
+<p>OCF v0.2 does not define a first-class <code>meta.controller</code> field. The controller is usually contextual: the file location, application workspace, account, or workflow tells you who controls it. If a tool needs to persist controller-specific metadata inside the file, use a vendor namespace under <code>extensions</code> rather than treating the subject as the controller.</p>
+
+<h2>Candidate-Owned Master</h2>
+
+<p>A <code>candidate-master</code> OCF is the person's private, durable career memory. It may be broad and candid if the person chooses: achievements, source artifacts, compensation history, reflections, cautions, private notes, and open questions.</p>
+
+<p>Because the candidate-owned master is controlled by the person, it is the right place for long-term accumulation and high-candor material. It should not be handed out by default. Curated or export-ready files are the normal shareable layer.</p>
+
+<p>Common filenames:</p>
+
+<ul>
+<li><code>master.ocf.json</code></li>
+<li><code>candidate-master.ocf.json</code></li>
+</ul>
+
+<h2>Imported Starter</h2>
+
+<p>An <code>imported-starter</code> OCF is a provisional first pass built from resumes, LinkedIn exports, notes, photos, transcripts, or conversations. It is useful because it gives the user a starting point, but it is not automatically the candidate-owned master.</p>
+
+<p>An imported starter should preserve source artifacts, provenance, uncertainty, and open questions. It can become a candidate-owned master after review, or it can remain a temporary import artifact.</p>
+
+<p>A first-pass import typically uses <code>meta.fileRole: &quot;imported-starter&quot;</code>, <code>meta.canonical: false</code>, and <code>meta.source.kind: &quot;imported&quot;</code>. Until the user reviews the result, keep imported facts visibly provisional through file role, provenance, visibility, and open questions.</p>
+
+<p>After review, the usual path is to create or update a <code>candidate-master</code> with the accepted material and keep the imported starter as an archived import artifact, or preserve the original input as a <code>sourceArtifacts</code> entry. Do not silently promote the imported-starter file in place unless the user has explicitly accepted it as the master.</p>
+
+<p>Do not name an unreviewed imported starter as a master file. Use a filename such as <code>{person}-{context}-{date}.imported.ocf.json</code>. After the user reviews and accepts it as their durable record, it may become <code>{person}.master.ocf.json</code>.</p>
+
+<p>An importer should:</p>
+
+<ul>
+<li>create an <code>imported-starter</code> for first-pass imports</li>
+<li>add <code>sourceArtifacts</code> for the inputs</li>
+<li>preserve provenance on imported items</li>
+<li>default mined items to <code>private</code> or <code>shared</code> based on source and workflow</li>
+<li>create <code>openQuestions</code> for uncertain dates, metrics, titles, and claims</li>
+<li>avoid treating raw imported notes as public</li>
+</ul>
+
+<p>Common filenames:</p>
+
+<ul>
+<li><code>imports/resume-2026-05-24.ocf.json</code></li>
+<li><code>imports/linkedin-export-2026-05-24.ocf.json</code></li>
+</ul>
+
+<h2>Candidate-Curated and Export-Ready Files</h2>
+
+<p>A <code>candidate-curated</code> or <code>export-ready</code> OCF is a reduced working set prepared from a broader file for a specific audience, role, purpose, or downstream exporter.</p>
+
+<p>These files should preserve lineage back to the source file when possible, but they are intentionally narrower than the master. Curation filters, ranks, questions, and prepares content. Exporters turn prepared content into files or target schemas.</p>
+
+<p>A file produced by filtering, reducing, tailoring, or exporting from a master is not a master. It must not retain <code>meta.fileRole: &quot;candidate-master&quot;</code> unless it is a complete, user-accepted replacement for the prior master.</p>
+
+<p>Curated, export-ready, imported, or third-party working files may still surface new facts, better wording, cautions, open questions, narrative variants, or other improvements. Those changes should be proposed back to the candidate-owned master as reviewable updates with provenance, not applied by treating the reduced file as the new master.</p>
+
+<p>Use <code>candidate-curated</code> for a candidate-controlled working set prepared for review, coaching, tailoring, or later export. It may still contain proposed improvements or review questions.</p>
+
+<p>Use <code>export-ready</code> for a handoff to a specific exporter or downstream system. Selection and visibility review should already be done.</p>
+
+<p>Example distinction:</p>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;fileRole&quot;: &quot;candidate-curated&quot;,
+    &quot;canonical&quot;: false,
+    &quot;variant&quot;: &quot;company-targeted&quot;,
+    &quot;targetRole&quot;: &quot;CISO&quot;,
+    &quot;targetCompany&quot;: &quot;Acme Health&quot;
+  },
+  &quot;openQuestions&quot;: [
+    {
+      &quot;question&quot;: &quot;Should the ransomware-response story name the affected clinical system?&quot;,
+      &quot;visibility&quot;: &quot;private&quot;
+    }
+  ]
+}</code></pre>
+
+<p>The curated file is still a working set: it can carry review questions or proposed improvements.</p>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;fileRole&quot;: &quot;export-ready&quot;,
+    &quot;canonical&quot;: false,
+    &quot;variant&quot;: &quot;company-targeted&quot;,
+    &quot;targetRole&quot;: &quot;CISO&quot;,
+    &quot;targetCompany&quot;: &quot;Acme Health&quot;
+  },
+  &quot;openQuestions&quot;: []
+}</code></pre>
+
+<p>The export-ready file is the reviewed handoff. The unresolved question has either been answered, excluded, or left behind in the working file.</p>
+
+<p>A curator should:</p>
+
+<ul>
+<li>filter based on visibility, rules, relevance, and recency</li>
+<li>ask questions about gaps or inconsistencies</li>
+<li>rank material by relevance and impact</li>
+<li>suggest updates to the master when useful</li>
+<li>prepare export-ready content when needed</li>
+</ul>
+
+<p>An exporter should turn export-ready input into files or target schemas. It should not decide which private career facts belong; that is curation.</p>
+
+<p>Common filenames:</p>
+
+<ul>
+<li><code>curated/acme-ciso-2026-05-24.ocf.json</code></li>
+<li><code>exports/acme-ciso-resume-2026-05-24.pdf</code></li>
+<li><code>exports/acme-ciso-cover-letter-2026-05-24.docx</code></li>
+<li><code>exports/acme-ciso-json-resume-2026-05-24.json</code></li>
+</ul>
+
+<h2>Third-Party Working OCF</h2>
+
+<p>A <code>third-party-working</code> OCF is an OCF-shaped working file created by a recruiter, headhunter, coach, agency, employer, or tool about a person. The top-level <code>person</code> is still the subject, but the third party may control the file and may add workflow-specific review notes, intake details, or status metadata. The subject may never actually see this file, even though it is about them.</p>
+
+<p>A third-party working OCF should contain what that third party needs for their workflow, not a copy of the candidate's private master memory. The schema permits broad representation; the workflow should still practice minimization.</p>
+
+<p>Visibility is relative to the file role and controller. In a candidate-owned master, <code>private</code> usually means private to the candidate's master. In a third-party working OCF, <code>private</code> may mean private to the recruiter, coach, agency, employer, or tool workflow controlling that file. A note can be about the subject without being visible to the subject. Curators and exporters should respect the visibility rules of the file they are operating on.</p>
+
+<p>If content from a third-party working OCF flows back toward the candidate-owned master, it should arrive as proposed updates for the person to accept, edit, or reject. It should not silently overwrite the candidate's master.</p>
+
+<h2>Movement Between Roles</h2>
+
+<p>Match the contents of an OCF file to the role the file is playing:</p>
+
+<ul>
+<li>Master to curated/export-ready: reduce, filter, and preserve lineage.</li>
+<li>Imported starter to master: review, correct, accept selected material into the master, and archive or retain the starter as import evidence.</li>
+<li>Third-party working to candidate master: propose updates, do not merge silently.</li>
+<li>Curated/export-ready to export file: produce the artifact without treating it as the master.</li>
+<li>Curated/export-ready to candidate master: propose specific improvements with provenance; do not replace the master with the reduced file.</li>
+</ul>
+
+<p>OCF does not prescribe how users keep historical versions. Git, cloud document history, dated backups, app-managed snapshots, and plain local files are all valid. But when a tool applies accepted updates to a candidate-owned master, it should preserve <code>meta.id</code> and refresh the file's own freshness markers, such as <code>meta.version</code> and <code>meta.lastModified</code>, when it manages those fields. A curated, imported, or export-ready file should record lineage to the source master rather than pretending to be the updated master.</p>
+
+<p>The principle is simple: OCF files can move through many workflows, but the candidate-owned master remains special because it is controlled by the person whose career it describes.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./usage-patterns.md"><code>spec/usage-patterns.md</code></a>.</p>
+</footer>
+</body>
+</html>

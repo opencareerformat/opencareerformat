@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF v0.3 Planning Notes — Open Career Format</title>
+<meta name="description" content="Non-normative planning notes for likely next Open Career Format schema concepts.">
+<link rel="canonical" href="https://opencareerformat.org/spec/v0.3-planning.html">
+<link rel="icon" type="image/png" href="./assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF v0.3 Planning Notes">
+<meta property="og:description" content="Non-normative planning notes for likely next Open Career Format schema concepts.">
+<meta property="og:url" content="https://opencareerformat.org/spec/v0.3-planning.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF v0.3 Planning Notes">
+<meta name="twitter:description" content="Non-normative planning notes for likely next Open Career Format schema concepts.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF v0.3 Planning Notes",
+  "name": "OCF v0.3 Planning Notes",
+  "url": "https://opencareerformat.org/spec/v0.3-planning.html",
+  "description": "Non-normative planning notes for likely next Open Career Format schema concepts.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="./assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./v0.3-planning.md">View the Markdown source</a>.</p>
+<h1>OCF v0.3 Planning Notes</h1>
+
+<p>These are planning notes for the next schema iteration. They are not part of OCF v0.2 and should not be treated as implemented fields until the schema changes.</p>
+
+<p>The goal for v0.3 is not to make OCF bigger for its own sake. The goal is to add small concepts that emerged repeatedly in real use and that improve memory, honesty, curation, and reuse.</p>
+
+<h2>Experimental / Incubating Shapes</h2>
+
+<p>OCF may publish experimental shapes before making them normative. The point is to let users and tools try the same idea in roughly the same way without pretending the schema contract is settled.</p>
+
+<p>Working convention:</p>
+
+<ul>
+<li>Experimental user-owned data should live under top-level <code>extensions.user.local</code>.</li>
+<li>Experimental vendor/tool data should live under the vendor's extension namespace.</li>
+<li>Tools should preserve experimental data on round-trip.</li>
+<li>Tools should not depend on experimental data unless they explicitly support that experiment.</li>
+<li>Experimental shapes may be promoted, renamed, or dropped in a later release.</li>
+<li>When an experimental shape graduates, the next release should include migration notes.</li>
+</ul>
+
+<p>OCF v0.2 does not legalize <code>person.extensions</code>; incubation belongs at top-level <code>extensions.user.local</code> unless and until a future schema explicitly adds item-level extension surfaces for the relevant object. Tools should not hide experimental person-level concepts inside invalid <code>person.extensions</code> just because the concept is about the person.</p>
+
+<p>The likely v0.3 incubating areas are target-aware headline or positioning variants, <code>talkingPoints</code>, richer voice calibration, and <code>reviewStatus</code>. The likely direct enum addition is <code>sourceArtifact.kind: &quot;job-description&quot;</code>, which is simple enough that it may not need incubation.</p>
+
+<h2>Candidate Addition: Stronger Stable IDs</h2>
+
+<p>Likely scope: make <code>id</code> required or strongly recommended on more cross-referenceable workflow items, especially <code>cautions</code>, <code>openQuestions</code>, and any future <code>talkingPoints</code>, headline/positioning variants, review-status records, or schema-feedback observations.</p>
+
+<p>Problem: OCF works best when tools can update and reference specific items surgically. Achievements, source artifacts, narrative variants, title variants, and positions already benefit from stable IDs. As more workflows create cross-references, weaker ID coverage makes update proposals vague: a tool can say &quot;this screening answer depends on a caution&quot; only if the caution has a stable identifier.</p>
+
+<p>Motivating references:</p>
+
+<ul>
+<li>screening answers or interview-prep notes may need <code>cautionRefs</code>;</li>
+<li>future target-aware headline variants may need to cite the cautions or open questions that govern their use;</li>
+<li>review workflows need stable IDs to say which open question was resolved or which caution was added after an overclaim;</li>
+<li>debugger or job-search companion tools may need to point back to the exact OCF item that created friction.</li>
+</ul>
+
+<p>Candidate direction:</p>
+
+<ul>
+<li>require or strongly recommend <code>id</code> on <code>cautions</code> and <code>openQuestions</code>;</li>
+<li>use human-readable slug IDs for hand-authored files and UUIDs when tool-generated collision safety matters more;</li>
+<li>keep IDs stable across edits, wording improvements, review status changes, and curation;</li>
+<li>document that IDs belong to OCF records, not to the LLM/tool that created them;</li>
+<li>use provenance to record the creator/editor/tool, not the item ID.</li>
+</ul>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>Should v0.3 require IDs on all top-level arrays or only cross-referenceable arrays?</li>
+<li>Should validators warn rather than fail when older files omit caution/open-question IDs?</li>
+<li>Should references use generic <code>itemRefs</code>, typed refs such as <code>cautionRefs</code>, or both?</li>
+<li>How should IDs be generated when importing from source artifacts that do not have stable identifiers?</li>
+</ul>
+
+<h2>Example-Driven Profession Stress Tests</h2>
+
+<p>Before adding profession-specific schema, OCF should collect realistic examples from fields where career evidence does not look like a standard technology or business resume. These examples should test whether existing v0.2 concepts are enough: <code>certifications</code>, <code>experience</code>, <code>education</code>, <code>skills</code>, <code>achievements</code>, <code>memberships</code>, <code>governance</code>, <code>service</code>, <code>references</code>, <code>cautions</code>, <code>openQuestions</code>, <code>visibility</code>, and <code>provenance</code>.</p>
+
+<p>The goal is not to make OCF a separate schema for every profession. The goal is to find industries where credentials, jurisdiction, confidentiality, nonstandard timelines, regulated claims, or team attribution make ordinary resume structures weak.</p>
+
+<p>Useful stress-test professions and industries:</p>
+
+<ul>
+<li><strong>Health care</strong>: nurses, physicians, pharmacists, therapists, EMTs, and allied health professionals test licensure, jurisdiction, board certifications, clinical privileges, residency/fellowship, procedure volume, patient populations, EHR systems, continuing education, and patient-confidential work.</li>
+<li><strong>Law</strong>: attorneys and legal professionals test bar admissions, court admissions, clerkships, confidential matters/deals, practice groups, billable work, partner-track evidence, CLE, pro bono, conflicts, and representative matters that cannot name clients.</li>
+<li><strong>Education</strong>: teachers, professors, administrators, and school staff test teaching credentials, state licenses, grade bands, subject endorsements, tenure, curriculum design, student outcomes, FERPA-sensitive examples, special education, and union or seniority systems.</li>
+<li><strong>Skilled trades and construction</strong>: electricians, plumbers, welders, heavy-equipment operators, and construction managers test apprenticeship-to-journeyman-to-master progressions, union locals, OSHA cards, job sites, safety records, equipment, public works, and jurisdictional licenses.</li>
+<li><strong>Aviation and maritime</strong>: pilots, mechanics, air traffic roles, mariners, and vessel operators test ratings, flight/sea hours, medical certificates, vessel or aircraft classes, recurrent training, checkrides, simulator time, routes, and safety-sensitive records.</li>
+<li><strong>Public safety</strong>: fire, EMS, police, corrections, dispatch, and emergency management test ranks, incident command, certifications, hazardous assignments, commendations, civil-service promotion systems, union rules, and sensitive incident details.</li>
+<li><strong>Military and intelligence</strong>: service members, veterans, defense civilians, and intelligence professionals test ranks, billets, deployments, awards, clearances, classified work, transition wording, leadership scope, and disclosure limits.</li>
+<li><strong>Government and civil service</strong>: public-sector employees test GS or pay-band systems, classifications, competitive versus excepted service, public trust, political appointments, procurement constraints, public-record boundaries, and unionized roles.</li>
+<li><strong>Academia and research</strong>: researchers, faculty, lab staff, and graduate students test publications, grants, PI/co-PI roles, labs, tenure track, advising, peer review, IRB, datasets, patents, and attribution across large teams.</li>
+<li><strong>Sales and finance</strong>: account executives, advisors, bankers, analysts, and portfolio roles test quotas, territories, books of business, FINRA/SEC licenses, assets under management, client confidentiality, compliance-sensitive claims, and private compensation or plan details.</li>
+<li><strong>Arts, entertainment, and media</strong>: performers, crew, writers, journalists, designers, and producers test credits, unions/guilds, productions, pseudonyms, portfolios, rights, collaborators, press, awards, episodic/project work, and unreleased or confidential projects.</li>
+<li><strong>Athletics and coaching</strong>: athletes, trainers, coaches, scouts, and athletic administrators test certifications, team roles, seasonal contracts, statistics, injuries, recruiting, player development, transfers, league rules, eligibility, and safeguarding minors.</li>
+<li><strong>Religious and nonprofit ministry</strong>: clergy, chaplains, pastoral workers, and ministry leaders test ordination, denominations, chaplaincy, pastoral-care confidentiality, community leadership, fundraising, governance, and sensitive counseling work.</li>
+</ul>
+
+<p>Suggested first example set:</p>
+
+<ul>
+<li>registered nurse;</li>
+<li>public school teacher;</li>
+<li>union electrician;</li>
+<li>attorney;</li>
+<li>airline pilot or firefighter.</li>
+</ul>
+
+<p>These should be written as realistic fictional examples, not schema fantasies. Each example should show what can be represented cleanly today, what requires conventions, and what might justify a future field only after repeated examples point to the same gap.</p>
+
+<h2>Candidate Addition: Target-Aware Headline Variants</h2>
+
+<p>Likely location: <code>person.headlineVariants</code> or a more general person-level variant collection.</p>
+
+<p>Currently tested as: <code>person.extensions.user.local.headlineVariants</code>.</p>
+
+<p>Problem: <code>person.headline</code> is a single positioning line, but the strongest defensible opener changes by target. The same person may need one headline for AI success engineering, another for customer-success leadership, another for advisory work, and a safe default when the target is unknown. Without stored variants, tools either reuse one headline everywhere or improvise new language each time.</p>
+
+<p>This is related to the existing <code>narrativeVariant</code> pattern. OCF v0.2 already has audience-specific wording for achievements, and that definition already allows <code>headline</code> as one payload shape. The missing question is whether OCF needs a person-level place for target-specific headline, summary, or profile positioning variants.</p>
+
+<p>Candidate minimal shape:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;hl-ai-success-engineering&quot;,
+  &quot;audiences&quot;: [&quot;ai-success-engineering&quot;, &quot;ai-vendor&quot;, &quot;post-sales-technical&quot;],
+  &quot;headline&quot;: &quot;Technical depth, customer obsessed.&quot;,
+  &quot;reviewStatus&quot;: &quot;needs-review&quot;,
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;date&quot;: &quot;2026-06-08&quot;,
+    &quot;operation&quot;: &quot;assembled-target-aware-headline&quot;,
+    &quot;confidence&quot;: 0.7
+  },
+  &quot;notes&quot;: &quot;Use for AI-vendor post-sales technical roles after subject voice-check.&quot;
+}</code></pre>
+
+<p>Selection behavior should be deterministic:</p>
+
+<ul>
+<li>choose the non-default variant with the most overlapping <code>audiences</code> tags;</li>
+<li>break ties by the fewest total <code>audiences</code> tags, then document order;</li>
+<li>fall back to a default variant or <code>person.headline</code> when nothing matches;</li>
+<li>do not invent a new headline during selection.</li>
+</ul>
+
+<p>Final-artifact exporters should not use unreviewed or tool-assembled variants without subject confirmation. This probably belongs in the same <code>reviewStatus</code> lifecycle planned elsewhere rather than a headline-specific <code>draft</code> boolean.</p>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>Should this be headline-only, or a broader person-level variant set that can carry <code>headline</code>, <code>summary</code>, profile opener, and similar positioning text?</li>
+<li>Should it reuse the existing <code>narrativeVariant</code> shape, define a narrower <code>headlineVariant</code>, or introduce a generic <code>positioningVariant</code>?</li>
+<li>Should <code>person.headline</code> remain a canonical default, or should v0.3 allow <code>person.headline</code> to become derived from the selected/default variant?</li>
+<li>Should a default variant mirror <code>person.headline</code>, and if so should mismatch be a validation warning rather than an error?</li>
+<li>How should <code>aiInstructions</code>, <code>voice</code>, <code>cautions</code>, and future <code>reviewStatus</code> interact with headline selection?</li>
+<li>Is a small reference selector useful enough to include under <code>reference/</code>, so consuming tools do not each invent slightly different matching behavior?</li>
+</ul>
+
+<p>Likely direction: keep incubating this under <code>extensions.user.local</code> until the review-status model and person-level narrative/talking-point model settle. If promoted, avoid over-indexing on backward compatibility; prefer a clean v0.3 person-level positioning model over duplicating <code>person.headline</code> solely for old consumers.</p>
+
+<h2>Candidate Addition: Talking Points</h2>
+
+<p>Likely field name: <code>talkingPoints</code>.</p>
+
+<p>Alternate names considered: <code>careerNarratives</code>, <code>synthesizedNarratives</code>.</p>
+
+<p>Problem: some career stories are real, polished, and reusable, but they are not a single achievement, a raw private reflection, or a narrative variant of one item. Senior candidates often have a few cross-role stories they use repeatedly:</p>
+
+<ul>
+<li>&quot;four startups, four outcomes&quot;;</li>
+<li>&quot;regulated systems from rough to scaled&quot;;</li>
+<li>&quot;technical operator who became the bridge to customers and revenue&quot;;</li>
+<li>&quot;builder who repeatedly turns undefined functions into repeatable operating systems.&quot;</li>
+</ul>
+
+<p>These are valuable for cover letters, interviews, profile summaries, and screens. They should not be hidden in vendor extensions if they are a common career-memory shape.</p>
+
+<p>Counterpoint: less senior users may not have polished narratives yet. The same concept should help them discover value, not only store finished executive positioning. Prompts and tools should ask questions that pull out under-described evidence:</p>
+
+<ul>
+<li>What changed because of this work?</li>
+<li>What was hard about the environment?</li>
+<li>What did you personally own?</li>
+<li>What would your manager or teammates say improved?</li>
+<li>What did you learn that applies to the next role?</li>
+<li>What pattern appears across your internships, projects, volunteer work, military service, school work, or early-career roles?</li>
+</ul>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>Is this top-level, person-level, or attached to experiences?</li>
+<li>Should narratives link to supporting achievements and reflections?</li>
+<li>Should they have <code>audiences</code>, <code>visibility</code>, <code>provenance</code>, <code>cautions</code>, and <code>sourceArtifactId</code>?</li>
+<li>How do we distinguish a reusable narrative from a summary/headline?</li>
+</ul>
+
+<p>Likely requirement: each narrative should link to supporting evidence. A polished story without links is too easy to overuse.</p>
+
+<p>Minimal candidate shape:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;four-startups-four-outcomes&quot;,
+  &quot;label&quot;: &quot;Four startups, four outcomes&quot;,
+  &quot;statement&quot;: &quot;I have repeatedly joined companies at moments of customer or operating ambiguity and helped turn them into repeatable functions.&quot;,
+  &quot;uses&quot;: [&quot;cover-letter&quot;, &quot;screening-call&quot;, &quot;executive-summary&quot;],
+  &quot;audiences&quot;: [&quot;startup-leadership&quot;, &quot;customer-success&quot;, &quot;sales-enablement&quot;],
+  &quot;visibility&quot;: &quot;shared&quot;,
+  &quot;supportingItemIds&quot;: [
+    &quot;northwind-csa-operating-model&quot;,
+    &quot;cloudforge-cs-function-buildout&quot;,
+    &quot;brightline-client-success-scale&quot;
+  ],
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;date&quot;: &quot;2026-05-25&quot;,
+    &quot;operation&quot;: &quot;synthesized-cross-role-narrative&quot;,
+    &quot;confidence&quot;: 0.8
+  }
+}</code></pre>
+
+<p>Open design note: <code>talkingPoints</code> should not become a loophole for unsupported claims. Curation should treat them as reusable framing backed by linked evidence, not as facts that stand on their own.</p>
+
+<p>Real-session pressure: reusable patterns such as a &quot;parachute&quot; story, an &quot;anticipate the real test&quot; framing, or a repeated &quot;what I do when dropped into ambiguity&quot; narrative had no clean v0.2 home. They were too synthesized for a single achievement, too polished for a raw reflection, and too portable to remain buried in one cover letter draft. This strengthens the case for a first-class <code>talkingPoints</code>-like field with evidence links and review status.</p>
+
+<p>Elicitation pattern: after preserving a raw work story, a tool may look across that story and other evidence for an earned through-line the subject may not have named. This is useful because recognition can prime the next memory: &quot;here is a pattern in three things you told me&quot; often opens more useful recall than direct interrogation. But the pattern must be earned, never manufactured. A through-line should cite at least two independent pieces of the subject's own evidence, be offered as a hypothesis (&quot;does that ring true?&quot;), and be saved only after user confirmation or correction. A rejected through-line is also valuable memory because it records how the subject does <em>not</em> want their work interpreted.</p>
+
+<p>Two anonymized example directions:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;regulated-buildouts-pattern&quot;,
+  &quot;label&quot;: &quot;Repeated regulated buildouts&quot;,
+  &quot;statement&quot;: &quot;I have repeatedly joined regulated organizations at moments when the operating model was still forming and helped turn ambiguous work into repeatable systems.&quot;,
+  &quot;uses&quot;: [&quot;cover-letter&quot;, &quot;screening-call&quot;, &quot;executive-summary&quot;],
+  &quot;audiences&quot;: [&quot;regulated-operations&quot;, &quot;security-leadership&quot;, &quot;platform-buildout&quot;],
+  &quot;visibility&quot;: &quot;shared&quot;,
+  &quot;supportingItemIds&quot;: [
+    &quot;healthbridge-soc-buildout&quot;,
+    &quot;northstar-compliance-platform&quot;,
+    &quot;meridian-incident-response&quot;
+  ],
+  &quot;voicePatternIds&quot;: [&quot;take-first&quot;, &quot;three-points&quot;, &quot;filter-preempt&quot;],
+  &quot;sampleTellings&quot;: [
+    {
+      &quot;label&quot;: &quot;Cover letter version&quot;,
+      &quot;text&quot;: &quot;I tend to be most useful when the system works well enough to prove demand, but not yet well enough to scale without judgment.&quot;,
+      &quot;visibility&quot;: &quot;private&quot;
+    }
+  ],
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;date&quot;: &quot;2026-05-25&quot;,
+    &quot;operation&quot;: &quot;synthesized-cross-role-narrative&quot;,
+    &quot;confidence&quot;: 0.8
+  }
+}</code></pre>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;steady-operations-owner&quot;,
+  &quot;label&quot;: &quot;Steady operations owner&quot;,
+  &quot;statement&quot;: &quot;I do my best work when expectations are clear, the work matters, and the team needs someone reliable to own outcomes and keep the process moving without drama.&quot;,
+  &quot;uses&quot;: [&quot;resume-summary&quot;, &quot;cover-letter&quot;, &quot;screening-call&quot;],
+  &quot;audiences&quot;: [&quot;operations&quot;, &quot;customer-support&quot;, &quot;administrative&quot;, &quot;healthcare-office&quot;],
+  &quot;visibility&quot;: &quot;shared&quot;,
+  &quot;supportingItemIds&quot;: [
+    &quot;clinic-scheduling-backlog-cleanup&quot;,
+    &quot;inventory-closeout-process&quot;,
+    &quot;support-queue-weekend-coverage&quot;
+  ],
+  &quot;voicePatternIds&quot;: [&quot;plain-direct&quot;, &quot;specific-proof&quot;, &quot;no-overclaim&quot;],
+  &quot;sampleTellings&quot;: [
+    {
+      &quot;label&quot;: &quot;Screening-call version&quot;,
+      &quot;text&quot;: &quot;I am happy to own outcomes. I just tend to be better at managing problems than managing people. Give me the boundaries, the priorities, and the people who need help, and I will keep the work moving.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;
+    }
+  ],
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;date&quot;: &quot;2026-05-25&quot;,
+    &quot;operation&quot;: &quot;synthesized-cross-role-narrative&quot;,
+    &quot;confidence&quot;: 0.8
+  }
+}</code></pre>
+
+<p>These examples are deliberately different. <code>talkingPoints</code> should not only support executive or founder-style arcs. It should also help people describe steady, bounded, reliable work without forcing every career story into leadership theater.</p>
+
+<h2>Candidate Addition: User-Local Extension Namespace</h2>
+
+<p>Likely namespace: <code>extensions.user.local</code>.</p>
+
+<p>Alternate namespace considered: <code>extensions.x-ocf-user</code>.</p>
+
+<p>Problem: the schema recommends domain-name extension keys for vendor/tool-owned data. But users and local workflows also need scratch space that no vendor owns. Early LLM workflows used invented namespaces such as <code>extensions.private.ocf.local</code> for user-local notes.</p>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>Should OCF reserve one local namespace?</li>
+<li>Should it be explicitly non-portable?</li>
+<li>Should tools preserve it but avoid interpreting it unless asked?</li>
+<li>Is this better solved by normal schema fields rather than extensions?</li>
+</ul>
+
+<p>Likely direction: reserve <code>extensions.user.local</code> for user-local scratch metadata and make clear that portable concepts should graduate into schema fields only after repeated use.</p>
+
+<p>Suggested rules:</p>
+
+<ul>
+<li>Tools must preserve <code>extensions.user.local</code> on round-trip.</li>
+<li>Tools should not treat it as vendor-owned metadata.</li>
+<li>Tools should not rely on it for cross-tool interoperability.</li>
+<li>Users may store local constraints, notes, temporary mappings, or experimental structures there.</li>
+<li>If multiple tools start using the same local shape, that is evidence for a future first-class schema field.</li>
+<li>Do not put user-local incubation under <code>person.extensions</code> in v0.2; that field is not valid. Use top-level <code>extensions.user.local</code> with IDs or references back to the relevant person, item, or concept.</li>
+</ul>
+
+<h2>Candidate Addition: Review Status Lifecycle</h2>
+
+<p>Likely field name: <code>reviewStatus</code>.</p>
+
+<p>Problem: v0.2 reserves space for review status but does not define values. Real imports and LLM conversations repeatedly need to distinguish:</p>
+
+<ul>
+<li>imported but not reviewed;</li>
+<li>user-confirmed;</li>
+<li>source-supported;</li>
+<li>conflicting;</li>
+<li>stale;</li>
+<li>do not use;</li>
+<li>needs attribution clarification;</li>
+<li>not voice-checked;</li>
+<li>complete proposed replacement awaiting acceptance;</li>
+<li>superseded.</li>
+</ul>
+
+<p>The field would help importers, curators, and validators avoid treating &quot;in the file&quot; as equal to &quot;safe to use.&quot;</p>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>Should values be simple enum strings or richer objects?</li>
+<li>Should review status live on every durable item or only claims/achievements/variants/source artifacts?</li>
+<li>How does it interact with <code>provenance.confidence</code>?</li>
+<li>Does &quot;manager-attested&quot; or &quot;document-supported&quot; belong here, or is that a future trust/verification layer?</li>
+</ul>
+
+<p>Likely direction: start with a small review lifecycle for imported and LLM-suggested material. Leave formal verification tiers for later after more usage data.</p>
+
+<p>Minimal candidate values:</p>
+
+<ul>
+<li><code>unreviewed</code>: imported, inferred, or LLM-suggested material the subject has not reviewed.</li>
+<li><code>needs-review</code>: potentially useful, but a specific question blocks confident use.</li>
+<li><code>user-confirmed</code>: reviewed and accepted by the subject.</li>
+<li><code>source-supported</code>: supported by a source artifact, document, or system record, but not necessarily independently verified.</li>
+<li><code>conflicting</code>: multiple sources disagree or the item conflicts with another item.</li>
+<li><code>do-not-use</code>: retained for memory, caution, or provenance, but should not be used in outputs.</li>
+<li><code>not-voice-checked</code>: factually plausible wording exists, but the subject has not accepted it as something they would say.</li>
+<li><code>proposed-replacement</code>: a complete replacement object or wording is ready for review but has not been accepted into the master.</li>
+<li><code>superseded</code>: historically useful, but replaced by a newer or more accurate item.</li>
+</ul>
+
+<p>Potential lightweight object form:</p>
+
+<pre><code class="language-json">{
+  &quot;reviewStatus&quot;: &quot;needs-review&quot;,
+  &quot;reviewNote&quot;: &quot;Confirm whether MEDICC meant MEDDIC or MEDDPICC before using in a resume.&quot;,
+  &quot;reviewedBy&quot;: &quot;subject&quot;,
+  &quot;reviewedDate&quot;: &quot;2026-05-25&quot;
+}</code></pre>
+
+<p>Open design note: <code>reviewStatus</code> is not the same as truth verification. It is workflow state for whether the item is safe to use in curation. A future trust/verification model may add stronger evidence labels later.</p>
+
+<h2>Candidate Addition: Job Descriptions As Source Artifacts</h2>
+
+<p>Likely enum value: <code>sourceArtifact.kind: &quot;job-description&quot;</code>.</p>
+
+<p>Problem: OCF v0.2 encourages resume-plus-job-description workflows, but the <code>sourceArtifact.kind</code> enum does not include <code>job-description</code>. Tools currently have to use <code>application-draft</code>, <code>manual-note</code>, or <code>other</code>, which blurs a very common artifact type.</p>
+
+<p>Why it matters:</p>
+
+<ul>
+<li>job descriptions are target evidence, not career facts;</li>
+<li>they drive curation, gap analysis, and open questions;</li>
+<li>they should be preserved for provenance when an output was tailored to a specific role;</li>
+<li>future stale-export or lineage checks may need to know which target JD was used.</li>
+</ul>
+
+<p>Likely direction: add <code>job-description</code> to the enum in v0.3. This is a small compatibility expansion and should not require a new object shape.</p>
+
+<p>Related artifact-kind gaps from real files:</p>
+
+<ul>
+<li><code>photo</code>: source material captured from screenshots, photos of paper records, whiteboards, comp plans, certificates, or notes.</li>
+<li><code>video</code>: recorded talks, webinars, interviews, demos, or other career evidence.</li>
+<li><code>conversation</code>: broader than <code>chat-paste</code>; covers a retained conversation or transcript-like interaction when the source is not simply pasted chat text.</li>
+<li><code>job-description</code>: target evidence for application curation.</li>
+</ul>
+
+<p>Open design note: <code>photo</code> and <code>video</code> should not imply that raw media is embedded in the OCF. They can describe retained or referenced artifacts while still using <code>uri</code>, <code>hash</code>, <code>rawIncluded</code>, and private visibility.</p>
+
+<h2>Candidate Addition: Enum Gap Cleanup</h2>
+
+<p>Real files have hit several enum or field gaps where careful data had to be collapsed into less precise values:</p>
+
+<ul>
+<li><code>achievement.attribution.role: &quot;co-led&quot;</code> or similar, for work that was genuinely jointly led rather than merely contributed to or solely led.</li>
+<li>Prose or custom <code>metric.basis</code> labels, where <code>quota</code>, <code>budget</code>, <code>plan</code>, <code>target</code>, <code>forecast</code>, <code>prior-year</code>, <code>baseline</code>, and <code>other</code> were too coarse for the actual basis. One option is to keep <code>basis</code> as the controlled value and use <code>basisLabel</code> for prose; another is to loosen the enum if real files keep needing richer basis categories.</li>
+<li><code>metric.visibility</code>, because metrics can be more sensitive than the achievement statement they support.</li>
+<li><code>sourceArtifact.kind</code> additions listed above.</li>
+<li><code>experience.kind: &quot;self-employed&quot;</code> as an alias or replacement question for current <code>self-employment</code>.</li>
+<li>Goal/preference lifecycle values such as an &quot;evaluating-stage&quot; state for target preferences that are not firm goals yet.</li>
+</ul>
+
+<p>Candidate direction: treat these as v0.3 compatibility expansions unless they create confusing synonyms. Where the schema already has an escape hatch such as <code>basisLabel</code>, improve documentation before expanding the enum.</p>
+
+<h2>Candidate Addition: Role, Work, And Residence Location</h2>
+
+<p>Problem: OCF v0.2 can represent organization addresses, but organization location is not the same as where the subject worked, was assigned, lived, or had tax-sensitive presence. Remote, hybrid, split-city, travel-heavy, military, consulting, and relocation situations make this distinction important.</p>
+
+<p>The schema should not force tools to infer residence from employer location. A company may be based in a high-tax state while the person lived elsewhere. A resume may show the company office or market location without intending to disclose residence, tax posture, or where work was actually performed.</p>
+
+<p>Locations to distinguish:</p>
+
+<ul>
+<li>organization location: where the employer, client, base, office, or market is located;</li>
+<li>role/work location: where the person was assigned, expected to work, or primarily performed work;</li>
+<li>residence/private location: where the person actually lived or spent time;</li>
+<li>travel/coverage region: geography served without implying residence or worksite.</li>
+</ul>
+
+<p>Candidate direction:</p>
+
+<pre><code class="language-json">{
+  &quot;locations&quot;: [
+    {
+      &quot;label&quot;: &quot;New York, NY&quot;,
+      &quot;renderAs&quot;: &quot;New York / remote&quot;,
+      &quot;kind&quot;: &quot;role-location&quot;,
+      &quot;structured&quot;: {
+        &quot;city&quot;: &quot;New York&quot;,
+        &quot;region&quot;: &quot;NY&quot;,
+        &quot;country&quot;: &quot;US&quot;
+      },
+      &quot;dateRange&quot;: {
+        &quot;start&quot;: { &quot;year&quot;: 2025, &quot;month&quot;: 1 }
+      },
+      &quot;visibility&quot;: &quot;shared&quot;,
+      &quot;note&quot;: &quot;Public-facing company market / role location.&quot;
+    },
+    {
+      &quot;label&quot;: &quot;Las Vegas, NV&quot;,
+      &quot;renderAs&quot;: &quot;US-based&quot;,
+      &quot;kind&quot;: &quot;residence&quot;,
+      &quot;structured&quot;: {
+        &quot;city&quot;: &quot;Las Vegas&quot;,
+        &quot;region&quot;: &quot;NV&quot;,
+        &quot;country&quot;: &quot;US&quot;
+      },
+      &quot;dateRange&quot;: {
+        &quot;start&quot;: { &quot;year&quot;: 2025, &quot;month&quot;: 1 }
+      },
+      &quot;visibility&quot;: &quot;private&quot;,
+      &quot;note&quot;: &quot;Private residence detail; do not infer into public outputs.&quot;
+    }
+  ]
+}</code></pre>
+
+<p>Like <code>person.name.renderAs</code>, location likely needs both canonical/private detail and intentional display text. A person may want to preserve where they really were while rendering a different, truthful phrase such as &quot;New York / remote&quot;, &quot;US-based&quot;, or &quot;Greater Chicago Area.&quot; Some workflows need a free-form display value; others require structured city, region, postal code, or country fields.</p>
+
+<p>Full home street address is different from city/region location. Street number and street name are highly sensitive and should not be normalized into ordinary resume/application curation. If a workflow asks for full home address, a tool should ask how the user wants that handled: continue, pause, substitute a less-specific location if accepted, provide it only at a later stage, or stop the application. Different users will make different choices, and most will appreciate being asked before a tool discloses that detail.</p>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>Should this live on <code>person</code>, <code>experience</code>, <code>position</code>, or all three?</li>
+<li>Should location entries use structured city/region/country/postal fields, a display <code>label</code>, <code>renderAs</code>, or all three?</li>
+<li>Should <code>residence</code> always default to private?</li>
+<li>Should full street address be excluded entirely, stored only under a separate high-sensitivity field, or handled only by extensions?</li>
+<li>How should a file record the user's application preference when a form requires street address before an offer or late-stage process?</li>
+<li>Should tools have a standard prompt pattern for address requests: warn, pause, ask, substitute less-specific location, continue, or stop?</li>
+<li>How should curators choose between company location, role location, and residence for resumes in different regions?</li>
+<li>How should tools avoid retaining unnecessary tax-sensitive location details?</li>
+</ul>
+
+<p>Likely direction: add position-level or reusable location entries with explicit <code>kind</code>, <code>renderAs</code>, optional structured city/region/country fields, <code>dateRange</code>, and <code>visibility</code>. Default residence/tax-sensitive location details to private. Treat full street address as high-sensitivity and require explicit user choice before a curator or exporter includes it in an application workflow.</p>
+
+<h2>Candidate Addition: Richer Voice Calibration</h2>
+
+<p>Likely location: top-level <code>voice</code> plus richer profile material under a first-class field or <code>extensions.user.local</code>.</p>
+
+<p>Problem: OCF v0.2 has a useful top-level <code>voice</code> field for broad style, preferred phrases, avoid phrases, and notes. Real LLM-assisted cover-letter work showed a deeper need: the tool must learn how this person writes, what makes prior drafts sound unlike them, and which structures reliably produce authentic output.</p>
+
+<p>The key lesson is that voice is not just vocabulary. It can include:</p>
+
+<ul>
+<li>structural templates, such as &quot;intro / three points / outro&quot;;</li>
+<li>authentic calibration samples;</li>
+<li>anti-pattern samples that were AI-heavy or lightly edited but still not the user's voice;</li>
+<li>named patterns, such as take-first opener, filter-preempt paragraph, or responsive close;</li>
+<li>sample sentences that demonstrate cadence and point of view;</li>
+<li>rules about when a pattern applies, instead of blindly copying an old signoff or phrase;</li>
+<li>process rules, such as &quot;if the user says this is not me, fix structure before word choice.&quot;</li>
+</ul>
+
+<p>Voice provenance also needs to distinguish at least three sources:</p>
+
+<ul>
+<li>subject-authored wording: written by the person before or outside the tool;</li>
+<li>LLM-suggested but subject-adopted wording: not originally written by the person, but accepted as representative after review;</li>
+<li>rejected or anti-pattern wording: useful negative evidence, not a style source.</li>
+</ul>
+
+<p>That distinction matters because &quot;sounds like me&quot; is not the same as &quot;I wrote it.&quot; Future tooling should be able to prefer subject-authored samples, use adopted wording carefully, and avoid learning from rejected drafts.</p>
+
+<p>Candidate shape to explore:</p>
+
+<pre><code class="language-json">{
+  &quot;voice&quot;: {
+    &quot;style&quot;: &quot;plain-direct&quot;,
+    &quot;avoidPhrases&quot;: [&quot;uniquely positioned&quot;, &quot;drive impact&quot;],
+    &quot;preferredPhrases&quot;: [&quot;worth knowing&quot;, &quot;I've been in it&quot;],
+    &quot;notes&quot;: &quot;Short, declarative, concrete. Prefer a point of view over credential stacking.&quot;
+  },
+  &quot;extensions&quot;: {
+    &quot;user.local&quot;: {
+      &quot;writingVoiceProfile&quot;: {
+        &quot;calibrationSources&quot;: {
+          &quot;authentic&quot;: [&quot;cover-letter-2021-cs&quot;],
+          &quot;antiPatterns&quot;: [&quot;cover-letter-2024-ai-1&quot;],
+          &quot;canonicalExample&quot;: &quot;tabs-cover-letter-2026-05&quot;
+        },
+        &quot;structuralTemplates&quot;: [
+          {
+            &quot;kind&quot;: &quot;cover-letter&quot;,
+            &quot;name&quot;: &quot;intro-three-points-outro&quot;,
+            &quot;rule&quot;: &quot;Use a short take-first opener, three concrete points, and a direct close. Do not pad to meet a length target.&quot;
+          }
+        ],
+        &quot;namedPatterns&quot;: [
+          {
+            &quot;name&quot;: &quot;filter-preempt&quot;,
+            &quot;rule&quot;: &quot;If a reader may filter the subject out for an obvious reason, name it directly and explain why it should not disqualify them.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;responsive-close&quot;,
+            &quot;rule&quot;: &quot;Only use a playful or unusual close when it responds to a specific prompt, value, or question in the target artifact.&quot;
+          }
+        ],
+        &quot;processRules&quot;: [
+          &quot;If the user says a draft does not sound like them, revise structure before swapping words.&quot;,
+          &quot;Prefer one concrete proof per claim, then stop.&quot;
+        ]
+      }
+    }
+  }
+}</code></pre>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>How much of this belongs in first-class <code>voice</code> versus a user-local profile?</li>
+<li>Should <code>voice</code> point to <code>sourceArtifacts</code> that represent authentic and anti-pattern writing samples?</li>
+<li>Should calibration links record whether the sample is subject-authored, LLM-suggested-but-adopted, edited-by-subject, or rejected?</li>
+<li>Should anti-pattern samples be stored as source artifacts, private notes, or only summarized?</li>
+<li>Can this be generalized without overfitting to highly reflective users?</li>
+<li>How should tools avoid copying an old voice pattern into a new context where it no longer applies?</li>
+</ul>
+
+<p>Likely direction: keep v0.2 <code>voice</code> as the portable simple layer, document richer calibration under <code>extensions.user.local</code> for now, and revisit after more users test whether voice profiles help future LLMs react to them rather than to a generic professional ideal.</p>
+
+<h2>Candidate Addition: Trust Review Space</h2>
+
+<p>Problem: OCF v0.2 has provenance and confidence, but not a formal verification model. That is acceptable for v0.2. A premature verification enum risks implying a rigor the file may not have.</p>
+
+<p>Direction for v0.3: leave space for trust review without overdesigning it. The schema should support future outside review, recruiter/headhunter review, document support, peer review, manager attestation, credential verification, or other signals, but the first release should avoid pretending we know the right model before more people use the format.</p>
+
+<p>Practical near-term note: a headhunter, coach, or third-party tool may create a <code>third-party-working</code> OCF about a subject and mark which items that workflow has reviewed. That review may never enter the subject's candidate-owned master. The schema must stay clear about subject, controller, and editor.</p>
+
+<h2>Candidate Addition: v0.2 Compatibility Renames</h2>
+
+<p>v0.2 still contains several <code>derived</code> names even though the public language has moved toward curation and export:</p>
+
+<ul>
+<li><code>meta.derivedFrom</code></li>
+<li><code>meta.derivedFromVersion</code></li>
+<li><code>meta.derivationNotes</code></li>
+<li><code>meta.source.kind: &quot;derived&quot;</code></li>
+</ul>
+
+<p>v0.3 should replace these with curation/export language. v0.2 tools should continue to read and preserve them for compatibility until a migration path exists.</p>
+
+<p>The provenance value <code>interview-derived</code> remains useful and should not be removed merely because it contains the word <code>derived</code>; it means a fact came from a conversation rather than from a static artifact.</p>
+
+<h2>Candidate Addition: Export Lineage and Staleness</h2>
+
+<p>Problem: when a master changes after an export, users and tools need a way to know whether the exported artifact is stale. v0.2 has lineage-adjacent fields but does not fully define export freshness behavior.</p>
+
+<p>Possible direction:</p>
+
+<ul>
+<li>add <code>meta.parentVersion</code> or a clearer successor to <code>derivedFromVersion</code> for non-export lineage;</li>
+<li>consider <code>meta.versionHistory</code> or a lightweight changelog convention for tools that manage versions inside the file;</li>
+<li>make export-ready files record source master file ID and version;</li>
+<li>define how a tool checks whether an export was prepared from the latest master;</li>
+<li>define a version-bump convention for writeback tools without requiring every user to adopt the same external version-control system;</li>
+<li>define a named state for a complete proposed master replacement awaiting user acceptance, so tools do not confuse a staged replacement with the accepted master;</li>
+<li>preserve exact source item IDs for selected material;</li>
+<li>keep this as metadata, not a rendering rule.</li>
+</ul>
+
+<p>Open design note: OCF should still avoid prescribing git, cloud history, or app snapshots. The schema-level need is narrower: tools need enough lineage and review state to avoid overwriting a candidate-owned master with a reduced file, stale export, or unaccepted replacement.</p>
+
+<h2>Candidate Addition: Size And Sharding Guidance</h2>
+
+<p>Problem: master OCF files can grow past comfortable LLM context budgets, especially when they preserve source artifacts, longform reflections, sales history, voice samples, and multiple application iterations. A single ~190KB master can be workable today but brittle once it grows through many versions in a short period.</p>
+
+<p>Candidate guidance:</p>
+
+<ul>
+<li>keep one canonical master identity, even if storage is split across files or app-managed records;</li>
+<li>separate raw retained artifacts from the normalized OCF record when possible;</li>
+<li>allow tools to load a manifest, summary index, or item graph before loading every longform field;</li>
+<li>preserve stable IDs so sharded sections can be reassembled and updated surgically;</li>
+<li>define which fields belong in a &quot;first-pass context pack&quot; for application curation: person, goals, cautions, openQuestions, voice, relevant experience, relevant achievements, target-specific variants, and source artifact metadata;</li>
+<li>warn that a reduced context pack is not a master and must not overwrite the master.</li>
+</ul>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>Should OCF publish a companion manifest/index shape?</li>
+<li>Should sharding be purely an implementation concern, or should v0.3 define optional references between OCF parts?</li>
+<li>What is the minimum context pack for &quot;help me with this application&quot; without losing cautions, privacy controls, or provenance?</li>
+</ul>
+
+<h2>Deferred Ideas</h2>
+
+<p>These may be useful but should not pull v0.3 away from the core:</p>
+
+<ul>
+<li>formal Open Badges / W3C VC verification support;</li>
+<li>a companion job-description schema;</li>
+<li>complex time-decay semantics beyond review timestamps and curation judgment;</li>
+<li>full scoring models for candidate-role fit;</li>
+<li>reference renderers that imply one canonical resume layout.</li>
+</ul>
+
+<p>The narrower pattern is still the project center: preserve career memory accurately, curate it for a purpose, and export what the recipient needs.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./v0.3-planning.md"><code>spec/v0.3-planning.md</code></a>.</p>
+</footer>
+</body>
+</html>

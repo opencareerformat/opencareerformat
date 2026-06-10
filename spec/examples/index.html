@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF Example Files — Open Career Format</title>
+<meta name="description" content="Canonical example Open Career Format files used by validators and tool authors.">
+<link rel="canonical" href="https://opencareerformat.org/spec/examples/index.html">
+<link rel="icon" type="image/png" href="../assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF Example Files">
+<meta property="og:description" content="Canonical example Open Career Format files used by validators and tool authors.">
+<meta property="og:url" content="https://opencareerformat.org/spec/examples/index.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF Example Files">
+<meta name="twitter:description" content="Canonical example Open Career Format files used by validators and tool authors.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF Example Files",
+  "name": "OCF Example Files",
+  "url": "https://opencareerformat.org/spec/examples/index.html",
+  "description": "Canonical example Open Career Format files used by validators and tool authors.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="../.."><img src="../assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="../..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./README.md">View the Markdown source</a>.</p>
+<h1>OCF Example Files</h1>
+
+<p>Canonical example OCF files used by the validator and by tool authors as references.</p>
+
+<table>
+<thead><tr><th>File</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><a href="./worked-example-walkthrough.html"><code>worked-example-walkthrough.md</code></a></td><td>Narrative walkthrough of the example lifecycle: source resume, imported starter, richer candidate master, target curation, export, and updates flowing back.</td></tr>
+<tr><td><a href="./sample-resume.html"><code>sample-resume.md</code></a></td><td>Explanation and history for the Maria E. Reyes sample set: how the source resume became a richer OCF, what review passes added, and what readers should notice.</td></tr>
+<tr><td><code>sample-resume-source.txt</code></td><td>Fictional source resume used as the starting material for <code>sample-resume.ocf.json</code> and the reference importer example.</td></tr>
+<tr><td><code>sample-resume.ocf.json</code></td><td>A fictional but richly-built example covering most of the schema surface — Maria E. Reyes, a cybersecurity leader with military background. Includes a worked demonstration of the conversational-mining pattern (<code>mhs-ransomware-2024</code>) and a &quot;stays in master but typically curated out&quot; item (<code>mhs-mssp-transition</code>) so readers can inspect both patterns directly.</td></tr>
+<tr><td><code>sample-job-description.txt</code></td><td>Fictional target job description used by the reference curator examples.</td></tr>
+<tr><td><code>repeated-organization-variants.json</code></td><td>A compact fictional example showing a reusable <code>organizations</code> record referenced by two separate tenures, a <code>sourceArtifacts</code> registry for old resumes / pasted chat data, bullet-level <code>narrativeVariants</code>, and position-level <code>titleVariants</code> with required basis.</td></tr>
+<tr><td><code>sales-compensation-private.json</code></td><td>A compact fictional example showing private compensation history and sales quota records alongside shareable quota-attainment achievements and a public podcast appearance.</td></tr>
+<tr><td><code>open-source-project.json</code></td><td>A compact fictional example showing independent open-source work as a top-level <code>projects</code> entry with a GitHub repository link, public achievements, skills, and renderer grouping.</td></tr>
+</tbody>
+</table>
+
+<p>All files in this directory validate against <code>../schema.json</code> and are exercised by <code>reference/validator/validate.js</code>. They are fictional; do not infer real persons or events.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./README.md"><code>spec/examples/README.md</code></a>.</p>
+</footer>
+</body>
+</html>

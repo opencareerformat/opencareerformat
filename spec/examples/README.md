@@ -4,8 +4,8 @@ Canonical example OCF files used by the validator and by tool authors as referen
 
 | File | Description |
 |------|-------------|
-| `worked-example-walkthrough.md` | Narrative walkthrough of the example lifecycle: source resume, imported starter, richer candidate master, target curation, export, and updates flowing back. |
-| `sample-resume.md` | Explanation and history for the Maria E. Reyes sample set: how the source resume became a richer OCF, what review passes added, and what readers should notice. |
+| [`worked-example-walkthrough.md`](worked-example-walkthrough.md) | Narrative walkthrough of the example lifecycle: source resume, imported starter, richer candidate master, target curation, export, and updates flowing back. |
+| [`sample-resume.md`](sample-resume.md) | Explanation and history for the Maria E. Reyes sample set: how the source resume became a richer OCF, what review passes added, and what readers should notice. |
 | `sample-resume-source.txt` | Fictional source resume used as the starting material for `sample-resume.ocf.json` and the reference importer example. |
 | `sample-resume.ocf.json` | A fictional but richly-built example covering most of the schema surface — Maria E. Reyes, a cybersecurity leader with military background. Includes a worked demonstration of the conversational-mining pattern (`mhs-ransomware-2024`) and a "stays in master but typically curated out" item (`mhs-mssp-transition`) so readers can inspect both patterns directly. |
 | `sample-job-description.txt` | Fictional target job description used by the reference curator examples. |
