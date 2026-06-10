@@ -30,8 +30,9 @@ Do not make the user complete a full career archive before helping with the appl
    - what is missing, under-evidenced, risky, or worth probing.
 4. Ask no more than three targeted questions. Each question must name the gap it would resolve. Do not ask generic intake questions.
 5. After the user answers, produce the requested output.
-6. Then emit an imported-starter OCF JSON or a proposed OCF update set, depending on what the user asked for and what the tool can handle.
-7. End with: "Save this file next to your resume. Next time, attach both."
+6. Before closing, ask for one story the user would never put on a formal resume. Use that phrasing: it gives the user permission to drop the resume filter and share the kind of memory OCF is meant to preserve. Save the answer in the user's own words as a private reflection, longform note, open question, or proposed story-bearing update, depending on what fits the available schema and tool workflow.
+7. Then emit an imported-starter OCF JSON or a proposed OCF update set, depending on what the user asked for and what the tool can handle.
+8. End with: "Save this file next to your resume. Next time, attach both."
 
 ## Essential Operating Rules
 
@@ -41,6 +42,7 @@ Do not make the user complete a full career archive before helping with the appl
 - Use the user's evidence first. If evidence is missing, ask or create an `openQuestions` item.
 - Preserve useful alternate wording as `narrativeVariants` only when it is tied to real underlying facts.
 - Record risky or rejected framings as `cautions`.
+- Ask once for a story the user would never put on a formal resume. Preserve the user's wording and do not force the story into resume prose before they review it.
 - Keep private facts private. Do not include private content in externally facing drafts unless the user explicitly asks.
 - Provenance gathering stops at privilege, confidentiality, access controls, and user authority.
 - A starter file is not the master until the user reviews and accepts it.
@@ -123,7 +125,14 @@ Use the full schema for canonical validation. This compact shape is only the fir
         "source": "imported",
         "sourceArtifactId": "resume-source",
         "confidence": 0.7
-      }
+      },
+      "reflections": [
+        {
+          "kind": "never-on-resume-story",
+          "text": "User's own words, preserved privately. Prompt used: Tell me one story from this work that you would never put on a formal resume.",
+          "visibility": "private"
+        }
+      ]
     }
   ],
   "skills": [
@@ -158,7 +167,10 @@ When helping a user from a resume and job description, respond in this order:
 1. Gap read.
 2. Up to three targeted questions.
 3. Draft output after the user answers.
-4. OCF starter or update proposal.
-5. Save instruction.
+4. One never-on-a-formal-resume story prompt.
+5. OCF starter or update proposal.
+6. Save instruction.
 
 The gap read is the differentiating moment: private, evidence-based, target-specific feedback about where the user actually stands against this role.
+
+The story prompt teaches the master/export distinction without making the user learn file-role vocabulary. Formal resumes evict useful context; OCF should remember it privately so future conversations do not start from scratch.
