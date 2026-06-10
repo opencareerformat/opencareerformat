@@ -29,6 +29,7 @@ This sample is meant to read as if it evolved over several passes:
 2. **2026-05-21: CISO-track refinement conversation.** A fictional LLM-assisted review expands the ransomware bullet into a structured achievement, private reflections, cautions, and narrative variants.
 3. **2026-05-21: caution capture.** The same review pass records positioning corrections, such as not overstating Big Four consulting experience or AI/ML security specialization.
 4. **2026-05-24: coaching review.** A later review adds open questions about military-to-civilian leadership translation and attribution precision for the SOC buildout.
+5. **2026-05-24: first-session story ask.** A fictional follow-up preserves Maria's military-to-civilian authority story in her own words, records a confirmed through-line under an extension namespace, and updates the related open question.
 
 The dates are illustrative, but the pattern is intentional: an OCF can start from an old resume, then improve through review, coaching, LLM conversations, and user-approved updates.
 
@@ -40,6 +41,8 @@ The dates are illustrative, but the pattern is intentional: an OCF can start fro
 - `narrativeVariants` preserve alternate wording without changing the canonical achievement.
 - `cautions` prevent future tools from repeating claims the subject does not want made.
 - `openQuestions` keeps useful follow-up work alive across sessions.
+- `reflections` can preserve a raw story in the subject's own words before any tool turns it into resume language.
+- `extensions.user.local` demonstrates how an incubating talking-point shape can be preserved without pretending v0.2 has a first-class field for it.
 - `attribution` prompts cleaner distinctions between owned, led, drove, contributed to, and delegated work.
 
 The example is not meant to be the only way to write an OCF. It is meant to show why a master career file can be more useful than a resume alone.

@@ -354,6 +354,7 @@
           },
           "achievements": [
             {
+              "id": "mhs-soc-buildout",
               "statement": "Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months",
               "kind": "accomplishment",
               "metrics": [
@@ -531,6 +532,47 @@
             "Terraform",
             "Jira"
           ],
+          "extensions": {
+            "user.local": {
+              "candidateTalkingPoints": [
+                {
+                  "id": "authority-from-demonstrated-work",
+                  "label": "Authority from demonstrated work",
+                  "statement": "I rebuild authority from demonstrated work rather than inherited position.",
+                  "uses": [
+                    "interview-prep",
+                    "leadership-screen",
+                    "military-to-civilian-transition"
+                  ],
+                  "visibility": "private",
+                  "supportingItemIds": [
+                    "mhs-soc-buildout"
+                  ],
+                  "supportingEvidence": [
+                    {
+                      "kind": "reflection",
+                      "path": "experience[name=Meridian Health System].positions[title=Director of Security Operations].reflections[kind=story]",
+                      "summary": "First-month Meridian story about rebuilding authority after an analyst declined a weekend shift."
+                    },
+                    {
+                      "kind": "achievement",
+                      "id": "mhs-soc-buildout",
+                      "summary": "Built SOC from 0 to 12 analysts and reached 24/7 coverage within six months."
+                    }
+                  ],
+                  "evidenceSummary": "Supported by Maria's first-month Meridian story and by the SOC buildout that reached 24/7 coverage in six months.",
+                  "provenance": {
+                    "source": "llm-suggested",
+                    "date": "2026-05-24",
+                    "sessionTopic": "First-session story ask",
+                    "operation": "earned-through-line-reflection",
+                    "reviewStatus": "user-confirmed",
+                    "note": "Offered as a hypothesis after preserving Maria's raw story: 'Does this ring true — you rebuild authority from demonstrated work rather than inherited position?' Maria confirmed the framing. Stored under an extension namespace because v0.2 does not yet define first-class talkingPoints."
+                  }
+                }
+              ]
+            }
+          },
           "teamSize": 18,
           "directReports": 12,
           "reflections": [
@@ -564,6 +606,18 @@
                 "source": "interview-derived",
                 "date": "2026-05-21",
                 "note": "Not yet distilled into a structured achievement — this is a candidate for mining in a future conversation. There's likely a phishing-rate-reduction achievement (20%+ → <8%) that should exist with metrics, but the framing for the resume version isn't obvious yet because it has to lead with the lesson rather than the win. Left as a reflection for now."
+              }
+            },
+            {
+              "kind": "story",
+              "text": "My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard 'no' to a lawful tasking — rank did the asking for me. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. My rank walked in before I did, and out here it didn't mean a thing. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the only thing that worked.",
+              "visibility": "private",
+              "provenance": {
+                "source": "interview-derived",
+                "date": "2026-05-24",
+                "sessionTopic": "First-session story ask",
+                "operation": "never-on-formal-resume-story",
+                "note": "Preserved verbatim from the prompt: 'Tell me one story about your work that you would never put on a formal resume.' This seeded the authority-from-demonstrated-work candidate talking point stored in extensions.user.local."
               }
             }
           ]
@@ -1224,8 +1278,8 @@
       }
     },
     {
-      "question": "Explore whether Maria has civilian-sector examples of handling hard staffing issues, such as coaching, performance plans, reassignments, or managing out poor performers, after moving from military leadership into healthcare security leadership.",
-      "context": "Her military roles emphasize mentoring junior personnel, but the healthcare leadership material does not yet show how she handles difficult performance-management situations in a civilian organization. This is a common gap to probe for military-to-civilian leadership transitions and could become either a private reflection or a carefully framed leadership achievement.",
+      "question": "Explore whether Maria has additional civilian-sector examples of handling hard staffing issues, such as coaching, performance plans, reassignments, or managing out poor performers, after moving from military leadership into healthcare security leadership.",
+      "context": "Her first-month Meridian story now gives story-backed material for the military-to-civilian leadership transition: she learned that civilian authority had to be rebuilt through demonstrated work rather than inherited rank. This question should now look for additional evidence beyond the on-call staffing story, especially harder performance-management examples that could become either private reflections or carefully framed leadership achievements.",
       "visibility": "private",
       "addedDate": {
         "year": 2026,
