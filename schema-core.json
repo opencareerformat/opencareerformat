@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://opencareerformat.org/schema-core.json",
   "title": "Open Career Format Starter/Core Authoring Shape",
-  "description": "A small LLM-friendly entry point for creating a starter OCF. This is not a replacement for the full OCF schema. Use https://opencareerformat.org/schema.json for canonical validation. Use this core shape when converting a resume, LinkedIn export, notes, or a job-search conversation into a useful first OCF file, usually a candidate-owned master or imported starter.",
+  "description": "A small LLM-friendly entry point for creating a starter OCF. This is not a replacement for the full OCF schema. Use https://opencareerformat.org/schema.json for canonical validation. The overlapping fields named here are intended to use the same names and shapes as the full schema. Use this core shape when converting a resume, LinkedIn export, notes, or a job-search conversation into a useful first OCF file, usually a candidate-owned master or imported starter.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -16,6 +16,7 @@
     },
     "schemaVersion": {
       "type": "string",
+      "const": "0.2",
       "description": "The OCF schema version used by the file, for example 0.2."
     },
     "meta": {
@@ -114,25 +115,55 @@
           "type": "array",
           "items": {
             "type": "object",
+            "required": [
+              "kind",
+              "value"
+            ],
             "properties": {
               "kind": {
-                "type": "string"
+                "type": "string",
+                "enum": [
+                  "email",
+                  "phone",
+                  "url",
+                  "linkedin",
+                  "github",
+                  "social",
+                  "other"
+                ]
               },
               "value": {
+                "type": "string"
+              },
+              "label": {
                 "type": "string"
               },
               "primary": {
                 "type": "boolean"
               }
             },
-            "additionalProperties": true
+            "additionalProperties": false
           }
         },
         "locations": {
           "type": "array",
           "items": {
             "type": "object",
-            "additionalProperties": true
+            "properties": {
+              "city": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "remote": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
           }
         }
       },
@@ -140,24 +171,40 @@
     },
     "sourceArtifacts": {
       "type": "array",
-      "description": "Old resumes, LinkedIn exports, pasted notes, screenshots, photos, job descriptions, or conversations used as source material.",
+      "description": "Old resumes, LinkedIn exports, pasted notes, screenshots, photos, job descriptions, or conversations used as source material. In OCF v0.2, job descriptions usually use kind other or manual-note because job-description is not yet an enum value.",
       "items": {
         "type": "object",
         "required": [
           "id",
-          "kind"
+          "kind",
+          "capturedDate"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
           "kind": {
+            "type": "string",
+            "enum": [
+              "resume",
+              "cover-letter",
+              "linkedin-export",
+              "portfolio-bio",
+              "application-draft",
+              "chat-paste",
+              "chat-attachment",
+              "interview-transcript",
+              "manual-note",
+              "other"
+            ]
+          },
+          "label": {
             "type": "string"
           },
-          "title": {
-            "type": "string"
+          "capturedDate": {
+            "$ref": "#/$defs/partialDate"
           },
-          "date": {
+          "artifactDate": {
             "$ref": "#/$defs/partialDate"
           },
           "notes": {
@@ -173,12 +220,25 @@
       "items": {
         "type": "object",
         "required": [
-          "kind",
           "name"
         ],
         "properties": {
           "kind": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "employment",
+              "self-employment",
+              "consulting",
+              "gig",
+              "seasonal",
+              "military",
+              "government",
+              "homemaker",
+              "caregiver",
+              "career-break",
+              "retirement",
+              "other"
+            ]
           },
           "name": {
             "type": "string"
@@ -200,6 +260,9 @@
       "type": "array",
       "items": {
         "type": "object",
+        "required": [
+          "institution"
+        ],
         "properties": {
           "institution": {
             "type": "string"
@@ -238,7 +301,21 @@
             "type": "string"
           },
           "category": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "tool",
+              "platform",
+              "language",
+              "framework",
+              "methodology",
+              "regulatory",
+              "domain",
+              "soft-skill",
+              "equipment",
+              "vehicle",
+              "trade",
+              "other"
+            ]
           },
           "aliases": {
             "type": "array",
@@ -262,14 +339,20 @@
       "items": {
         "type": "object",
         "required": [
-          "statement"
+          "claim"
         ],
         "properties": {
-          "statement": {
+          "claim": {
             "type": "string"
           },
           "reason": {
             "type": "string"
+          },
+          "addedDate": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "provenance": {
+            "$ref": "#/$defs/provenance"
           },
           "visibility": {
             "$ref": "#/$defs/visibility"
@@ -293,8 +376,11 @@
           "context": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
+          "addedDate": {
+            "$ref": "#/$defs/partialDate"
+          },
+          "provenance": {
+            "$ref": "#/$defs/provenance"
           },
           "visibility": {
             "$ref": "#/$defs/visibility"
@@ -309,7 +395,8 @@
     "position": {
       "type": "object",
       "required": [
-        "title"
+        "title",
+        "dateRange"
       ],
       "properties": {
         "title": {
@@ -318,7 +405,7 @@
         "dateRange": {
           "$ref": "#/$defs/dateRange"
         },
-        "description": {
+        "summary": {
           "type": "string"
         },
         "achievements": {
@@ -327,7 +414,7 @@
             "$ref": "#/$defs/achievement"
           }
         },
-        "skills": {
+        "techStack": {
           "type": "array",
           "items": {
             "type": "string"
@@ -352,7 +439,14 @@
           "type": "string"
         },
         "kind": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "accomplishment",
+            "responsibility",
+            "project",
+            "recognition",
+            "other"
+          ]
         },
         "attribution": {
           "type": "object",
@@ -409,11 +503,17 @@
               "statement": {
                 "type": "string"
               },
-              "audience": {
-                "type": "string"
+              "audiences": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "notes": {
                 "type": "string"
+              },
+              "provenance": {
+                "$ref": "#/$defs/provenance"
               }
             },
             "additionalProperties": true
@@ -438,34 +538,35 @@
           }
         },
         "importance": {
-          "type": "number",
-          "minimum": 1,
-          "maximum": 5
+          "type": "integer",
+          "minimum": 1
         },
         "visibility": {
           "$ref": "#/$defs/visibility"
         },
         "provenance": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": true
-          }
+          "$ref": "#/$defs/provenance"
         }
       },
       "additionalProperties": true
     },
     "metric": {
       "type": "object",
+      "required": [
+        "kind"
+      ],
       "properties": {
         "kind": {
           "type": "string"
         },
         "value": {
-          "type": [
-            "number",
-            "string"
-          ]
+          "type": "number"
+        },
+        "from": {
+          "type": "number"
+        },
+        "to": {
+          "type": "number"
         },
         "unit": {
           "type": "string"
@@ -474,15 +575,43 @@
           "type": "string"
         },
         "basis": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "quota",
+            "budget",
+            "plan",
+            "target",
+            "forecast",
+            "prior-year",
+            "baseline",
+            "other"
+          ]
         },
         "basisLabel": {
           "type": "string"
         },
-        "visibility": {
-          "$ref": "#/$defs/visibility"
+        "note": {
+          "type": "string"
         }
       },
+      "anyOf": [
+        {
+          "required": [
+            "value"
+          ]
+        },
+        {
+          "required": [
+            "from",
+            "to"
+          ]
+        }
+      ],
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object",
+      "description": "Open-shape provenance metadata. Prefer common keys such as source, tool, date, sourceArtifactId, confidence, operation, and note.",
       "additionalProperties": true
     },
     "partialDate": {

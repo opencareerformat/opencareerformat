@@ -16,7 +16,7 @@ Use this prompt when an LLM is helping create a new Open Career Format (OCF) fil
 
 For a smaller entry point, read the starter/core authoring shape first: `https://opencareerformat.org/schema-core.json`.
 
-For canonical validation, use the full current schema: `https://opencareerformat.org/schema.json`.
+For canonical validation, use the full current schema: `https://opencareerformat.org/schema.json`. The starter/core schema is an authoring aid; before returning final OCF JSON, make sure named fields and enum values validate against the full schema.
 
 Do not rely on the homepage alone. If you reached this prompt from a broad user request such as "use opencareerformat.org with my resume and job description," read `https://opencareerformat.org/llms.txt`, this prompt, and the relevant schema before drafting outputs.
 
@@ -38,7 +38,7 @@ For cover letters, summaries, and other voice-sensitive outputs, ask for the use
 
 When a source resume and target job description are the only inputs, the useful first pass is usually:
 
-- record the resume and job description as `sourceArtifacts`;
+- record the resume and job description as `sourceArtifacts`; in OCF v0.2, job descriptions usually use `kind: "other"` or `kind: "manual-note"` because `job-description` is planned for a later enum addition;
 - extract reusable facts, achievements, metrics, skills, education, certifications, and timeline entries;
 - identify target fit and missing evidence against the job description;
 - ask a short set of gating questions that would materially change the draft;
@@ -55,7 +55,7 @@ Do not treat this first pass as canonical truth. Label the output as an imported
 For a first useful OCF, prioritize:
 
 - `person`: name, contact details, location, headline, and summary when available.
-- `sourceArtifacts`: each resume, LinkedIn export, note, transcript, photo, job description, or pasted conversation used as evidence.
+- `sourceArtifacts`: each resume, LinkedIn export, note, transcript, photo, job description, or pasted conversation used as evidence. Use the current schema's `sourceArtifact.kind` enum; in v0.2, job descriptions usually use `other` or `manual-note`.
 - `experience`: each organization, tenure, role, promotion, self-employment period, military service, caregiving period, career break, or other timeline entry.
 - `positions`: each specific role within an experience entry.
 - `achievements`: claims the person might later use in a resume, profile, interview, or cover letter.

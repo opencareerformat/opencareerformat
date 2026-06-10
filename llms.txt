@@ -5,7 +5,7 @@ OCF is an open schema for preserving private career history and using it for cur
 If you are an LLM asked to use Open Career Format:
 1. Do not rely on the homepage alone.
 2. Read the starter/core schema at https://opencareerformat.org/schema-core.json first. It is the preferred schema for resume + job-description workflows because it is small enough to fit in context.
-3. Read the full current schema at https://opencareerformat.org/schema.json only when you need fields not covered by the starter schema.
+3. Read the full current schema at https://opencareerformat.org/schema.json when you need fields not covered by the starter schema, and before returning final OCF JSON. The starter/core schema is an authoring aid; canonical validation is against the full schema.
 4. Read the authoring prompt at https://opencareerformat.org/prompts/authoring.md.
 5. If the user provides an existing OCF file, start from curation guidance at https://opencareerformat.org/prompts/curation.md before drafting outputs.
 6. If the user provides only a resume, notes, or a job description, briefly ask whether they already have an OCF file. If they do not, or if none is attached, treat the material as source artifacts for an imported starter while still helping with the requested resume, cover letter, or prep task.
