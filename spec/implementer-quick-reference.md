@@ -69,6 +69,7 @@ Editors should:
 - Make unsupported schema sections visible as unsupported instead of implying full coverage.
 - Preserve unknown fields, `extensions`, IDs, and provenance on round-trip.
 - Distinguish untouched imported material from user-reviewed material where possible.
+- When applying accepted updates to a candidate-owned master, preserve `meta.id`, refresh `meta.version` and `meta.lastModified` if the tool manages those fields, preserve IDs/provenance/extensions/unknown fields, and validate when possible. OCF does not require a particular external versioning system.
 
 ## Local Validation
 

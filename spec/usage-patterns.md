@@ -141,4 +141,6 @@ Match the contents of an OCF file to the role the file is playing:
 - Curated/export-ready to export file: produce the artifact without treating it as the master.
 - Curated/export-ready to candidate master: propose specific improvements with provenance; do not replace the master with the reduced file.
 
+OCF does not prescribe how users keep historical versions. Git, cloud document history, dated backups, app-managed snapshots, and plain local files are all valid. But when a tool applies accepted updates to a candidate-owned master, it should preserve `meta.id` and refresh the file's own freshness markers, such as `meta.version` and `meta.lastModified`, when it manages those fields. A curated, imported, or export-ready file should record lineage to the source master rather than pretending to be the updated master.
+
 The principle is simple: OCF files can move through many workflows, but the candidate-owned master remains special because it is controlled by the person whose career it describes.
