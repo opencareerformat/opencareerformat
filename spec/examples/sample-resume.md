@@ -29,7 +29,7 @@ This sample is meant to read as if it evolved over several passes:
 2. **2026-05-21: CISO-track refinement conversation.** A fictional LLM-assisted review expands the ransomware bullet into a structured achievement, private reflections, cautions, and narrative variants.
 3. **2026-05-21: caution capture.** The same review pass records positioning corrections, such as not overstating Big Four consulting experience or AI/ML security specialization.
 4. **2026-05-24: coaching review.** A later review adds open questions about military-to-civilian leadership translation and attribution precision for the SOC buildout.
-5. **2026-05-24: first-session story ask.** A fictional follow-up preserves Maria's military-to-civilian authority story in her own words, records a confirmed through-line under an extension namespace, and updates the related open question.
+5. **2026-05-24: story-ask pass.** A fictional follow-up applies the story ask from the first-session script, preserves Maria's military-to-civilian authority story in her own words, records a confirmed through-line under a root extension namespace, and updates the related open question.
 
 The dates are illustrative, but the pattern is intentional: an OCF can start from an old resume, then improve through review, coaching, LLM conversations, and user-approved updates.
 
