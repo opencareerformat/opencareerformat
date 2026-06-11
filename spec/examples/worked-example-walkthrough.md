@@ -4,10 +4,12 @@ This walkthrough explains the lifecycle behind the fictional Maria E. Reyes exam
 
 Files:
 
-- `sample-resume-source.txt`: the source resume.
-- `sample-resume.ocf.json`: the enriched OCF file.
-- `sample-resume.md`: notes on the fictional review history.
-- `sample-job-description.txt`: a fictional target job description for curation.
+| File | Website | GitHub source |
+|---|---|---|
+| Source resume | [`sample-resume-source.txt`](https://opencareerformat.org/spec/examples/sample-resume-source.txt) | [`spec/examples/sample-resume-source.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume-source.txt) |
+| Enriched OCF file | [`sample-resume.ocf.json`](https://opencareerformat.org/spec/examples/sample-resume.ocf.json) | [`spec/examples/sample-resume.ocf.json`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.ocf.json) |
+| Review history notes | [`sample-resume.html`](https://opencareerformat.org/spec/examples/sample-resume.html) | [`spec/examples/sample-resume.md`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.md) |
+| Target job description | [`sample-job-description.txt`](https://opencareerformat.org/spec/examples/sample-job-description.txt) | [`spec/examples/sample-job-description.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-job-description.txt) |
 
 ## 1. Source Resume Captured
 
@@ -45,7 +47,33 @@ The ransomware response story in `sample-resume.ocf.json` shows this pattern. Th
 
 That is the core OCF loop: preserve the facts once, then let future curation choose the right wording.
 
-### The Story Ask Preserves What Resumes Usually Lose
+For example, the source resume contains one compressed public bullet:
+
+```text
+- Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.
+```
+
+In the OCF, that becomes a richer achievement. The public claim is still there, but the master file also keeps the judgment call, evidence, metrics, and review context that a resume cannot hold:
+
+```json
+{
+  "id": "mhs-ransomware-2024",
+  "statement": "Led response to a hospital-wide ransomware incident — performed forensic analysis on the attacker tooling, advised leadership against paying the ransom based on observed decryption failures in adjacent engagements, and executed an alternate recovery path from offline backups; restored critical clinical systems within 41 hours with zero patient-care impact.",
+  "metrics": [
+    { "kind": "duration", "value": 41, "unit": "hours" },
+    { "kind": "other", "value": 0, "unit": "patients" },
+    { "kind": "other", "value": 0, "unit": "USD" }
+  ],
+  "provenance": {
+    "source": "interview-derived",
+    "sessionTopic": "Tailoring resume for CISO-track role"
+  }
+}
+```
+
+The same achievement also carries longer private context, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.
+
+### Stories Improve Career Memory
 
 A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.
 

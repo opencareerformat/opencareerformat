@@ -182,12 +182,15 @@
 
 <p>Files:</p>
 
-<ul>
-<li><code>sample-resume-source.txt</code>: the source resume.</li>
-<li><code>sample-resume.ocf.json</code>: the enriched OCF file.</li>
-<li><code>sample-resume.md</code>: notes on the fictional review history.</li>
-<li><code>sample-job-description.txt</code>: a fictional target job description for curation.</li>
-</ul>
+<table>
+<thead><tr><th>File</th><th>Website</th><th>GitHub source</th></tr></thead>
+<tbody>
+<tr><td>Source resume</td><td><a href="https://opencareerformat.org/spec/examples/sample-resume-source.txt"><code>sample-resume-source.txt</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume-source.txt"><code>spec/examples/sample-resume-source.txt</code></a></td></tr>
+<tr><td>Enriched OCF file</td><td><a href="https://opencareerformat.org/spec/examples/sample-resume.ocf.json"><code>sample-resume.ocf.json</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.ocf.json"><code>spec/examples/sample-resume.ocf.json</code></a></td></tr>
+<tr><td>Review history notes</td><td><a href="https://opencareerformat.org/spec/examples/sample-resume.html"><code>sample-resume.html</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.md"><code>spec/examples/sample-resume.md</code></a></td></tr>
+<tr><td>Target job description</td><td><a href="https://opencareerformat.org/spec/examples/sample-job-description.txt"><code>sample-job-description.txt</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-job-description.txt"><code>spec/examples/sample-job-description.txt</code></a></td></tr>
+</tbody>
+</table>
 
 <h2>1. Source Resume Captured</h2>
 
@@ -231,7 +234,29 @@
 
 <p>That is the core OCF loop: preserve the facts once, then let future curation choose the right wording.</p>
 
-<h3>The Story Ask Preserves What Resumes Usually Lose</h3>
+<p>For example, the source resume contains one compressed public bullet:</p>
+
+<pre><code class="language-text">- Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.</code></pre>
+
+<p>In the OCF, that becomes a richer achievement. The public claim is still there, but the master file also keeps the judgment call, evidence, metrics, and review context that a resume cannot hold:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;mhs-ransomware-2024&quot;,
+  &quot;statement&quot;: &quot;Led response to a hospital-wide ransomware incident — performed forensic analysis on the attacker tooling, advised leadership against paying the ransom based on observed decryption failures in adjacent engagements, and executed an alternate recovery path from offline backups; restored critical clinical systems within 41 hours with zero patient-care impact.&quot;,
+  &quot;metrics&quot;: [
+    { &quot;kind&quot;: &quot;duration&quot;, &quot;value&quot;: 41, &quot;unit&quot;: &quot;hours&quot; },
+    { &quot;kind&quot;: &quot;other&quot;, &quot;value&quot;: 0, &quot;unit&quot;: &quot;patients&quot; },
+    { &quot;kind&quot;: &quot;other&quot;, &quot;value&quot;: 0, &quot;unit&quot;: &quot;USD&quot; }
+  ],
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;sessionTopic&quot;: &quot;Tailoring resume for CISO-track role&quot;
+  }
+}</code></pre>
+
+<p>The same achievement also carries longer private context, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.</p>
+
+<h3>Stories Improve Career Memory</h3>
 
 <p>A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.</p>
 
