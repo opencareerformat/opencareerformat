@@ -75,6 +75,42 @@ In the OCF, that becomes a richer achievement. The public claim is still there, 
 
 The same achievement also carries longer private context, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.
 
+The follow-up interview also changes the surrounding memory. Maria's explanation adds skills that were only implied by the bullet, creates reusable wording for different audiences, and records a caution from an overreaching draft:
+
+```json
+{
+  "skills": [
+    "Incident Response Leadership",
+    "Ransomware Analysis",
+    "Executive Risk Communication",
+    "Backup Recovery Operations",
+    "Forensic Tooling Triage"
+  ],
+  "narrativeVariants": [
+    {
+      "id": "mhs-ransomware-public-resume",
+      "label": "Public resume bullet",
+      "statement": "Led ransomware response that restored critical clinical systems from offline backups within 41 hours with no patient-care impact.",
+      "visibility": "public"
+    },
+    {
+      "id": "mhs-ransomware-interview-prep",
+      "label": "Interview-prep framing",
+      "longform": "Use this story to show executive judgment under pressure: Maria did the forensic analysis herself, explained the risk of paying in business terms, committed to a 48-hour recovery path, and owned the recommendation when the outcome was uncertain.",
+      "visibility": "private"
+    }
+  ],
+  "cautions": [
+    {
+      "claim": "claimed as an AI / ML security specialist",
+      "reason": "Has good operational exposure to ML-based detection tooling but does not have research-level expertise. Past LLM draft positioned this too strongly; corrected here."
+    }
+  ]
+}
+```
+
+Those are not three separate stories. They are three reusable consequences of one clarified story: what skills it demonstrates, how to tell it to different audiences, and what not to claim.
+
 ### Stories Improve Career Memory
 
 A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.
