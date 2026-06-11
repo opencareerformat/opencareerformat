@@ -249,19 +249,7 @@ For this healthcare cybersecurity director job description, the ransomware respo
 
 ## 6. Export Produces Files
 
-The exporter turns export-ready content into a file or paste-ready artifact:
-
-- resume;
-- cover letter;
-- PDF;
-- DOCX;
-- HTML;
-- LinkedIn-shaped paste bundle;
-- JSON Resume;
-- LER input;
-- interview-prep packet.
-
-The exporter should not decide which career claims belong. That judgment belongs to curation.
+Once curation has selected the right material, whatever tool Maria uses can produce the files she needs, typically a resume and cover letter for the target role.
 
 ## 7. Updates Flow Back
 
