@@ -162,7 +162,7 @@ The resulting OCF update is concrete. The story is stored where it happened, as 
     "source": "interview-derived",
     "date": "2026-05-24",
     "sessionTopic": "Story-ask pass (per the first-session script)",
-    "operation": "never-on-formal-resume-story"
+    "operation": "never-on-resume-story"
   }
 }
 ```
@@ -178,8 +178,26 @@ The confirmed through-line is stored separately, because it is not a raw story a
           "id": "authority-from-demonstrated-work",
           "label": "Authority from demonstrated work",
           "statement": "I rebuild authority from demonstrated work rather than inherited position.",
+          "uses": [
+            "interview-prep",
+            "leadership-screen",
+            "military-to-civilian-transition"
+          ],
           "visibility": "private",
           "supportingItemIds": ["mhs-soc-buildout"],
+          "supportingEvidence": [
+            {
+              "kind": "reflection",
+              "path": "experience[name=Meridian Health Systems].positions[title=Director of Cybersecurity].reflections[kind=never-on-resume-story]",
+              "summary": "First-month Meridian story about rebuilding authority after an analyst declined a weekend shift."
+            },
+            {
+              "kind": "achievement",
+              "id": "mhs-soc-buildout",
+              "summary": "Built SOC from 0 to 12 analysts and reached 24/7 coverage within six months."
+            }
+          ],
+          "evidenceSummary": "Supported by Maria's first-month Meridian story and by the SOC buildout that reached 24/7 coverage in six months.",
           "provenance": {
             "source": "llm-suggested",
             "reviewStatus": "user-confirmed",

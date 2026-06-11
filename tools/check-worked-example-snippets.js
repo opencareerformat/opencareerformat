@@ -56,7 +56,18 @@ const snippetTalkingPoint = talkingPointSnippet.extensions["user.local"].candida
 for (const key of ["id", "label", "statement", "visibility"]) {
   assertEqual(snippetTalkingPoint[key], talkingPoint[key], `talking point ${key} drifted`);
 }
+assertEqual(snippetTalkingPoint.uses, talkingPoint.uses, "talking point uses drifted");
 assertEqual(snippetTalkingPoint.supportingItemIds, talkingPoint.supportingItemIds, "talking point supportingItemIds drifted");
+assertEqual(
+  snippetTalkingPoint.supportingEvidence,
+  talkingPoint.supportingEvidence,
+  "talking point supportingEvidence drifted",
+);
+assertEqual(
+  snippetTalkingPoint.evidenceSummary,
+  talkingPoint.evidenceSummary,
+  "talking point evidenceSummary drifted",
+);
 for (const key of ["source", "reviewStatus", "operation"]) {
   assertEqual(
     snippetTalkingPoint.provenance[key],

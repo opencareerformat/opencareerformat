@@ -635,7 +635,7 @@
                 "source": "interview-derived",
                 "date": "2026-05-24",
                 "sessionTopic": "Story-ask pass (per the first-session script)",
-                "operation": "never-on-formal-resume-story",
+                "operation": "never-on-resume-story",
                 "note": "Preserved verbatim from the prompt: 'Tell me one story about your work that you would never put on a formal resume.' This seeded the authority-from-demonstrated-work candidate talking point stored in extensions.user.local."
               }
             }
