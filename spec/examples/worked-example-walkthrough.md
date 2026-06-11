@@ -45,7 +45,7 @@ An OCF-oriented intake pass does more than rewrite resume bullets. It asks wheth
 - an open question;
 - a narrative variant for a particular audience.
 
-The ransomware response story in `sample-resume.ocf.json` shows this pattern. After follow-up questions, the same underlying career event appears as structured data and reusable memory:
+The ransomware response story in `sample-resume.ocf.json` shows this pattern. After follow-up questions, the career event that boiled down to a short bullet point turns into structured data and reusable memory:
 
 - a structured achievement;
 - supporting facts and metrics;
