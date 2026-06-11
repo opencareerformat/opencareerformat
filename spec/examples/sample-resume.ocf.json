@@ -529,6 +529,25 @@
                   }
                 },
                 {
+                  "id": "mhs-ransomware-security-leadership",
+                  "label": "Security leadership framing",
+                  "audiences": [
+                    "security-leadership",
+                    "incident-response",
+                    "ciso-track"
+                  ],
+                  "statement": "Led evidence-based ransomware recovery by analyzing attacker tooling, advising executives against payment, and restoring critical systems from backups within 41 hours.",
+                  "notes": "Emphasizes incident-response judgment and executive risk communication for security leadership audiences.",
+                  "visibility": "shared",
+                  "provenance": {
+                    "source": "curated",
+                    "date": "2026-05-21",
+                    "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+                    "operation": "audience-specific-rewrite",
+                    "confidence": 0.9
+                  }
+                },
+                {
                   "id": "mhs-ransomware-healthcare-security",
                   "label": "Healthcare security framing",
                   "audiences": [

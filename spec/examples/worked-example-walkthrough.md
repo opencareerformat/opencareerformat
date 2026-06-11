@@ -94,10 +94,16 @@ The follow-up interview also changes the surrounding memory. Maria's explanation
       "visibility": "public"
     },
     {
-      "id": "mhs-ransomware-interview-prep",
-      "label": "Interview-prep framing",
-      "longform": "Use this story to show executive judgment under pressure: Maria did the forensic analysis herself, explained the risk of paying in business terms, committed to a 48-hour recovery path, and owned the recommendation when the outcome was uncertain.",
-      "visibility": "private"
+      "id": "mhs-ransomware-security-leadership",
+      "label": "Security leadership framing",
+      "statement": "Led evidence-based ransomware recovery by analyzing attacker tooling, advising executives against payment, and restoring critical systems from backups within 41 hours.",
+      "visibility": "shared"
+    },
+    {
+      "id": "mhs-ransomware-healthcare-security",
+      "label": "Healthcare security framing",
+      "statement": "Protected patient-care continuity during a ransomware event by leading evidence-based recovery from offline backups and restoring critical clinical systems within 41 hours.",
+      "visibility": "shared"
     }
   ],
   "cautions": [
