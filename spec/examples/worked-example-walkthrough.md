@@ -149,7 +149,7 @@ After preserving the story, the tool can offer an earned through-line only if it
 
 > Does this ring true — you rebuild authority from demonstrated work rather than inherited position? It's in this story, and it's how the SOC got built: 24/7 coverage in six months, staffed by people who'd watched you take the first shifts yourself.
 
-If Maria confirms it, the raw story stays as a private reflection, and the confirmed through-line can be saved as an incubating talking point under a root extension namespace until OCF has a first-class `talkingPoints` field. The existing military-to-civilian open question should also be updated: the file now has story-backed material, but it may still need additional examples about coaching, performance management, or hard staffing decisions.
+If Maria confirms it, the raw story stays as a private reflection, and the confirmed through-line is saved as a reusable talking point for future interviews, cover letters, and coaching conversations. The existing military-to-civilian open question should also be updated: the file now has story-backed material, but it may still need additional examples about coaching, performance management, or hard staffing decisions.
 
 The resulting OCF update is concrete. The story is stored where it happened, as a role reflection:
 
