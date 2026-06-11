@@ -269,7 +269,7 @@ Examples:
 
 That feedback loop is why OCF gets more useful after each session.
 
-## 8. Session Two Reuses The Memory
+## 8. Session Two Reuses And Improves The Memory
 
 Six months later, Maria can bring the OCF to a different conversation:
 
@@ -279,4 +279,4 @@ Six months later, Maria can bring the OCF to a different conversation:
 >
 > **LLM draft answer:** "The biggest adjustment after the Army was learning that civilian authority starts from evidence, not rank. At Meridian, I learned that the hard way when a weekend coverage request got a flat no. I took the worst rotations first, wrote clean handoffs, and let the team see the standard before I asked them to share it. That became part of how we built 24/7 SOC coverage: not just a staffing plan, but a credibility plan."
 
-That paragraph could not come from the source resume alone. It needs the resume fact, the preserved story, and the confirmed through-line. This is the compounding value claim: each reviewed session gives the next session better memory to work with.
+That paragraph could not come from the source resume alone. It needs the resume fact, the preserved story, and the confirmed through-line. This second session is also a good time to capture fresh items and stories from Maria's current role before they fade into old resume shorthand. That is the compounding value claim: each reviewed session gives the next session better memory to work with.
