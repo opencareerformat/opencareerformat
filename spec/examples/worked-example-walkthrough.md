@@ -250,6 +250,7 @@ For this healthcare cybersecurity director job description, the ransomware respo
 ## 6. Export Produces Files
 
 Once curation has selected the right material, whatever tool Maria uses can produce the files she needs, typically a resume and cover letter for the target role.
+Maria still needs to proofread and edit those documents carefully; once she sends them, she owns every word.
 
 ## 7. Updates Flow Back
 
