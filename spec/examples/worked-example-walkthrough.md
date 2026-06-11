@@ -280,20 +280,3 @@ Six months later, Maria can bring the OCF to a different conversation:
 > **LLM draft answer:** "The biggest adjustment after the Army was learning that civilian authority starts from evidence, not rank. At Meridian, I learned that the hard way when a weekend coverage request got a flat no. I took the worst rotations first, wrote clean handoffs, and let the team see the standard before I asked them to share it. That became part of how we built 24/7 SOC coverage: not just a staffing plan, but a credibility plan."
 
 That paragraph could not come from the source resume alone. It needs the resume fact, the preserved story, and the confirmed through-line. This is the compounding value claim: each reviewed session gives the next session better memory to work with.
-
-## Implementer Note: IDs And Incubation
-
-The example also exposes a v0.3 schema pressure: the talking point can cite the SOC-buildout achievement by ID, but the raw reflection does not have a stable ID in v0.2. The extension therefore uses a descriptive path for the reflection. That is workable for a sample, but brittle for tooling; future OCF versions should consider IDs on reflections and other story-bearing items.
-
-## Minimal First-Time Flow
-
-If a user has no OCF and only provides a resume and job description, a practical LLM flow is:
-
-1. Ask briefly whether they already have an OCF.
-2. Treat the resume and job description as source artifacts.
-3. Build a provisional imported-starter view.
-4. Ask the few questions that affect this target.
-5. Produce the requested resume and cover letter.
-6. Suggest the OCF updates worth saving.
-
-That is enough. The user does not need to finish a complete master before getting value.

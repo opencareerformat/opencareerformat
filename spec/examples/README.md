@@ -14,3 +14,5 @@ Canonical example OCF files used by the validator and by tool authors as referen
 | `open-source-project.json` | A compact fictional example showing independent open-source work as a top-level `projects` entry with a GitHub repository link, public achievements, skills, and renderer grouping. |
 
 All files in this directory validate against `../schema.json` and are exercised by `reference/validator/validate.js`. They are fictional; do not infer real persons or events.
+
+For the minimal first-time user flow, use `prompts/application-bootstrap.md`: read the resume and job description, ask whether an OCF exists, produce the requested application help, ask one story question, and save an imported-starter OCF or proposed update set for next time.
