@@ -8,7 +8,7 @@ Files:
 |---|---|---|
 | Source resume | [`sample-resume-source.txt`](https://opencareerformat.org/spec/examples/sample-resume-source.txt) | [`spec/examples/sample-resume-source.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume-source.txt) |
 | Enriched OCF file | [`sample-resume.ocf.json`](https://opencareerformat.org/spec/examples/sample-resume.ocf.json) | [`spec/examples/sample-resume.ocf.json`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.ocf.json) |
-| Review history notes | [`sample-resume.html`](https://opencareerformat.org/spec/examples/sample-resume.html) | [`spec/examples/sample-resume.md`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.md) |
+| Detailed change history, from source resume through OCF improvements | [`sample-resume.html`](https://opencareerformat.org/spec/examples/sample-resume.html) | [`spec/examples/sample-resume.md`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.md) |
 | Target job description | [`sample-job-description.txt`](https://opencareerformat.org/spec/examples/sample-job-description.txt) | [`spec/examples/sample-job-description.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-job-description.txt) |
 
 ## 1. Source Resume Captured
