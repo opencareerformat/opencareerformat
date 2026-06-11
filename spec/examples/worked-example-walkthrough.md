@@ -27,7 +27,15 @@ At this point the file is best understood as an `imported-starter`, even if the 
 
 ## 2. Intake Turns Bullets Into Career Memory
 
-An OCF-oriented intake pass does more than rewrite resume bullets. It asks what each bullet means and whether it should become:
+The source resume contains one compressed public bullet:
+
+```text
+- Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.
+```
+
+Loaded into a frontier model with OCF guidance, that bullet is first captured as source material. The model should not treat it as complete truth or rewrite it immediately. It should ask what the bullet means: what Maria personally did, what evidence supported the decision, which metrics are safe to use, what should stay private, and what future tools should avoid overstating.
+
+An OCF-oriented intake pass does more than rewrite resume bullets. It asks whether each bullet should become:
 
 - a canonical achievement;
 - structured metrics;
@@ -37,7 +45,7 @@ An OCF-oriented intake pass does more than rewrite resume bullets. It asks what 
 - an open question;
 - a narrative variant for a particular audience.
 
-The ransomware response story in `sample-resume.ocf.json` shows this pattern. The same underlying career event appears as:
+The ransomware response story in `sample-resume.ocf.json` shows this pattern. After follow-up questions, the same underlying career event appears as structured data and reusable memory:
 
 - a structured achievement;
 - supporting facts and metrics;
@@ -46,12 +54,6 @@ The ransomware response story in `sample-resume.ocf.json` shows this pattern. Th
 - narrative variants for different audiences.
 
 That is the core OCF loop: preserve the facts once, then let future curation choose the right wording.
-
-For example, the source resume contains one compressed public bullet:
-
-```text
-- Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.
-```
 
 In the OCF, that becomes a richer achievement. The public claim is still there, but the master file also keeps the judgment call, evidence, metrics, and review context that a resume cannot hold:
 
