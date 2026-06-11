@@ -192,8 +192,6 @@ The confirmed through-line is stored separately, because it is not a raw story a
 }
 ```
 
-The talking point cites `mhs-soc-buildout` directly. It does not cite the raw story by ID because v0.2 reflections do not have stable IDs yet; the sample OCF uses a descriptive path for that evidence, and the [v0.3 planning notes](../v0.3-planning.md) call out the need for IDs on story-bearing items.
-
 The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking-point-shaped extension; unresolved implications become or update open questions.
 
 This is the give-back loop. The user contributes a story that was never resume-shaped; the tool returns a pattern that is useful only because it is earned from the user's own evidence. If the user rejects the pattern, the correction is useful too.
