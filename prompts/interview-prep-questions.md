@@ -39,6 +39,7 @@ Tools should ask these for each `position` in the master file. Each answer is st
 | What was your biggest mistake or failure? | `biggest-mistake` | `text` |
 | What was your biggest lesson? | `biggest-lesson` | `text` |
 | What are you proudest of? | `proudest-of` | `text` |
+| What is one story about your work that you would never put on a formal resume? | `never-on-resume-story` | `text` |
 | What would you have done differently? | `would-do-differently` | `text` |
 | Why did you take this role? | `why-took-role` | `text` |
 | Why did you leave this role? (position-to-position move within same company) | `why-left-position` | `text` |

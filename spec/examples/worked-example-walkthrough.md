@@ -62,9 +62,9 @@ In the OCF, that becomes a richer achievement. The public claim is still there, 
   "id": "mhs-ransomware-2024",
   "statement": "Led response to a hospital-wide ransomware incident — performed forensic analysis on the attacker tooling, advised leadership against paying the ransom based on observed decryption failures in adjacent engagements, and executed an alternate recovery path from offline backups; restored critical clinical systems within 41 hours with zero patient-care impact.",
   "metrics": [
-    { "kind": "duration", "value": 41, "unit": "hours" },
-    { "kind": "other", "value": 0, "unit": "patients" },
-    { "kind": "other", "value": 0, "unit": "USD" }
+    { "kind": "duration", "value": 41, "unit": "hours", "note": "time-to-restore: critical clinical systems back online from offline backups" },
+    { "kind": "other", "value": 0, "unit": "patients", "note": "patient_care_impact: zero patient-care incidents attributed to the outage" },
+    { "kind": "other", "value": 0, "unit": "USD", "note": "ransom_paid: no ransom was paid; recommendation against payment was accepted by leadership" }
   ],
   "provenance": {
     "source": "interview-derived",
@@ -123,6 +123,8 @@ A short version of the conversation could look like this:
 >
 > **LLM:** Yes. First, a gap read: the job appears to want healthcare security leadership, incident response judgment, SOC maturity, compliance depth, and executive communication. Your resume already proves healthcare security leadership, SOC buildout, HITRUST/SOC 2, ransomware response, Army cyber operations, and executive-facing communication. The gaps I would probe before drafting are: what you personally owned in the SOC buildout, what judgment you exercised in the ransomware event, and how your military leadership translated into civilian teams.
 >
+> *Maria answers the targeted questions; the LLM drafts the resume and cover letter; then it closes the session by saving what should improve the next one.*
+>
 > **LLM:** Before I create the starter OCF, one more question: tell me one story about your work that you would never put on a formal resume. It can be something that happened at work, how you work, what you like doing at work, or an anecdote that explains a role. It does not need an outcome or metric.
 
 Maria's story, preserved verbatim:
@@ -147,7 +149,7 @@ The resulting OCF update is concrete. The story is stored where it happened, as 
 
 ```json
 {
-  "kind": "story",
+  "kind": "never-on-resume-story",
   "text": "My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard 'no' to a lawful tasking — rank did the asking for me. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. My rank walked in before I did, and out here it didn't mean a thing. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the only thing that worked.",
   "visibility": "private",
   "provenance": {
@@ -183,6 +185,8 @@ The confirmed through-line is stored separately, because it is not a raw story a
   }
 }
 ```
+
+The talking point cites `mhs-soc-buildout` directly. It does not cite the raw story by ID because v0.2 reflections do not have stable IDs yet; the sample OCF uses a descriptive path for that evidence, and the [v0.3 planning notes](../v0.3-planning.md) call out the need for IDs on story-bearing items.
 
 The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking-point-shaped extension; unresolved implications become or update open questions.
 
@@ -236,6 +240,8 @@ The output of this step is not necessarily a final resume. It may be:
 - a short list of questions the user should answer first.
 
 If an item is real but irrelevant to the target, it stays in the master and gets filtered from the current output.
+
+For this healthcare cybersecurity director job description, the ransomware response, SOC buildout, HITRUST/SOC 2, and executive-risk communication material are highly relevant. The `mhs-mssp-transition` achievement is still useful career memory, but it is usually curated out for this target unless the user wants to emphasize budget stewardship or security-operations efficiency.
 
 ## 6. Export Produces Files
 

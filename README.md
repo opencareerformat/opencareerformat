@@ -148,6 +148,14 @@ the repo root after editing those docs:
 node tools/generate-doc-html.js
 ```
 
+The worked example walkthrough includes JSON excerpts copied from
+`spec/examples/sample-resume.ocf.json`. Check those excerpts after editing the
+sample or walkthrough:
+
+```bash
+node tools/check-worked-example-snippets.js
+```
+
 ## License
 
 OCF is dual-licensed. The specification, mappings, prompts, examples, and project documentation are licensed under [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). The reference implementations (everything in `reference/`) are licensed under the [MIT License](LICENSE-code). See [LICENSING.md](LICENSING.md) for the umbrella explainer.
