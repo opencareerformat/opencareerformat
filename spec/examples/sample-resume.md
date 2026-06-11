@@ -2,6 +2,8 @@
 
 This example set is fictional. Maria E. Reyes is not a real person, and the organizations, incidents, conversations, and source artifacts are invented to demonstrate how OCF can preserve career memory beyond a single resume.
 
+For the full source-resume-to-OCF lifecycle, read the [worked example walkthrough](worked-example-walkthrough.md).
+
 ## Files
 
 - `sample-resume-source.txt` is the short source resume. It is intentionally ordinary: headline, contact information, skills, experience, education, and certifications.
