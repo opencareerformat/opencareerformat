@@ -77,7 +77,15 @@ The same achievement also carries longer private context, narrative variants for
 
 A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.
 
-In the Maria example, the military-to-civilian leadership gap is a good place to do this. The resume proves Army cyber leadership and later healthcare security leadership, but it does not explain how Maria translated authority across those worlds.
+In the Maria example, the military-to-civilian leadership gap is a good place to do this. The general heuristic is: look for the seam the resume crosses silently. Maria's resume proves Army cyber leadership and later healthcare security leadership, but it does not explain how she translated authority across those worlds.
+
+A short version of the conversation could look like this:
+
+> **Maria:** I have this resume and a Director of Security job description. I do not have an OCF yet. Can you help me with the application?
+>
+> **LLM:** Yes. First, a gap read: the job appears to want healthcare security leadership, incident response judgment, SOC maturity, compliance depth, and executive communication. Your resume already proves healthcare security leadership, SOC buildout, HITRUST/SOC 2, ransomware response, Army cyber operations, and executive-facing communication. The gaps I would probe before drafting are: what you personally owned in the SOC buildout, what judgment you exercised in the ransomware event, and how your military leadership translated into civilian teams.
+>
+> **LLM:** Before I create the starter OCF, one more question: tell me one story about your work that you would never put on a formal resume. It can be something that happened at work, how you work, what you like doing at work, or an anecdote that explains a role. It does not need an outcome or metric.
 
 Maria's story, preserved verbatim:
 
@@ -85,13 +93,60 @@ Maria's story, preserved verbatim:
 
 An LLM should not polish that into case-study prose. The parking garage and "the only thing that worked" are the evidence. The unpolished texture teaches future tools what the transition actually felt like and how Maria explains it.
 
+Bad flattened version:
+
+> Maria adapted her military leadership style to civilian healthcare security by modeling commitment, improving team trust, and increasing shift coverage engagement.
+
+That version is shorter, but it destroys the memory. It removes the parking garage, the rank shock, the failed assumption, and the reason the later talking point is earned.
+
 After preserving the story, the tool can offer an earned through-line only if it can cite independent evidence. For example:
 
 > Does this ring true — you rebuild authority from demonstrated work rather than inherited position? It's in this story, and it's how the SOC got built: 24/7 coverage in six months, staffed by people who'd watched you take the first shifts yourself.
 
 If Maria confirms it, the raw story stays as a private reflection, and the confirmed through-line can be saved as an incubating talking point under a root extension namespace until OCF has a first-class `talkingPoints` field. The existing military-to-civilian open question should also be updated: the file now has story-backed material, but it may still need additional examples about coaching, performance management, or hard staffing decisions.
 
-The example also exposes a v0.3 schema pressure: the talking point can cite the SOC-buildout achievement by ID, but the raw reflection does not have a stable ID in v0.2. The extension therefore uses a descriptive path for the reflection. That is workable for a sample, but brittle for tooling; future OCF versions should consider IDs on reflections and other story-bearing items.
+The resulting OCF update is concrete. The story is stored where it happened, as a role reflection:
+
+```json
+{
+  "kind": "story",
+  "text": "My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard 'no' to a lawful tasking — rank did the asking for me. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. My rank walked in before I did, and out here it didn't mean a thing. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the only thing that worked.",
+  "visibility": "private",
+  "provenance": {
+    "source": "interview-derived",
+    "date": "2026-05-24",
+    "sessionTopic": "Story-ask pass (per the first-session script)",
+    "operation": "never-on-formal-resume-story"
+  }
+}
+```
+
+The confirmed through-line is stored separately, because it is not a raw story and not a single achievement:
+
+```json
+{
+  "extensions": {
+    "user.local": {
+      "candidateTalkingPoints": [
+        {
+          "id": "authority-from-demonstrated-work",
+          "label": "Authority from demonstrated work",
+          "statement": "I rebuild authority from demonstrated work rather than inherited position.",
+          "visibility": "private",
+          "supportingItemIds": ["mhs-soc-buildout"],
+          "provenance": {
+            "source": "llm-suggested",
+            "reviewStatus": "user-confirmed",
+            "operation": "earned-through-line-reflection"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking-point-shaped extension; unresolved implications become or update open questions.
 
 This is the give-back loop. The user contributes a story that was never resume-shaped; the tool returns a pattern that is useful only because it is earned from the user's own evidence. If the user rejects the pattern, the correction is useful too.
 
@@ -175,6 +230,22 @@ Examples:
 - a confirmed claim becomes a canonical achievement update.
 
 That feedback loop is why OCF gets more useful after each session.
+
+## 8. Session Two Reuses The Memory
+
+Six months later, Maria can bring the OCF to a different conversation:
+
+> **Maria:** I am applying for a VP Security role. Use my OCF and help me prepare for the interview.
+>
+> **LLM:** Your resume alone would show SOC buildout and ransomware response. Your OCF adds a useful leadership pattern: you rebuild authority from demonstrated work rather than inherited position. For a VP interview, I would use that carefully as a military-to-civilian leadership answer, not as a resume bullet.
+>
+> **LLM draft answer:** "The biggest adjustment after the Army was learning that civilian authority starts from evidence, not rank. At Meridian, I learned that the hard way when a weekend coverage request got a flat no. I took the worst rotations first, wrote clean handoffs, and let the team see the standard before I asked them to share it. That became part of how we built 24/7 SOC coverage: not just a staffing plan, but a credibility plan."
+
+That paragraph could not come from the source resume alone. It needs the resume fact, the preserved story, and the confirmed through-line. This is the compounding value claim: each reviewed session gives the next session better memory to work with.
+
+## Implementer Note: IDs And Incubation
+
+The example also exposes a v0.3 schema pressure: the talking point can cite the SOC-buildout achievement by ID, but the raw reflection does not have a stable ID in v0.2. The extension therefore uses a descriptive path for the reflection. That is workable for a sample, but brittle for tooling; future OCF versions should consider IDs on reflections and other story-bearing items.
 
 ## Minimal First-Time Flow
 
