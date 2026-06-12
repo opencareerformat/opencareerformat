@@ -32,6 +32,7 @@ This sample is meant to read as if it evolved over several passes:
 3. **2026-05-21: caution capture.** The same review pass records positioning corrections, such as not overstating Big Four consulting experience or AI/ML security specialization.
 4. **2026-05-24: coaching review.** A later review adds open questions about military-to-civilian leadership translation and attribution precision for the SOC buildout.
 5. **2026-05-24: story-ask pass.** A fictional follow-up applies the story ask from the first-session script, preserves Maria's military-to-civilian authority story in her own words, records a confirmed through-line under a root extension namespace, and updates the related open question.
+6. **2026-06-11: military record pass.** The source resume gains final rank and MOS codes, which a veteran's resume would rarely omit. The master gains a cohesive promotion timeline behind that final rank, corrected position grades, and an audience-inverted narrative variant pair: rank translated to team scope for civilian audiences, rank and MOS verbatim for federal audiences.
 
 The dates are illustrative, but the pattern is intentional: an OCF can start from an old resume, then improve through review, coaching, LLM conversations, and user-approved updates.
 
@@ -42,6 +43,7 @@ The dates are illustrative, but the pattern is intentional: an OCF can start fro
 - `visibility` keeps private context separate from public claims.
 - `narrativeVariants` preserve alternate wording without changing the canonical achievement.
 - `cautions` prevent future tools from repeating claims the subject does not want made.
+- Military and other insider-legible records need timeline-honest wording: rank, MOS, and dates may be essential for one audience and distracting for another.
 - `openQuestions` keeps useful follow-up work alive across sessions.
 - `reflections` can preserve a raw story in the subject's own words before any tool turns it into resume language.
 - `extensions.user.local` demonstrates how an incubating talking-point shape can be preserved without pretending v0.2 has a first-class field for it.

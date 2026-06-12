@@ -629,7 +629,7 @@
             },
             {
               "kind": "never-on-resume-story",
-              "text": "My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard 'no' to a lawful tasking — rank did the asking for me. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. My rank walked in before I did, and out here it didn't mean a thing. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the only thing that worked.",
+              "text": "My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard 'no' to a lawful tasking. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. In the Army, my rank was the authority. Out here, working for someone meant something different. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the thing that worked.",
               "visibility": "private",
               "provenance": {
                 "source": "interview-derived",
@@ -806,7 +806,7 @@
         {
           "title": "Cyber Operations Specialist",
           "seniority": "nco",
-          "grade": "E-6 (Staff Sergeant)",
+          "grade": "E-5 (Sergeant) → E-6 (Staff Sergeant)",
           "occupationalCode": {
             "system": "MOS",
             "code": "17C",
@@ -843,7 +843,46 @@
                 }
               ],
               "importance": 5,
-              "visibility": "public"
+              "visibility": "public",
+              "narrativeVariants": [
+                {
+                  "id": "army-cyber-lead-civilian",
+                  "label": "Civilian resume framing",
+                  "audiences": [
+                    "civilian",
+                    "healthcare",
+                    "private-sector"
+                  ],
+                  "statement": "Led a 6-person cyber operations team protecting a 15,000-node enterprise network.",
+                  "visibility": "public",
+                  "provenance": {
+                    "source": "curated",
+                    "date": "2026-06-11",
+                    "sourceArtifactId": "sample-resume-source-2026-05",
+                    "operation": "military-to-civilian-framing",
+                    "confidence": 0.9
+                  }
+                },
+                {
+                  "id": "army-cyber-lead-federal",
+                  "label": "Federal / defense framing",
+                  "audiences": [
+                    "federal",
+                    "defense-contractor",
+                    "cleared"
+                  ],
+                  "statement": "As a Staff Sergeant (17C), led a 6-person defensive cyber operations team protecting a 15,000-node Army enterprise network.",
+                  "notes": "Federal and defense audiences expect rank and MOS; omitting them can read as concealment, not brevity.",
+                  "visibility": "shared",
+                  "provenance": {
+                    "source": "curated",
+                    "date": "2026-06-11",
+                    "sourceArtifactId": "sample-resume-source-2026-05",
+                    "operation": "federal-defense-framing",
+                    "confidence": 0.9
+                  }
+                }
+              ]
             },
             {
               "statement": "Trained and mentored 12 junior soldiers transitioning into the new 17C MOS career field",
@@ -877,7 +916,7 @@
         {
           "title": "Signal Support Systems Specialist",
           "seniority": "enlisted",
-          "grade": "E-4 (Specialist) → E-5 (Sergeant)",
+          "grade": "E-2 (PV2) → E-5 (Sergeant)",
           "occupationalCode": {
             "system": "MOS",
             "code": "25U",
@@ -942,10 +981,83 @@
       ],
       "progression": {
         "finalTitle": "Staff Sergeant (E-6)",
-        "promotionCount": 3,
-        "note": "Entered as E-2 (PV2), promoted to E-6 over 8 years. Reclassified from 25U to 17C in 2016 when Army stood up the cyber MOS."
+        "promotionCount": 4,
+        "note": "Entered as PV2 (E-2) Aug 2010; PFC (E-3) 2011; SPC (E-4) 2012; SGT (E-5) 2014; SSG (E-6) Mar 2017. Reclassified from 25U to 17C in Jan 2016 when the Army stood up the cyber MOS. Honorably discharged Aug 2018 as SSG. Final rank appears on the source resume; the dated progression was established during the fictional 2026-06-11 military record pass so the example's rank, MOS, and leadership claims form a coherent story."
       },
       "spanning": [
+        {
+          "id": "army-rank-progression",
+          "kind": "recognition",
+          "statement": "Progressed from Private (E-2) to Staff Sergeant (E-6) across eight years of service, with four promotions.",
+          "supportingFacts": [
+            {
+              "id": "army-entry-e2",
+              "statement": "Enlisted as PV2 (E-2), MOS 25U",
+              "date": {
+                "year": 2010,
+                "month": 8
+              },
+              "visibility": "shared"
+            },
+            {
+              "id": "army-promo-e3",
+              "statement": "Promoted to Private First Class (E-3)",
+              "date": {
+                "year": 2011
+              },
+              "visibility": "shared"
+            },
+            {
+              "id": "army-promo-e4",
+              "statement": "Promoted to Specialist (E-4)",
+              "date": {
+                "year": 2012
+              },
+              "visibility": "shared"
+            },
+            {
+              "id": "army-promo-e5",
+              "statement": "Promoted to Sergeant (E-5)",
+              "date": {
+                "year": 2014
+              },
+              "visibility": "shared"
+            },
+            {
+              "id": "army-reclass-17c",
+              "statement": "Reclassified from 25U (Signal Support) to 17C (Cyber Operations) when the Army stood up the cyber MOS",
+              "date": {
+                "year": 2016,
+                "month": 1
+              },
+              "visibility": "shared"
+            },
+            {
+              "id": "army-promo-e6",
+              "statement": "Promoted to Staff Sergeant (E-6)",
+              "date": {
+                "year": 2017,
+                "month": 3
+              },
+              "visibility": "shared"
+            }
+          ],
+          "audiences": [
+            "federal",
+            "defense-contractor",
+            "military"
+          ],
+          "visibility": "shared",
+          "provenance": {
+            "source": "interview-derived",
+            "date": "2026-06-11",
+            "sessionTopic": "Military record pass",
+            "operation": "recovered-promotion-dates-behind-final-rank",
+            "confidence": 0.9,
+            "sourceArtifactId": "sample-resume-source-2026-05",
+            "note": "Final rank and MOS appear on the source resume; the dated steps were established in conversation for this fictional example."
+          }
+        },
         {
           "statement": "Army Commendation Medal (x2), Army Achievement Medal (x3)",
           "kind": "recognition",
@@ -1258,6 +1370,23 @@
         "year": 2026,
         "month": 5,
         "day": 21
+      }
+    },
+    {
+      "claim": "described as having held a leadership rank throughout her Army service",
+      "reason": "Maria was junior enlisted (E-2 to E-4) from 2010-2014. Leadership claims apply to the SGT/SSG years from 2014-2018. Anyone who served reads rank against time instantly; the progression must support the verb.",
+      "visibility": "private",
+      "provenance": {
+        "source": "interview-derived",
+        "note": "Captured during a military record pass that made the promotion timeline behind the source resume's final rank internally coherent.",
+        "date": "2026-06-11",
+        "sourceArtifactId": "sample-resume-source-2026-05",
+        "operation": "military-rank-overclaim-caution"
+      },
+      "addedDate": {
+        "year": 2026,
+        "month": 6,
+        "day": 11
       }
     }
   ],

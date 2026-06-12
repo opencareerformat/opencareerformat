@@ -117,6 +117,58 @@ The follow-up interview also changes the surrounding memory. Maria's explanation
 
 Those are not three separate stories. They are three reusable consequences of one clarified story: what skills it demonstrates, how to tell it to different audiences, and what not to claim.
 
+### The Resume Proves The Endpoint; The Conversation Recovers The Path
+
+The same intake pattern applies to timelines, not just events. Maria's resume lists her rank exactly once, the way veterans often write resumes:
+
+```text
+United States Army | Cyber Operations Specialist (17C), Staff Sergeant (E-6) | 2016-01 - 2018-08
+```
+
+That single line is enough for a civilian reader. It is not enough for career memory, because anyone who served can read rank against years of service in seconds: the progression behind a final rank is a story military readers reconstruct whether or not the file tells it. A short intake exchange recovers the path:
+
+> **LLM:** Your resume shows you separated as a Staff Sergeant after eight years. What was the progression behind that?
+>
+> **Maria:** Came in as a PV2 in 2010. PFC in '11, Specialist in '12, made Sergeant in 2014, and pinned Staff Sergeant in March 2017 after I reclassed to 17C.
+
+The master stores each step as a dated supporting fact on a spanning achievement: the same pattern the schema documents for "top 5 seller 2010-2015" backed by annual records. The `progression` block remains the narrative summary; this spanning achievement holds the checkable steps:
+
+```json
+{
+  "id": "army-rank-progression",
+  "kind": "recognition",
+  "statement": "Progressed from Private (E-2) to Staff Sergeant (E-6) across eight years of service, with four promotions.",
+  "supportingFacts": [
+    {
+      "id": "army-promo-e5",
+      "statement": "Promoted to Sergeant (E-5)",
+      "date": { "year": 2014 },
+      "visibility": "shared"
+    },
+    {
+      "id": "army-promo-e6",
+      "statement": "Promoted to Staff Sergeant (E-6)",
+      "date": { "year": 2017, "month": 3 },
+      "visibility": "shared"
+    }
+  ],
+  "visibility": "shared",
+  "provenance": {
+    "source": "interview-derived",
+    "date": "2026-06-11",
+    "sessionTopic": "Military record pass",
+    "operation": "recovered-promotion-dates-behind-final-rank",
+    "confidence": 0.9,
+    "sourceArtifactId": "sample-resume-source-2026-05",
+    "note": "Final rank and MOS appear on the source resume; the dated steps were established in conversation for this fictional example."
+  }
+}
+```
+
+The excerpt shows two of the six supporting facts in the sample file. Note the provenance split: the final rank is supported by the resume itself; the dated steps are interview-derived. The resume proves the endpoint; the conversation recovers the path.
+
+Whether the steps appear in any output is a separate decision. A civilian resume shows none of them; a federal resume may list every one. The master stores the full path so curation can choose. Storage and display are different questions, and OCF only fixes the first.
+
 ### Stories Improve Career Memory
 
 A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.
@@ -135,7 +187,7 @@ A short version of the conversation could look like this:
 
 Maria's story, preserved verbatim:
 
-> My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard "no" to a lawful tasking — rank did the asking for me. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. My rank walked in before I did, and out here it didn't mean a thing. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the only thing that worked.
+> My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard "no" to a lawful tasking. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. In the Army, my rank was the authority. Out here, working for someone meant something different. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the thing that worked.
 
 An LLM should not polish that into case-study prose. The unpolished texture teaches future tools what the transition actually felt like and how Maria explains it.
 
@@ -156,7 +208,7 @@ The resulting OCF update is concrete. The story is stored where it happened, as 
 ```json
 {
   "kind": "never-on-resume-story",
-  "text": "My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard 'no' to a lawful tasking — rank did the asking for me. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. My rank walked in before I did, and out here it didn't mean a thing. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the only thing that worked.",
+  "text": "My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard 'no' to a lawful tasking. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. In the Army, my rank was the authority. Out here, working for someone meant something different. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the thing that worked.",
   "visibility": "private",
   "provenance": {
     "source": "interview-derived",
@@ -264,6 +316,54 @@ The output of this step is not necessarily a final resume. It may be:
 If an item is real but irrelevant to the target, it stays in the master and gets filtered from the current output.
 
 For this healthcare cybersecurity director job description, the ransomware response, SOC buildout, HITRUST/SOC 2, and executive-risk communication material are highly relevant. The `mhs-mssp-transition` achievement is still useful career memory, but it is usually curated out for this target unless the user wants to emphasize budget stewardship or security-operations efficiency.
+
+Curation can also invert by audience, and the Army material shows the cleanest case. For Maria's healthcare-sector target, her rank is correctly translated into civilian scope: "led a 6-person cyber operations team." For a federal or defense-contractor target, the calculus reverses: rank and MOS are expected, and omitting them reads as concealment, not brevity. The master holds both tellings as narrative variants on the same achievement:
+
+```json
+{
+  "narrativeVariants": [
+    {
+      "id": "army-cyber-lead-civilian",
+      "label": "Civilian resume framing",
+      "audiences": [
+        "civilian",
+        "healthcare",
+        "private-sector"
+      ],
+      "statement": "Led a 6-person cyber operations team protecting a 15,000-node enterprise network.",
+      "visibility": "public",
+      "provenance": {
+        "source": "curated",
+        "date": "2026-06-11",
+        "sourceArtifactId": "sample-resume-source-2026-05",
+        "operation": "military-to-civilian-framing",
+        "confidence": 0.9
+      }
+    },
+    {
+      "id": "army-cyber-lead-federal",
+      "label": "Federal / defense framing",
+      "audiences": [
+        "federal",
+        "defense-contractor",
+        "cleared"
+      ],
+      "statement": "As a Staff Sergeant (17C), led a 6-person defensive cyber operations team protecting a 15,000-node Army enterprise network.",
+      "notes": "Federal and defense audiences expect rank and MOS; omitting them can read as concealment, not brevity.",
+      "visibility": "shared",
+      "provenance": {
+        "source": "curated",
+        "date": "2026-06-11",
+        "sourceArtifactId": "sample-resume-source-2026-05",
+        "operation": "federal-defense-framing",
+        "confidence": 0.9
+      }
+    }
+  ]
+}
+```
+
+The same fact is noise for one audience and mandatory for another. A resume can only hold one telling; the master holds both, and curation chooses. The file also records a caution against letting any draft imply Maria held leadership rank throughout her service: she was junior enlisted from 2010 to 2014, and anyone who served reads rank against time instantly. The progression must support the verb.
 
 ## 6. Export Produces Files
 

@@ -6,7 +6,7 @@ Thank you for considering a contribution. OCF is a small, opinionated spec maint
 
 A few things are worth checking before opening anything:
 
-1. **Read the [Non-Goals](https://opencareerformat.org/spec/guide.html#non-goals) section of the spec.** OCF deliberately doesn't specify how content is elicited, how it's rendered, or how it's scored against job descriptions. Proposals that try to extend the spec into those areas will generally be declined with a pointer back to this section.
+1. **Read the [Non-Goals](https://opencareerformat.org/spec/guide.html#non-goals) section of the spec.** OCF deliberately doesn't specify how content is elicited, how it's rendered, how it's scored against job descriptions, or how institutional truth is verified and adjudicated. Proposals that try to extend the spec into those areas will generally be declined with a pointer back to this section.
 
 2. **Check the [CHANGELOG](CHANGELOG.md).** A surprising number of "this should be added" ideas have already been considered. If something is marked as deferred to a future version, the issue or discussion that led to that decision is usually linked.
 
@@ -83,6 +83,7 @@ These aren't binding rules, but they describe what kinds of proposals tend to la
 - Fields that prescribe how content is *elicited* (that's tool work)
 - Fields that prescribe how content is *rendered* (that's renderer work)
 - Fields that prescribe how content is *scored* against external opportunities (that's matching work)
+- Fields that make OCF adjudicate institutional truth or mirror external registries (that's verifier, issuer, registry, employer, school, board, court, or consumer work)
 - Fields that duplicate what `extensions` can already carry
 - Personality/assessment frameworks (DISC, MBTI, etc.) — too contested to standardize
 - Heavy structure for content that's still emerging (the spec prefers `$comment` placeholders over committing to fields the ecosystem hasn't proven)

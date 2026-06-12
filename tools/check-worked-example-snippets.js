@@ -16,6 +16,12 @@ const talkingPoint = sample.extensions["user.local"].candidateTalkingPoints.find
   (item) => item.id === "authority-from-demonstrated-work",
 );
 const caution = sample.cautions.find((item) => item.claim === "claimed as an AI / ML security specialist");
+const army = sample.experience.find((entry) => entry.name === "United States Army");
+const armyCyberPosition = army.positions.find((item) => item.occupationalCode?.code === "17C");
+const armyCyberLead = armyCyberPosition.achievements.find((item) =>
+  item.narrativeVariants?.some((variant) => variant.id === "army-cyber-lead-civilian"),
+);
+const armyRankProgression = army.spanning.find((item) => item.id === "army-rank-progression");
 
 const achievementSnippet = jsonBlocks.find((block) => block.id === "mhs-ransomware-2024");
 assert(achievementSnippet, "missing achievement snippet");
@@ -40,6 +46,28 @@ for (const variant of fanoutSnippet.narrativeVariants) {
 }
 assertEqual(fanoutSnippet.cautions[0].claim, caution.claim, "caution claim drifted");
 assertEqual(fanoutSnippet.cautions[0].reason, caution.reason, "caution reason drifted");
+
+const armyProgressionSnippet = jsonBlocks.find((block) => block.id === "army-rank-progression");
+assert(armyProgressionSnippet, "missing Army progression snippet");
+for (const key of ["id", "kind", "statement", "visibility"]) {
+  assertEqual(armyProgressionSnippet[key], armyRankProgression[key], `Army progression ${key} drifted`);
+}
+for (const fact of armyProgressionSnippet.supportingFacts) {
+  const actual = armyRankProgression.supportingFacts.find((item) => item.id === fact.id);
+  assert(actual, `missing actual Army progression supporting fact ${fact.id}`);
+  assertEqual(fact, actual, `Army progression supporting fact ${fact.id} drifted`);
+}
+assertEqual(armyProgressionSnippet.provenance, armyRankProgression.provenance, "Army progression provenance drifted");
+
+const armyVariantSnippet = jsonBlocks.find((block) =>
+  block.narrativeVariants?.some((variant) => variant.id === "army-cyber-lead-civilian"),
+);
+assert(armyVariantSnippet, "missing Army narrative variants snippet");
+assertEqual(
+  armyVariantSnippet.narrativeVariants,
+  armyCyberLead.narrativeVariants,
+  "Army narrative variants snippet drifted",
+);
 
 const storySnippet = jsonBlocks.find((block) => block.kind === "never-on-resume-story");
 assert(storySnippet, "missing story snippet");
