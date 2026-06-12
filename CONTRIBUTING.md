@@ -20,7 +20,7 @@ The project is intentionally small and candidate-owned. The schema defines what 
 
 ## Kinds of Contributions
 
-The repository accepts contributions in five rough categories. Each has its own issue template.
+The repository accepts contributions in these rough categories. Each has its own issue template.
 
 **Schema changes** — additions to or modifications of the JSON Schema. These get the most scrutiny because they're the most committing. Use the *Schema Change* template; expect questions about backwards compatibility, motivating use cases, and prior art in adjacent formats.
 
@@ -46,7 +46,7 @@ See [`LICENSING.md`](LICENSING.md) for the umbrella explainer. By contributing, 
 ## The Process
 
 1. **Discover and discuss.** Open a Discussion if you want feedback on an idea before committing to a proposal. Open an Issue when you have a concrete shape in mind.
-2. **Editor responds.** Expect a response within one to two weeks for v0.1-era traffic; longer is possible for proposals that need careful thought, in which case the issue gets labeled `in-consideration` so you know it's not been forgotten.
+2. **Editor responds.** Expect a response within one to two weeks for 0.x-era traffic; longer is possible for proposals that need careful thought, in which case the issue gets labeled `in-consideration` so you know it's not been forgotten.
 3. **Decision.** Every proposal gets one of four outcomes:
    - **Accept as proposed.** You or the editor opens a PR; once merged, a CHANGELOG entry is added.
    - **Accept with revisions.** The editor describes the changes wanted; you (or the editor) revises.

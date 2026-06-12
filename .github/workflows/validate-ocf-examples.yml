@@ -1,4 +1,4 @@
-name: Validate OCF examples
+name: Validate OCF repository
 
 on:
   push:
@@ -14,7 +14,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
-  validate-examples:
+  validate-repository:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,3 +33,12 @@ jobs:
 
       - name: Validate example OCF JSON files
         run: node reference/validator/validate.js
+
+      - name: Regenerate checked-in HTML docs
+        run: node tools/generate-doc-html.js
+
+      - name: Check worked example snippets
+        run: node tools/check-worked-example-snippets.js
+
+      - name: Check generated files are current
+        run: git diff --exit-code

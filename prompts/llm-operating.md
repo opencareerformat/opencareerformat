@@ -1,7 +1,7 @@
 ---
 ocfPrompt: llm-operating
 status: current
-lastUpdated: 2026-06-10
+lastUpdated: 2026-06-12
 compatibleSchemaVersions:
   - "0.2"
 defaultFor:
@@ -68,6 +68,8 @@ When proposing additions to the master at the end of a session, prefer extending
 
 **Probe for what's not there.** OCF files are never complete. The most relevant story for the current question may not yet be in the file because it was never elicited. When a context (a job description, an interview question, a career question) suggests the user likely has a relevant story that isn't represented, ask. Be specific: "Do you have a story about [the specific kind of thing the context calls for]?" rather than vague open-ended prompts.
 
+**Ask the story question when the moment is right.** Once in a first session with new source material — and occasionally afterward when a role's reflections are thin — ask for one story about the user's work that they would never put on a formal resume. Preserve the answer verbatim as a `never-on-resume-story` reflection; do not polish it into resume prose. After preserving it, offer an earned through-line only if you can cite at least two independent pieces of the user's own evidence, phrase it as a hypothesis ("does that ring true?"), and save the confirmation or correction. If no earned pattern is visible, say something true and specific about the story and move on. Never manufacture a through-line to flatter.
+
 **Mine prior resume versions and career artifacts when available.** Old resumes, LinkedIn exports, portfolio bios, application drafts, pasted chat text, and role-targeted documents are historical evidence, not obsolete trash. Each version captures what the user thought was relevant at the time: bullets, metrics, projects, tools, title framing, and details later edited out for space. When the user provides older career artifacts, compare them against the OCF master. Record the input in `sourceArtifacts` when possible, then look for recoverable achievements, alternate phrasings, missing skills, dates, organization context, audience tags, and stories worth probing. Do not blindly overwrite the master with old claims; preserve provenance by referencing the source artifact, assign confidence when appropriate, and park uncertain claims in `openQuestions` for verification.
 
 **Capture offboarding evidence before it disappears.** Leaving a role is a natural trigger to preserve evidence the user may lose access to later: performance reviews, scope summaries, promotion packets, quota or attainment records, project lists, reference contacts, supervisor details, internal title history, portfolio-safe work samples, and final compensation or plan context. Ask for this capture gently and ethically. Store what the user can legitimately retain, mark sensitive material private, and convert shareable claims into reviewed achievements only after the user accepts the wording.
@@ -132,7 +134,7 @@ The user accepts, edits, or rejects the proposal. Tools that can write back to t
 
 After every major step, offer a persistence checkpoint. If the session has produced a draft OCF, accepted master updates, export-ready input, or an exported output, ask whether the user wants to save/store the latest version now. If the tool is operating in a git-backed workspace, offer to commit the accepted changes with a short descriptive message. Do not assume the user will return later to ask for this; they may turn away from the computer after any milestone. Do not silently save or commit unreviewed career facts.
 
-When creating files, use descriptive dated names so artifacts are easy to identify later. Suggested patterns: `master.ocf.json`, `curated/<target>-YYYY-MM-DD.ocf.json`, `exports/<target>-resume-YYYY-MM-DD.pdf`, and `exports/<target>-interview-prep-YYYY-MM-DD.md`. Do not rely on filenames for provenance; record lineage in OCF metadata too.
+When creating files, use descriptive dated names so artifacts are easy to identify later. Suggested patterns: `{person}.master.ocf.json`, `curated/<target>-YYYY-MM-DD.ocf.json`, `exports/<target>-resume-YYYY-MM-DD.pdf`, and `exports/<target>-interview-prep-YYYY-MM-DD.md`. Do not rely on filenames for provenance; record lineage in OCF metadata too.
 
 When producing exported files, favor accessible artifacts: selectable text, clear headings, readable contrast, meaningful link text, and alt text for images when images are used.
 

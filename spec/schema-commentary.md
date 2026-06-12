@@ -64,7 +64,7 @@ The same career fact may appear in several forms:
 
 Recommended filename pattern:
 
-- `master.ocf.json`
+- `{person}.master.ocf.json`
 - `sample-resume.ocf.json`
 - `acme-ciso-2026-05-24.ocf.json`
 - `public-profile.ocf.json`
@@ -257,7 +257,7 @@ Do not use `confidence` as a substitute for future review status, verification, 
 
 ## Stable IDs
 
-Use stable IDs on records tools may need to reference later: source artifacts, experience entries, positions, achievements, reflections, variants, open questions, and other durable items.
+Use stable IDs on the records that can carry them in v0.2: source artifacts, experience entries, positions, achievements, and narrative/title variants. Reflections, cautions, and `openQuestions` items do not take IDs in v0.2; reference them descriptively when a tool must point at one. Adding IDs to these items is tracked in [`spec/v0.3-planning.md`](v0.3-planning.md).
 
 Recommended:
 

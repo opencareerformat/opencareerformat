@@ -1,7 +1,7 @@
 ---
 ocfPrompt: interview-prep-questions
 status: current
-lastUpdated: 2026-05-26
+lastUpdated: 2026-06-12
 compatibleSchemaVersions:
   - "0.2"
 defaultFor:
@@ -46,7 +46,7 @@ Tools should ask these for each `position` in the master file. Each answer is st
 
 For the supervisor question, tools should capture enough structured data to make the later rating question meaningful: name, title when known, and useful contact/profile details. A LinkedIn URL is often the safest durable identifier because phone numbers and work emails go stale when people change companies. Store it on `position.supervisor.linkedin` or as a `contacts[]` item with `kind: "linkedin"`. Supervisor data defaults to private.
 
-Long careers make this question less simple than it sounds. "I worked for X" might mean direct manager in one period, skip-level leader in another, client sponsor on a consulting engagement, commanding officer, principal investigator, or executive several layers above the role. OCF v0.1 intentionally does not model a full people graph. Use `position.supervisor` for the most relevant person for the role and preserve nuance in private reflection text or notes when it matters for interview prep.
+Long careers make this question less simple than it sounds. "I worked for X" might mean direct manager in one period, skip-level leader in another, client sponsor on a consulting engagement, commanding officer, principal investigator, or executive several layers above the role. OCF intentionally does not model a full people graph. Use `position.supervisor` for the most relevant person for the role and preserve nuance in private reflection text or notes when it matters for interview prep.
 
 ## Per-experience-entry questions
 
@@ -67,6 +67,7 @@ A tool that uses these questions to elicit reflections should follow the pattern
 1. **Surface gaps proactively.** When a user opens their OCF and a position has no reflections, the tool can offer to ask the standard set. Users who don't want to fill them in skip the prompt; users who do get a structured conversation.
 2. **Capture answers in the user's voice.** Store reflections as the user said them. Don't sanitize or normalize the prose. The texture matters for interview prep.
 3. **Look for distillable achievements.** When a reflection — especially `biggest-success`, `proudest-of`, or `biggest-lesson` — contains a story that should also exist as a structured achievement, propose adding the achievement, with provenance linking it to the originating reflection. Keep the reflection in place; the achievement is the structured claim, the reflection is the raw voice.
+   Exception: `never-on-resume-story` reflections are preserved verbatim and are not distillation fodder — the pattern there is an earned through-line offered as a hypothesis, not a resume bullet (see the application bootstrap).
 4. **Respect privacy defaults.** Reflections are `private` by default. Don't surface them in any externally-facing output without the user explicitly opting that reflection up to `shared` or `public`.
 
 ## Adding new kinds

@@ -25,7 +25,7 @@
   "name": "Open Career Format Guide",
   "url": "https://opencareerformat.org/spec/guide.html",
   "description": "The full Open Career Format guide: a practical specification for preserving career history as candidate-owned JSON career memory for curation, export, and tools.",
-  "dateModified": "2026-06-09",
+  "dateModified": "2026-06-12",
   "inLanguage": "en",
   "about": {
     "@type": "CreativeWork",
@@ -338,7 +338,7 @@
     <h1>Open Career Format</h1>
     <p class="subtitle">A private career notebook that becomes every resume you'll ever need.</p>
     <p>OCF is for preserving your own career history as it happens: what you did, what changed, what you learned, and what mattered.</p>
-    <p class="updated">Last updated: 2026-06-09</p>
+    <p class="updated">Last updated: 2026-06-12</p>
     <nav class="project-links" aria-label="Project links">
       <a href="https://github.com/opencareerformat/opencareerformat">GitHub repo</a>
       <a href="../schema.json">Schema</a>
@@ -530,7 +530,7 @@
 <h3>How reflections relate to achievements</h3>
 <p>The relationship between the two layers is one-way: reflections can seed achievements, not the other way around. A conversation that elicits a <code>proudest-of</code> or <code>biggest-success</code> reflection often surfaces a story that deserves to exist as a structured achievement entry too — with statement, longform, metrics, and audiences. The recommended pattern is to <em>keep both</em>: the reflection preserves the user's voice and the raw memory; the achievement is the distilled, structured item used for outputs. The <code>provenance</code> on the achievement can reference the reflection it came from, so the lineage stays traceable.</p>
 
-<p>Look at the Meridian Director of Cybersecurity position in <code>spec/examples/sample-resume.ocf.json</code> for the worked example. The position carries three reflections demonstrating the patterns: a numeric one (<code>boss-would-rate-1-10</code>), a prose one that seeded an existing achievement (<code>proudest-of</code>, with provenance linking to <code>mhs-ransomware-2024</code>), and an undistilled one that's a candidate for future mining (<code>biggest-mistake</code> — the framing for a structured achievement isn't obvious yet, so it stays a reflection for now). The position also has <code>teamSize</code> and <code>directReports</code> populated, since "how big was your team" is itself a standard interview question that wants a structured answer.</p>
+<p>Look at the Meridian Director of Cybersecurity position in <code>spec/examples/sample-resume.ocf.json</code> for the worked example. The position carries four reflections demonstrating the patterns: a numeric one (<code>boss-would-rate-1-10</code>), a prose one that seeded an existing achievement (<code>proudest-of</code>, with provenance linking to <code>mhs-ransomware-2024</code>), an undistilled one that's a candidate for future mining (<code>biggest-mistake</code> — the framing for a structured achievement isn't obvious yet, so it stays a reflection for now), and a verbatim story no resume would hold (<code>never-on-resume-story</code> — preserved in Maria's own words and deliberately left unpolished; see the <a href="examples/worked-example-walkthrough.html">worked example walkthrough</a> for how it was elicited and how a confirmed through-line was saved from it). The position also has <code>teamSize</code> and <code>directReports</code> populated, since "how big was your team" is itself a standard interview question that wants a structured answer.</p>
 
 <div class="callout">
   <p>The two-layer design resolves a tension that comes up the moment a tool tries to interview a user: open elicitation is the right UX, but structured storage is the right output. Reflections handle the elicitation side; achievements handle the output side; LLM tools move content between them as the conversation matures.</p>
@@ -586,7 +586,7 @@
 
 <p><strong>Validation checks shape, not truth.</strong> A valid OCF file can still contain false claims, unsupported metrics, private material, stale facts, or poor judgment. Schema validation only proves the file has the right structure. It does not prove the content is true, safe to share, appropriate for a target role, or reviewed by the user.</p>
 
-<p><strong>Export files should be archived deliberately.</strong> Most users will want to keep a copy of every OCF, resume, cover letter, profile, or interview-prep packet that actually went out the door. Those artifacts are useful records of what was represented to a specific audience at a specific time. The risk is not keeping them; the risk is keeping them accidentally, unnamed, or mixed with drafts. Downstream tools should name generated files with enough information to understand their purpose later, and should include a date. Recommended patterns are <code>master.ocf.json</code>, <code>curated/acme-ciso-2026-05-21.ocf.json</code>, <code>exports/acme-ciso-resume-2026-05-21.pdf</code>, and <code>exports/acme-ciso-interview-prep-2026-05-21.md</code>. A dated name is not provenance, but it helps users avoid sending the wrong file, compare what changed between applications, and separate sent artifacts from disposable working drafts.</p>
+<p><strong>Export files should be archived deliberately.</strong> Most users will want to keep a copy of every OCF, resume, cover letter, profile, or interview-prep packet that actually went out the door. Those artifacts are useful records of what was represented to a specific audience at a specific time. The risk is not keeping them; the risk is keeping them accidentally, unnamed, or mixed with drafts. Downstream tools should name generated files with enough information to understand their purpose later, and should include a date. Recommended patterns are <code>{person}.master.ocf.json</code>, <code>curated/acme-ciso-2026-05-21.ocf.json</code>, <code>exports/acme-ciso-resume-2026-05-21.pdf</code>, and <code>exports/acme-ciso-interview-prep-2026-05-21.md</code>. A dated name is not provenance, but it helps users avoid sending the wrong file, compare what changed between applications, and separate sent artifacts from disposable working drafts.</p>
 
 <p><strong>Source artifacts may be more sensitive than the OCF.</strong> Old resumes, LinkedIn exports, chat transcripts, portfolio drafts, and career notes can contain mailing addresses, old phone numbers, salary history, supervisor names, identity-adjacent details, and mistakes the user would not repeat today. OCF can reference those artifacts without embedding them, but the folder that holds them still needs protection.</p>
 

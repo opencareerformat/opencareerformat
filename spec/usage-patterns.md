@@ -24,8 +24,7 @@ Because the candidate-owned master is controlled by the person, it is the right 
 
 Common filenames:
 
-- `master.ocf.json`
-- `candidate-master.ocf.json`
+- `{person}.master.ocf.json` (for example, `maria-reyes.master.ocf.json`)
 
 ## Imported Starter
 
