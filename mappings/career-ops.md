@@ -16,7 +16,7 @@ An exporter renders the candidate-owned master, or preferably a curated child fi
 
 Reverse direction: `career-ops User Layer artifacts -> OCF master enrichment`.
 
-As career-ops runs, the candidate may accumulate durable material outside `cv.md`: a refined profile, proof points, writing samples, and STAR+R stories. These can be valuable OCF content when imported back as reviewed enrichment, so the career memory does not live only inside one tool's working directory.
+As career-ops runs, the candidate may accumulate durable material outside `cv.md`: a refined profile, proof points, writing samples, and STAR+R stories. These could become valuable OCF content once reviewed and approved by the user, so the career memory does not live only inside one tool's working directory.
 
 Both directions follow the general principles in this directory: export from an export-ready or curated file, preserve the master as source of truth, respect `visibility`, keep facts separate from display wording, and never invent facts to satisfy the target.
 
