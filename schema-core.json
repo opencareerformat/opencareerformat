@@ -213,6 +213,10 @@
                 "type": "string",
                 "description": "Short note explaining review status, correction, or remaining concern."
               },
+              "supersededById": {
+                "type": "string",
+                "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
+              },
               "reviewedBy": {
                 "type": "string",
                 "description": "Person or tool that last set or confirmed reviewStatus."
@@ -769,8 +773,10 @@
         },
         "kind": {
           "type": "string",
-          "const": "headline",
-          "description": "v0.3 only standardizes headline positioning variants."
+          "description": "v0.3 only standardizes headline positioning variants; future releases may add other positioning kinds.",
+          "enum": [
+            "headline"
+          ]
         },
         "label": {
           "type": "string",
@@ -798,7 +804,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Stable local IDs of OCF items that support this positioning."
+          "description": "Stable local IDs of OCF items that support this item. Any item referenced here MUST have a stable id, and editors MUST preserve referenced IDs. Tools SHOULD validate referential integrity because JSON Schema cannot fully enforce local cross-references."
         },
         "evidenceSummary": {
           "type": "string",
@@ -816,6 +822,10 @@
         "reviewNote": {
           "type": "string",
           "description": "Short note explaining review status, correction, or remaining concern."
+        },
+        "supersededById": {
+          "type": "string",
+          "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
         },
         "reviewedBy": {
           "type": "string",
@@ -857,7 +867,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Stable local IDs of OCF items that support this talking point."
+          "description": "Stable local IDs of OCF items that support this item. Any item referenced here MUST have a stable id, and editors MUST preserve referenced IDs. Tools SHOULD validate referential integrity because JSON Schema cannot fully enforce local cross-references."
         },
         "supportingEvidence": {
           "type": "array",
@@ -899,6 +909,10 @@
         "reviewNote": {
           "type": "string",
           "description": "Short note explaining review status, correction, or remaining concern."
+        },
+        "supersededById": {
+          "type": "string",
+          "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
         },
         "reviewedBy": {
           "type": "string",

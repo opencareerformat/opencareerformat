@@ -21,7 +21,9 @@ This is a clean-language schema update. It includes small breaking changes from 
 - Added item-level `reviewStatus` for durable user-facing and user-quoted material. Tools should treat missing `reviewStatus` on imported, inferred, or LLM-mined durable items as `unreviewed`.
 - Added top-level `talkingPoints` for reusable, evidence-backed career framings. Existing incubating `extensions.user.local.candidateTalkingPoints` items should migrate here.
 - Added top-level `positioningVariants` for target-aware person-level headlines and summaries. `person.headline` remains the default general headline.
+- Added `supersededById` alongside item review fields so superseded items can point to their replacement.
 - Added optional IDs to more durable array items so tools can make more surgical updates and cross-references.
+- Clarified that `supportingItemIds` values must resolve to stable local item IDs, and that tools should validate referential integrity even when JSON Schema cannot.
 - Added `co-led` to achievement attribution roles.
 - Added `job-description`, `photo`, `video`, and `conversation` source artifact kinds, plus metric visibility.
 - Added `location.renderAs` and `person.workAuthorization[].renderAs` so files can preserve resume-ready display strings alongside structured values.

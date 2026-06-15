@@ -274,6 +274,8 @@ Do not use `confidence` as a substitute for future review status, verification, 
 
 Use stable IDs on durable items that tools may need to reference later: source artifacts, experience entries, positions, achievements, supporting facts, narrative/title variants, reflections, cautions, open questions, talking points, and positioning variants. IDs are optional unless another item references them. If an ID exists, future editors must preserve it. If an eligible item lacks an ID, future editors may add one.
 
+Any item referenced by `supportingItemIds` must have a stable local `id`. Editors must preserve referenced IDs across ordinary edits, and tools should validate that every `supportingItemIds` value resolves to an item in the same OCF lineage. JSON Schema cannot fully enforce those local cross-references, so referential-integrity checks belong in validators, editors, and migration tools.
+
 Recommended:
 
 ```json
@@ -283,6 +285,8 @@ Recommended:
 ```
 
 Slug-style IDs are easier for humans to review and diff. UUIDs are acceptable when collision safety matters more than readability. Do not put a tool name or model name in the item ID; put that in `provenance.tool`.
+
+When `reviewStatus` is `superseded`, use `supersededById` when the replacement item is known. It is a local OCF item ID, not an embedded object and not a global identifier. Tools should verify that the referenced replacement exists before relying on it.
 
 ## Visibility
 
@@ -658,6 +662,8 @@ Use them for patterns that are bigger than one achievement but more concrete tha
 
 Talking points should cite evidence. Prefer `supportingItemIds` when the supporting items have IDs, and use `supportingEvidence` when the evidence is a source artifact, external reference, or descriptive path that cannot yet be expressed as an item ID. A talking point without evidence is just a slogan; curators should be careful not to overuse it.
 
+For `talkingPoints` and `positioningVariants`, `supportingItemIds` is the preferred evidence link. Use `supportingEvidence` only when the evidence cannot yet be expressed as an item ID, such as an external source, a source artifact path, or a temporary descriptive pointer that a future editor may turn into a stable reference.
+
 Example:
 
 ```json
@@ -724,6 +730,8 @@ Use them to preserve:
 - book of business, renewal base, managed ARR, account count, retention, and churn context
 
 Keep raw comp and plan details private unless a specific workflow requires sharing them.
+
+OCF distinguishes compensation history from current compensation expectations. Historical compensation, quota, commission, plan, and book-of-business facts can belong in the master because they are hard to reconstruct later and often needed for applications or negotiation. Current target compensation is more transient and application-facing; v0.3 does not define a first-class target-compensation field. Tools that need it should ask at the time of use or store dated, private guidance in tool config, `goals`, `cautions`, notes, or an extension.
 
 Use `position.bookOfBusiness` for account, territory, renewal, or portfolio responsibility in a specific role. It is repeatable by year or period because a person's book can change materially inside the same role. This is where a sales, customer-success, account-management, partner, or revenue leader can remember facts like "managed $2M ARR in my territory" or "owned $20M of successful renewals in 2025; all churn was non-regretted."
 
