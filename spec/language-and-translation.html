@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF Language And Translation — Open Career Format</title>
+<meta name="description" content="Guidance for translated OCF documentation and translated career-content sidecars.">
+<link rel="canonical" href="https://opencareerformat.org/spec/language-and-translation.html">
+<link rel="icon" type="image/png" href="./assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF Language And Translation">
+<meta property="og:description" content="Guidance for translated OCF documentation and translated career-content sidecars.">
+<meta property="og:url" content="https://opencareerformat.org/spec/language-and-translation.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF Language And Translation">
+<meta name="twitter:description" content="Guidance for translated OCF documentation and translated career-content sidecars.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF Language And Translation",
+  "name": "OCF Language And Translation",
+  "url": "https://opencareerformat.org/spec/language-and-translation.html",
+  "description": "Guidance for translated OCF documentation and translated career-content sidecars.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="./assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./language-and-translation.md">View the Markdown source</a>.</p>
+<h1>Language And Translation</h1>
+
+<p>OCF separates three language questions:</p>
+
+<ul>
+<li><strong>Spec and tooling language:</strong> translating documentation, user-facing guides, and bootstrap prompts so more people can use OCF. English remains canonical for the schema, examples, field names, enum values, validator behavior, and reference implementations.</li>
+<li><strong>Content language:</strong> representing the same person's career for use in another language. OCF handles this through translated sidecar files.</li>
+<li><strong>Language skills:</strong> the languages a person speaks, reads, writes, or signs. Those belong in the top-level <code>languages</code> section and are separate from translation.</li>
+</ul>
+
+<p>The invariant is simple: translation changes presentation, not the underlying facts.</p>
+
+<h2>Whole-File Sidecars</h2>
+
+<p>The recommended content-translation pattern is a translated child file, not per-item translation management inside the master. Use the existing metadata and lineage fields:</p>
+
+<ul>
+<li><code>meta.language</code>: the main language of this OCF file.</li>
+<li><code>meta.translatedFrom</code>: the source language tag.</li>
+<li><code>meta.source.kind: &quot;translated&quot;</code>: this file was produced as a translation.</li>
+<li><code>meta.parentFileId</code>: the source OCF file's <code>meta.id</code>.</li>
+<li><code>meta.parentVersion</code>: the source OCF file's <code>meta.version</code> at translation time.</li>
+<li><code>meta.lineageNotes</code>: human-readable context about the translation.</li>
+</ul>
+
+<p>The source file remains the canonical source of facts unless the user explicitly accepts a translated file as a replacement master.</p>
+
+<h2>Minimal Spanish Sidecar Excerpt</h2>
+
+<p>This excerpt uses the fictional Maria Reyes sample. It is not a complete translated OCF file; it shows the metadata and translated headline pattern.</p>
+
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://opencareerformat.org/v0.3/schema.json&quot;,
+  &quot;schemaVersion&quot;: &quot;0.3&quot;,
+  &quot;meta&quot;: {
+    &quot;language&quot;: &quot;es-ES&quot;,
+    &quot;translatedFrom&quot;: &quot;en-US&quot;,
+    &quot;source&quot;: {
+      &quot;kind&quot;: &quot;translated&quot;
+    },
+    &quot;parentFileId&quot;: &quot;c94ffaa9-31fd-40d7-96cd-a66725a9784a&quot;,
+    &quot;parentVersion&quot;: &quot;db2a5a6fc562&quot;,
+    &quot;lineageNotes&quot;: &quot;Spanish presentation sidecar excerpt translated from the English Maria Reyes sample. Facts, IDs, and schema values remain canonical.&quot;
+  },
+  &quot;person&quot;: {
+    &quot;name&quot;: {
+      &quot;renderAs&quot;: &quot;Maria E. Reyes&quot;
+    },
+    &quot;headline&quot;: &quot;Líder de ciberseguridad que combina disciplina militar con estrategia de seguridad empresarial&quot;
+  }
+}</code></pre>
+
+<h2>Translation Rules</h2>
+
+<ul>
+<li>Preserve schema keys, enum values, IDs, and structured values exactly. Do not translate <code>reviewStatus</code>, <code>talkingPoints</code>, <code>job-description</code>, item IDs, or similar schema-controlled strings.</li>
+<li>Preserve <code>visibility</code>, provenance, review state, source artifact references, and supporting IDs.</li>
+<li>Translate display wording: summaries, headlines, narrative text, <code>renderAs</code> values, and exported prose.</li>
+<li>Be careful with proper nouns, legal entity names, credential names, ranks, occupational codes, organization names, and product names. Translate or localize them only when there is an accepted localized rendering.</li>
+<li>Use <code>renderAs</code> when localized display text sits over canonical structured data, such as a location or work authorization line.</li>
+<li>Locale formatting, such as dates, addresses, number separators, currency display, and page layout, belongs to exporters and renderers rather than the schema.</li>
+</ul>
+
+<h2>Staleness And Review</h2>
+
+<p>Translated sidecars can drift when the source file changes. Use <code>parentVersion</code> to detect that the source file moved after translation.</p>
+
+<p>When a source update affects translated presentation, tools should mark the translated sidecar or affected output as needing review in their own workflow. If a translated file contains reviewable OCF items that support <code>reviewStatus</code>, ordinary review state can be used there too. Do not invent a second translation-specific review mechanism before real usage proves it is needed.</p>
+
+<h2>Documentation Translation</h2>
+
+<p>Translated documentation should name its English source, source version or commit when known, and translation date. If the English source changes materially, the translation should be marked stale or regenerated before users rely on it.</p>
+
+<p>Localized bootstrap prompts should be wrappers around the canonical English prompt. They should tell the LLM to speak to the user in the target language while keeping OCF schema keys, enum values, JSON snippets, and validation behavior canonical.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./language-and-translation.md"><code>spec/language-and-translation.md</code></a>.</p>
+</footer>
+</body>
+</html>

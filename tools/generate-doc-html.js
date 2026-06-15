@@ -17,6 +17,11 @@ const docs = [
     description: "A compact tool-builder view of Open Career Format.",
   },
   {
+    source: "spec/language-and-translation.md",
+    title: "OCF Language And Translation",
+    description: "Guidance for translated OCF documentation and translated career-content sidecars.",
+  },
+  {
     source: "spec/schema-commentary.md",
     title: "OCF Schema Commentary",
     description: "Annotated Open Career Format schema commentary with examples and common pitfalls.",
