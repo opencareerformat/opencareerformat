@@ -1,5 +1,7 @@
 # Worked Example Walkthrough
 
+[English](worked-example-walkthrough.md) | [Español](worked-example-walkthrough.es.md)
+
 The details behind a resume bullet point fade fast — usually right when you next need them. This walkthrough takes one bullet point, a hospital ransomware response, and recovers the career memory behind it.
 
 This walkthrough explains the lifecycle behind the fictional Maria E. Reyes example files. It is not a new schema requirement; it is a concrete way to read the examples as a small OCF workflow.

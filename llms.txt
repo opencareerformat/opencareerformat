@@ -21,6 +21,7 @@ If documents conflict: the JSON Schema wins for file structure; the most specifi
 ## Site map
 
 - Homepage: https://opencareerformat.org/
+- Spanish homepage: https://opencareerformat.org/index.es.html
 - Full guide: https://opencareerformat.org/spec/guide.html
 - Current schema: https://opencareerformat.org/schema.json
 - Starter/core authoring shape: https://opencareerformat.org/schema-core.json
@@ -37,6 +38,7 @@ If documents conflict: the JSON Schema wins for file structure; the most specifi
 - Usage patterns and file roles: https://opencareerformat.org/spec/usage-patterns.md
 - Language and translation guidance: https://opencareerformat.org/spec/language-and-translation.md
 - Worked example walkthrough: https://opencareerformat.org/spec/examples/worked-example-walkthrough.md
+- Spanish worked example walkthrough: https://opencareerformat.org/spec/examples/worked-example-walkthrough.es.md
 - v0.3 planning notes: https://opencareerformat.org/spec/v0.3-planning.md
 - Local validator: https://github.com/opencareerformat/opencareerformat/tree/main/reference/validator
 - GitHub repository: https://github.com/opencareerformat/opencareerformat

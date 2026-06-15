@@ -52,6 +52,22 @@ const docs = [
     source: "spec/examples/worked-example-walkthrough.md",
     title: "Worked Example Walkthrough",
     description: "A narrative walkthrough of the Open Career Format example lifecycle.",
+    alternates: [
+      { lang: "en", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.html" },
+      { lang: "es", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.es.html" },
+      { lang: "x-default", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.html" },
+    ],
+  },
+  {
+    source: "spec/examples/worked-example-walkthrough.es.md",
+    title: "Ejemplo Trabajado",
+    description: "Recorrido narrativo en español del ciclo de ejemplo de Open Career Format.",
+    lang: "es",
+    alternates: [
+      { lang: "en", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.html" },
+      { lang: "es", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.es.html" },
+      { lang: "x-default", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.html" },
+    ],
   },
   {
     source: "spec/examples/sample-resume.md",
@@ -84,17 +100,20 @@ function renderPage(doc, outputRel, markdown) {
   const logoHref = relativeHref(outputDir, "spec/assets/ocf-logo.png");
   const sourceHref = relativeHref(outputDir, doc.source);
   const canonical = `https://opencareerformat.org/${outputRel}`;
+  const alternateLinks = (doc.alternates || [])
+    .map((alternate) => `<link rel="alternate" hreflang="${escapeHtml(alternate.lang)}" href="${escapeHtml(alternate.href)}">`)
+    .join("\n");
   const content = markdownToHtml(markdown, doc.source);
 
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="${escapeHtml(doc.lang || "en")}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${escapeHtml(doc.title)} — Open Career Format</title>
 <meta name="description" content="${escapeHtml(doc.description)}">
 <link rel="canonical" href="${canonical}">
-<link rel="icon" type="image/png" href="${logoHref}">
+${alternateLinks ? `${alternateLinks}\n` : ""}<link rel="icon" type="image/png" href="${logoHref}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="${escapeHtml(doc.title)}">
 <meta property="og:description" content="${escapeHtml(doc.description)}">
@@ -113,7 +132,7 @@ ${JSON.stringify(
     name: doc.title,
     url: canonical,
     description: doc.description,
-    inLanguage: "en",
+    inLanguage: doc.lang || "en",
     isPartOf: {
       "@type": "WebSite",
       "@id": "https://opencareerformat.org/#website",

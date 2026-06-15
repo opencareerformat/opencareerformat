@@ -71,3 +71,9 @@ Translated documentation should name its English source, source version or commi
 Localized bootstrap prompts should be wrappers around the canonical English prompt. They should tell the LLM to speak to the user in the target language while keeping OCF schema keys, enum values, JSON snippets, and validation behavior canonical.
 
 The Spanish application bootstrap wrapper is an example of this pattern: [`prompts/application-bootstrap.es.md`](../prompts/application-bootstrap.es.md).
+
+Current Spanish human-facing examples:
+
+- [`README.es.md`](../README.es.md)
+- [`index.es.html`](../index.es.html)
+- [`spec/examples/worked-example-walkthrough.es.md`](examples/worked-example-walkthrough.es.md)

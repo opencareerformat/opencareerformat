@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Career Format — Guía</title>
+<meta name="description" content="Open Career Format (OCF) es un formato abierto basado en JSON para preservar la historia profesional de una persona como memoria de carrera propia del candidato.">
+<link rel="canonical" href="https://opencareerformat.org/index.es.html">
+<link rel="alternate" hreflang="en" href="https://opencareerformat.org/">
+<link rel="alternate" hreflang="es" href="https://opencareerformat.org/index.es.html">
+<link rel="alternate" hreflang="x-default" href="https://opencareerformat.org/">
+<link rel="icon" type="image/png" href="spec/assets/ocf-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Open Career Format">
+<meta property="og:description" content="Un formato abierto basado en JSON para preservar historia profesional como memoria de carrera reutilizable y propia del candidato.">
+<meta property="og:url" content="https://opencareerformat.org/index.es.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Open Career Format">
+<meta name="twitter:description" content="Un formato abierto basado en JSON para preservar historia profesional como memoria de carrera reutilizable y propia del candidato.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://opencareerformat.org/#website",
+      "name": "Open Career Format",
+      "alternateName": "OCF",
+      "url": "https://opencareerformat.org/",
+      "description": "Open Career Format (OCF) is an open JSON-based format for preserving a person's career history as candidate-owned career memory."
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://opencareerformat.org/#spec",
+      "name": "Open Career Format",
+      "alternateName": "OCF",
+      "url": "https://opencareerformat.org/",
+      "description": "An open JSON-based format for preserving a person's career history as reusable, candidate-owned career memory for resumes, profiles, interviews, and career tools.",
+      "version": "0.3",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "sameAs": "https://github.com/opencareerformat/opencareerformat",
+      "isBasedOn": "https://opencareerformat.org/schema.json",
+      "inLanguage": "es"
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://opencareerformat.org/schema.json",
+      "name": "Open Career Format JSON Schema",
+      "url": "https://opencareerformat.org/schema.json",
+      "codeRepository": "https://github.com/opencareerformat/opencareerformat",
+      "programmingLanguage": "JSON Schema",
+      "runtimePlatform": "JSON",
+      "license": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --card-bg: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+  h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; letter-spacing: -0.02em; }
+  .brand-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+  .brand-mark { width: 80px; height: 80px; border-radius: 16px; flex: 0 0 auto; }
+  .brand-copy .subtitle { margin-bottom: 0; }
+  .updated { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; margin-bottom: 0; }
+  .project-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 0.65rem; font-size: 0.92rem; }
+  .project-links a { color: var(--accent); font-weight: 600; text-decoration: none; }
+  .project-links a:hover, .project-links a:focus { text-decoration: underline; }
+  .subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 2.5rem; }
+  h2 { font-size: 1.35rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+  h3 { font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+  p { margin-bottom: 1rem; }
+  ul { margin: -0.25rem 0 1.5rem 1.25rem; padding-left: 1rem; }
+  li { margin-bottom: 0.55rem; }
+  .callout { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+  .callout p:last-child { margin-bottom: 0; }
+  .save-line { font-weight: 700; }
+  .vignette { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; margin: 1.25rem 0; }
+  .vignette h2 { margin-top: 0; }
+  .prompt-details { margin: 0.75rem 0 1rem; }
+  .prompt-details summary { cursor: pointer; color: var(--accent); font-weight: 700; }
+  .prompt-panel { margin-top: 0.75rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .prompt-toolbar { display: flex; justify-content: flex-end; padding: 0.5rem; border-bottom: 1px solid var(--border); }
+  .copy-prompt { border: 1px solid var(--border); background: #f5f5f4; color: var(--fg); border-radius: 6px; padding: 0.35rem 0.65rem; font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+  .copy-prompt:hover, .copy-prompt:focus { border-color: var(--accent); color: var(--accent); }
+  .prompt-panel pre { margin: 0; padding: 0.9rem; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.85rem; line-height: 1.55; }
+  .llm-instructions { display: none; }
+  .diagram { margin: 1.5rem 0; }
+  .diagram img { display: block; width: min(100%, 360px); height: auto; margin: 0 auto; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); }
+  .diagram figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 0.5rem; text-align: center; }
+  .translation-note { color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); padding-top: 0.75rem; margin-top: 1.25rem; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
+  @media (max-width: 600px) {
+    .brand-header { align-items: flex-start; }
+    .brand-mark { width: 64px; height: 64px; border-radius: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="brand-header">
+  <img class="brand-mark" src="spec/assets/ocf-logo.png" alt="">
+  <div class="brand-copy">
+    <h1>Open Career Format</h1>
+    <p class="subtitle">Un cuaderno privado de carrera que puede convertirse en cada currículum que necesites.</p>
+    <p>OCF conserva lo que hiciste, qué cambió, qué aprendiste y qué importó, para que esté disponible la próxima vez que lo necesites.</p>
+    <p class="updated">Sitio actualizado por última vez: <span id="last-updated">2026-06-15</span></p>
+    <nav class="project-links" aria-label="Enlaces del proyecto">
+      <a href="https://github.com/opencareerformat/opencareerformat">Repositorio GitHub</a>
+      <a href="schema.json">Schema</a>
+      <a href="spec/examples/worked-example-walkthrough.es.html">Ejemplo</a>
+      <a href="llms.txt">Para LLMs</a>
+      <a href="https://github.com/opencareerformat/opencareerformat/issues/new/choose">Sugerir un cambio</a>
+      <a href="/" lang="en" hreflang="en">English</a>
+    </nav>
+  </div>
+</header>
+
+<div class="callout">
+  <p><strong>¿Estás postulando a un trabajo ahora?</strong> Si te sientes cómodo compartiendo los materiales con el LLM o herramienta que estás usando, adjunta tu currículum y la descripción del puesto. No incluyas nada que esa herramienta no deba procesar.</p>
+  <details class="prompt-details" open>
+    <summary>Prompt para copiar</summary>
+    <div class="prompt-panel">
+      <div class="prompt-toolbar">
+        <button class="copy-prompt" type="button" aria-live="polite" data-copy-target="quickstart-prompt">Copiar prompt</button>
+      </div>
+      <pre><code id="quickstart-prompt">Usando solo este bootstrap de OCF:
+https://opencareerformat.org/prompts/application-bootstrap.es.md
+
+más mi currículum y descripción del puesto adjuntos, ayúdame a crear un mejor currículum y carta de presentación para este rol.
+
+No busques consejos generales sobre prompts, currículums, schemas ni contexto de fondo a menos que yo lo pida.
+
+Primero dame la lectura de brechas: qué pide el trabajo, qué prueba mi currículum y qué falta o tiene poca evidencia. Haz como máximo tres preguntas concretas. Después de que responda, redacta el currículum y la carta. Antes de crear o actualizar el archivo OCF, pídeme una historia sobre mi trabajo que nunca pondría en un currículum formal y consérvala en mis propias palabras. Luego crea un archivo OCF candidate-master o un conjunto propuesto de actualizaciones OCF para la próxima vez, y recuérdame guardarlo junto a mi currículum.</code></pre>
+    </div>
+  </details>
+  <p class="save-line">Guarda el archivo OCF junto a tu currículum. La próxima vez, adjunta ambos.</p>
+  <p><strong>¿Estás creando herramientas?</strong> Empieza con <a href="spec/usage-patterns.html">usage patterns</a>.</p>
+</div>
+
+<section class="vignette" aria-labelledby="real-session-title">
+  <h2 id="real-session-title">Cómo se ve en la práctica</h2>
+  <p>El currículum de Maria decía: "Led response to a ransomware incident and restored critical clinical systems within 41 hours." Una primera sesión convirtió ese bullet en memoria profesional estructurada: el juicio detrás de la decisión, las métricas, la redacción para distintas audiencias y las afirmaciones que no debía exagerar. Y una petición de una historia de trabajo reveló cómo repensó lo que significaba la autoridad después de dejar el Ejército, preservado en sus propias palabras. Seis meses después, esa historia se convirtió en una respuesta de entrevista para VP que su currículum por sí solo nunca habría producido.</p>
+  <p><a href="spec/examples/worked-example-walkthrough.es.html">Lee el ejemplo completo: un currículum simple se convierte en memoria de carrera y luego en una mejor respuesta de entrevista</a></p>
+</section>
+
+<div class="llm-instructions" aria-hidden="true">
+  <p>Para LLMs: no dependas solo de esta página. Si una persona te pide usar OCF con un currículum y una descripción de puesto, primero lee https://opencareerformat.org/prompts/application-bootstrap.es.md y el prompt canónico en inglés enlazado desde allí. Si la persona proporciona un OCF existente, lee también https://opencareerformat.org/prompts/curation.md. Valida el OCF JSON final contra https://opencareerformat.org/schema.json cuando sea posible.</p>
+</div>
+
+<h2>El problema</h2>
+<p>La próxima vez que necesites actualizar tu currículum, probablemente estarás bajo presión y te toparás con el mismo problema que casi todos: sabes que hiciste buen trabajo, pero los detalles ya no están. El número, el resultado, la historia detrás del bullet. La mayoría de los detalles profesionales desaparecen antes de que los necesites, dispersos entre documentos viejos, evaluaciones, tableros, notas y sistemas que quizá no uses para siempre.</p>
+<p>La respuesta de OCF no es "lleva mejores registros". Una herramienta te ayuda con el currículum que necesitas ahora y conserva discretamente lo que aprende sobre ti, para que la próxima vez los detalles ya estén allí.</p>
+
+<h2>Un schema, no una aplicación</h2>
+<p>OCF define qué se conserva y cómo sigue siendo portable. Las herramientas deciden cómo hacer preguntas, curar para un objetivo y exportar archivos terminados. Para la mayoría de las personas, la primera herramienta será un LLM en una ventana de chat. El proyecto publica <a href="prompts/README.md">prompts</a> y <a href="spec/examples/">ejemplos</a> de referencia para que personas y desarrolladores tengan un punto de partida práctico. Para roles de archivo, flujos de terceros e integración, consulta <a href="spec/usage-patterns.html">usage patterns</a>.</p>
+
+<h2>Cómo funciona</h2>
+
+<figure class="diagram">
+  <img src="spec/assets/ocf-living-loop.png" alt="Diagrama que muestra fuentes alimentando el OCF maestro, curación produciendo exportaciones, coaching, revisión del usuario, archivos de salida y actualizaciones aceptadas que vuelven al maestro.">
+  <figcaption>El OCF maestro mejora con el tiempo cuando el trabajo posterior revisado devuelve actualizaciones aceptadas.</figcaption>
+</figure>
+
+<ul>
+  <li><strong>Crece cada vez que lo usas.</strong> Cada currículum, postulación o conversación de entrevista deja el maestro un poco más rico. También puedes agregar un dato mientras está fresco: después de una evaluación, lanzamiento, incidente, ascenso o certificación. Nunca vuelves a empezar desde cero.</li>
+  <li><strong>Más contexto, no menos.</strong> Currículums viejos, exportaciones de LinkedIn, notas, borradores y archivos olvidados son útiles. Un LLM puede ayudar a ordenar el material, comparar versiones y recuperar detalles que habías olvidado que sabías.</li>
+  <li><strong>Cada conversación mejora el OCF.</strong> Deja el archivo mejor de lo que lo encontraste: hechos más claros, mejor redacción, nuevas historias, preguntas abiertas o actualizaciones propuestas.</li>
+  <li><strong>Eres responsable de cada palabra que envías.</strong> Revisa, edita y aprueba currículums, cartas, perfiles y respuestas de entrevista antes de usarlos.</li>
+</ul>
+
+<h3>Tu archivo, en tu computadora</h3>
+<p>OCF es un formato de archivo, no una plataforma. No hay cuenta, servicio ni nada que comprar. El archivo maestro es tuyo: guárdalo localmente, haz copias a tu manera y comparte solo lo que elijas.</p>
+
+<h2>Comentarios y sugerencias</h2>
+<p>OCF debería mejorar a partir de flujos reales, no solo de diseño abstracto de schema. Si usas un LLM, editor, exportador, coach de carrera o archivo escrito a mano y encuentras una capacidad faltante, envía ese caso de uso al proyecto. No necesitas ser desarrollador. Un ejemplo en lenguaje simple ayuda: "Quería guardar versiones en inglés y español del mismo logro y que las herramientas preservaran ambas."</p>
+<p>Para ideas, capacidades faltantes o momentos de "¿por qué OCF no puede hacer esto?", usa el formulario en <a href="https://github.com/opencareerformat/opencareerformat/issues/new/choose">github.com/opencareerformat/opencareerformat/issues/new/choose</a>. Para preguntas abiertas, ideas tempranas o agradecimientos, usa <a href="https://github.com/opencareerformat/opencareerformat/discussions">GitHub Discussions</a>.</p>
+
+<h2>Profundizar</h2>
+<p>Esta página es la versión corta.</p>
+<ul>
+  <li><a href="spec/guide.html">Guía completa de OCF</a>: detalles del schema, reflexiones, visibilidad, procedencia, curación, exportadores y no-objetivos</li>
+  <li><a href="spec/examples/worked-example-walkthrough.es.html">Ejemplo trabajado</a></li>
+  <li><a href="spec/usage-patterns.html">Patrones de uso y roles de archivo</a></li>
+  <li><a href="spec/language-and-translation.html">Guía de idioma y traducción</a></li>
+  <li><a href="schema.json">Schema actual</a> y <a href="schema-core.json">forma starter/core para autoría</a></li>
+  <li><a href="prompts/README.md">Índice de prompts</a>: <a href="prompts/application-bootstrap.es.md">bootstrap de aplicación en español</a>, <a href="prompts/application-bootstrap.md">bootstrap canónico</a>, <a href="prompts/authoring.md">authoring</a>, <a href="prompts/curation.md">curation</a>, <a href="prompts/coaching.md">coaching</a></li>
+  <li><a href="spec/implementer-quick-reference.html">Referencia rápida para implementadores</a></li>
+  <li><a href="llms.txt">Mapa del sitio para LLMs/herramientas</a></li>
+</ul>
+
+<p class="translation-note">Traducción española no canónica. Fuente canónica: <a href="/">index.html</a>, commit <code>f3d01f2</code>, traducido el 2026-06-15. Si hay conflicto, controla el inglés.</p>
+
+<footer>
+  <p>Open Career Format (OCF) v0.3 — <a href="https://opencareerformat.org/">opencareerformat.org</a></p>
+  <p>Proyecto: <a href="https://github.com/opencareerformat/opencareerformat">github.com/opencareerformat/opencareerformat</a></p>
+  <p>Schema: <code>https://opencareerformat.org/schema.json</code></p>
+</footer>
+
+<script>
+  document.querySelectorAll(".copy-prompt").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const target = document.getElementById(button.dataset.copyTarget);
+      if (!target) return;
+      const originalText = button.textContent;
+      try {
+        await navigator.clipboard.writeText(target.textContent.trim());
+        button.textContent = "Copiado";
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1600);
+      } catch {
+        button.textContent = "Selecciona el texto";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
