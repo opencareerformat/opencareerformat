@@ -34,6 +34,7 @@ If documents conflict: the JSON Schema wins for file structure; the most specifi
 - Curation guidance: https://opencareerformat.org/prompts/curation.md
 - Interview-prep questions: https://opencareerformat.org/prompts/interview-prep-questions.md
 - Usage patterns and file roles: https://opencareerformat.org/spec/usage-patterns.md
+- Language and translation guidance: https://opencareerformat.org/spec/language-and-translation.md
 - Worked example walkthrough: https://opencareerformat.org/spec/examples/worked-example-walkthrough.md
 - v0.3 planning notes: https://opencareerformat.org/spec/v0.3-planning.md
 - Local validator: https://github.com/opencareerformat/opencareerformat/tree/main/reference/validator

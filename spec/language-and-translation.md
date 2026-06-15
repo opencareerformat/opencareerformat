@@ -30,6 +30,7 @@ This excerpt uses the fictional Maria Reyes sample. It is not a complete transla
   "$schema": "https://opencareerformat.org/v0.3/schema.json",
   "schemaVersion": "0.3",
   "meta": {
+    "canonical": false,
     "language": "es-ES",
     "translatedFrom": "en-US",
     "source": {
