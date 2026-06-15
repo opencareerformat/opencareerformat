@@ -83,6 +83,23 @@
     margin-bottom: 0.25rem;
     letter-spacing: -0.02em;
   }
+  .language-switch {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .language-switch a {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .language-switch a:hover,
+  .language-switch a:focus {
+    text-decoration: underline;
+  }
   .brand-header {
     display: flex;
     align-items: center;
@@ -248,6 +265,13 @@
 </head>
 <body>
 
+<nav class="language-switch" aria-label="Language">
+  <span>Language:</span>
+  <a href="/" lang="en" hreflang="en" aria-current="page">English</a>
+  <span>|</span>
+  <a href="index.es.html" lang="es" hreflang="es">Español</a>
+</nav>
+
 <header class="brand-header">
   <img class="brand-mark" src="spec/assets/ocf-logo.png" alt="">
   <div class="brand-copy">
@@ -261,7 +285,6 @@
       <a href="spec/examples/worked-example-walkthrough.html">Example</a>
       <a href="llms.txt">For LLMs</a>
       <a href="https://github.com/opencareerformat/opencareerformat/issues/new/choose">Suggest a change</a>
-      <a href="index.es.html" lang="es" hreflang="es">Español</a>
     </nav>
   </div>
 </header>

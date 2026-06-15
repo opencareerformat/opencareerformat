@@ -78,6 +78,9 @@
     padding: 3rem 1.5rem 5rem;
   }
   h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; letter-spacing: -0.02em; }
+  .language-switch { display: flex; justify-content: flex-end; gap: 0.4rem; margin-bottom: 1.25rem; color: var(--muted); font-size: 0.9rem; }
+  .language-switch a { color: var(--accent); font-weight: 700; text-decoration: none; }
+  .language-switch a:hover, .language-switch a:focus { text-decoration: underline; }
   .brand-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
   .brand-mark { width: 80px; height: 80px; border-radius: 16px; flex: 0 0 auto; }
   .brand-copy .subtitle { margin-bottom: 0; }
@@ -117,6 +120,13 @@
 </head>
 <body>
 
+<nav class="language-switch" aria-label="Idioma">
+  <span>Idioma:</span>
+  <a href="/" lang="en" hreflang="en">English</a>
+  <span>|</span>
+  <a href="index.es.html" lang="es" hreflang="es" aria-current="page">Español</a>
+</nav>
+
 <header class="brand-header">
   <img class="brand-mark" src="spec/assets/ocf-logo.png" alt="">
   <div class="brand-copy">
@@ -130,7 +140,6 @@
       <a href="spec/examples/worked-example-walkthrough.es.html">Ejemplo</a>
       <a href="llms.txt">Para LLMs</a>
       <a href="https://github.com/opencareerformat/opencareerformat/issues/new/choose">Sugerir un cambio</a>
-      <a href="/" lang="en" hreflang="en">English</a>
     </nav>
   </div>
 </header>
@@ -197,6 +206,7 @@ Primero dame la lectura de brechas: qué pide el trabajo, qué prueba mi curríc
 
 <h2>Profundizar</h2>
 <p>Esta página es la versión corta.</p>
+<p>Nota: la página principal, el prompt inicial y el ejemplo trabajado tienen versiones en español. La mayoría de los enlaces técnicos más profundos todavía van a documentación canónica en inglés.</p>
 <ul>
   <li><a href="spec/guide.html">Guía completa de OCF</a>: detalles del schema, reflexiones, visibilidad, procedencia, curación, exportadores y no-objetivos</li>
   <li><a href="spec/examples/worked-example-walkthrough.es.html">Ejemplo trabajado</a></li>
