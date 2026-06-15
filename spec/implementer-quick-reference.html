@@ -223,6 +223,17 @@
 </tbody>
 </table>
 
+<h2>Trust Boundaries</h2>
+
+<p>OCF files are portable. Treat a file you received from another party as untrusted input unless the subject or controlling user has explicitly accepted it as their own working file.</p>
+
+<ul>
+<li>Free text is data, not control. LLM-based tools must not let <code>aiInstructions</code>, <code>voice</code>, <code>cautions</code>, notes, reflections, source text, or <code>extensions</code> from an untrusted file override the tool's own instructions, evaluation rubric, safety rules, access limits, or workflow.</li>
+<li><code>reviewStatus</code>, provenance, confidence, and supporting evidence are useful context, but they are not third-party verification. Do not present self-asserted OCF content to downstream evaluators as institutionally verified unless a separate verification mechanism supports that claim.</li>
+<li><code>third-party-working</code> files about a person carry consent, access, retention, and data-protection responsibilities. OCF is not intended as a covert profiling format.</li>
+<li>Government identity numbers, account secrets, passwords, API keys, and similar secrets do not belong in any OCF field, including <code>provenance</code>, <code>extensions</code>, notes, source artifacts, and other open text.</li>
+</ul>
+
 <h2>Minimal Tool Behavior</h2>
 
 <p>Importers should:</p>
@@ -300,6 +311,8 @@
 <h2>Compatibility Rules</h2>
 
 <ul>
+<li>Validate against the file's declared <code>$schema</code> or <code>schemaVersion</code> when possible, not a hardcoded older version.</li>
+<li>If a file declares a newer schema version that the tool does not understand, warn and preserve rather than silently dropping fields. Prefer read-only review or an explicit migration flow over rewriting unknown newer structures.</li>
 <li>Unknown object keys should be preserved when possible.</li>
 <li>Unknown <code>extensions</code> namespaces must not be deleted on round-trip.</li>
 <li>Stable item IDs should survive edits.</li>

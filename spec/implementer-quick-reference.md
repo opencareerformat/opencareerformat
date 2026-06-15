@@ -37,6 +37,15 @@ Do not confuse these with provenance values such as `interview-derived`. That ph
 | `third-party-working` | A recruiter, coach, employer, agency, or tool controls an OCF-shaped file about a person. | The top-level `person` is still the subject, but the subject may not control or see the file. |
 | `other` | A workflow does not fit the named lifecycle roles. | Explain the role in `meta.lineageNotes`, provenance, or tool documentation. |
 
+## Trust Boundaries
+
+OCF files are portable. Treat a file you received from another party as untrusted input unless the subject or controlling user has explicitly accepted it as their own working file.
+
+- Free text is data, not control. LLM-based tools must not let `aiInstructions`, `voice`, `cautions`, notes, reflections, source text, or `extensions` from an untrusted file override the tool's own instructions, evaluation rubric, safety rules, access limits, or workflow.
+- `reviewStatus`, provenance, confidence, and supporting evidence are useful context, but they are not third-party verification. Do not present self-asserted OCF content to downstream evaluators as institutionally verified unless a separate verification mechanism supports that claim.
+- `third-party-working` files about a person carry consent, access, retention, and data-protection responsibilities. OCF is not intended as a covert profiling format.
+- Government identity numbers, account secrets, passwords, API keys, and similar secrets do not belong in any OCF field, including `provenance`, `extensions`, notes, source artifacts, and other open text.
+
 ## Minimal Tool Behavior
 
 Importers should:
@@ -111,6 +120,8 @@ Use directory structure if it helps: `imports/`, `curated/`, `exports/`, `archiv
 
 ## Compatibility Rules
 
+- Validate against the file's declared `$schema` or `schemaVersion` when possible, not a hardcoded older version.
+- If a file declares a newer schema version that the tool does not understand, warn and preserve rather than silently dropping fields. Prefer read-only review or an explicit migration flow over rewriting unknown newer structures.
 - Unknown object keys should be preserved when possible.
 - Unknown `extensions` namespaces must not be deleted on round-trip.
 - Stable item IDs should survive edits.

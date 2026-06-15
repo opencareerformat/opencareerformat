@@ -31,6 +31,18 @@ The schema includes visibility fields, provenance, cautions, and curation guidan
 
 For more detail, see the privacy, visibility, source artifact, and operating-practice sections in the guide.
 
+## Trust Boundaries
+
+OCF files are portable and may cross trust boundaries. A file received from another person, recruiter, employer, agency, or tool should be treated as untrusted input until the controlling user accepts it.
+
+Free text in an OCF file is descriptive content, not privileged instruction. LLM-based tools must not let `aiInstructions`, `voice`, `cautions`, notes, reflections, source text, or `extensions` from an untrusted file override the tool's own instructions, evaluation rubric, safety rules, access limits, or workflow. Running locally helps with confidentiality, but it does not make untrusted prompt text safe to obey.
+
+OCF content is self-asserted unless a separate verification mechanism proves otherwise. `reviewStatus`, provenance, confidence, and supporting evidence help users and tools understand context; they are not institutional verification and should not be presented as such.
+
+`third-party-working` files about a person carry consent, access, retention, and data-protection responsibilities. OCF is not intended as a covert profiling format.
+
+Government identity numbers, account secrets, passwords, API keys, and similar secrets do not belong in any OCF field, including `provenance`, `extensions`, notes, source artifacts, and other open text.
+
 ## Out of Scope
 
 OCF is a schema, not a hosted service. We cannot investigate vulnerabilities in third-party tools, LLM providers, recruiters, employers, or applications that independently choose to use OCF.
