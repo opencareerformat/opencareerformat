@@ -544,6 +544,53 @@
 
 <p>The same fact is noise for one audience and mandatory for another. A resume can only hold one telling; the master holds both, and curation chooses. The file also records a caution against letting any draft imply Maria held leadership rank throughout her service: she was junior enlisted from 2010 to 2014, and anyone who served reads rank against time instantly. The progression must support the verb.</p>
 
+<p>The same audience inversion can apply at the person level. <code>person.headline</code> remains Maria's general-purpose headline, while <code>positioningVariants</code> records target-aware alternatives with supporting evidence:</p>
+
+<pre><code class="language-json">{
+  &quot;positioningVariants&quot;: [
+    {
+      &quot;id&quot;: &quot;maria-healthcare-security-headline&quot;,
+      &quot;kind&quot;: &quot;headline&quot;,
+      &quot;label&quot;: &quot;Healthcare security leadership headline&quot;,
+      &quot;headline&quot;: &quot;Healthcare cybersecurity leader protecting clinical continuity through incident response, compliance, and SOC maturity&quot;,
+      &quot;audiences&quot;: [
+        &quot;healthcare-security&quot;,
+        &quot;ciso-track&quot;,
+        &quot;security-leadership&quot;
+      ],
+      &quot;supportingItemIds&quot;: [
+        &quot;mhs-ransomware-2024&quot;,
+        &quot;mhs-soc-buildout&quot;
+      ],
+      &quot;evidenceSummary&quot;: &quot;Supported by Maria's ransomware recovery leadership and the Meridian SOC buildout.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;,
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
+    },
+    {
+      &quot;id&quot;: &quot;maria-federal-cyber-headline&quot;,
+      &quot;kind&quot;: &quot;headline&quot;,
+      &quot;label&quot;: &quot;Federal / defense cyber headline&quot;,
+      &quot;headline&quot;: &quot;Former Army Staff Sergeant (17C) and cybersecurity leader with enterprise incident response and SOC buildout experience&quot;,
+      &quot;audiences&quot;: [
+        &quot;federal&quot;,
+        &quot;defense&quot;,
+        &quot;cleared-cyber&quot;,
+        &quot;military-transition&quot;
+      ],
+      &quot;supportingItemIds&quot;: [
+        &quot;army-rank-progression&quot;,
+        &quot;army-cyber-leadership&quot;,
+        &quot;mhs-ransomware-2024&quot;
+      ],
+      &quot;evidenceSummary&quot;: &quot;Supported by Maria's Army rank/MOS progression, Army cyber leadership, and later healthcare incident-response leadership.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;,
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
+    }
+  ]
+}</code></pre>
+
+<p>The headline changes, but the evidence does not. A curator can choose the healthcare version for a hospital CISO role and the federal version for a defense contractor without inventing new claims.</p>
+
 <h2>6. Export Produces Files</h2>
 
 <p>Once curation has selected the right material, whatever tool Maria uses can produce the files she needs, typically a resume and cover letter for the target role. Maria still needs to proofread and edit those documents carefully; once she sends them, she owns every word.</p>

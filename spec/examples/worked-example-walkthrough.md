@@ -365,6 +365,55 @@ Curation can also invert by audience, and the Army material shows the cleanest c
 
 The same fact is noise for one audience and mandatory for another. A resume can only hold one telling; the master holds both, and curation chooses. The file also records a caution against letting any draft imply Maria held leadership rank throughout her service: she was junior enlisted from 2010 to 2014, and anyone who served reads rank against time instantly. The progression must support the verb.
 
+The same audience inversion can apply at the person level. `person.headline` remains Maria's general-purpose headline, while `positioningVariants` records target-aware alternatives with supporting evidence:
+
+```json
+{
+  "positioningVariants": [
+    {
+      "id": "maria-healthcare-security-headline",
+      "kind": "headline",
+      "label": "Healthcare security leadership headline",
+      "headline": "Healthcare cybersecurity leader protecting clinical continuity through incident response, compliance, and SOC maturity",
+      "audiences": [
+        "healthcare-security",
+        "ciso-track",
+        "security-leadership"
+      ],
+      "supportingItemIds": [
+        "mhs-ransomware-2024",
+        "mhs-soc-buildout"
+      ],
+      "evidenceSummary": "Supported by Maria's ransomware recovery leadership and the Meridian SOC buildout.",
+      "visibility": "shared",
+      "reviewStatus": "user-confirmed"
+    },
+    {
+      "id": "maria-federal-cyber-headline",
+      "kind": "headline",
+      "label": "Federal / defense cyber headline",
+      "headline": "Former Army Staff Sergeant (17C) and cybersecurity leader with enterprise incident response and SOC buildout experience",
+      "audiences": [
+        "federal",
+        "defense",
+        "cleared-cyber",
+        "military-transition"
+      ],
+      "supportingItemIds": [
+        "army-rank-progression",
+        "army-cyber-leadership",
+        "mhs-ransomware-2024"
+      ],
+      "evidenceSummary": "Supported by Maria's Army rank/MOS progression, Army cyber leadership, and later healthcare incident-response leadership.",
+      "visibility": "shared",
+      "reviewStatus": "user-confirmed"
+    }
+  ]
+}
+```
+
+The headline changes, but the evidence does not. A curator can choose the healthcare version for a hospital CISO role and the federal version for a defense contractor without inventing new claims.
+
 ## 6. Export Produces Files
 
 Once curation has selected the right material, whatever tool Maria uses can produce the files she needs, typically a resume and cover letter for the target role.

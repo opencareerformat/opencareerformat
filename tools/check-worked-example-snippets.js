@@ -13,6 +13,7 @@ const position = sample.experience
 const achievement = position.achievements.find((item) => item.id === "mhs-ransomware-2024");
 const story = position.reflections.find((item) => item.kind === "never-on-resume-story");
 const talkingPoint = sample.talkingPoints.find((item) => item.id === "authority-from-demonstrated-work");
+const positioningVariants = sample.positioningVariants;
 const caution = sample.cautions.find((item) => item.claim === "claimed as an AI / ML security specialist");
 const army = sample.experience.find((entry) => entry.name === "United States Army");
 const armyCyberPosition = army.positions.find((item) => item.occupationalCode?.code === "17C");
@@ -101,6 +102,21 @@ for (const key of ["source", "operation"]) {
     talkingPoint.provenance[key],
     `talking point provenance ${key} drifted`,
   );
+}
+
+const positioningSnippet = jsonBlocks.find((block) => Array.isArray(block.positioningVariants));
+assert(positioningSnippet, "missing positioning variants snippet");
+assertEqual(
+  positioningSnippet.positioningVariants.length,
+  positioningVariants.length,
+  "positioning variants snippet length drifted",
+);
+for (const variant of positioningSnippet.positioningVariants) {
+  const actual = positioningVariants.find((item) => item.id === variant.id);
+  assert(actual, `missing actual positioning variant ${variant.id}`);
+  for (const key of Object.keys(variant)) {
+    assertEqual(variant[key], actual[key], `positioning variant ${variant.id}.${key} drifted`);
+  }
 }
 
 console.log("worked example snippets: PASS");

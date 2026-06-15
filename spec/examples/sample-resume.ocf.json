@@ -805,6 +805,7 @@
           "summary": "Led a 6-person cyber operations team conducting defensive cyber operations and vulnerability assessments for Army networks.",
           "achievements": [
             {
+              "id": "army-cyber-leadership",
               "statement": "Led defensive cyber operations team protecting 15,000-node enterprise network, maintaining zero successful intrusions during 18-month tenure",
               "kind": "responsibility",
               "metrics": [
@@ -1506,6 +1507,58 @@
       "rawIncluded": false,
       "notes": "Fictional LLM-assisted review conversation that expanded a compressed ransomware bullet point into structured facts, private reflections, narrative variants, cautions, and open questions.",
       "visibility": "private"
+    }
+  ],
+  "positioningVariants": [
+    {
+      "id": "maria-healthcare-security-headline",
+      "kind": "headline",
+      "label": "Healthcare security leadership headline",
+      "headline": "Healthcare cybersecurity leader protecting clinical continuity through incident response, compliance, and SOC maturity",
+      "audiences": [
+        "healthcare-security",
+        "ciso-track",
+        "security-leadership"
+      ],
+      "supportingItemIds": [
+        "mhs-ransomware-2024",
+        "mhs-soc-buildout"
+      ],
+      "evidenceSummary": "Supported by Maria's ransomware recovery leadership and the Meridian SOC buildout.",
+      "visibility": "shared",
+      "provenance": {
+        "source": "curated",
+        "date": "2026-06-15",
+        "operation": "assembled-target-aware-headline",
+        "note": "Created as a target-aware alternative to the default person.headline for healthcare cybersecurity leadership roles."
+      },
+      "reviewStatus": "user-confirmed"
+    },
+    {
+      "id": "maria-federal-cyber-headline",
+      "kind": "headline",
+      "label": "Federal / defense cyber headline",
+      "headline": "Former Army Staff Sergeant (17C) and cybersecurity leader with enterprise incident response and SOC buildout experience",
+      "audiences": [
+        "federal",
+        "defense",
+        "cleared-cyber",
+        "military-transition"
+      ],
+      "supportingItemIds": [
+        "army-rank-progression",
+        "army-cyber-leadership",
+        "mhs-ransomware-2024"
+      ],
+      "evidenceSummary": "Supported by Maria's Army rank/MOS progression, Army cyber leadership, and later healthcare incident-response leadership.",
+      "visibility": "shared",
+      "provenance": {
+        "source": "curated",
+        "date": "2026-06-15",
+        "operation": "assembled-target-aware-headline",
+        "note": "Created to show audience inversion: federal and defense audiences expect rank and MOS that healthcare audiences may not need."
+      },
+      "reviewStatus": "user-confirmed"
     }
   ],
   "talkingPoints": [

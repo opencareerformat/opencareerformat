@@ -47,6 +47,7 @@ The dates are illustrative, but the pattern is intentional: an OCF can start fro
 - `openQuestions` keeps useful follow-up work alive across sessions.
 - `reflections` can preserve a raw story in the subject's own words before any tool turns it into resume language.
 - `talkingPoints` demonstrates how a confirmed through-line can become reusable career memory without flattening the original story.
+- `positioningVariants` demonstrates target-aware headlines that cite the evidence making each positioning defensible.
 - `attribution` prompts cleaner distinctions between owned, led, drove, contributed to, and delegated work.
 
 The example is not meant to be the only way to write an OCF. It is meant to show why a master career file can be more useful than a resume alone.
