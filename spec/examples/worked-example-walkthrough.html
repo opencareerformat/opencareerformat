@@ -178,6 +178,8 @@
 <p class="doc-meta">Readable HTML version. <a href="./worked-example-walkthrough.md">View the Markdown source</a>.</p>
 <h1>Worked Example Walkthrough</h1>
 
+<p>The details behind a resume bullet point fade fast — usually right when you next need them. This walkthrough takes one bullet point, a hospital ransomware response, and recovers the career memory behind it.</p>
+
 <p>This walkthrough explains the lifecycle behind the fictional Maria E. Reyes example files. It is not a new schema requirement; it is a concrete way to read the examples as a small OCF workflow.</p>
 
 <p>Files:</p>
@@ -208,15 +210,15 @@
 
 <p>At this point the file is best understood as an <code>imported-starter</code>, even if the example file later shows the richer candidate-master shape.</p>
 
-<h2>2. Intake Turns Bullets Into Career Memory</h2>
+<h2>2. Intake Turns Bullet Points Into Career Memory</h2>
 
-<p>The source resume contains one compressed public bullet:</p>
+<p>The source resume contains one compressed public bullet point:</p>
 
 <pre><code class="language-text">- Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.</code></pre>
 
-<p>Loaded into a frontier model with OCF guidance, that bullet is first captured as source material. The model should not treat it as complete truth or rewrite it immediately. It should ask what the bullet means: what Maria personally did, what evidence supported the decision, which metrics are safe to use, what should stay private, and what future tools should avoid overstating.</p>
+<p>Loaded into a frontier model with OCF guidance, that bullet point is first captured as source material. The model should not treat it as complete truth or rewrite it immediately. It should ask what the bullet point means: what Maria personally did, what evidence supported the decision, which metrics are safe to use, what should stay private, and what future tools should avoid overstating.</p>
 
-<p>An OCF-oriented intake pass does more than rewrite resume bullets. It asks whether each bullet should become:</p>
+<p>An OCF-oriented intake pass does more than rewrite resume bullet points. It asks whether each bullet point should become:</p>
 
 <ul>
 <li>a canonical achievement;</li>
@@ -258,7 +260,7 @@
 
 <p>The same achievement also carries longer private context, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.</p>
 
-<p>The follow-up interview also changes the surrounding memory. Maria's explanation adds skills that were only implied by the bullet, creates reusable wording for different audiences, and records a caution from an overreaching draft:</p>
+<p>The follow-up interview also changes the surrounding memory. Maria's explanation adds skills that were only implied by the bullet point, creates reusable wording for different audiences, and records a caution from an overreaching draft:</p>
 
 <pre><code class="language-json">{
   &quot;skills&quot;: [
@@ -271,7 +273,7 @@
   &quot;narrativeVariants&quot;: [
     {
       &quot;id&quot;: &quot;mhs-ransomware-public-resume&quot;,
-      &quot;label&quot;: &quot;Public resume bullet&quot;,
+      &quot;label&quot;: &quot;Public resume bullet point&quot;,
       &quot;statement&quot;: &quot;Led ransomware response that restored critical clinical systems from offline backups within 41 hours with no patient-care impact.&quot;,
       &quot;visibility&quot;: &quot;public&quot;
     },
@@ -348,7 +350,7 @@
 
 <h3>Stories Improve Career Memory</h3>
 
-<p>A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.</p>
+<p>A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet point immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.</p>
 
 <p>In the Maria example, the military-to-civilian leadership gap is a good place to do this. The general heuristic is: look for the seam the resume crosses silently. Maria's resume proves Army cyber leadership and later healthcare security leadership, but it does not explain how she translated authority across those worlds.</p>
 
@@ -560,7 +562,7 @@
 <li>a correction becomes a <code>caution</code>;</li>
 <li>a missing metric becomes an <code>openQuestions</code> item;</li>
 <li>a new story becomes a private reflection;</li>
-<li>a polished audience-specific bullet becomes a <code>narrativeVariant</code>;</li>
+<li>a polished audience-specific bullet point becomes a <code>narrativeVariant</code>;</li>
 <li>a confirmed claim becomes a canonical achievement update.</li>
 </ul>
 
@@ -572,7 +574,7 @@
 
 <blockquote><p><strong>Maria:</strong> I am applying for a VP Security role. Use my OCF and help me prepare for the interview.</p>
 
-<p><strong>LLM:</strong> Your resume alone would show SOC buildout and ransomware response. Your OCF adds a useful leadership pattern: you rebuild authority from demonstrated work rather than inherited position. For a VP interview, I would use that carefully as a military-to-civilian leadership answer, not as a resume bullet.</p>
+<p><strong>LLM:</strong> Your resume alone would show SOC buildout and ransomware response. Your OCF adds a useful leadership pattern: you rebuild authority from demonstrated work rather than inherited position. For a VP interview, I would use that carefully as a military-to-civilian leadership answer, not as a resume bullet point.</p>
 
 <p><strong>LLM draft answer:</strong> &quot;The biggest adjustment after the Army was learning that civilian authority starts from evidence, not rank. At Meridian, I learned that the hard way when a weekend coverage request got a flat no. I took the worst rotations first, wrote clean handoffs, and let the team see the standard before I asked them to share it. That became part of how we built 24/7 SOC coverage: not just a staffing plan, but a credibility plan.&quot;</p></blockquote>
 

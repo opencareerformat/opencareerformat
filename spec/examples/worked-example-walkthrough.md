@@ -1,5 +1,7 @@
 # Worked Example Walkthrough
 
+The details behind a resume bullet point fade fast — usually right when you next need them. This walkthrough takes one bullet point, a hospital ransomware response, and recovers the career memory behind it.
+
 This walkthrough explains the lifecycle behind the fictional Maria E. Reyes example files. It is not a new schema requirement; it is a concrete way to read the examples as a small OCF workflow.
 
 Files:
@@ -25,17 +27,17 @@ The importer or LLM should:
 
 At this point the file is best understood as an `imported-starter`, even if the example file later shows the richer candidate-master shape.
 
-## 2. Intake Turns Bullets Into Career Memory
+## 2. Intake Turns Bullet Points Into Career Memory
 
-The source resume contains one compressed public bullet:
+The source resume contains one compressed public bullet point:
 
 ```text
 - Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.
 ```
 
-Loaded into a frontier model with OCF guidance, that bullet is first captured as source material. The model should not treat it as complete truth or rewrite it immediately. It should ask what the bullet means: what Maria personally did, what evidence supported the decision, which metrics are safe to use, what should stay private, and what future tools should avoid overstating.
+Loaded into a frontier model with OCF guidance, that bullet point is first captured as source material. The model should not treat it as complete truth or rewrite it immediately. It should ask what the bullet point means: what Maria personally did, what evidence supported the decision, which metrics are safe to use, what should stay private, and what future tools should avoid overstating.
 
-An OCF-oriented intake pass does more than rewrite resume bullets. It asks whether each bullet should become:
+An OCF-oriented intake pass does more than rewrite resume bullet points. It asks whether each bullet point should become:
 
 - a canonical achievement;
 - structured metrics;
@@ -75,7 +77,7 @@ In the OCF, that becomes a richer achievement. The public claim is still there, 
 
 The same achievement also carries longer private context, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.
 
-The follow-up interview also changes the surrounding memory. Maria's explanation adds skills that were only implied by the bullet, creates reusable wording for different audiences, and records a caution from an overreaching draft:
+The follow-up interview also changes the surrounding memory. Maria's explanation adds skills that were only implied by the bullet point, creates reusable wording for different audiences, and records a caution from an overreaching draft:
 
 ```json
 {
@@ -89,7 +91,7 @@ The follow-up interview also changes the surrounding memory. Maria's explanation
   "narrativeVariants": [
     {
       "id": "mhs-ransomware-public-resume",
-      "label": "Public resume bullet",
+      "label": "Public resume bullet point",
       "statement": "Led ransomware response that restored critical clinical systems from offline backups within 41 hours with no patient-care impact.",
       "visibility": "public"
     },
@@ -171,7 +173,7 @@ Whether the steps appear in any output is a separate decision. A civilian resume
 
 ### Stories Improve Career Memory
 
-A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.
+A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet point immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.
 
 In the Maria example, the military-to-civilian leadership gap is a good place to do this. The general heuristic is: look for the seam the resume crosses silently. Maria's resume proves Army cyber leadership and later healthcare security leadership, but it does not explain how she translated authority across those worlds.
 
@@ -381,7 +383,7 @@ Examples:
 - a correction becomes a `caution`;
 - a missing metric becomes an `openQuestions` item;
 - a new story becomes a private reflection;
-- a polished audience-specific bullet becomes a `narrativeVariant`;
+- a polished audience-specific bullet point becomes a `narrativeVariant`;
 - a confirmed claim becomes a canonical achievement update.
 
 That feedback loop is why OCF gets more useful after each session.
@@ -392,7 +394,7 @@ Six months later, Maria can bring the OCF to a different conversation:
 
 > **Maria:** I am applying for a VP Security role. Use my OCF and help me prepare for the interview.
 >
-> **LLM:** Your resume alone would show SOC buildout and ransomware response. Your OCF adds a useful leadership pattern: you rebuild authority from demonstrated work rather than inherited position. For a VP interview, I would use that carefully as a military-to-civilian leadership answer, not as a resume bullet.
+> **LLM:** Your resume alone would show SOC buildout and ransomware response. Your OCF adds a useful leadership pattern: you rebuild authority from demonstrated work rather than inherited position. For a VP interview, I would use that carefully as a military-to-civilian leadership answer, not as a resume bullet point.
 >
 > **LLM draft answer:** "The biggest adjustment after the Army was learning that civilian authority starts from evidence, not rank. At Meridian, I learned that the hard way when a weekend coverage request got a flat no. I took the worst rotations first, wrote clean handoffs, and let the team see the standard before I asked them to share it. That became part of how we built 24/7 SOC coverage: not just a staffing plan, but a credibility plan."
 

@@ -486,13 +486,13 @@
                 "date": "2026-05-21",
                 "sessionTopic": "Tailoring resume for CISO-track role",
                 "confidence": 0.9,
-                "note": "Mined through targeted probing during a conversation about a CISO-track role posting. The original resume bullet under this position read 'Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.' The conversation surfaced the specific judgment call, the forensic basis, and the lessons. The longform deliberately captures both what went right and the counterfactual (it could have gone wrong), which interview prep needs but a resume does not.",
+                "note": "Mined through targeted probing during a conversation about a CISO-track role posting. The original resume bullet point under this position read 'Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.' The conversation surfaced the specific judgment call, the forensic basis, and the lessons. The longform deliberately captures both what went right and the counterfactual (it could have gone wrong), which interview prep needs but a resume does not.",
                 "sourceArtifactId": "ciso-track-refinement-2026-05-21"
               },
               "narrativeVariants": [
                 {
                   "id": "mhs-ransomware-public-resume",
-                  "label": "Public resume bullet",
+                  "label": "Public resume bullet point",
                   "audiences": [
                     "resume",
                     "public-profile",
@@ -1523,7 +1523,7 @@
       ],
       "sourceTool": "Recommended OCF LLM prompt",
       "rawIncluded": false,
-      "notes": "Fictional LLM-assisted review conversation that expanded a compressed ransomware bullet into structured facts, private reflections, narrative variants, cautions, and open questions.",
+      "notes": "Fictional LLM-assisted review conversation that expanded a compressed ransomware bullet point into structured facts, private reflections, narrative variants, cautions, and open questions.",
       "visibility": "private"
     }
   ]
