@@ -2,6 +2,8 @@
 
 > Traducción española no canónica. Fuente canónica: [`worked-example-walkthrough.md`](worked-example-walkthrough.md), commit `f3d01f2`, traducido el 2026-06-15. Si hay conflicto, controla el inglés.
 
+> Nota: este ejemplo está traducido al español, pero varios archivos enlazados son fuentes, schemas o documentación canónica en inglés.
+
 [English](worked-example-walkthrough.md) | [Español](worked-example-walkthrough.es.md)
 
 Los detalles detrás de un bullet de currículum se desvanecen rápido, normalmente justo cuando vuelves a necesitarlos. Este recorrido toma un bullet, una respuesta a ransomware en un hospital, y recupera la memoria profesional que había detrás.

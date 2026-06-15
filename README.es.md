@@ -8,6 +8,8 @@
 
 > Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `f3d01f2`, traducido el 2026-06-15. Si hay conflicto, controla el inglés.
 
+> Nota: este README, la página principal, el prompt inicial y el ejemplo trabajado tienen versiones en español. La mayoría de los enlaces técnicos más profundos todavía van a documentación canónica en inglés.
+
 OCF es un formato de archivo abierto y portable para preservar historia profesional y curarla para currículums, cartas de presentación, perfiles públicos y exportaciones a otros sistemas.
 
 > **¿Estás buscando trabajo?** No necesitas este repositorio. Empieza en <https://opencareerformat.org/index.es.html>: copia un prompt, adjunta tu currículum y la descripción del puesto, y trabaja desde allí.

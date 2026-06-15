@@ -17,6 +17,8 @@ Usa este wrapper cuando la persona quiera trabajar en español. Este documento n
 
 https://opencareerformat.org/prompts/application-bootstrap.md
 
+Nota: este wrapper está en español, pero el prompt canónico, el schema y varias guías enlazadas siguen en inglés. Mantén los nombres de campos, enums, URLs de schema y JSON en su forma canónica.
+
 Después, conduce la conversación en español.
 
 ## Reglas de localización
