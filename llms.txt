@@ -28,6 +28,7 @@ If documents conflict: the JSON Schema wins for file structure; the most specifi
 - Implementer quick reference: https://opencareerformat.org/spec/implementer-quick-reference.md
 - Prompts index: https://opencareerformat.org/prompts/README.md
 - Application bootstrap prompt: https://opencareerformat.org/prompts/application-bootstrap.md
+- Spanish application bootstrap wrapper example: https://opencareerformat.org/prompts/application-bootstrap.es.md
 - Authoring prompt: https://opencareerformat.org/prompts/authoring.md
 - Coaching prompt: https://opencareerformat.org/prompts/coaching.md
 - Recommended LLM guidance: https://opencareerformat.org/prompts/llm-operating.md

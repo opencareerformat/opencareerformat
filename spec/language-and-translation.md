@@ -69,3 +69,5 @@ When a source update affects translated presentation, tools should mark the tran
 Translated documentation should name its English source, source version or commit when known, and translation date. If the English source changes materially, the translation should be marked stale or regenerated before users rely on it.
 
 Localized bootstrap prompts should be wrappers around the canonical English prompt. They should tell the LLM to speak to the user in the target language while keeping OCF schema keys, enum values, JSON snippets, and validation behavior canonical.
+
+The Spanish application bootstrap wrapper is an example of this pattern: [`prompts/application-bootstrap.es.md`](../prompts/application-bootstrap.es.md).

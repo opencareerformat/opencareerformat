@@ -19,6 +19,7 @@ If a prompt and the schema seem to disagree, the schema wins for file structure.
 ## Current Prompts
 
 - [`application-bootstrap.md`](application-bootstrap.md): single-fetch first-session prompt for resume-plus-job-description application help.
+- [`application-bootstrap.es.md`](application-bootstrap.es.md): Spanish wrapper example for the application bootstrap; the English bootstrap remains canonical.
 - [`authoring.md`](authoring.md): create or update an OCF from resumes, notes, conversations, or other source artifacts.
 - [`curation.md`](curation.md): select, question, rank, improve, and prepare content for a target or export.
 - [`coaching.md`](coaching.md): help a user discover story, voice, goals, boundaries, and reflection from their OCF.
