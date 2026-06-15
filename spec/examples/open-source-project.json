@@ -1,6 +1,6 @@
 {
-  "$schema": "https://opencareerformat.org/v0.2/schema.json",
-  "schemaVersion": "0.2",
+  "$schema": "https://opencareerformat.org/v0.3/schema.json",
+  "schemaVersion": "0.3",
   "meta": {
     "canonical": true,
     "fileRole": "candidate-master",
@@ -35,8 +35,8 @@
       "description": "Created and maintain an open schema for preserving private career history and preparing purpose-specific career artifacts.",
       "achievements": [
         {
-          "id": "ocf-v02-release",
-          "statement": "Designed and published Open Career Format v0.2, including the JSON schema, examples, LLM authoring guidance, reference importers, curators, exporters, and GitHub Pages documentation.",
+          "id": "ocf-v03-release",
+          "statement": "Designed and published Open Career Format v0.3, including the JSON schema, examples, LLM authoring guidance, reference importers, curators, exporters, and GitHub Pages documentation.",
           "kind": "accomplishment",
           "skills": [
             "Schema Design",

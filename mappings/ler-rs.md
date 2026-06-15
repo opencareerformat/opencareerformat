@@ -22,14 +22,14 @@ OCF alone should not claim cryptographic verification. If a credential is merely
 
 ## Credential Verification
 
-OCF v0.2 can carry:
+OCF can carry:
 
 - `certifications[].credentialId`
 - `certifications[].url`
 - structured `issuer` with optional `identifier`
 - vendor-specific verification metadata under `extensions`
 
-OCF v0.2 does not define a canonical embedded verifiable credential payload. An LER-RS exporter may enrich OCF data with external wallet or badge evidence. That enrichment should be recorded in exporter provenance or extensions rather than silently changing the master OCF.
+OCF does not define a canonical embedded verifiable credential payload. An LER-RS exporter may enrich OCF data with external wallet or badge evidence. That enrichment should be recorded in exporter provenance or extensions rather than silently changing the master OCF.
 
 ## Skills and Taxonomies
 

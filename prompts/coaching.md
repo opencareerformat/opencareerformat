@@ -3,7 +3,7 @@ ocfPrompt: coaching
 status: current
 lastUpdated: 2026-05-26
 compatibleSchemaVersions:
-  - "0.2"
+  - "0.3"
 defaultFor:
   - story-discovery
   - voice-calibration
@@ -152,7 +152,7 @@ At the end of a substantive coaching conversation, propose updates:
 
 - `reflections` for raw private memory;
 - `achievements` for distilled defensible claims;
-- `talkingPoints` or `extensions.user.local.talkingPoints` for cross-role narratives;
+- `talkingPoints` for cross-role narratives;
 - `voice` or `extensions.user.local.writingVoiceProfile` for writing preferences, samples, and anti-patterns;
 - `goals` for target roles, constraints, and preferences;
 - `cautions` for overclaims, bad framings, or writing anti-patterns to avoid;

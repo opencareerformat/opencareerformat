@@ -34,7 +34,7 @@ ocfPrompt: authoring
 status: current
 lastUpdated: 2026-05-26
 compatibleSchemaVersions:
-  - "0.2"
+  - "0.3"
 defaultFor:
   - first-time-ocf-creation
 ```

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://opencareerformat.org/schema-core.json",
   "title": "Open Career Format Starter/Core Authoring Shape",
-  "description": "A small LLM-friendly entry point for creating a starter OCF. This is not a replacement for the full OCF schema. Use https://opencareerformat.org/schema.json for canonical validation. The overlapping fields named here are intended to use the same names and shapes as the full schema. Use this core shape when converting a resume, LinkedIn export, notes, or a job-search conversation into a useful first OCF file, usually a candidate-owned master or imported starter.",
+  "description": "A small LLM-friendly entry point for creating or reviewing a starter OCF. This is not a replacement for the full OCF schema. Use https://opencareerformat.org/schema.json for canonical validation. The overlapping fields named here use the same names and compatible shapes as the full schema. Use this core shape when converting a resume, LinkedIn export, notes, or a job-search conversation into a useful first OCF file. If you need fields not represented here, read the full schema instead of inventing core-only aliases.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -16,12 +16,12 @@
     },
     "schemaVersion": {
       "type": "string",
-      "const": "0.2",
-      "description": "The OCF schema version used by the file, for example 0.2."
+      "const": "0.3",
+      "description": "The OCF schema version used by the file, for example 0.3."
     },
     "meta": {
       "type": "object",
-      "description": "Basic file metadata. Starter files should set fileRole and lastModified when known. A candidate-owned master usually sets canonical=true, fileRole=candidate-master, and variant=master. A first-pass import that still needs user review may use fileRole=imported-starter.",
+      "description": "Basic file metadata. Starter files should set fileRole and lastModified when known. A candidate-owned master usually sets canonical=true, fileRole=candidate-master, and variant=master. Imported or converted source material should use source.kind and reviewStatus/provenance on items rather than a separate provisional file role.",
       "properties": {
         "canonical": {
           "type": "boolean"
@@ -31,7 +31,6 @@
           "enum": [
             "candidate-master",
             "candidate-curated",
-            "imported-starter",
             "third-party-working",
             "export-ready",
             "other"
@@ -68,14 +67,26 @@
               "type": "string",
               "enum": [
                 "authored",
-                "derived",
                 "imported",
+                "converted",
                 "merged",
                 "translated"
               ]
             }
           },
           "additionalProperties": false
+        },
+        "parentFileId": {
+          "type": "string",
+          "description": "The meta.id of the OCF file this file was prepared from. Use this for candidate-curated, export-ready, converted, translated, or other child files. The parent remains the source of truth for facts unless this file is explicitly accepted as a replacement master."
+        },
+        "parentVersion": {
+          "type": "string",
+          "description": "The parent file's meta.version at the time this child file was created. Compare against the current parent meta.version to decide whether this file may be stale."
+        },
+        "lineageNotes": {
+          "type": "string",
+          "description": "Freeform notes about how this file was prepared from its parent: target role, audience, filtering choices, translation context, source conversion details, private material removed, or other curation/export decisions."
         }
       },
       "additionalProperties": false
@@ -171,13 +182,54 @@
             },
             "additionalProperties": false
           }
+        },
+        "workAuthorization": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "country": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "description": "e.g. citizen, permanent-resident, visa-required"
+              },
+              "id": {
+                "type": "string",
+                "description": "Stable local ID for this work authorization statement. Optional unless another item references it; if present, future editors must preserve it."
+              },
+              "renderAs": {
+                "type": "string",
+                "description": "Resume-facing display wording, e.g. Authorized to work in the US; no sponsorship required."
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibilityPrivate"
+              },
+              "reviewStatus": {
+                "$ref": "#/$defs/reviewStatus"
+              },
+              "reviewNote": {
+                "type": "string",
+                "description": "Short note explaining review status, correction, or remaining concern."
+              },
+              "reviewedBy": {
+                "type": "string",
+                "description": "Person or tool that last set or confirmed reviewStatus."
+              },
+              "reviewedDate": {
+                "$ref": "#/$defs/partialDate"
+              }
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false
     },
     "sourceArtifacts": {
       "type": "array",
-      "description": "Old resumes, LinkedIn exports, pasted notes, screenshots, photos, job descriptions, or conversations used as source material. In OCF v0.2, job descriptions usually use kind other or manual-note because job-description is not yet an enum value.",
+      "description": "Old resumes, LinkedIn exports, pasted notes, screenshots, photos, videos, job descriptions, or conversations used as source material.",
       "items": {
         "type": "object",
         "required": [
@@ -397,6 +449,20 @@
     },
     "extensions": {
       "$ref": "#/$defs/extensions"
+    },
+    "positioningVariants": {
+      "type": "array",
+      "description": "Target-aware positioning statements that span the career. In v0.3 this is constrained to headline variants; future versions may allow other positioning surfaces. These are not canonical facts by themselves; they are reusable presentation choices with provenance and review state.",
+      "items": {
+        "$ref": "#/$defs/positioningVariant"
+      }
+    },
+    "talkingPoints": {
+      "type": "array",
+      "description": "Reusable cross-career patterns, interview themes, or positioning hypotheses that tools can cite when drafting resumes, cover letters, interviews, and coaching material. Talking points should be earned from evidence in the file, not manufactured as flattery.",
+      "items": {
+        "$ref": "#/$defs/talkingPoint"
+      }
     }
   },
   "additionalProperties": false,
@@ -466,6 +532,7 @@
               "enum": [
                 "owned",
                 "led",
+                "co-led",
                 "drove",
                 "contributed-to",
                 "supported",
@@ -677,6 +744,171 @@
         "shared",
         "private"
       ]
+    },
+    "reviewStatus": {
+      "type": "string",
+      "enum": [
+        "unreviewed",
+        "needs-review",
+        "user-confirmed",
+        "do-not-use",
+        "superseded"
+      ],
+      "description": "Lightweight workflow state for durable user-facing or quoted content. unreviewed = captured but not checked by the user; needs-review = flagged for explicit review; user-confirmed = accepted by the user; do-not-use = retained only to prevent future reuse; superseded = replaced by newer wording or facts. This is not an institutional verification or proof tier."
+    },
+    "positioningVariant": {
+      "type": "object",
+      "required": [
+        "kind",
+        "headline"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable local ID for this positioning variant."
+        },
+        "kind": {
+          "type": "string",
+          "const": "headline",
+          "description": "v0.3 only standardizes headline positioning variants."
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-readable label, e.g. Healthcare CISO headline, Federal cyber leadership headline."
+        },
+        "headline": {
+          "type": "string",
+          "description": "Target-aware headline text."
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Audience tags this headline is useful for."
+        },
+        "targetRole": {
+          "type": "string"
+        },
+        "targetCompany": {
+          "type": "string"
+        },
+        "supportingItemIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Stable local IDs of OCF items that support this positioning."
+        },
+        "evidenceSummary": {
+          "type": "string",
+          "description": "Short explanation of why this positioning is earned."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "reviewStatus": {
+          "$ref": "#/$defs/reviewStatus"
+        },
+        "reviewNote": {
+          "type": "string",
+          "description": "Short note explaining review status, correction, or remaining concern."
+        },
+        "reviewedBy": {
+          "type": "string",
+          "description": "Person or tool that last set or confirmed reviewStatus."
+        },
+        "reviewedDate": {
+          "$ref": "#/$defs/partialDate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "talkingPoint": {
+      "type": "object",
+      "required": [
+        "statement"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable local ID for this talking point."
+        },
+        "label": {
+          "type": "string",
+          "description": "Short label for tools and editors."
+        },
+        "statement": {
+          "type": "string",
+          "description": "The reusable through-line or talking point."
+        },
+        "uses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Where this can be useful, e.g. interview, cover-letter, resume-summary, linkedin, coaching."
+        },
+        "supportingItemIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Stable local IDs of OCF items that support this talking point."
+        },
+        "supportingEvidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "description": "Descriptive evidence kind, e.g. reflection, achievement, sourceArtifact."
+              },
+              "id": {
+                "type": "string",
+                "description": "Stable local ID of the evidence item when available."
+              }
+            },
+            "additionalProperties": false
+          },
+          "description": "Fallback descriptive evidence pointers for supporting material that lacks an ID, or short human-readable evidence notes."
+        },
+        "evidenceSummary": {
+          "type": "string",
+          "description": "Short explanation of why this talking point is earned."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "reviewStatus": {
+          "$ref": "#/$defs/reviewStatus"
+        },
+        "reviewNote": {
+          "type": "string",
+          "description": "Short note explaining review status, correction, or remaining concern."
+        },
+        "reviewedBy": {
+          "type": "string",
+          "description": "Person or tool that last set or confirmed reviewStatus."
+        },
+        "reviewedDate": {
+          "$ref": "#/$defs/partialDate"
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

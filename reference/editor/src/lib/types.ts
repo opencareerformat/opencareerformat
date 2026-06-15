@@ -486,9 +486,9 @@ export interface Meta {
   targetRole?: string;
   targetCompany?: string;
   translatedFrom?: string;
-  derivedFrom?: string;
-  derivedFromVersion?: string;
-  derivationNotes?: string;
+  parentFileId?: string;
+  parentVersion?: string;
+  lineageNotes?: string;
   source?: {
     kind?: string;
     importer?: string;
@@ -520,7 +520,7 @@ export interface OCFDocument {
 
 export function createEmptyDocument(): OCFDocument {
   return {
-    schemaVersion: "0.2",
+    schemaVersion: "0.3",
     meta: {
       id: crypto.randomUUID(),
       canonical: true,

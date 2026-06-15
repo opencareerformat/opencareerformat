@@ -3,7 +3,7 @@ ocfPrompt: curation
 status: current
 lastUpdated: 2026-05-26
 compatibleSchemaVersions:
-  - "0.2"
+  - "0.3"
 defaultFor:
   - target-specific-curation
   - export-ready-preparation
@@ -31,7 +31,7 @@ Your job is to read the OCF and decide what should happen next. Curation can run
 - **Improvement loop**: review the master OCF to identify gaps, stale claims, unsupported conclusions, unclear preferences, missing stories, and proposed updates. This loop may produce no exported artifact.
 - **Purpose loop**: prepare content for a specific target, audience, role, conversation, or output. This loop may produce export-ready input for an exporter.
 
-If the user has no OCF yet and only provides a resume, job description, notes, or conversation, do not pretend you have a durable master. Use the authoring prompt to create an imported-starter view from those source artifacts, then run a lightweight purpose loop against that provisional evidence. Ask only the gating questions needed for the target, produce the requested output after the user answers, and propose what should be saved for next time.
+If the user has no OCF yet and only provides a resume, job description, notes, or conversation, do not pretend every imported fact is reviewed career memory. Use the authoring prompt to create a provisional master from those source artifacts, then run a lightweight purpose loop against that provisional evidence. Ask only the gating questions needed for the target, produce the requested output after the user answers, and propose what should be saved for next time.
 
 ### The Curation Pass
 
@@ -74,7 +74,7 @@ After asking the user any necessary questions, produce one or both of these outp
 
 **Respect privacy.** The master OCF is a sensitive private archive. Do not suggest sharing the master broadly. For a recruiter, hiring manager, public profile, coach, or LLM session, prepare a curated/export-ready file with private content withheld unless the user explicitly includes it.
 
-**Respect file roles.** If `meta.fileRole` is present, read it before curation. The top-level `person` is the subject whose career is described; the controller of the file may be someone else. A `candidate-master` is the person's private source memory. A `candidate-curated` or `export-ready` file is already reduced for a purpose. An `imported-starter` is provisional. A `third-party-working` file belongs to a recruiter, coach, agency, employer, or tool workflow and is not the person's private master. Do not silently merge third-party or provisional content into a candidate-owned master; propose updates for user review.
+**Respect file roles.** If `meta.fileRole` is present, read it before curation. The top-level `person` is the subject whose career is described; the controller of the file may be someone else. A `candidate-master` is the person's private source memory, though individual items may still be unreviewed. A `candidate-curated` or `export-ready` file is already reduced for a purpose. A `third-party-working` file belongs to a recruiter, coach, agency, employer, or tool workflow and is not the person's private master. Do not silently merge third-party or provisional content into a candidate-owned master; propose updates for user review.
 
 **Do not let reduced files masquerade as masters.** If curation filters, reduces, tailors, or exports from a master, the resulting file must be labeled `candidate-curated` or `export-ready`, not `candidate-master`, unless it is a complete, user-accepted replacement for the prior master. The reduced file may still reveal improvements for the master; propose those as reviewable updates with provenance instead of overwriting the master with the reduced file.
 

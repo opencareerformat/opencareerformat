@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF v0.4 Planning Notes — Open Career Format</title>
+<meta name="description" content="Early parking-lot notes for larger Open Career Format concepts deferred beyond v0.3.">
+<link rel="canonical" href="https://opencareerformat.org/spec/v0.4-planning.html">
+<link rel="icon" type="image/png" href="./assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF v0.4 Planning Notes">
+<meta property="og:description" content="Early parking-lot notes for larger Open Career Format concepts deferred beyond v0.3.">
+<meta property="og:url" content="https://opencareerformat.org/spec/v0.4-planning.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF v0.4 Planning Notes">
+<meta name="twitter:description" content="Early parking-lot notes for larger Open Career Format concepts deferred beyond v0.3.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF v0.4 Planning Notes",
+  "name": "OCF v0.4 Planning Notes",
+  "url": "https://opencareerformat.org/spec/v0.4-planning.html",
+  "description": "Early parking-lot notes for larger Open Career Format concepts deferred beyond v0.3.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="./assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./v0.4-planning.md">View the Markdown source</a>.</p>
+<h1>OCF v0.4 Planning Notes</h1>
+
+<p>These are early planning notes for ideas that should not pull v0.3 away from its core. They are not part of OCF v0.3 and should not be treated as implemented fields.</p>
+
+<p>The goal for v0.4 is to collect evidence for larger organizing concepts before standardizing them. v0.3 should make these experiments easier by adding stronger IDs, review status, cleaner lineage, and first-class talking points.</p>
+
+<h2>Candidate Direction: Career Tracks</h2>
+
+<p>Likely incubating namespace: <code>extensions.user.local.careerTracks</code>.</p>
+
+<p>Problem: a person may have several overlapping career tracks that are all real, useful, and audience-dependent. These are not always separate jobs or separate timelines. They may be different lenses over the same career evidence.</p>
+
+<p>Examples:</p>
+
+<ul>
+<li>working at a school, teaching at the same school, and studying there during overlapping dates;</li>
+<li>Army rank progression and MOS or duty assignment;</li>
+<li>clinical practice, academic medicine, and research;</li>
+<li>founder/operator work alongside advisory or board work;</li>
+<li>W-2 employment alongside consulting or a small business;</li>
+<li>artist or performer work alongside teaching, production, or administration;</li>
+<li>internal company level progression alongside actual role or scope changes.</li>
+</ul>
+
+<p>These are not aberrations. OCF should not assume one clean career timeline, and tools should not collapse overlapping roles into one vague experience just because they share an institution or date range.</p>
+
+<p>Likely direction: tracks are top-level views over the whole OCF, not fields under <code>person</code> and not separate master files. A track may cite positions, achievements, education, certifications, memberships, governance, service, reflections, cautions, talking points, and source artifacts.</p>
+
+<p>Incubating shape:</p>
+
+<pre><code class="language-json">{
+  &quot;extensions&quot;: {
+    &quot;user.local&quot;: {
+      &quot;careerTracks&quot;: [
+        {
+          &quot;id&quot;: &quot;school-operations-track&quot;,
+          &quot;label&quot;: &quot;School operations&quot;,
+          &quot;description&quot;: &quot;Employment and operational work at the school.&quot;,
+          &quot;itemIds&quot;: [&quot;school-staff-role&quot;, &quot;student-support-achievement&quot;],
+          &quot;audiences&quot;: [&quot;school-operations&quot;, &quot;education-administration&quot;],
+          &quot;notes&quot;: &quot;Use when positioning the staff/operations side of the overlapping school history.&quot;
+        },
+        {
+          &quot;id&quot;: &quot;teaching-track&quot;,
+          &quot;label&quot;: &quot;Teaching and instruction&quot;,
+          &quot;description&quot;: &quot;Teaching, curriculum, and student-facing instructional work.&quot;,
+          &quot;itemIds&quot;: [&quot;adjunct-teaching-role&quot;, &quot;curriculum-design-achievement&quot;],
+          &quot;audiences&quot;: [&quot;teaching&quot;, &quot;instructional-design&quot;],
+          &quot;notes&quot;: &quot;Use when the teaching relationship matters more than the employment relationship.&quot;
+        },
+        {
+          &quot;id&quot;: &quot;education-track&quot;,
+          &quot;label&quot;: &quot;Graduate study&quot;,
+          &quot;description&quot;: &quot;The person's student relationship to the same institution.&quot;,
+          &quot;itemIds&quot;: [&quot;graduate-program&quot;, &quot;capstone-project&quot;],
+          &quot;audiences&quot;: [&quot;academic&quot;, &quot;credentialing&quot;],
+          &quot;notes&quot;: &quot;Use when the education path is the relevant lens.&quot;
+        }
+      ]
+    }
+  }
+}</code></pre>
+
+<p>Working rules for experiments:</p>
+
+<ul>
+<li>Tracks reference existing item IDs rather than duplicate facts.</li>
+<li>Tracks are views, not proof that the person has separate careers.</li>
+<li>Tracks may overlap freely; overlap is expected.</li>
+<li>Tracks do not replace <code>experience</code>, <code>education</code>, <code>certifications</code>, <code>achievements</code>, or <code>talkingPoints</code>.</li>
+<li>Tools should preserve track extensions on round-trip, but should not assume all OCF files contain them.</li>
+<li>If a track is useful in an output, the output still needs to cite or use the underlying items, not only the track label.</li>
+</ul>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>Is <code>itemIds</code> enough, or do tracks need typed refs such as <code>positionIds</code>, <code>achievementIds</code>, and <code>educationIds</code>?</li>
+<li>Should tracks have <code>visibility</code>, <code>reviewStatus</code>, and <code>provenance</code> if they influence outputs?</li>
+<li>Should tracks support date ranges, or should dates always come from the referenced items?</li>
+<li>How should tracks interact with top-level <code>talkingPoints</code> and target-aware positioning variants?</li>
+<li>Should tracks be ordered by importance, recency, audience, or not ordered at all?</li>
+</ul>
+
+<h2>Candidate Direction: Location Modeling</h2>
+
+<p>Location remains important but easy to overbuild. The next version should collect examples before standardizing a broad location model.</p>
+
+<p>Pressures to test:</p>
+
+<ul>
+<li>organization location is not the same as work location;</li>
+<li>work location is not the same as residence;</li>
+<li>public render text may intentionally differ from private structured location;</li>
+<li>application forms may request street address before the user wants to disclose it;</li>
+<li>remote, hybrid, consulting, military, travel-heavy, and relocation workflows all strain a single location field.</li>
+</ul>
+
+<p>v0.4 should consider whether OCF needs reusable location entries with <code>kind</code>, <code>renderAs</code>, structured city/region/country fields, date ranges, and visibility. Full street address should remain high-sensitivity and should require explicit user choice before inclusion in an output.</p>
+
+<h2>Candidate Direction: Richer Voice Calibration</h2>
+
+<p>OCF v0.3 should keep voice calibration mostly incubating. v0.4 may revisit whether to standardize richer voice provenance after more examples exist.</p>
+
+<p>Questions to answer before standardizing:</p>
+
+<ul>
+<li>How should tools distinguish subject-authored wording from LLM-suggested but subject-adopted wording?</li>
+<li>Should rejected or anti-pattern drafts be stored as source artifacts, private notes, or summarized calibration material?</li>
+<li>Can named writing patterns be useful across ordinary users, not only highly reflective users?</li>
+<li>How should voice samples link to the outputs they influenced?</li>
+</ul>
+
+<h2>Candidate Direction: Trust Review</h2>
+
+<p>OCF is not a proof system, and v0.3 should avoid formal verification tiers. v0.4 may revisit trust review only after examples show repeated needs beyond provenance, cautions, source artifacts, review status, and open questions.</p>
+
+<p>Possible future signals:</p>
+
+<ul>
+<li>document-supported;</li>
+<li>manager-attested;</li>
+<li>peer-reviewed;</li>
+<li>recruiter-reviewed;</li>
+<li>credential-issuer-verified;</li>
+<li>registry-checked with date and scope.</li>
+</ul>
+
+<p>Any future trust model should point to external evidence rules rather than mirror every registry, board, employer, school, or court system.</p>
+
+<h2>Deferred Or Separate Work</h2>
+
+<p>These ideas may deserve future exploration, but they should remain outside v0.3:</p>
+
+<ul>
+<li>formal Open Badges / W3C VC verification support;</li>
+<li>a companion job-description schema;</li>
+<li>complex time-decay semantics beyond review timestamps and curation judgment;</li>
+<li>full scoring models for candidate-role fit;</li>
+<li>sharding or manifest shapes for very large masters;</li>
+<li>reference renderers that imply one canonical resume layout.</li>
+</ul>
+
+<p>The project center remains narrow: preserve career memory accurately, curate it for a purpose, and export what the recipient needs.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./v0.4-planning.md"><code>spec/v0.4-planning.md</code></a>.</p>
+</footer>
+</body>
+</html>

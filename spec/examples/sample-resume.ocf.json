@@ -1,6 +1,6 @@
 {
-  "$schema": "https://opencareerformat.org/v0.2/schema.json",
-  "schemaVersion": "0.2",
+  "$schema": "https://opencareerformat.org/v0.3/schema.json",
+  "schemaVersion": "0.3",
   "meta": {
     "canonical": true,
     "fileRole": "candidate-master",
@@ -54,7 +54,11 @@
     "workAuthorization": [
       {
         "country": "US",
-        "status": "citizen"
+        "status": "citizen",
+        "id": "us-work-auth",
+        "renderAs": "Authorized to work in the US; no sponsorship required.",
+        "visibility": "private",
+        "reviewStatus": "user-confirmed"
       }
     ],
     "clearances": [
@@ -76,47 +80,6 @@
         "visibility": "shared"
       }
     ]
-  },
-  "extensions": {
-    "user.local": {
-      "candidateTalkingPoints": [
-        {
-          "id": "authority-from-demonstrated-work",
-          "label": "Authority from demonstrated work",
-          "statement": "I rebuild authority from demonstrated work rather than inherited position.",
-          "uses": [
-            "interview-prep",
-            "leadership-screen",
-            "military-to-civilian-transition"
-          ],
-          "visibility": "private",
-          "supportingItemIds": [
-            "mhs-soc-buildout"
-          ],
-          "supportingEvidence": [
-            {
-              "kind": "reflection",
-              "path": "experience[name=Meridian Health Systems].positions[title=Director of Cybersecurity].reflections[kind=never-on-resume-story]",
-              "summary": "First-month Meridian story about rebuilding authority after an analyst declined a weekend shift."
-            },
-            {
-              "kind": "achievement",
-              "id": "mhs-soc-buildout",
-              "summary": "Built SOC from 0 to 12 analysts and reached 24/7 coverage within six months."
-            }
-          ],
-          "evidenceSummary": "Supported by Maria's first-month Meridian story and by the SOC buildout that reached 24/7 coverage in six months.",
-          "provenance": {
-            "source": "llm-suggested",
-            "date": "2026-05-24",
-            "sessionTopic": "Story-ask pass (per the first-session script)",
-            "operation": "earned-through-line-reflection",
-            "reviewStatus": "user-confirmed",
-            "note": "Offered as a hypothesis after preserving Maria's raw story: 'Does this ring true — you rebuild authority from demonstrated work rather than inherited position?' Maria confirmed the framing. Stored under an extension namespace because v0.2 does not yet define first-class talkingPoints."
-          }
-        }
-      ]
-    }
   },
   "skills": [
     {
@@ -507,7 +470,8 @@
                     "sourceArtifactId": "ciso-track-refinement-2026-05-21",
                     "operation": "public-safe-rewrite",
                     "confidence": 0.9
-                  }
+                  },
+                  "reviewStatus": "user-confirmed"
                 },
                 {
                   "id": "mhs-ransomware-interview-prep",
@@ -526,7 +490,8 @@
                     "sourceArtifactId": "ciso-track-refinement-2026-05-21",
                     "operation": "interview-prep-framing",
                     "confidence": 0.85
-                  }
+                  },
+                  "reviewStatus": "user-confirmed"
                 },
                 {
                   "id": "mhs-ransomware-security-leadership",
@@ -545,7 +510,8 @@
                     "sourceArtifactId": "ciso-track-refinement-2026-05-21",
                     "operation": "audience-specific-rewrite",
                     "confidence": 0.9
-                  }
+                  },
+                  "reviewStatus": "user-confirmed"
                 },
                 {
                   "id": "mhs-ransomware-healthcare-security",
@@ -564,7 +530,8 @@
                     "sourceArtifactId": "ciso-track-refinement-2026-05-21",
                     "operation": "audience-specific-rewrite",
                     "confidence": 0.9
-                  }
+                  },
+                  "reviewStatus": "user-confirmed"
                 }
               ]
             },
@@ -603,7 +570,8 @@
                 "source": "interview-derived",
                 "date": "2026-05-21",
                 "note": "Self-assessed during Topgrading-style prep. She would likely rate me 9 — strong on incident response and SOC scaling, slightly less strong on board-level communication, which is the area we'd both flag for development."
-              }
+              },
+              "id": "meridian-health-systems-director-of-cybersecurity-boss-would-rate-1-10-reflection"
             },
             {
               "kind": "proudest-of",
@@ -615,7 +583,8 @@
                 "sessionTopic": "Topgrading-style reflection elicitation",
                 "note": "This reflection seeded the mhs-ransomware-2024 achievement entry. The raw voice is preserved here; the structured achievement is in achievements. Future conversations can probe further (e.g. 'what would you have done if backups had failed') without re-eliciting the core memory.",
                 "seededAchievement": "mhs-ransomware-2024"
-              }
+              },
+              "id": "meridian-health-systems-director-of-cybersecurity-proudest-of-reflection"
             },
             {
               "kind": "biggest-mistake",
@@ -625,7 +594,8 @@
                 "source": "interview-derived",
                 "date": "2026-05-21",
                 "note": "Not yet distilled into a structured achievement — this is a candidate for mining in a future conversation. There's likely a phishing-rate-reduction achievement (20%+ → <8%) that should exist with metrics, but the framing for the resume version isn't obvious yet because it has to lead with the lesson rather than the win. Left as a reflection for now."
-              }
+              },
+              "id": "meridian-health-systems-director-of-cybersecurity-biggest-mistake-reflection"
             },
             {
               "kind": "never-on-resume-story",
@@ -636,8 +606,9 @@
                 "date": "2026-05-24",
                 "sessionTopic": "Story-ask pass (per the first-session script)",
                 "operation": "never-on-resume-story",
-                "note": "Preserved verbatim from the prompt: 'Tell me one story about your work that you would never put on a formal resume.' This seeded the authority-from-demonstrated-work candidate talking point stored in extensions.user.local."
-              }
+                "note": "Preserved verbatim from the prompt: 'Tell me one story about your work that you would never put on a formal resume.' This seeded the authority-from-demonstrated-work talking point."
+              },
+              "id": "meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection"
             }
           ]
         }
@@ -647,7 +618,8 @@
           "kind": "would-work-again",
           "value": 8,
           "text": "Yes, if the operational maturity were two years further along than it was when I joined. Building from greenfield is energizing for a tour; a second tour would want to be a build-and-scale or a turnaround, not another start-from-zero.",
-          "visibility": "private"
+          "visibility": "private",
+          "id": "meridian-health-systems-would-work-again-reflection"
         }
       ]
     },
@@ -861,7 +833,8 @@
                     "sourceArtifactId": "sample-resume-source-2026-05",
                     "operation": "military-to-civilian-framing",
                     "confidence": 0.9
-                  }
+                  },
+                  "reviewStatus": "user-confirmed"
                 },
                 {
                   "id": "army-cyber-lead-federal",
@@ -880,7 +853,8 @@
                     "sourceArtifactId": "sample-resume-source-2026-05",
                     "operation": "federal-defense-framing",
                     "confidence": 0.9
-                  }
+                  },
+                  "reviewStatus": "user-confirmed"
                 }
               ]
             },
@@ -1353,7 +1327,8 @@
         "sourceArtifactId": "ciso-track-refinement-2026-05-21",
         "operation": "positioning-correction",
         "confidence": 0.9
-      }
+      },
+      "id": "caution-characterized-as-a-big-four-consulting-alu"
     },
     {
       "claim": "claimed as an AI / ML security specialist",
@@ -1370,7 +1345,8 @@
         "year": 2026,
         "month": 5,
         "day": 21
-      }
+      },
+      "id": "caution-claimed-as-an-ai-ml-security-specialist"
     },
     {
       "claim": "described as having held a leadership rank throughout her Army service",
@@ -1387,7 +1363,8 @@
         "year": 2026,
         "month": 6,
         "day": 11
-      }
+      },
+      "id": "caution-described-as-having-held-a-leadership-rank"
     }
   ],
   "openQuestions": [
@@ -1406,7 +1383,8 @@
         "sourceArtifactId": "ciso-track-refinement-2026-05-21",
         "operation": "reflection-mining-follow-up",
         "confidence": 0.8
-      }
+      },
+      "id": "open-question-mine-the-biggest-mistake-reflection-securi"
     },
     {
       "question": "Clarify whether the ransomware-response achievement should name the affected clinical system or keep the description generic.",
@@ -1423,7 +1401,8 @@
         "sourceArtifactId": "ciso-track-refinement-2026-05-21",
         "operation": "sensitivity-review-follow-up",
         "confidence": 0.85
-      }
+      },
+      "id": "open-question-clarify-whether-the-ransomware-response-ac"
     },
     {
       "question": "Explore whether Maria has additional civilian-sector examples of handling hard staffing issues, such as coaching, performance plans, reassignments, or managing out poor performers, after moving from military leadership into healthcare security leadership.",
@@ -1441,7 +1420,8 @@
         "operation": "coaching-gap-detection",
         "confidence": 0.75,
         "note": "Added during a later review pass that looked for leadership gaps not obvious from the source resume."
-      }
+      },
+      "id": "open-question-explore-whether-maria-has-additional-civil"
     },
     {
       "question": "For the SOC buildout, clarify what Maria directly owned versus what her managers or team leads owned as the team scaled from 0 to 12 analysts.",
@@ -1459,7 +1439,8 @@
         "operation": "attribution-follow-up",
         "confidence": 0.8,
         "note": "Added after attribution fields were introduced to prompt a cleaner distinction between owned, led, and delegated work."
-      }
+      },
+      "id": "open-question-for-the-soc-buildout-clarify-what-maria-di"
     }
   ],
   "voice": {
@@ -1525,6 +1506,43 @@
       "rawIncluded": false,
       "notes": "Fictional LLM-assisted review conversation that expanded a compressed ransomware bullet point into structured facts, private reflections, narrative variants, cautions, and open questions.",
       "visibility": "private"
+    }
+  ],
+  "talkingPoints": [
+    {
+      "id": "authority-from-demonstrated-work",
+      "label": "Authority from demonstrated work",
+      "statement": "I rebuild authority from demonstrated work rather than inherited position.",
+      "uses": [
+        "interview-prep",
+        "leadership-screen",
+        "military-to-civilian-transition"
+      ],
+      "visibility": "private",
+      "supportingItemIds": [
+        "mhs-soc-buildout"
+      ],
+      "supportingEvidence": [
+        {
+          "kind": "reflection",
+          "path": "experience[name=Meridian Health Systems].positions[title=Director of Cybersecurity].reflections[kind=never-on-resume-story]",
+          "summary": "First-month Meridian story about rebuilding authority after an analyst declined a weekend shift."
+        },
+        {
+          "kind": "achievement",
+          "id": "mhs-soc-buildout",
+          "summary": "Built SOC from 0 to 12 analysts and reached 24/7 coverage within six months."
+        }
+      ],
+      "evidenceSummary": "Supported by Maria's first-month Meridian story and by the SOC buildout that reached 24/7 coverage in six months.",
+      "provenance": {
+        "source": "llm-suggested",
+        "date": "2026-05-24",
+        "sessionTopic": "Story-ask pass (per the first-session script)",
+        "operation": "earned-through-line-reflection",
+        "note": "Offered as a hypothesis after preserving Maria's raw story: 'Does this ring true — you rebuild authority from demonstrated work rather than inherited position?' Maria confirmed the framing."
+      },
+      "reviewStatus": "user-confirmed"
     }
   ]
 }

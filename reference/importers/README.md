@@ -4,6 +4,8 @@ These are intentionally small proof-of-concept importers. They create draft OCF 
 
 This deterministic importer is intentionally modest. An LLM-backed importer could extract richer structure, preserve audience-specific variants, detect conflicts across old resumes, and generate better `openQuestions`. The deterministic version exists so the repo has a runnable proof without requiring an API key.
 
+`resume-text-to-ocf.js` emits the current OCF `schemaVersion` by reading `spec/schema.json`. It is not a migration tool for older OCF files.
+
 ## Resume Text Importer
 
 ```bash

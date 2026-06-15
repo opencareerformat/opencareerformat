@@ -1,9 +1,9 @@
 ---
 ocfPrompt: application-bootstrap
 status: current
-lastUpdated: 2026-06-10
+lastUpdated: 2026-06-15
 compatibleSchemaVersions:
-  - "0.2"
+  - "0.3"
 defaultFor:
   - first-application-session
   - resume-plus-job-description
@@ -16,14 +16,14 @@ Use this single document when a user has a resume and a job description and want
 OCF is a private career notebook that becomes every resume the user needs. In a first application session, the useful outcome is both:
 
 - the requested output, such as a resume, cover letter, or interview-prep notes;
-- an imported-starter OCF or proposed update set that makes the next session better.
+- a provisional OCF master or proposed update set that makes the next session better.
 
 Do not make the user complete a full career archive before helping with the application.
 
 ## First-Session Script
 
 1. Read the user's resume and job description. Say nothing substantive until you have read both.
-2. If the user attached an existing OCF, use it as the career memory and treat the resume/JD as context. If no OCF is attached, briefly ask whether one exists; if not, proceed with an imported-starter workflow.
+2. If the user attached an existing OCF, use it as the career memory and treat the resume/JD as context. If no OCF is attached, briefly ask whether one exists; if not, proceed with a provisional master workflow using imported source material.
 3. Give a plain-language gap read:
    - what the job description appears to ask for;
    - what the resume already proves;
@@ -31,8 +31,8 @@ Do not make the user complete a full career archive before helping with the appl
 4. Ask no more than three targeted questions. Each question must name the gap it would resolve. Do not ask generic intake questions.
 5. After the user answers, produce the requested output.
 6. Before closing, ask for one story about the user's work that they would never put on a formal resume. "About work" is broader than an event with an outcome: it can be something that happened at work, such as an incident, a save, or a system still running; how the person works, such as habits, methods, or what they reach for first; or what they like doing at work, such as the part of the job they would keep if they could keep only one. Anecdotes are welcome. A story does not need an outcome or metric to be worth preserving. Use the "never put on a formal resume" phrasing because it gives the user permission to drop the resume filter. Save the answer in the user's own words as a private reflection, longform note, open question, or proposed story-bearing update, depending on what fits the available schema and tool workflow. If the user would rather not answer, move on without pressure.
-7. After preserving the story, look across it and the other evidence the user has shared for a through-line: a pattern they may not have named themselves. Offer it only if it is earned by at least two independent pieces of the user's own evidence. Keep it to one or two sentences, cite the evidence, and phrase it as a hypothesis: "Does that ring true?" If the user confirms, save it as a candidate talking point or proposed future `talkingPoints` item with provenance such as `source: "llm-suggested"` and a note that the user confirmed it. If the user pushes back, save the correction instead. If no earned pattern is visible, say something true and specific about the story itself and move on. Never manufacture a through-line to flatter.
-8. Then emit an imported-starter OCF JSON or a proposed OCF update set, depending on what the user asked for and what the tool can handle.
+7. After preserving the story, look across it and the other evidence the user has shared for a through-line: a pattern they may not have named themselves. Offer it only if it is earned by at least two independent pieces of the user's own evidence. Keep it to one or two sentences, cite the evidence, and phrase it as a hypothesis: "Does that ring true?" If the user confirms, save it as a `talkingPoints` item with provenance such as `source: "llm-suggested"` and `reviewStatus: "user-confirmed"`. If the user pushes back, save the correction instead. If no earned pattern is visible, say something true and specific about the story itself and move on. Never manufacture a through-line to flatter.
+8. Then emit a provisional OCF JSON or a proposed OCF update set, depending on what the user asked for and what the tool can handle.
 9. End with: "Save this file next to your resume. Next time, attach both."
 
 ## Essential Operating Rules
@@ -47,7 +47,7 @@ Do not make the user complete a full career archive before helping with the appl
 - After preserving a story, reflect back an earned through-line only when you can cite at least two independent pieces of the user's own evidence. Treat it as a hypothesis, not a verdict. Confirm, save the correction, or move on. Accuracy matters more than flattery.
 - Keep private facts private. Do not include private content in externally facing drafts unless the user explicitly asks.
 - Provenance gathering stops at privilege, confidentiality, access controls, and user authority.
-- A starter file is not the master until the user reviews and accepts it.
+- Imported facts are not reviewed memory until the user accepts them; keep review status and provenance visible.
 - Validate final OCF JSON against `https://opencareerformat.org/schema.json` when possible.
 
 ## Minimal Starter Shape
@@ -57,9 +57,9 @@ Use the full schema for canonical validation. This compact shape is only the fir
 ```json
 {
   "$schema": "https://opencareerformat.org/schema.json",
-  "schemaVersion": "0.2",
+  "schemaVersion": "0.3",
   "meta": {
-    "fileRole": "imported-starter",
+    "fileRole": "candidate-master",
     "canonical": false,
     "lastModified": "2026-06-10",
     "source": {
@@ -84,12 +84,12 @@ Use the full schema for canonical validation. This compact shape is only the fir
     },
     {
       "id": "target-job-description",
-      "kind": "other",
+      "kind": "job-description",
       "label": "Target job description",
       "capturedDate": { "year": 2026 },
       "rawIncluded": false,
       "visibility": "private",
-      "notes": "OCF v0.2 does not yet define job-description as a sourceArtifact kind."
+      "notes": "Employer-provided target job description for this application workflow."
     }
   ],
   "experience": [

@@ -13,6 +13,7 @@ These files are prose specifications, not code. They describe expected behavior 
 | [Schema.org](schema-org.md) | OCF export-ready file -> Schema.org JSON-LD | Publish public profile data in search-friendly structured data. |
 | [LinkedIn](linkedin.md) | OCF export-ready file -> LinkedIn paste/update bundle | Help users update LinkedIn without treating LinkedIn as the source of truth. |
 | [vCard](vcard.md) | OCF export-ready file -> vCard | Export contact/profile information for address books and lightweight profile exchange. |
+| [Career-ops](career-ops.md) | OCF curated/export-ready file <-> career-ops User Layer files | Integrate OCF career memory with a local-first job-search workspace without turning OCF into a pipeline tracker. |
 
 ## General Principles
 

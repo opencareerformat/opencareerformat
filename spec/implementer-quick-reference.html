@@ -190,24 +190,23 @@
 <tr><td>Core</td><td><code>$schema</code>, <code>schemaVersion</code>, <code>meta</code>, <code>person</code>, <code>sourceArtifacts</code>, <code>experience</code>, <code>experience[].positions</code>, <code>achievements</code>, <code>skills</code>, <code>education</code>, <code>certifications</code>, <code>openQuestions</code>, <code>cautions</code></td><td>Most authoring, import, curation, and export tools should understand these well enough to preserve them.</td></tr>
 <tr><td>Common optional</td><td><code>organizations</code>, <code>projects</code>, <code>publications</code>, <code>awards</code>, <code>languages</code>, <code>service</code>, <code>memberships</code>, <code>governance</code>, <code>teaching</code>, <code>speaking</code>, <code>patents</code>, <code>interests</code></td><td>Support when relevant to the user's career or target output; omit cleanly when absent.</td></tr>
 <tr><td>Private memory</td><td><code>reflections</code>, <code>exitContext</code>, compensation fields, <code>salesPerformance</code>, <code>bookOfBusiness</code>, private <code>sourceArtifacts</code>, private notes</td><td>Preserve carefully. Do not export by default. Treat as the reason the master file is useful, not as ordinary resume content.</td></tr>
-<tr><td>Curation signals</td><td><code>visibility</code>, <code>importance</code>, <code>audiences</code>, <code>narrativeVariants</code>, <code>titleVariants</code>, <code>supportingFacts</code>, <code>attribution</code>, <code>dateIsPrivate</code></td><td>Use these to decide what can be selected, what needs review, and how claims can be worded. Do not treat them as final display text by themselves.</td></tr>
-<tr><td>Provenance and interop</td><td><code>id</code>, <code>provenance</code>, <code>sourceArtifactId</code>, <code>sourceFileId</code>, <code>sourceItemId</code>, <code>extensions</code>, <code>meta.derivedFrom</code>, <code>meta.derivedFromVersion</code>, <code>meta.derivationNotes</code></td><td>Preserve on round-trip. Stable IDs and boring provenance make files reviewable and mergeable.</td></tr>
-<tr><td>Advanced or likely to evolve</td><td>verification/review lifecycle, richer trust tiers, renderer hints, region-specific export policy, third-party workflow metadata</td><td>Use <code>extensions</code> or provenance notes for now unless the current schema has a first-class field. Expect feedback-driven changes before 1.0.</td></tr>
+<tr><td>Curation signals</td><td><code>visibility</code>, <code>importance</code>, <code>audiences</code>, <code>narrativeVariants</code>, <code>titleVariants</code>, <code>positioningVariants</code>, <code>talkingPoints</code>, <code>supportingFacts</code>, <code>attribution</code>, <code>reviewStatus</code>, <code>dateIsPrivate</code></td><td>Use these to decide what can be selected, what needs review, and how claims can be worded. Do not treat them as final display text by themselves.</td></tr>
+<tr><td>Provenance and interop</td><td><code>id</code>, <code>provenance</code>, <code>sourceArtifactId</code>, <code>sourceFileId</code>, <code>sourceItemId</code>, <code>extensions</code>, <code>meta.parentFileId</code>, <code>meta.parentVersion</code>, <code>meta.lineageNotes</code></td><td>Preserve on round-trip. Stable IDs and boring provenance make files reviewable and mergeable.</td></tr>
+<tr><td>Advanced or likely to evolve</td><td>richer trust tiers, renderer hints, region-specific export policy, third-party workflow metadata, sharding/manifest conventions</td><td>Use <code>extensions</code> or provenance notes for now unless the current schema has a first-class field. Expect feedback-driven changes before 1.0.</td></tr>
 </tbody>
 </table>
 
-<h2>v0.2 Compatibility Names Replaced In v0.3</h2>
+<h2>v0.3 Lineage Names</h2>
 
-<p>OCF v0.2 still contains a few schema names from the earlier &quot;derived file&quot; vocabulary:</p>
+<p>OCF v0.3 replaces the old &quot;derived file&quot; vocabulary with parent/lineage names:</p>
 
 <ul>
-<li><code>meta.derivedFrom</code></li>
-<li><code>meta.derivedFromVersion</code></li>
-<li><code>meta.derivationNotes</code></li>
-<li><code>meta.source.kind: &quot;derived&quot;</code></li>
+<li><code>meta.parentFileId</code></li>
+<li><code>meta.parentVersion</code></li>
+<li><code>meta.lineageNotes</code></li>
 </ul>
 
-<p>Tools should preserve and read these fields for v0.2 compatibility. New documentation should describe the workflow as curation and export-ready preparation, not derivation. v0.3 should replace these fields and enum values with names that match the current language directly.</p>
+<p><code>parentFileId</code> is the parent file's <code>meta.id</code>, not a filename. <code>parentVersion</code> is the parent file's <code>meta.version</code> at the time the child file was prepared. <code>lineageNotes</code> records the target, filter, translation, conversion, or export context.</p>
 
 <p>Do not confuse these with provenance values such as <code>interview-derived</code>. That phrase describes how an item was elicited from an interview or conversation and is still useful.</p>
 
@@ -217,10 +216,10 @@
 <thead><tr><th><code>meta.fileRole</code></th><th>Use when</th><th>Important behavior</th></tr></thead>
 <tbody>
 <tr><td><code>candidate-master</code></td><td>The person controls the durable private career memory file.</td><td>Preserve history, nuance, private material, source artifacts, cautions, and open questions.</td></tr>
-<tr><td><code>imported-starter</code></td><td>A tool creates a provisional first pass from resumes, LinkedIn exports, notes, photos, or transcripts.</td><td>Keep it visibly provisional. Do not name it <code>*.master.ocf.json</code> until reviewed and accepted.</td></tr>
 <tr><td><code>candidate-curated</code></td><td>A tool/person selects and improves a working set for a purpose, but review is still active.</td><td>Preserve lineage to the master and keep proposed improvements separate from export-ready content.</td></tr>
 <tr><td><code>export-ready</code></td><td>Selection and visibility review are complete enough for a specific exporter or downstream system.</td><td>Exporters should prefer this over the private master.</td></tr>
 <tr><td><code>third-party-working</code></td><td>A recruiter, coach, employer, agency, or tool controls an OCF-shaped file about a person.</td><td>The top-level <code>person</code> is still the subject, but the subject may not control or see the file.</td></tr>
+<tr><td><code>other</code></td><td>A workflow does not fit the named lifecycle roles.</td><td>Explain the role in <code>meta.lineageNotes</code>, provenance, or tool documentation.</td></tr>
 </tbody>
 </table>
 
@@ -230,7 +229,8 @@
 
 <ul>
 <li>Register inputs in <code>sourceArtifacts</code>.</li>
-<li>Create <code>imported-starter</code> files when the user has not accepted the result as a master.</li>
+<li>Set <code>meta.source.kind</code> to <code>imported</code> or <code>converted</code>.</li>
+<li>Default mined durable items to <code>reviewStatus: &quot;unreviewed&quot;</code> or <code>&quot;needs-review&quot;</code> until accepted.</li>
 <li>Add provenance and confidence when mining facts.</li>
 <li>Use <code>openQuestions</code> for conflicting dates, unsupported metrics, unclear attribution, and missing evidence.</li>
 <li>Avoid marking imported material as public by default.</li>
@@ -241,7 +241,7 @@
 <ul>
 <li>Read the target purpose carefully: job description, audience, region, output type, review question, or user preference.</li>
 <li>Filter by <code>visibility</code> first, then relevance and recency.</li>
-<li>Preserve lineage with <code>meta.derivedFrom</code>, <code>sourceFileId</code>, <code>sourceItemId</code>, or item provenance where practical.</li>
+<li>Preserve lineage with <code>meta.parentFileId</code>, <code>meta.parentVersion</code>, <code>sourceFileId</code>, <code>sourceItemId</code>, or item provenance where practical.</li>
 <li>Produce proposed OCF improvements separately from export-ready content.</li>
 <li>Be explicit about what was removed, skipped, or left unresolved.</li>
 <li>Label reduced files as <code>candidate-curated</code> or <code>export-ready</code>, not <code>candidate-master</code>. A subset may discover improvements for the master, but those should be proposed back with provenance rather than replacing the master.</li>

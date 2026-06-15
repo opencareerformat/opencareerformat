@@ -27,6 +27,11 @@ const docs = [
     description: "Non-normative planning notes for likely next Open Career Format schema concepts.",
   },
   {
+    source: "spec/v0.4-planning.md",
+    title: "OCF v0.4 Planning Notes",
+    description: "Early parking-lot notes for larger Open Career Format concepts deferred beyond v0.3.",
+  },
+  {
     source: "mappings/README.md",
     output: "mappings/index.html",
     title: "OCF Format Mappings",

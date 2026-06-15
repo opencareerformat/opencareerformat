@@ -1,6 +1,6 @@
 {
-  "$schema": "https://opencareerformat.org/v0.2/schema.json",
-  "schemaVersion": "0.2",
+  "$schema": "https://opencareerformat.org/v0.3/schema.json",
+  "schemaVersion": "0.3",
   "meta": {
     "id": "7fb58e4f-7c93-4f7c-b04c-93de0b5a2c91",
     "version": "example-v1",

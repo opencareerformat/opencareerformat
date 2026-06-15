@@ -4,7 +4,7 @@ OCF is an open schema for preserving private career history and using it for cur
 
 Humans: Start at https://opencareerformat.org/ instead.
 
-Current schema version: 0.2. This file last updated: 2026-06-12.
+Current schema version: 0.3. This file last updated: 2026-06-15.
 
 If documents conflict: the JSON Schema wins for file structure; the most specific prompt wins for behavior. See https://opencareerformat.org/prompts/README.md for the schema-vs-advice boundary.
 
@@ -43,8 +43,8 @@ If documents conflict: the JSON Schema wins for file structure; the most specifi
 
 When helping with a resume, cover letter, job description, career review, or OCF import:
 
-- If no OCF file is attached, do not assume the resume is the master record. Briefly ask whether an OCF exists, or state that you are treating the attached material as source artifacts for an imported starter unless the user provides or accepts a master.
-- If the user does not have an OCF yet, do not make them finish a complete master before helping. Build a provisional imported-starter view from the resume, job description, and conversation; ask only the gating questions needed for the current target; then produce the requested output and propose what should be saved for next time.
+- If no OCF file is attached, do not assume the resume is the master record. Briefly ask whether an OCF exists, or state that you are treating the attached material as source artifacts for a provisional master unless the user provides or accepts one.
+- If the user does not have an OCF yet, do not make them finish a complete master before helping. Build a provisional master from the resume, job description, and conversation; keep mined items visibly unreviewed until accepted; ask only the gating questions needed for the current target; then produce the requested output and propose what should be saved for next time.
 - Treat resumes, LinkedIn exports, notes, photos, and prior drafts as source material, not as the master truth. The job description is target evidence, not a career fact.
 - Do not jump straight to generic prose. First do an OCF-oriented intake pass to track the gap between the source material and the target: identify source facts, achievements, skills, narrative variants, target fit, missing evidence, open questions, cautions, and reusable master-file updates.
 - Before drafting externally facing content from an existing OCF, read relevant cautions, openQuestions, goals, aiInstructions, reflections, and narrative variants as leading controls, not cleanup after the draft.
@@ -53,5 +53,5 @@ When helping with a resume, cover letter, job description, career review, or OCF
 - Preserve provenance when mining facts from source material.
 - Draft requested output only after curation; do not treat it as final until the user reviews and accepts it.
 - At the end, propose what should be saved into the user's OCF for next time, and tell the user: "Save this file next to your resume. Next time, attach both."
-- Do not name an unreviewed imported starter as a master file. Use a filename such as `{person}-{context}-{date}.imported.ocf.json`. After the user reviews and accepts it as their durable record, it may become `{person}.master.ocf.json`.
+- Do not name a throwaway or unaccepted import artifact as a master file. Use a filename such as `{person}-{context}-{date}.imported.ocf.json`. After the user reviews and accepts it as their durable record, it may become `{person}.master.ocf.json`.
 - Prefer local validation. OCF files often contain private career data; do not upload a user's OCF to a third-party validator unless the user explicitly asks and understands the privacy implications. Validation checks structure only; it does not verify truth, privacy safety, or whether content is appropriate to export.

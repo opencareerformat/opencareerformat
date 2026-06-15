@@ -6,9 +6,34 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 ## [Unreleased]
 
-- Added optional `meta.fileRole` to distinguish candidate-owned master files, candidate-curated files, imported starter files, third-party working files, export-ready files, and other OCF workflow contexts.
+## [0.3.0] — 2026-06-15
+
+This is a clean-language schema update. It includes small breaking changes from v0.2; old files should be migrated before validating against v0.3.
+
+### Breaking changes
+
+- Removed `meta.fileRole: "imported-starter"`. A first-pass file that is becoming the user's working career memory should use `meta.fileRole: "candidate-master"` with imported or LLM-mined durable items marked `reviewStatus: "unreviewed"` or `"needs-review"` until accepted.
+- Replaced the earlier derived-file lineage names: `meta.derivedFrom` -> `meta.parentFileId`, `meta.derivedFromVersion` -> `meta.parentVersion`, and `meta.derivationNotes` -> `meta.lineageNotes`.
+- Removed lifecycle-like `meta.source.kind` values such as `derived`; use `fileRole` plus `parentFileId`, `parentVersion`, and `lineageNotes` for curation/export lineage. `source.kind` now records origin mechanics such as `authored`, `imported`, `converted`, `merged`, or `translated`.
+
+### Added
+
+- Added item-level `reviewStatus` for durable user-facing and user-quoted material. Tools should treat missing `reviewStatus` on imported, inferred, or LLM-mined durable items as `unreviewed`.
+- Added top-level `talkingPoints` for reusable, evidence-backed career framings. Existing incubating `extensions.user.local.candidateTalkingPoints` items should migrate here.
+- Added top-level `positioningVariants` for target-aware person-level headlines and summaries. `person.headline` remains the default general headline.
+- Added optional IDs to more durable array items so tools can make more surgical updates and cross-references.
+- Added `co-led` to achievement attribution roles.
+- Added `job-description`, `photo`, `video`, and `conversation` source artifact kinds, plus metric visibility.
+- Added `location.renderAs` and `person.workAuthorization[].renderAs` so files can preserve resume-ready display strings alongside structured values.
+- Added `v0.3/schema.json` as a version-pinned schema copy.
+
+### Changed
+
+- Aligned `schema-core.json` with the full schema as a strict minimal subset rather than a starter dialect.
+- Updated examples, prompts, reference scripts, and generated docs for the current schema shape.
+- Reference importer, curator, validator, and local LLM scripts now read the current schema version from `spec/schema.json` where practical instead of hard-coding release strings.
 - Added `spec/usage-patterns.md` and updated the guide, README, prompts, starter/core schema, and examples to clarify that a candidate-owned master is one important OCF use case, not the only possible OCF file role. The top-level `person` is the subject of the OCF; the controller of the file and editors of individual items may be different.
-- Added optional `achievement.attribution` to capture the subject's role in an outcome (`owned`, `led`, `drove`, `contributed-to`, `supported`, `advised`, `observed`, `other`) plus optional budget/headcount/upward-reporting context.
+- Added optional `achievement.attribution` to capture the subject's role in an outcome (`owned`, `led`, `co-led`, `drove`, `contributed-to`, `supported`, `advised`, `observed`, `other`) plus optional budget/headcount/upward-reporting context.
 - Reframed reflections as a private review and conversation layer, with interview prep as one use case rather than the whole concept.
 - Moved active LLM and coaching prompts from `spec/` to top-level `prompts/` paths (`prompts/authoring.md`, `prompts/curation.md`, `prompts/coaching.md`, `prompts/llm-operating.md`, and `prompts/interview-prep-questions.md`). The old `spec/*` prompt paths remain as compatibility stubs.
 

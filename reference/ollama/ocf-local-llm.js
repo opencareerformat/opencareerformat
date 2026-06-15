@@ -6,7 +6,10 @@ const { spawn } = require("child_process");
 
 const ROOT = path.resolve(__dirname, "../..");
 const SAMPLE_RESUME = "spec/examples/sample-resume-source.txt";
-const VALID_OUTPUTS = new Set(["transcript", "imported-starter"]);
+const CURRENT_SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, "spec/schema.json"), "utf8"));
+const CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA.properties?.schemaVersion?.const;
+const CURRENT_SCHEMA_URL = CURRENT_SCHEMA.$id || "https://opencareerformat.org/schema.json";
+const VALID_OUTPUTS = new Set(["transcript", "provisional-master"]);
 
 async function main() {
   const options = parseArgs(process.argv.slice(2));
@@ -29,7 +32,7 @@ async function main() {
 }
 
 function buildPrompt(options) {
-  if (options.output === "imported-starter") {
+  if (options.output === "provisional-master") {
     return buildImportedStarterPrompt(options);
   }
 
@@ -66,13 +69,13 @@ function buildImportedStarterPrompt(options) {
 
 function importedStarterContract() {
   return [
-    "Return one JSON object that passes the full OCF v0.2 validator.",
+    `Return one JSON object that passes the full current OCF validator (schemaVersion ${CURRENT_SCHEMA_VERSION}).`,
     "Top-level keys to use: $schema, schemaVersion, meta, person, sourceArtifacts, skills, experience, education, certifications, openQuestions.",
     "Do not include any other top-level keys. In particular, do not include openAnswers.",
     "",
     "Required top-level metadata:",
-    '{ "$schema": "https://opencareerformat.org/v0.2/schema.json", "schemaVersion": "0.2" }',
-    'meta must include: canonical false, fileRole "imported-starter", lastModified "2026-05-28", language "en-US", source {"kind":"imported"}. Do not include variant.',
+    `{ "$schema": "${CURRENT_SCHEMA_URL}", "schemaVersion": "${CURRENT_SCHEMA_VERSION}" }`,
+    'meta must include: canonical false, fileRole "candidate-master", lastModified "2026-05-28", language "en-US", source {"kind":"imported"}. Do not include variant.',
     "",
     "person shape:",
     'person.name must be an object like {"renderAs":"Maria E. Reyes","given":"Maria","family":"Reyes"}.',
@@ -112,15 +115,15 @@ function importedStarterContract() {
 }
 
 function taskForMode(options) {
-  if (options.output === "imported-starter") {
+  if (options.output === "provisional-master") {
     return [
-      "Convert the attached resume/source material into a validator-ready OCF imported starter.",
+      "Convert the attached resume/source material into a validator-ready provisional OCF master with imported items marked for review.",
       "Return only one JSON object. Do not wrap it in Markdown. Do not include commentary before or after the JSON.",
       "The output will be written exactly as you return it and checked with the full OCF validator. Do not rely on a later tool to repair fields.",
       "Use only fields listed in this task or in the starter/core schema. Do not nest skills, experience, education, certifications, sourceArtifacts, or openQuestions under person.",
-      'Set "$schema" to "https://opencareerformat.org/v0.2/schema.json".',
-      'Set "schemaVersion" to "0.2".',
-      'Set "meta.canonical" to false, "meta.fileRole" to "imported-starter", "meta.source.kind" to "imported", "meta.language" to "en-US", and "meta.lastModified" to "2026-05-28".',
+      `Set "$schema" to "${CURRENT_SCHEMA_URL}".`,
+      `Set "schemaVersion" to "${CURRENT_SCHEMA_VERSION}".`,
+      'Set "meta.canonical" to false, "meta.fileRole" to "candidate-master", "meta.source.kind" to "imported", "meta.language" to "en-US", and "meta.lastModified" to "2026-05-28".',
       "Do not include meta.variant.",
       'Include sourceArtifacts as an array with one object: id "source-sample-resume-source", kind "resume", label "sample-resume-source.txt", capturedDate {"year":2026,"month":5,"day":28}, fileName "sample-resume-source.txt", rawIncluded false, visibility "private".',
       "person may contain only valid person fields. Contacts must be objects with required kind and value. Contact kind must be one of email, phone, url, linkedin, github, social, other.",
@@ -131,10 +134,10 @@ function taskForMode(options) {
       'Each achievement needs id, statement, kind "accomplishment", and visibility "shared".',
       "education must be top-level. Use institution, degree, field, dateRange, visibility.",
       'certifications must be top-level. Each certification needs name, type "certification", issuer, and visibility. Omit dateRange if dates are unknown.',
-      "openQuestions must be top-level. Each open question needs question, context if useful, and visibility private.",
+      'openQuestions must be top-level. Each open question needs id, question, context if useful, reviewStatus "needs-review", and visibility private.',
       "Use partial dates as objects such as {\"year\": 2023, \"month\": 3} and use {\"present\": true} for current end dates.",
       "Do not use ISO timestamps, sourceArtifacts.name, sourceArtifacts.date, sourceArtifacts.kind values other than resume, or openQuestions.text.",
-      "Keep claims reviewable; this is a starter file, not a candidate-owned master.",
+      'Keep imported claims reviewable by using reviewStatus "unreviewed" or "needs-review" on durable mined items.',
     ].join("\n");
   }
 
@@ -149,7 +152,7 @@ function taskForMode(options) {
 
   return [
     "Use the authoring prompt above.",
-    "Treat the attached material as source artifacts for an imported starter unless an OCF file is provided.",
+    "Treat the attached material as source artifacts for a provisional master unless an OCF file is provided.",
     "Produce a concise OCF-oriented intake pass: reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.",
     "Do not invent facts. Mark uncertainty as questions.",
   ].join("\n");
@@ -235,7 +238,7 @@ function readUserFile(filePath) {
 function callOllama(model, prompt, options = {}) {
   const args = ["run", "--nowordwrap"];
 
-  if (options.output === "imported-starter") {
+  if (options.output === "provisional-master") {
     args.push("--format", "json");
   }
 
@@ -284,11 +287,12 @@ function printSummary(options, prompt, response) {
   console.error("This is a bare-bones proof-of-concept script, not a production importer, curator, or validator.");
   console.error(`Mode: ${options.mode}`);
   console.error(`Output: ${options.output}`);
+  console.error(`Targets the current OCF schemaVersion (${CURRENT_SCHEMA_VERSION}) for JSON output.`);
   console.error(`Model: ${options.model}`);
   console.error(`Prompt characters sent: ${prompt.length}`);
   console.error(`Response characters received: ${response.length}`);
-  console.error(`Wrote ${options.output === "transcript" ? "response" : "imported starter"}: ${options.out}`);
-  if (options.output === "imported-starter") {
+  console.error(`Wrote ${options.output === "transcript" ? "response" : "provisional OCF"}: ${options.out}`);
+  if (options.output === "provisional-master") {
     console.error(`Validate with: node reference/validator/validate.js ${options.out}`);
   } else {
     console.error("If the response includes OCF JSON, save it separately and run: node reference/validator/validate.js <file>");
@@ -327,7 +331,7 @@ function isValidOptions(options) {
   if (!options.out || !options.model) return false;
   if (!["authoring", "curation"].includes(options.mode)) return false;
   if (!VALID_OUTPUTS.has(options.output)) return false;
-  if (options.output === "imported-starter") {
+  if (options.output === "provisional-master") {
     return options.mode === "authoring" && Boolean(options.resume);
   }
   return true;
@@ -336,8 +340,8 @@ function isValidOptions(options) {
 function printUsage() {
   console.error("Usage:");
   console.error("  node reference/ollama/ocf-local-llm.js --mode authoring --model <ollama-model> --resume <source.txt> [--job <job.txt>] --out <response.md>");
-  console.error("  node reference/ollama/ocf-local-llm.js --mode authoring --output imported-starter --model <ollama-model> --resume <source.txt> --out <draft.ocf.json>");
-  console.error("  node reference/ollama/ocf-local-llm.js --mode authoring --output imported-starter --model <ollama-model> --sample-resume --out <draft.ocf.json>");
+  console.error("  node reference/ollama/ocf-local-llm.js --mode authoring --output provisional-master --model <ollama-model> --resume <source.txt> --out <draft.ocf.json>");
+  console.error("  node reference/ollama/ocf-local-llm.js --mode authoring --output provisional-master --model <ollama-model> --sample-resume --out <draft.ocf.json>");
   console.error("  node reference/ollama/ocf-local-llm.js --mode curation --model <ollama-model> --ocf <master.ocf.json> [--job <job.txt>] --out <response.md>");
 }
 

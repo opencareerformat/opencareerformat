@@ -25,7 +25,7 @@ The importer or LLM should:
 - assign provenance to imported items;
 - avoid inventing missing metrics, dates, supervisors, or outcomes.
 
-At this point the file is best understood as an `imported-starter`, even if the example file later shows the richer candidate-master shape.
+At this point the file is best understood as a provisional `candidate-master`: the file can already be the person's working master, but imported items should remain visibly unreviewed until the person accepts them.
 
 ## 2. Intake Turns Bullet Points Into Career Memory
 
@@ -225,46 +225,42 @@ The confirmed through-line is stored separately, because it is not a raw story a
 
 ```json
 {
-  "extensions": {
-    "user.local": {
-      "candidateTalkingPoints": [
+  "talkingPoints": [
+    {
+      "id": "authority-from-demonstrated-work",
+      "label": "Authority from demonstrated work",
+      "statement": "I rebuild authority from demonstrated work rather than inherited position.",
+      "uses": [
+        "interview-prep",
+        "leadership-screen",
+        "military-to-civilian-transition"
+      ],
+      "visibility": "private",
+      "supportingItemIds": ["mhs-soc-buildout"],
+      "supportingEvidence": [
         {
-          "id": "authority-from-demonstrated-work",
-          "label": "Authority from demonstrated work",
-          "statement": "I rebuild authority from demonstrated work rather than inherited position.",
-          "uses": [
-            "interview-prep",
-            "leadership-screen",
-            "military-to-civilian-transition"
-          ],
-          "visibility": "private",
-          "supportingItemIds": ["mhs-soc-buildout"],
-          "supportingEvidence": [
-            {
-              "kind": "reflection",
-              "path": "experience[name=Meridian Health Systems].positions[title=Director of Cybersecurity].reflections[kind=never-on-resume-story]",
-              "summary": "First-month Meridian story about rebuilding authority after an analyst declined a weekend shift."
-            },
-            {
-              "kind": "achievement",
-              "id": "mhs-soc-buildout",
-              "summary": "Built SOC from 0 to 12 analysts and reached 24/7 coverage within six months."
-            }
-          ],
-          "evidenceSummary": "Supported by Maria's first-month Meridian story and by the SOC buildout that reached 24/7 coverage in six months.",
-          "provenance": {
-            "source": "llm-suggested",
-            "reviewStatus": "user-confirmed",
-            "operation": "earned-through-line-reflection"
-          }
+          "kind": "reflection",
+          "path": "experience[name=Meridian Health Systems].positions[title=Director of Cybersecurity].reflections[kind=never-on-resume-story]",
+          "summary": "First-month Meridian story about rebuilding authority after an analyst declined a weekend shift."
+        },
+        {
+          "kind": "achievement",
+          "id": "mhs-soc-buildout",
+          "summary": "Built SOC from 0 to 12 analysts and reached 24/7 coverage within six months."
         }
-      ]
+      ],
+      "evidenceSummary": "Supported by Maria's first-month Meridian story and by the SOC buildout that reached 24/7 coverage in six months.",
+      "reviewStatus": "user-confirmed",
+      "provenance": {
+        "source": "llm-suggested",
+        "operation": "earned-through-line-reflection"
+      }
     }
-  }
+  ]
 }
 ```
 
-The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking-point-shaped extension; unresolved implications become or update open questions.
+The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking point; unresolved implications become or update open questions.
 
 This is the give-back loop. The user contributes a story that was never resume-shaped; the tool returns a pattern that is useful only because it is earned from the user's own evidence. If the user rejects the pattern, the correction is useful too.
 
@@ -340,7 +336,8 @@ Curation can also invert by audience, and the Army material shows the cleanest c
         "sourceArtifactId": "sample-resume-source-2026-05",
         "operation": "military-to-civilian-framing",
         "confidence": 0.9
-      }
+      },
+      "reviewStatus": "user-confirmed"
     },
     {
       "id": "army-cyber-lead-federal",
@@ -359,7 +356,8 @@ Curation can also invert by audience, and the Army material shows the cleanest c
         "sourceArtifactId": "sample-resume-source-2026-05",
         "operation": "federal-defense-framing",
         "confidence": 0.9
-      }
+      },
+      "reviewStatus": "user-confirmed"
     }
   ]
 }

@@ -4,6 +4,10 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 
+const CURRENT_SCHEMA = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../spec/schema.json"), "utf8"));
+const CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA.properties?.schemaVersion?.const;
+const CURRENT_SCHEMA_URL = CURRENT_SCHEMA.$id || "https://opencareerformat.org/schema.json";
+
 function importResumeText(text, sourceFileName = "resume.txt") {
   const sections = splitSections(text);
   const header = sections.__header || [];
@@ -11,13 +15,13 @@ function importResumeText(text, sourceFileName = "resume.txt") {
   const sourceArtifactId = `source-${slug(path.basename(sourceFileName, path.extname(sourceFileName))) || "resume"}`;
 
   const doc = {
-    $schema: "https://opencareerformat.org/v0.2/schema.json",
-    schemaVersion: "0.2",
+    $schema: CURRENT_SCHEMA_URL,
+    schemaVersion: CURRENT_SCHEMA_VERSION,
     meta: {
       id: crypto.randomUUID(),
       version: `imported-${now}`,
       canonical: false,
-      fileRole: "imported-starter",
+      fileRole: "candidate-master",
       lastModified: now,
       language: "en-US",
       source: { kind: "imported" },
@@ -40,8 +44,10 @@ function importResumeText(text, sourceFileName = "resume.txt") {
     certifications: parseCertifications(sections.CERTIFICATIONS || [], sourceArtifactId),
     openQuestions: [
       {
+        id: "review-imported-facts",
         question: "Review imported dates, titles, metrics, and claims before treating this draft as the master OCF.",
         context: "This proof-of-concept importer creates a skeleton from resume text and cannot verify facts.",
+        reviewStatus: "needs-review",
         visibility: "private",
         provenance: provenance(sourceArtifactId, "import-warning", 0.4),
       },
@@ -287,7 +293,8 @@ function printImportSummary(doc, outputPath) {
 
   console.error("OCF reference importer summary");
   console.error("This is a bare-bones proof-of-concept importer, not a production resume parser.");
-  console.error(`Wrote imported starter: ${outputPath}`);
+  console.error(`Targets the current OCF schemaVersion (${CURRENT_SCHEMA_VERSION}).`);
+  console.error(`Wrote provisional OCF master: ${outputPath}`);
   console.error(`Source artifacts: ${(doc.sourceArtifacts || []).length}`);
   console.error(`Experience entries: ${(doc.experience || []).length}`);
   console.error(`Positions: ${positions}`);

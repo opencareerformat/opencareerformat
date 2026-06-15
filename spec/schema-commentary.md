@@ -14,16 +14,18 @@ Use:
 
 OCF is deliberately a file format, not a platform. The schema defines what can be preserved. Importers, curators, reviewers, coaches, exporters, LLMs, and applications decide how to ask questions, rank relevance, apply user preferences, and produce outputs.
 
+`schema-core.json` is a minimal subset of the full schema, not a different starter dialect. It may omit advanced fields, but overlapping fields should use the same names and shapes as `schema.json`. Do not teach tools a core-only alias or flattened object that later needs translation into real OCF.
+
 ## Contents
 
 - [Core Mental Model](#core-mental-model)
 - [Naming Files](#naming-files)
-- [v0.2 Compatibility Names Replaced In v0.3](#v02-compatibility-names-replaced-in-v03)
+- [v0.3 Lineage Names](#v03-lineage-names)
 - [`meta`](#meta)
 - [`person`](#person)
 - [`sourceArtifacts`](#sourceartifacts)
 - [`provenance`](#provenance)
-- [Stable IDs](#stable-ids)
+- [Stable ID Rules](#stable-id-rules)
 - [Visibility](#visibility)
 - [`experience`](#experience)
 - [`organizations`](#organizations)
@@ -35,6 +37,8 @@ OCF is deliberately a file format, not a platform. The schema defines what can b
 - [Reflections](#reflections)
 - [Cautions](#cautions)
 - [Open Questions](#open-questions)
+- [Talking Points](#talking-points)
+- [Positioning Variants](#positioning-variants)
 - [Goals, Voice, And AI Instructions](#goals-voice-and-ai-instructions)
 - [Compensation, Sales Plan, And Book Of Business History](#compensation-sales-plan-and-book-of-business-history)
 - [Supervisors And References](#supervisors-and-references)
@@ -75,11 +79,13 @@ OCF does not force structure into filenames, but humans often benefit from names
 
 Use explicit names before introducing abbreviations. A future curated example might be named `sample-resume.public-profile.ocf.json` or `sample-resume.acme-ciso.ocf.json`; do not assume a shorthand such as `.c.ocf.json` until usage proves it helpful.
 
-## v0.2 Compatibility Names Replaced In v0.3
+## v0.3 Lineage Names
 
-OCF v0.2 still carries a few schema names from the earlier "derived file" vocabulary: `meta.derivedFrom`, `meta.derivedFromVersion`, `meta.derivationNotes`, and `meta.source.kind: "derived"`. Treat these as compatibility names in v0.2. Tooling should preserve and read them, but new docs and UI should describe the workflow as curation and export-ready preparation.
+OCF v0.3 replaces the earlier "derived file" vocabulary with parent/lineage names: `meta.parentFileId`, `meta.parentVersion`, and `meta.lineageNotes`.
 
-v0.3 should replace these fields and enum values with names that match the current language directly. Do not confuse them with provenance values such as `interview-derived`, which remain useful for describing how an item was elicited.
+`parentFileId` points at the parent file's `meta.id`, not a filename. `parentVersion` records the parent file's `meta.version` at the time the child file was prepared. `lineageNotes` records the target, filter, translation, conversion, or export context. Do not confuse these with provenance values such as `interview-derived`, which remain useful for describing how an item was elicited.
+
+Migration notes for old field names and incubating shapes belong in `CHANGELOG.md`.
 
 ## `meta`
 
@@ -95,7 +101,10 @@ Important fields:
 - `targetRole`: role target for role-targeted or company-targeted files.
 - `targetCompany`: company target for company-targeted files.
 - `lastModified`: when this file last changed.
-- `source`: how this file came to be.
+- `source`: original source mechanics for this file, such as authored, imported, converted, merged, or translated.
+- `parentFileId`: the parent file's `meta.id` when this file was prepared from another OCF file.
+- `parentVersion`: the parent file's `meta.version` at preparation time.
+- `lineageNotes`: freeform context for curation, export, conversion, or translation choices.
 
 ### File Role Examples
 
@@ -182,6 +191,12 @@ Use `renderAs` for the name that should appear in ordinary outputs. `given`, `fa
 
 Do not store government identity numbers, account secrets, passwords, passport numbers, taxpayer IDs, bank details, or API keys in OCF.
 
+## Stable ID Rules
+
+Use stable `id` values on durable records that tools may need to update, cite, or preserve across curation. IDs are optional unless a field needs to be referenced, but once an ID exists, future editors must preserve it across ordinary edits. If an eligible item lacks an ID, a future editor may add one.
+
+IDs are local to an OCF lineage: the master file and files intentionally derived from, curated from, or split from it. They are not global identifiers and must not be used to link across people or unrelated OCF files. Do not rewrite existing IDs to match a tool's preferred style. Use provenance to record which tool or person created or edited an item; the ID is not a tool signature.
+
 ## `sourceArtifacts`
 
 Source artifacts are inputs, not truth.
@@ -219,9 +234,9 @@ Good importer behavior:
 - create `openQuestions` for uncertainty
 - avoid treating imported material as intentionally shareable just because normal authored items default to `shared`
 
-`sourceArtifact.kind` and `provenance.source` are deliberately different vocabularies. `sourceArtifact.kind` describes the artifact itself (`resume`, `linkedin-export`, `chat-paste`, `interview-transcript`). `provenance.source` describes how the OCF item came into the file (`authored`, `imported`, `interview-derived`, `llm-suggested`, `curated`, `translated`, `merged`). For example, wording pasted into chat should usually have a `sourceArtifact.kind` of `chat-paste` and a `provenance.source` of `imported` or `llm-suggested`, with `sourceArtifactId` linking the two.
+`sourceArtifact.kind` and `provenance.source` are deliberately different vocabularies. `sourceArtifact.kind` describes the artifact itself (`resume`, `linkedin-export`, `job-description`, `photo`, `video`, `conversation`, `chat-paste`, `interview-transcript`). `provenance.source` describes how the OCF item came into the file (`authored`, `imported`, `interview-derived`, `llm-suggested`, `curated`, `translated`, `merged`). For example, wording pasted into chat should usually have a `sourceArtifact.kind` of `chat-paste` and a `provenance.source` of `imported` or `llm-suggested`, with `sourceArtifactId` linking the two.
 
-OCF v0.2 does not include `job-description` as a `sourceArtifact.kind` enum value. For now, use `application-draft`, `manual-note`, or `other` for job descriptions depending on the source and workflow. `job-description` is a likely v0.3 addition because resume-plus-JD workflows are common.
+Use `job-description` for employer-provided role descriptions and `application-draft` for material the candidate or tool created for an application.
 
 `sourceArtifacts.audience` is free-form and can also support voice calibration. Useful tags include `voice-authentic` for writing that sounds like the person, `voice-calibrated` for assisted writing the person has accepted as representative, and `voice-anti-pattern` for AI-heavy or rejected drafts that future tools should not imitate.
 
@@ -257,7 +272,7 @@ Do not use `confidence` as a substitute for future review status, verification, 
 
 ## Stable IDs
 
-Use stable IDs on the records that can carry them in v0.2: source artifacts, experience entries, positions, achievements, and narrative/title variants. Reflections, cautions, and `openQuestions` items do not take IDs in v0.2; reference them descriptively when a tool must point at one. Adding IDs to these items is tracked in [`spec/v0.3-planning.md`](v0.3-planning.md).
+Use stable IDs on durable items that tools may need to reference later: source artifacts, experience entries, positions, achievements, supporting facts, narrative/title variants, reflections, cautions, open questions, talking points, and positioning variants. IDs are optional unless another item references them. If an ID exists, future editors must preserve it. If an eligible item lacks an ID, future editors may add one.
 
 Recommended:
 
@@ -333,7 +348,40 @@ Use `dateRange.end.present: true` to mean present as of the source or current fi
 
 If a person has separate periods doing similar work for the same organization or client, model them as separate positions with the same or similar title and different `dateRange` values. This is clearer than hiding a gap inside prose. A future schema may add richer repeated-period support if this pattern becomes common.
 
-Do not use organization address as a proxy for the person's work location, residence, or tax-sensitive location history. A resume may reasonably show the company, office, or market location without implying where the person lived or performed all work. If role-location nuance matters, preserve it separately and keep sensitive residence or tax details private. Until OCF has first-class position-level location fields, use `extensions.user.local` for private/local location notes and curate only the location facts the user intentionally wants to disclose.
+Use `positions[].locations[].renderAs` for a role's resume-facing location string. A resume may reasonably show the company, office, market, remote status, or an intentional display location without implying where the person lived or performed all work:
+
+```json
+{
+  "title": "Director of Cybersecurity",
+  "locations": [
+    {
+      "renderAs": "Remote, company based in New York",
+      "city": "New York",
+      "region": "NY",
+      "country": "US",
+      "remote": true
+    }
+  ]
+}
+```
+
+Do not use organization address or a role location as a proxy for the person's residence, tax-sensitive location history, or actual worksite pattern. If richer role-location nuance matters, preserve it separately and keep sensitive residence or tax details private. Curate only the location facts the user intentionally wants to disclose.
+
+Travel is related to location but usually does not need its own first-class v0.3 schema. For an existing role, preserve the history of travel when it affects scope, credibility, or operating context. A role that expected roughly 50% travel across regional hospital sites is more than a throwaway bullet point: it explains what the work actually required. Model that historical pattern as a supporting fact, note, achievement context, or caution depending on how it will be reused:
+
+```json
+{
+  "label": "Travel pattern",
+  "statement": "Role required roughly 50% travel across regional hospital sites.",
+  "dateRange": {
+    "start": { "year": 2022 },
+    "end": { "year": 2024 }
+  },
+  "visibility": "shared"
+}
+```
+
+Do not treat current willingness to travel for future roles as durable career memory. OCF does not currently define first-class fields for "willing to travel up to 25%" or "not open to 50% travel anymore." Tools that need current travel willingness for an application should ask the user at the time of use, avoid inferring it from historical role travel, and avoid saving it as a durable fact unless the user explicitly asks.
 
 ## `organizations`
 
@@ -424,6 +472,7 @@ Use attribution to distinguish:
 
 - owned
 - led
+- co-led
 - drove
 - contributed to
 - supported
@@ -432,7 +481,7 @@ Use attribution to distinguish:
 
 This is not formal verification. It is a structured prompt for honest wording. RACI-like questions can help clarify responsibility, but OCF does not encode a formal RACI model.
 
-The `role` values are common cases, not a complete vocabulary for every collaboration pattern. If the precise truth is "co-led," "jointly owned," or "led one workstream inside a larger program," use the closest role value and put the nuance in `scope` or `notes` so a curator can choose accurate verbs.
+The `role` values are common cases, not a complete vocabulary for every collaboration pattern. If the precise truth is "jointly owned" or "led one workstream inside a larger program," use the closest role value and put the nuance in `scope` or `notes` so a curator can choose accurate verbs.
 
 ## Metrics
 
@@ -600,6 +649,35 @@ Examples:
 Good open questions should be answerable by the subject or by reviewing their source material. Use them for unresolved career facts, positioning choices, sensitivity decisions, attribution questions, or stories that need more detail.
 
 Do not use a person's `openQuestions` for schema housekeeping, exporter wishlist items, or mapper TODOs. Put those in a project issue tracker, exporter documentation, or a vendor extension namespace instead.
+
+## Talking Points
+
+Talking points are reusable, evidence-backed career framings.
+
+Use them for patterns that are bigger than one achievement but more concrete than a vague personal brand: how someone handles ambiguous situations, how they explain a transition, what they repeatedly bring to teams, or a confirmed through-line surfaced by a career conversation.
+
+Talking points should cite evidence. Prefer `supportingItemIds` when the supporting items have IDs, and use `supportingEvidence` when the evidence is a source artifact, external reference, or descriptive path that cannot yet be expressed as an item ID. A talking point without evidence is just a slogan; curators should be careful not to overuse it.
+
+Example:
+
+```json
+{
+  "id": "authority-from-demonstrated-work",
+  "label": "Authority through demonstrated work",
+  "statement": "Rebuilds authority by doing the hard work first, then asking others to join.",
+  "supportingItemIds": ["mhs-soc-buildout", "army-cyber-leadership-progression"],
+  "reviewStatus": "user-confirmed",
+  "visibility": "private"
+}
+```
+
+## Positioning Variants
+
+Positioning variants are person-level presentation choices.
+
+Use `person.headline` for the default, general-purpose headline. Use `positioningVariants` for target-aware alternatives: a healthcare-security headline, a federal/defense headline, a career-pivot summary, or a concise conference-bio framing. They can include a headline, summary, audiences, and supporting evidence.
+
+Do not treat a positioning variant as a new canonical fact. A curator chooses it for a target, or a user promotes it after review.
 
 ## Goals, Voice, And AI Instructions
 
@@ -791,9 +869,9 @@ Example:
 
 Use a domain you control as the namespace. Tools that do not understand an extension should preserve it.
 
-By interim convention, use top-level `extensions.user.local` for user-controlled scratch metadata that has no vendor owner and no first-class schema field yet. It is valid under the v0.2 extension key pattern, but it is not a v0.2 normative schema commitment. Portable data should still prefer first-class schema fields when they exist, and vendor-owned metadata should use a domain the vendor controls.
+By convention, use top-level `extensions.user.local` for user-controlled scratch metadata that has no vendor owner and no first-class schema field yet. It is valid under the extension key pattern, but it is not a normative schema commitment. Portable data should still prefer first-class schema fields when they exist, and vendor-owned metadata should use a domain the vendor controls.
 
-Do not use `person.extensions` for incubation in v0.2; `person` is a closed object in the canonical schema. If the experimental concept is person-level, store it under top-level `extensions.user.local` and include IDs or references back to the relevant person-level concept.
+Do not use `person.extensions`; `person` is a closed object in the canonical schema. If the experimental concept is person-level, store it under top-level `extensions.user.local` and include IDs or references back to the relevant person-level concept.
 
 When a tool repeatedly stores the same reusable career-memory structure under `extensions.user.local`, treat that as possible schema feedback. Preserve the local data, but consider helping the user file a redacted suggestion with the OCF project that explains the concept, the current best mapping, what felt awkward, and a fictionalized or anonymized example.
 
@@ -801,10 +879,13 @@ When a tool repeatedly stores the same reusable career-memory structure under `e
 
 Importers should be conservative.
 
-See `usage-patterns.md` for the full imported-starter workflow. At the field level, an importer should:
+See `usage-patterns.md` for the full import workflow. At the field level, an importer should:
 
 - add a `sourceArtifacts` entry
+- set `meta.source.kind` to `imported` or `converted`
 - preserve provenance on imported items
+- default durable mined items to `reviewStatus: "unreviewed"` or `"needs-review"` until accepted
+- treat missing `reviewStatus` on imported, inferred, or LLM-mined durable items as `unreviewed`
 - default mined items to `private` or `shared` based on source and workflow
 - create `openQuestions` for uncertain dates, metrics, titles, and claims
 - do not silently treat raw imported notes as public
@@ -839,7 +920,7 @@ For selected material, preserve lineage in `provenance` with the source file and
 }
 ```
 
-For proposed improvements, keep the suggested update distinct from export-ready content. In v0.2, tools can do this with a vendor extension, a candidate-curated working file, or an external review queue:
+For proposed improvements, keep the suggested update distinct from export-ready content. Tools can do this with a vendor extension, a candidate-curated working file, or an external review queue:
 
 ```json
 {
@@ -894,8 +975,8 @@ A useful OCF can be tiny:
 
 ```json
 {
-  "$schema": "https://opencareerformat.org/v0.2/schema.json",
-  "schemaVersion": "0.2",
+  "$schema": "https://opencareerformat.org/v0.3/schema.json",
+  "schemaVersion": "0.3",
   "meta": {
     "fileRole": "candidate-master",
     "canonical": true,

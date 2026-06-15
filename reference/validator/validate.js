@@ -19,6 +19,8 @@ const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
 const validate = ajv.compile(schema);
 console.log('Schema compilation: OK');
+const schemaVersion = schema.properties?.schemaVersion?.const || 'unknown';
+console.log(`Loaded OCF schemaVersion: ${schemaVersion}`);
 
 const args = process.argv.slice(2);
 const warnUnknown = args.includes('--warn-unknown');

@@ -1,6 +1,6 @@
 {
-  "$schema": "https://opencareerformat.org/v0.2/schema.json",
-  "schemaVersion": "0.2",
+  "$schema": "https://opencareerformat.org/v0.3/schema.json",
+  "schemaVersion": "0.3",
   "meta": {
     "canonical": true,
     "fileRole": "candidate-master",

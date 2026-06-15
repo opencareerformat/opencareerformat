@@ -46,7 +46,7 @@ The dates are illustrative, but the pattern is intentional: an OCF can start fro
 - Military and other insider-legible records need timeline-honest wording: rank, MOS, and dates may be essential for one audience and distracting for another.
 - `openQuestions` keeps useful follow-up work alive across sessions.
 - `reflections` can preserve a raw story in the subject's own words before any tool turns it into resume language.
-- `extensions.user.local` demonstrates how an incubating talking-point shape can be preserved without pretending v0.2 has a first-class field for it.
+- `talkingPoints` demonstrates how a confirmed through-line can become reusable career memory without flattening the original story.
 - `attribution` prompts cleaner distinctions between owned, led, drove, contributed to, and delegated work.
 
 The example is not meant to be the only way to write an OCF. It is meant to show why a master career file can be more useful than a resume alone.

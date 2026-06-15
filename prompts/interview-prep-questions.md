@@ -3,7 +3,7 @@ ocfPrompt: interview-prep-questions
 status: current
 lastUpdated: 2026-06-12
 compatibleSchemaVersions:
-  - "0.2"
+  - "0.3"
 defaultFor:
   - reflections
   - interview-prep

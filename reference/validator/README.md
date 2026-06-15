@@ -59,5 +59,5 @@ Validation checks structure only. A valid OCF file can still contain false
 claims, stale facts, private material, or content that should not be exported or
 shared with a particular recipient.
 
-Human review is still required before treating an imported starter as a master,
+Human review is still required before treating imported material as reviewed master content,
 applying proposed updates, or using any externally facing output.

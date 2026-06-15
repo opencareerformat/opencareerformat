@@ -40,14 +40,16 @@ The script reads:
 
 It asks the local model to produce an OCF-oriented intake pass and proposed next steps. The default output is a Markdown transcript, not a validated OCF file.
 
-## Emit an Imported Starter
+The JSON-output mode targets the current OCF `schemaVersion` by reading `spec/schema.json`. This script is not a migration tool for older OCF files.
 
-Use `--output imported-starter` when you want the local model to return OCF JSON that can be passed directly to the validator:
+## Emit a Provisional Master
+
+Use `--output provisional-master` when you want the local model to return OCF JSON that can be passed directly to the validator:
 
 ```bash
 node reference/ollama/ocf-local-llm.js \
   --mode authoring \
-  --output imported-starter \
+  --output provisional-master \
   --model qwen2.5:14b \
   --sample-resume \
   --out /tmp/ocf-local-sample.imported.ocf.json
@@ -60,7 +62,7 @@ node reference/validator/validate.js /tmp/ocf-local-sample.imported.ocf.json
 ```bash
 node reference/ollama/ocf-local-llm.js \
   --mode authoring \
-  --output imported-starter \
+  --output provisional-master \
   --model qwen2.5:14b \
   --resume spec/examples/sample-resume-source.txt \
   --out /tmp/ocf-local-imported.ocf.json

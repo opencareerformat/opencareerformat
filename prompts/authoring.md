@@ -3,16 +3,16 @@ ocfPrompt: authoring
 status: current
 lastUpdated: 2026-05-26
 compatibleSchemaVersions:
-  - "0.2"
+  - "0.3"
 defaultFor:
   - first-time-ocf-creation
-  - imported-starter
+  - provisional-master
   - source-artifact-mining
 ---
 
 # OCF Authoring Prompt
 
-Use this prompt when an LLM is helping create a new Open Career Format (OCF) file from resumes, LinkedIn exports, notes, photos, interview transcripts, job descriptions, or conversation. This prompt is usually for authoring a candidate-owned master OCF or an imported starter that may become one after review. It can also guide third-party working OCF files when the workflow is explicit. It is different from curation, which selects and improves content for a specific audience or output, and different from coaching, which helps the user discover story, voice, goals, boundaries, and reflection.
+Use this prompt when an LLM is helping create a new Open Career Format (OCF) file from resumes, LinkedIn exports, notes, photos, interview transcripts, job descriptions, or conversation. This prompt is usually for authoring a candidate-owned master OCF or a proposed update set. It can also guide third-party working OCF files when the workflow is explicit. It is different from curation, which selects and improves content for a specific audience or output, and different from coaching, which helps the user discover story, voice, goals, boundaries, and reflection.
 
 For a smaller entry point, read the starter/core authoring shape first: `https://opencareerformat.org/schema-core.json`.
 
@@ -30,7 +30,7 @@ You are helping the user create or update an Open Career Format (OCF) file. OCF 
 
 Before you begin, ask whether the user already has an OCF file and what role this new file should play. If they already have a candidate-owned master, ask them to provide it before drafting or importing so you can propose updates against the master instead of starting from a single artifact. If they provide an existing master and a specific target, switch to the curation prompt for the target-specific pass.
 
-If no OCF file is attached, briefly ask whether one exists. If the user does not have an OCF yet, or wants to move ahead without attaching it, treat the resume, job description, notes, and conversation as source artifacts for an imported starter. Do not make the user complete a full master OCF before helping with the immediate resume, cover letter, profile, or interview-prep request. Build a provisional OCF-oriented intake view, ask only the gating questions needed for the current target, produce the requested output, and propose what should be saved into a future master.
+If no OCF file is attached, briefly ask whether one exists. If the user does not have an OCF yet, or wants to move ahead without attaching it, treat the resume, job description, notes, and conversation as source artifacts for a provisional master or proposed update set. Do not make the user complete a full master OCF before helping with the immediate resume, cover letter, profile, or interview-prep request. Build a provisional OCF-oriented intake view, ask only the gating questions needed for the current target, produce the requested output, and propose what should be saved into a future master.
 
 Read the source material carefully before drafting the OCF or any downstream resume, cover letter, profile, or interview material. Do not jump straight to resume prose. First use OCF to track the gap between the source material and the target role, audience, or purpose. Do an OCF-oriented intake pass: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates. Ask targeted questions where evidence is missing, dates conflict, positioning choices matter, or the user may have reusable career memory that is not yet captured.
 
@@ -38,7 +38,7 @@ For cover letters, summaries, and other voice-sensitive outputs, ask for the use
 
 When a source resume and target job description are the only inputs, the useful first pass is usually:
 
-- record the resume and job description as `sourceArtifacts`; in OCF v0.2, job descriptions usually use `kind: "other"` or `kind: "manual-note"` because `job-description` is planned for a later enum addition;
+- record the resume and job description as `sourceArtifacts`; use `kind: "job-description"` for employer-provided role descriptions;
 - extract reusable facts, achievements, metrics, skills, education, certifications, and timeline entries;
 - identify target fit and missing evidence against the job description;
 - ask a short set of gating questions that would materially change the draft;
@@ -48,14 +48,14 @@ When a source resume and target job description are the only inputs, the useful 
 - produce the requested resume, cover letter, or preparation notes after the user answers;
 - end with proposed OCF updates so the next session starts ahead of this one.
 
-Do not treat this first pass as canonical truth. Label the output as an imported starter or proposed update set until the user reviews it.
+Do not treat this first pass as canonical truth. Keep imported items visibly unreviewed, or label the output as a proposed update set, until the user reviews it.
 
 ### Start With the Core
 
 For a first useful OCF, prioritize:
 
 - `person`: name, contact details, location, headline, and summary when available.
-- `sourceArtifacts`: each resume, LinkedIn export, note, transcript, photo, job description, or pasted conversation used as evidence. Use the current schema's `sourceArtifact.kind` enum; in v0.2, job descriptions usually use `other` or `manual-note`.
+- `sourceArtifacts`: each resume, LinkedIn export, note, transcript, photo, video, job description, or pasted conversation used as evidence. Use the current schema's `sourceArtifact.kind` enum.
 - `experience`: each organization, tenure, role, promotion, self-employment period, military service, caregiving period, career break, or other timeline entry.
 - `positions`: each specific role within an experience entry.
 - `achievements`: claims the person might later use in a resume, profile, interview, or cover letter.
@@ -68,9 +68,9 @@ For a first useful OCF, prioritize:
 
 Do not try to fill every field in the full schema. A small accurate OCF is better than a large speculative one.
 
-Set `meta.fileRole` when creating a new file. Use `candidate-master` for the person's private durable master, `imported-starter` for a provisional import awaiting review, `candidate-curated` or `export-ready` for reduced files prepared for a purpose, and `third-party-working` for recruiter, coach, agency, employer, or tool-owned working files about a person.
+Set `meta.fileRole` when creating a new file. Use `candidate-master` for the person's private durable master, `candidate-curated` or `export-ready` for reduced files prepared for a purpose, and `third-party-working` for recruiter, coach, agency, employer, or tool-owned working files about a person. For a first-pass import that is becoming the user's working master, use `candidate-master` with `meta.source.kind: "imported"` or `"converted"` and mark mined durable items `reviewStatus: "unreviewed"` or `"needs-review"` until accepted.
 
-Do not name an unreviewed imported starter as a master file. Use a filename such as `{person}-{context}-{date}.imported.ocf.json`. After the user reviews and accepts it as their durable record, it may become `{person}.master.ocf.json`.
+Do not name a throwaway or unaccepted import artifact as a master file. Use a filename such as `{person}-{context}-{date}.imported.ocf.json`. After the user reviews and accepts it as their durable record, it may become `{person}.master.ocf.json`.
 
 ### Treat Source Material as Evidence
 
@@ -181,7 +181,7 @@ Use `openQuestions` for questions the user cannot answer now. An open question i
 
 When you create or update an OCF, show the user:
 
-- The file role you used and whether this is a candidate-owned master, imported starter, curated/export-ready file, or third-party working file.
+- The file role you used and whether this is a candidate-owned master, provisional import, curated/export-ready file, or third-party working file.
 - What source artifacts you used.
 - Which facts you treated as canonical.
 - Which claims stayed provisional.

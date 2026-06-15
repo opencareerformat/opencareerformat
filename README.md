@@ -10,7 +10,7 @@ A candidate-owned, portable file format for preserving career history and curati
 
 This repository contains the schema, prompts, mappings, and reference implementations behind that site. The rest of this README is for people reading the spec, building tools, or contributing.
 
-OCF is currently at **v0.2** and should be treated as pre-1.0 beta. The current schema URL is <https://opencareerformat.org/schema.json>; this alias may change as feedback comes in. Tools that need stability should pin to a versioned schema URL such as <https://opencareerformat.org/v0.2/schema.json>. Breaking changes may occur before 1.0 and will be documented in the changelog.
+OCF is currently at **v0.3** and should be treated as pre-1.0 beta. The current schema URL is <https://opencareerformat.org/schema.json>; this alias may change as feedback comes in. Tools that need stability should pin to a versioned schema URL such as <https://opencareerformat.org/v0.3/schema.json>. Breaking changes may occur before 1.0 and will be documented in the changelog.
 
 ## Start Here
 
@@ -32,7 +32,7 @@ spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
   guide.html      # The human-readable specification, written for the curious reader.
   schema-commentary.md # Non-normative annotated schema commentary with examples.
   implementer-quick-reference.md # Compact field tiers and tool behavior guidance.
-  usage-patterns.md # File roles: candidate-owned master, imported starter, third-party working files, etc.
+  usage-patterns.md # File roles: candidate-owned master, curated/export-ready files, third-party working files, etc.
   v0.3-planning.md # Non-normative planning notes for likely next schema concepts.
   examples/       # Canonical example OCF files.
 
@@ -42,7 +42,7 @@ llms.txt          # LLM/tool site map pointing to the guide, schemas, and prompt
 
 prompts/          # OPTIONAL OPERATING GUIDANCE — LLM/coach/curator prompts that can evolve separately.
   application-bootstrap.md # Single-fetch first-session prompt for resume + job-description help.
-  authoring.md    # Prompt for creating or updating a master OCF or imported starter.
+  authoring.md    # Prompt for creating or updating a master OCF or proposed update set.
   coaching.md     # Prompt for discovering story, voice, goals, boundaries, and reflection.
   curation.md     # Prompt for target-specific filtering, questioning, ranking, and improvement.
   llm-operating.md # Baseline instruction set for conversational OCF use.
@@ -66,7 +66,7 @@ The split is intentional. Anyone who wants to use OCF can read `spec/` and ignor
 
 OCF is a structured, JSON-based format designed around explicit file roles and a three-stage pipeline.
 
-File roles matter. A **candidate-owned master** is the primary personal use case: the person's private, durable career memory. A **candidate-curated** or **export-ready** file is reduced for a specific audience or output. An **imported starter** is a provisional first pass from resumes, LinkedIn exports, notes, or conversations. A **third-party working OCF** can be created by a recruiter, coach, agency, employer, or tool about a person; it may be useful in that workflow, but it is not the candidate's private master and should not be treated as canonical for the person without review. In every case, the top-level `person` is the subject whose career is described; the controller of the file and the editor of individual items may be different. See [`spec/usage-patterns.md`](spec/usage-patterns.md).
+File roles matter. A **candidate-owned master** is the primary personal use case: the person's private, durable career memory. A **candidate-curated** or **export-ready** file is reduced for a specific audience or output. A first pass from resumes, LinkedIn exports, notes, or conversations can become a provisional master, but imported items should stay visibly unreviewed until accepted. A **third-party working OCF** can be created by a recruiter, coach, agency, employer, or tool about a person; it may be useful in that workflow, but it is not the candidate's private master and should not be treated as canonical for the person without review. In every case, the top-level `person` is the subject whose career is described; the controller of the file and the editor of individual items may be different. See [`spec/usage-patterns.md`](spec/usage-patterns.md).
 
 1. **Master file** — your complete career record. Everything goes in: every role, every achievement, every certification, every note. You maintain one master file over years. This can be created by hand, by a tool, or by importing an old resume.
 2. **Curation** — the judgment loop. A curator reads the master OCF, applies rules and preferences, filters what should not be used, asks questions where evidence is missing or inconsistent, and ranks what matters for the purpose. Curation can produce proposed improvements to the master, export-ready input, or both.
@@ -78,7 +78,7 @@ The master OCF is a private archive for an individual, not a file to hand to an 
 
 Important caveat: validation checks structure, not truth or shareability. A valid OCF can still contain false claims, private material, stale facts, or content that should not be sent to a particular recipient. See the guide section "Caveats and Operating Practices" before sharing a master or curated file.
 
-A small master with person information, one experience entry, one position, and a few achievements is enough to validate, prepare a first output, and improve through later conversations. Nobody needs a complete career archive before OCF becomes useful — the [application bootstrap](prompts/application-bootstrap.md) exists so a first session can help with a real application and produce an imported starter as a by-product.
+A small master with person information, one experience entry, one position, and a few achievements is enough to validate, prepare a first output, and improve through later conversations. Nobody needs a complete career archive before OCF becomes useful — the [application bootstrap](prompts/application-bootstrap.md) exists so a first session can help with a real application and produce a provisional master or proposed update set as a by-product.
 
 See [`spec/guide.html`](spec/guide.html) for the full design walkthrough, including the rationale behind organizations versus experience entries, visibility controls, narrative depth, vendor extensions, provenance, curation, and exports.
 
@@ -91,7 +91,7 @@ OCF deliberately does not specify how content is elicited (the interviewing laye
 The reference prompts ([`prompts/README.md`](prompts/README.md)) carry the full operating guidance. Three conventions matter enough to repeat here:
 
 - **Encourage versioning.** The master OCF accumulates over years. Tools should encourage git, cloud document history, encrypted backups, or another versioning system, so users can recover from bad imports and compare changes.
-- **Use descriptive dated filenames for generated artifacts**, such as `curated/acme-ciso-2026-05-21.ocf.json` or `exports/acme-ciso-resume-2026-05-21.pdf`, so users can tell which file belongs to which target and what version went out the door. Do not name an unreviewed imported starter as a master file.
+- **Use descriptive dated filenames for generated artifacts**, such as `curated/acme-ciso-2026-05-21.ocf.json` or `exports/acme-ciso-resume-2026-05-21.pdf`, so users can tell which file belongs to which target and what version went out the door. Do not name a throwaway or unaccepted import artifact as a master file.
 - **Preserve fields you do not own.** Tools that write back to the master should preserve IDs, provenance, source artifact references, and vendor extensions. A curated/export-ready file may intentionally omit content, but it should remain labeled as non-master and should never overwrite the master accidentally.
 
 ## Feedback and Contributions

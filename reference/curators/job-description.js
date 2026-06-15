@@ -4,6 +4,9 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 
+const CURRENT_SCHEMA = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../spec/schema.json"), "utf8"));
+const CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA.properties?.schemaVersion?.const;
+
 function curateForJob(doc, jobText, options = {}) {
   if (!doc.meta?.id) {
     throw new Error("Cannot curate OCF: input master is missing meta.id.");
@@ -33,10 +36,11 @@ function curateForJob(doc, jobText, options = {}) {
       lastModified: now,
       language: doc.meta?.language,
       source: {
-        kind: "derived",
+        kind: "authored",
       },
-      derivedFrom: doc.meta.id,
-      derivationNotes: `Proof-of-concept curator: keyword scored the target context, ${visibilityNote}, and kept a small subset of matching experience, skills, and certifications. This curated OCF is intentionally incomplete and should not overwrite the master.`,
+      parentFileId: doc.meta.id,
+      parentVersion: doc.meta?.version,
+      lineageNotes: `Proof-of-concept curator: keyword scored the target context, ${visibilityNote}, and kept a small subset of matching experience, skills, and certifications. This curated OCF is intentionally incomplete and should not overwrite the master.`,
     },
     person: filterVisibility(doc.person, visibilityMode),
     experience: selectedExperience,
@@ -204,6 +208,7 @@ function summarizeCuration(source, curated, visibilityMode) {
 function printCurationSummary(summary, outputPath) {
   console.error("OCF reference curator summary");
   console.error("This is a bare-bones proof-of-concept curator, not a production relevance engine.");
+  console.error(`Tested against the current OCF examples (schemaVersion ${CURRENT_SCHEMA_VERSION}); output preserves the input schemaVersion.`);
   console.error(`Wrote curated OCF: ${outputPath}`);
   console.error(`Visibility mode: ${summary.visibilityMode}`);
   console.error(`Removed private items: ${summary.privateItemsRemoved}`);

@@ -11,20 +11,19 @@ OCF is an open schema for preserving career memory, curating it for a purpose, a
 | Core | `$schema`, `schemaVersion`, `meta`, `person`, `sourceArtifacts`, `experience`, `experience[].positions`, `achievements`, `skills`, `education`, `certifications`, `openQuestions`, `cautions` | Most authoring, import, curation, and export tools should understand these well enough to preserve them. |
 | Common optional | `organizations`, `projects`, `publications`, `awards`, `languages`, `service`, `memberships`, `governance`, `teaching`, `speaking`, `patents`, `interests` | Support when relevant to the user's career or target output; omit cleanly when absent. |
 | Private memory | `reflections`, `exitContext`, compensation fields, `salesPerformance`, `bookOfBusiness`, private `sourceArtifacts`, private notes | Preserve carefully. Do not export by default. Treat as the reason the master file is useful, not as ordinary resume content. |
-| Curation signals | `visibility`, `importance`, `audiences`, `narrativeVariants`, `titleVariants`, `supportingFacts`, `attribution`, `dateIsPrivate` | Use these to decide what can be selected, what needs review, and how claims can be worded. Do not treat them as final display text by themselves. |
-| Provenance and interop | `id`, `provenance`, `sourceArtifactId`, `sourceFileId`, `sourceItemId`, `extensions`, `meta.derivedFrom`, `meta.derivedFromVersion`, `meta.derivationNotes` | Preserve on round-trip. Stable IDs and boring provenance make files reviewable and mergeable. |
-| Advanced or likely to evolve | verification/review lifecycle, richer trust tiers, renderer hints, region-specific export policy, third-party workflow metadata | Use `extensions` or provenance notes for now unless the current schema has a first-class field. Expect feedback-driven changes before 1.0. |
+| Curation signals | `visibility`, `importance`, `audiences`, `narrativeVariants`, `titleVariants`, `positioningVariants`, `talkingPoints`, `supportingFacts`, `attribution`, `reviewStatus`, `dateIsPrivate` | Use these to decide what can be selected, what needs review, and how claims can be worded. Do not treat them as final display text by themselves. |
+| Provenance and interop | `id`, `provenance`, `sourceArtifactId`, `sourceFileId`, `sourceItemId`, `extensions`, `meta.parentFileId`, `meta.parentVersion`, `meta.lineageNotes` | Preserve on round-trip. Stable IDs and boring provenance make files reviewable and mergeable. |
+| Advanced or likely to evolve | richer trust tiers, renderer hints, region-specific export policy, third-party workflow metadata, sharding/manifest conventions | Use `extensions` or provenance notes for now unless the current schema has a first-class field. Expect feedback-driven changes before 1.0. |
 
-## v0.2 Compatibility Names Replaced In v0.3
+## v0.3 Lineage Names
 
-OCF v0.2 still contains a few schema names from the earlier "derived file" vocabulary:
+OCF v0.3 replaces the old "derived file" vocabulary with parent/lineage names:
 
-- `meta.derivedFrom`
-- `meta.derivedFromVersion`
-- `meta.derivationNotes`
-- `meta.source.kind: "derived"`
+- `meta.parentFileId`
+- `meta.parentVersion`
+- `meta.lineageNotes`
 
-Tools should preserve and read these fields for v0.2 compatibility. New documentation should describe the workflow as curation and export-ready preparation, not derivation. v0.3 should replace these fields and enum values with names that match the current language directly.
+`parentFileId` is the parent file's `meta.id`, not a filename. `parentVersion` is the parent file's `meta.version` at the time the child file was prepared. `lineageNotes` records the target, filter, translation, conversion, or export context.
 
 Do not confuse these with provenance values such as `interview-derived`. That phrase describes how an item was elicited from an interview or conversation and is still useful.
 
@@ -33,17 +32,18 @@ Do not confuse these with provenance values such as `interview-derived`. That ph
 | `meta.fileRole` | Use when | Important behavior |
 |---|---|---|
 | `candidate-master` | The person controls the durable private career memory file. | Preserve history, nuance, private material, source artifacts, cautions, and open questions. |
-| `imported-starter` | A tool creates a provisional first pass from resumes, LinkedIn exports, notes, photos, or transcripts. | Keep it visibly provisional. Do not name it `*.master.ocf.json` until reviewed and accepted. |
 | `candidate-curated` | A tool/person selects and improves a working set for a purpose, but review is still active. | Preserve lineage to the master and keep proposed improvements separate from export-ready content. |
 | `export-ready` | Selection and visibility review are complete enough for a specific exporter or downstream system. | Exporters should prefer this over the private master. |
 | `third-party-working` | A recruiter, coach, employer, agency, or tool controls an OCF-shaped file about a person. | The top-level `person` is still the subject, but the subject may not control or see the file. |
+| `other` | A workflow does not fit the named lifecycle roles. | Explain the role in `meta.lineageNotes`, provenance, or tool documentation. |
 
 ## Minimal Tool Behavior
 
 Importers should:
 
 - Register inputs in `sourceArtifacts`.
-- Create `imported-starter` files when the user has not accepted the result as a master.
+- Set `meta.source.kind` to `imported` or `converted`.
+- Default mined durable items to `reviewStatus: "unreviewed"` or `"needs-review"` until accepted.
 - Add provenance and confidence when mining facts.
 - Use `openQuestions` for conflicting dates, unsupported metrics, unclear attribution, and missing evidence.
 - Avoid marking imported material as public by default.
@@ -52,7 +52,7 @@ Curators should:
 
 - Read the target purpose carefully: job description, audience, region, output type, review question, or user preference.
 - Filter by `visibility` first, then relevance and recency.
-- Preserve lineage with `meta.derivedFrom`, `sourceFileId`, `sourceItemId`, or item provenance where practical.
+- Preserve lineage with `meta.parentFileId`, `meta.parentVersion`, `sourceFileId`, `sourceItemId`, or item provenance where practical.
 - Produce proposed OCF improvements separately from export-ready content.
 - Be explicit about what was removed, skipped, or left unresolved.
 - Label reduced files as `candidate-curated` or `export-ready`, not `candidate-master`. A subset may discover improvements for the master, but those should be proposed back with provenance rather than replacing the master.

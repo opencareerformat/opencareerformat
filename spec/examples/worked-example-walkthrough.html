@@ -208,7 +208,7 @@
 <li>avoid inventing missing metrics, dates, supervisors, or outcomes.</li>
 </ul>
 
-<p>At this point the file is best understood as an <code>imported-starter</code>, even if the example file later shows the richer candidate-master shape.</p>
+<p>At this point the file is best understood as a provisional <code>candidate-master</code>: the file can already be the person's working master, but imported items should remain visibly unreviewed until the person accepts them.</p>
 
 <h2>2. Intake Turns Bullet Points Into Career Memory</h2>
 
@@ -399,45 +399,41 @@
 <p>The confirmed through-line is stored separately, because it is not a raw story and not a single achievement:</p>
 
 <pre><code class="language-json">{
-  &quot;extensions&quot;: {
-    &quot;user.local&quot;: {
-      &quot;candidateTalkingPoints&quot;: [
+  &quot;talkingPoints&quot;: [
+    {
+      &quot;id&quot;: &quot;authority-from-demonstrated-work&quot;,
+      &quot;label&quot;: &quot;Authority from demonstrated work&quot;,
+      &quot;statement&quot;: &quot;I rebuild authority from demonstrated work rather than inherited position.&quot;,
+      &quot;uses&quot;: [
+        &quot;interview-prep&quot;,
+        &quot;leadership-screen&quot;,
+        &quot;military-to-civilian-transition&quot;
+      ],
+      &quot;visibility&quot;: &quot;private&quot;,
+      &quot;supportingItemIds&quot;: [&quot;mhs-soc-buildout&quot;],
+      &quot;supportingEvidence&quot;: [
         {
-          &quot;id&quot;: &quot;authority-from-demonstrated-work&quot;,
-          &quot;label&quot;: &quot;Authority from demonstrated work&quot;,
-          &quot;statement&quot;: &quot;I rebuild authority from demonstrated work rather than inherited position.&quot;,
-          &quot;uses&quot;: [
-            &quot;interview-prep&quot;,
-            &quot;leadership-screen&quot;,
-            &quot;military-to-civilian-transition&quot;
-          ],
-          &quot;visibility&quot;: &quot;private&quot;,
-          &quot;supportingItemIds&quot;: [&quot;mhs-soc-buildout&quot;],
-          &quot;supportingEvidence&quot;: [
-            {
-              &quot;kind&quot;: &quot;reflection&quot;,
-              &quot;path&quot;: &quot;experience[name=Meridian Health Systems].positions[title=Director of Cybersecurity].reflections[kind=never-on-resume-story]&quot;,
-              &quot;summary&quot;: &quot;First-month Meridian story about rebuilding authority after an analyst declined a weekend shift.&quot;
-            },
-            {
-              &quot;kind&quot;: &quot;achievement&quot;,
-              &quot;id&quot;: &quot;mhs-soc-buildout&quot;,
-              &quot;summary&quot;: &quot;Built SOC from 0 to 12 analysts and reached 24/7 coverage within six months.&quot;
-            }
-          ],
-          &quot;evidenceSummary&quot;: &quot;Supported by Maria's first-month Meridian story and by the SOC buildout that reached 24/7 coverage in six months.&quot;,
-          &quot;provenance&quot;: {
-            &quot;source&quot;: &quot;llm-suggested&quot;,
-            &quot;reviewStatus&quot;: &quot;user-confirmed&quot;,
-            &quot;operation&quot;: &quot;earned-through-line-reflection&quot;
-          }
+          &quot;kind&quot;: &quot;reflection&quot;,
+          &quot;path&quot;: &quot;experience[name=Meridian Health Systems].positions[title=Director of Cybersecurity].reflections[kind=never-on-resume-story]&quot;,
+          &quot;summary&quot;: &quot;First-month Meridian story about rebuilding authority after an analyst declined a weekend shift.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;achievement&quot;,
+          &quot;id&quot;: &quot;mhs-soc-buildout&quot;,
+          &quot;summary&quot;: &quot;Built SOC from 0 to 12 analysts and reached 24/7 coverage within six months.&quot;
         }
-      ]
+      ],
+      &quot;evidenceSummary&quot;: &quot;Supported by Maria's first-month Meridian story and by the SOC buildout that reached 24/7 coverage in six months.&quot;,
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;,
+      &quot;provenance&quot;: {
+        &quot;source&quot;: &quot;llm-suggested&quot;,
+        &quot;operation&quot;: &quot;earned-through-line-reflection&quot;
+      }
     }
-  }
+  ]
 }</code></pre>
 
-<p>The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking-point-shaped extension; unresolved implications become or update open questions.</p>
+<p>The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking point; unresolved implications become or update open questions.</p>
 
 <p>This is the give-back loop. The user contributes a story that was never resume-shaped; the tool returns a pattern that is useful only because it is earned from the user's own evidence. If the user rejects the pattern, the correction is useful too.</p>
 
@@ -520,7 +516,8 @@
         &quot;sourceArtifactId&quot;: &quot;sample-resume-source-2026-05&quot;,
         &quot;operation&quot;: &quot;military-to-civilian-framing&quot;,
         &quot;confidence&quot;: 0.9
-      }
+      },
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
     },
     {
       &quot;id&quot;: &quot;army-cyber-lead-federal&quot;,
@@ -539,7 +536,8 @@
         &quot;sourceArtifactId&quot;: &quot;sample-resume-source-2026-05&quot;,
         &quot;operation&quot;: &quot;federal-defense-framing&quot;,
         &quot;confidence&quot;: 0.9
-      }
+      },
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
     }
   ]
 }</code></pre>

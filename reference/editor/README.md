@@ -4,6 +4,8 @@ This is a developer reference implementation for editing Open Career Format file
 
 ## Run Locally
 
+This editor is a Next.js reference app. Running `npm install` creates a large local `node_modules` directory; it is ignored by Git and can be deleted and recreated from `package-lock.json` when needed.
+
 ```bash
 npm install
 npm run dev
@@ -17,7 +19,7 @@ The editor has no LLM dependency and no server-side API-key requirement. Import,
 
 The editor covers the core authoring surface: person, experience entries, positions, achievements, skills, education, certifications, and several supporting sections.
 
-The TypeScript model is currently a partial mirror of the schema. It does not yet provide first-class editing UI for every v0.2 feature, including provenance, source artifacts, top-level organizations, competencies, narrative variants, title variants, reflections, goals, cautions, open questions, voice, and AI instructions.
+The TypeScript model is currently a partial mirror of the schema. It does not yet provide first-class editing UI for every current schema feature, including provenance, source artifacts, top-level organizations, competencies, narrative variants, title variants, reflections, goals, cautions, open questions, voice, talking points, positioning variants, and AI instructions.
 
 Opening an existing rich OCF file and exporting it again should preserve fields that the editor does not touch, because the document is loaded and stored as a whole. New files created entirely through the editor will be shallower than the full schema until those sections get dedicated UI.
 

@@ -14,7 +14,7 @@ Keep these roles separate:
 
 In a candidate-owned master, these roles often collapse: the subject is the candidate, the controller is the candidate, and editors are the candidate or tools acting for the candidate. In a recruiter or coach workflow, they may be different: the subject is still the candidate, while the controller may be a recruiter, agency, coach, employer, or tool workspace.
 
-OCF v0.2 does not define a first-class `meta.controller` field. The controller is usually contextual: the file location, application workspace, account, or workflow tells you who controls it. If a tool needs to persist controller-specific metadata inside the file, use a vendor namespace under `extensions` rather than treating the subject as the controller.
+OCF does not define a first-class `meta.controller` field. The controller is usually contextual: the file location, application workspace, account, or workflow tells you who controls it. If a tool needs to persist controller-specific metadata inside the file, use a vendor namespace under `extensions` rather than treating the subject as the controller.
 
 ## Candidate-Owned Master
 
@@ -26,23 +26,24 @@ Common filenames:
 
 - `{person}.master.ocf.json` (for example, `maria-reyes.master.ocf.json`)
 
-## Imported Starter
+## Imported or Converted First Pass
 
-An `imported-starter` OCF is a provisional first pass built from resumes, LinkedIn exports, notes, photos, transcripts, or conversations. It is useful because it gives the user a starting point, but it is not automatically the candidate-owned master.
+An imported or converted first pass is a provisional file built from resumes, LinkedIn exports, notes, photos, transcripts, or conversations. It is useful because it gives the user a starting point, but imported content is not automatically trusted career memory.
 
-An imported starter should preserve source artifacts, provenance, uncertainty, and open questions. It can become a candidate-owned master after review, or it can remain a temporary import artifact.
+The current schema no longer uses a separate `imported-starter` file role. A first-pass file usually uses `meta.fileRole: "candidate-master"` when it is becoming the person's working master, plus `meta.source.kind: "imported"` or `"converted"` and item-level `reviewStatus`, provenance, cautions, and open questions to show what still needs review.
 
-A first-pass import typically uses `meta.fileRole: "imported-starter"`, `meta.canonical: false`, and `meta.source.kind: "imported"`. Until the user reviews the result, keep imported facts visibly provisional through file role, provenance, visibility, and open questions.
+If the first pass is only a temporary working artifact, use `meta.fileRole: "other"` or a tool-owned working file, keep `meta.canonical: false`, and avoid naming it as a master. The trust posture lives in the items: default mined facts to `reviewStatus: "unreviewed"` or `"needs-review"` until the user accepts them.
 
-After review, the usual path is to create or update a `candidate-master` with the accepted material and keep the imported starter as an archived import artifact, or preserve the original input as a `sourceArtifacts` entry. Do not silently promote the imported-starter file in place unless the user has explicitly accepted it as the master.
+After review, the usual path is to keep the accepted material in the `candidate-master` and preserve the original inputs as `sourceArtifacts`. Do not silently overwrite a reviewed master with a reduced, third-party, or unreviewed imported file.
 
-Do not name an unreviewed imported starter as a master file. Use a filename such as `{person}-{context}-{date}.imported.ocf.json`. After the user reviews and accepts it as their durable record, it may become `{person}.master.ocf.json`.
+Do not name a throwaway or unreviewed import artifact as a master file. Use a filename such as `{person}-{context}-{date}.imported.ocf.json`. When the user accepts the result as their durable record, use `{person}.master.ocf.json`.
 
 An importer should:
 
-- create an `imported-starter` for first-pass imports
 - add `sourceArtifacts` for the inputs
+- set `meta.source.kind` to `imported` or `converted`
 - preserve provenance on imported items
+- default mined durable items to `reviewStatus: "unreviewed"` or `"needs-review"` until accepted
 - default mined items to `private` or `shared` based on source and workflow
 - create `openQuestions` for uncertain dates, metrics, titles, and claims
 - avoid treating raw imported notes as public

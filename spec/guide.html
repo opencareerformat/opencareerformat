@@ -25,7 +25,7 @@
   "name": "Open Career Format Guide",
   "url": "https://opencareerformat.org/spec/guide.html",
   "description": "The full Open Career Format guide: a practical specification for preserving career history as candidate-owned JSON career memory for curation, export, and tools.",
-  "dateModified": "2026-06-12",
+  "dateModified": "2026-06-15",
   "inLanguage": "en",
   "about": {
     "@type": "CreativeWork",
@@ -33,7 +33,7 @@
     "name": "Open Career Format",
     "alternateName": "OCF",
     "url": "https://opencareerformat.org/",
-    "version": "0.2"
+    "version": "0.3"
   },
   "isPartOf": {
     "@type": "WebSite",
@@ -379,7 +379,7 @@
 
 <h2>Two Ways to Use OCF</h2>
 <p>Most people will use OCF first as structure for a conversation. They will bring the file to an LLM, coach, advisor, mentor, or trusted reviewer so the conversation has concrete career memory to work from. In that setting, curation and export are not heavyweight software requirements; they are the mental model that tells the conversation what to do. First decide what parts of your career history should be used, reviewed, ranked, filtered, and/or improved. Then export the type of content in the format the person needs.</p>
-<p>If you are using an LLM, point it at this guide and the current schema: <code>https://opencareerformat.org/schema.json</code>. Versioned schemas remain available at paths such as <code>https://opencareerformat.org/v0.2/schema.json</code> for files that need a pinned schema.</p>
+<p>If you are using an LLM, point it at this guide and the current schema: <code>https://opencareerformat.org/schema.json</code>. Versioned schemas remain available at paths such as <code>https://opencareerformat.org/v0.3/schema.json</code> for files that need a pinned schema.</p>
 <p>For LLMs and tools, OCF also publishes a compact site map at <a href="../llms.txt"><code>https://opencareerformat.org/llms.txt</code></a>, with links to the starter/core authoring shape, full schema, <a href="../prompts/authoring.md">authoring prompt</a>, <a href="../prompts/llm-operating.md">recommended LLM operating prompt</a>, and <a href="../prompts/curation.md">curation guidance</a>.</p>
 <p>The second path is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.</p>
 
@@ -392,13 +392,13 @@
 <p>This boundary is also about dignity and control. A proof-oriented format would inherit the institutional tiering of whatever evidence systems happen to measure a person. A memory-oriented format lets the subject remain sovereign over their own history: the claims are theirs, the evidence context is honest, and the file can serve careers that institutions never bothered to record.</p>
 
 <h2 id="file-roles">File Roles and Usage Patterns</h2>
-<p>OCF is the file format. The candidate-owned master is the primary use case for now, but the schema is designed to handle other file roles too. The goal is always the same, regardless of who controls the file: act as a common substrate for explaining a person's career over time, with nuance and history. That need can show up in imported starters, candidate-curated working files, export-ready handoffs, and third-party working files created by recruiters, coaches, employers, agencies, or tools. The file's <code>meta.fileRole</code> should make the workflow context explicit. The top-level <code>person</code> is always the <strong>subject</strong> of the OCF: the person whose career is described. The controller of the file and the editor of individual items may be someone else.</p>
+<p>OCF is the file format. The candidate-owned master is the primary use case for now, but the schema is designed to handle other file roles too. The goal is always the same, regardless of who controls the file: act as a common substrate for explaining a person's career over time, with nuance and history. That need can show up in provisional imports, candidate-curated working files, export-ready handoffs, and third-party working files created by recruiters, coaches, employers, agencies, or tools. The file's <code>meta.fileRole</code> should make the workflow context explicit. The top-level <code>person</code> is always the <strong>subject</strong> of the OCF: the person whose career is described. The controller of the file and the editor of individual items may be someone else.</p>
 <ul>
   <li><strong><code>candidate-master</code></strong>: the person's private, durable career memory. This is the highest-trust personal use case and the one meant to improve over years.</li>
   <li><strong><code>candidate-curated</code></strong>: a reduced or purpose-specific OCF prepared by or for the candidate from a master. It is a candidate-controlled working set for review, coaching, tailoring, or later export. It may still contain shared material that should not go to every downstream system.</li>
-  <li><strong><code>imported-starter</code></strong>: a provisional first-pass OCF built from resumes, LinkedIn exports, notes, or conversations. It can become a candidate-owned master after review, or remain a temporary import artifact.</li>
   <li><strong><code>third-party-working</code></strong>: an OCF-shaped working file created by a recruiter, coach, agency, employer, or tool about a person. It may contain workflow-specific review notes, intake details, or status metadata. It is not the person's private master and should not be treated as canonical for the person.</li>
   <li><strong><code>export-ready</code></strong>: curated content prepared as a handoff to a specific exporter or downstream system. At this point, the selection and visibility review should already be done; the exporter decides format and presentation, not what career claims belong.</li>
+  <li><strong><code>other</code></strong>: a file that does not fit the named lifecycle roles. Explain its purpose in metadata, provenance, or tool documentation.</li>
 </ul>
 <p>In short: <code>candidate-curated</code> is a reviewed working draft controlled by or for the candidate; <code>export-ready</code> is the handoff input for a specific exporter or downstream destination.</p>
 <p>This distinction prevents accidental authority. A recruiter may use OCF to build a working file from a resume and candidate call; that file can be useful for the recruiter without ever becoming the candidate's master. If content flows back into the candidate-owned master, it should arrive as proposed updates for the person to accept, edit, or reject.</p>
@@ -464,6 +464,7 @@
 <p>All of your work history lives in a single list called <strong>experience</strong>. Each entry is an <strong>experience entry</strong>: one relationship, tenure, assignment, or period in your timeline — a company tenure, military service, self-employment, caregiving, or even a career break.</p>
 <p>This is one of the most important design decisions in OCF. By putting everything in one chronological list — traditional jobs, self-employment, caregiving, sabbaticals, military service — your career has no unexplained gaps. A three-year gap isn't suspicious when it clearly says "Full-time caregiver for elderly parent" or "Career break — traveled Southeast Asia."</p>
 <p>Within each experience entry, you list your <strong>positions</strong> — the specific roles you held. Promotions, lateral moves, and reassignments are all just positions within the same entry. Achievements, projects, and competencies nest inside positions, so the relationship is structural. You never have to explain "this achievement happened at this job" — it's already there.</p>
+<p>Location and travel are part of the context, but they are not always literal residence history. A position can carry the role's resume-facing location string, such as "Remote, company based in New York," without implying where the person lived or worked every day. Historical travel is worth preserving when it shaped the role: "roughly 50% travel across regional hospital sites" explains scope and operating context better than a standalone resume bullet point can. Current willingness to travel for a future role should usually be asked fresh during that application workflow.</p>
 
 <div class="example">
   <div class="label">Example Structure</div>
@@ -508,7 +509,7 @@
 
 <p>The "who did you work for" answer is structured data, not just reflection prose. OCF stores it on <code>position.supervisor</code>, including name, title, contact methods, and an optional LinkedIn URL. That URL is useful because work emails and phone numbers go stale, while a LinkedIn profile often remains the durable way to identify the person later. Supervisor details default to private.</p>
 
-<p>OCF keeps this intentionally lightweight. In a long career, "worked for" can mean direct manager, skip-level leader, client sponsor, commanding officer, principal investigator, or an executive who was close in one period and several layers away in another. The v0.2 schema captures the most relevant person for the role and leaves deeper reporting-history nuance to private notes or future schema work, rather than trying to become a professional-network graph.</p>
+<p>OCF keeps this intentionally lightweight. In a long career, "worked for" can mean direct manager, skip-level leader, client sponsor, commanding officer, principal investigator, or an executive who was close in one period and several layers away in another. The schema captures the most relevant person for the role and leaves deeper reporting-history nuance to private notes or future schema work, rather than trying to become a professional-network graph.</p>
 
 <p>Reflections default to <code>visibility: private</code> because they are sensitive personal content — they include things you would never put on a resume and don't want a recruiter to read. They can be opted up to <code>shared</code> on a per-reflection basis when the user wants to share specific reflections with a coach or trusted recipient, but the default keeps them out of export-ready outputs.</p>
 
@@ -539,7 +540,7 @@
 </div>
 
 <h2 id="conversation-fields">Fields for Coach/AI Conversations</h2>
-<p>Five top-level fields exist primarily for the conversational use case. None of them belong on a resume; all of them help a coach, AI tool, or hybrid workflow engage with the file. Each is intentionally minimal in v0.2 — enough to hold the space and let early usage inform the shape — and marked with a <code>$comment</code> noting that more structure will likely be added in a future revision.</p>
+<p>Several top-level fields exist primarily for the conversational use case. None of them belong on a resume by themselves; all of them help a coach, AI tool, or hybrid workflow engage with the file. Some are intentionally minimal so real usage can teach the project where more structure is worth adding.</p>
 
 <p><strong><code>goals</code></strong> tells a coach or AI where the user is trying to go. The schema records where you've been; goals records where you want to be. The shape allows multiple target roles (each with a preference level — primary, secondary, open-to), multiple locations (including <code>remote</code> as a valid value), constraints that rule certain roles out, and motivations that explain why the user is looking. A coach or AI tailoring outputs reads goals first; without it, advice can only be generic. Defaults to private.</p>
 
@@ -550,6 +551,10 @@
 <p><strong><code>voice</code></strong> tells a writer or AI how to write in the user's name. Most people cannot articulate their own voice from scratch, so the field is prescriptive at the high level — a small canonical set of named styles (<code>plain-direct</code>, <code>warm-precise</code>, <code>formal-traditional</code>, <code>creative-conversational</code>, <code>executive-terse</code>) — while allowing fine-grained customization through <code>avoidPhrases</code> and <code>preferredPhrases</code> lists and an open <code>customNotes</code> field. Pick a canonical style as a starting point; refine through usage.</p>
 
 <p><strong><code>aiInstructions</code></strong> is an open-text field that customizes or supplements the canonical LLM prompt for this specific file. Use it when the canonical instructions are right in general but a specific behavior matters for this user — "push back when I undersell," "prefer paragraphs over bullets," "I'm mid-pivot from one function to another and the importance tags lag behind the direction I'm trying to go." Tools using the canonical prompt should append the user's <code>aiInstructions</code> to it. Defaults to private.</p>
+
+<p><strong><code>talkingPoints</code></strong> preserves reusable, evidence-backed career framings that span more than one bullet or role: a through-line, an interview theme, a leadership pattern, or a way the person explains their work. A talking point should link to supporting evidence and carry review status; it is not a loophole for unsupported claims.</p>
+
+<p><strong><code>positioningVariants</code></strong> stores target-aware person-level positioning such as alternate headlines or summary framings. <code>person.headline</code> is the default general headline. Positioning variants are alternatives a curator may select for a specific audience, role, or application, and should not replace the default headline without review.</p>
 
 <div class="callout">
   <p>None of these five fields are required. A file with none of them validates fine and is still useful. They exist so users who want coaching or AI assistance to behave a certain way have a structured place to say so — and so tools have a stable place to read direction from, rather than re-eliciting it every session.</p>
@@ -621,7 +626,7 @@
 
 <p>This distinction is one of the design goals of the format. <code>position.title</code> is the actual title, rank, billet, or best-known official title; <code>titleVariants</code> are defensible display labels for specific audiences. <code>achievement.statement</code>, metrics, and skills are the canonical claim; <code>narrativeVariants</code> preserve alternate bullet phrasing. <code>dateRange</code> stores structured dates; an exporter decides how those dates appear in the target file. <code>visibility</code>, <code>importance</code>, and <code>audiences</code> are curation signals, not resume text.</p>
 
-<p><code>achievement.attribution</code> helps keep action verbs honest. Many outcomes are shared: a person may have owned the result, led one workstream, contributed expertise, supported someone else's effort, advised the team, or simply been close enough to understand what happened. Capturing that once lets curators choose defensible verbs later instead of turning every team outcome into "led." The optional budget, headcount, and upward-reporting flags exist because those facts often change how seniority and accountability should be described.</p>
+<p><code>achievement.attribution</code> helps keep action verbs honest. Many outcomes are shared: a person may have owned the result, led or co-led one workstream, contributed expertise, supported someone else's effort, advised the team, or simply been close enough to understand what happened. Capturing that once lets curators choose defensible verbs later instead of turning every team outcome into "led." The optional budget, headcount, and upward-reporting flags exist because those facts often change how seniority and accountability should be described.</p>
 
 <p>Some achievement statements intentionally summarize many smaller facts. A sales profile might say "top 5 seller from 2010-2015" instead of listing six annual rankings. OCF supports that: the polished achievement can stay concise, while <code>supportingFacts</code> records the individual annual facts, evidence, confidence, and source details behind it. Importers and LLM tools should ask for missing detail when a summary implies it: "Do you have the individual rankings for each year?", "What was the highest ranking?", "Was this company-wide or regional?", "Was attainment measured against quota, budget, plan, or target?" Once the facts are recorded, the tool can preserve the original imported wording as a variant and ask the user to approve a stronger, cleaner summary claim.</p>
 
@@ -652,7 +657,7 @@
 <h2 id="provenance">Provenance</h2>
 <p>Every item in OCF can carry a <strong>provenance</strong> object — an open shape where a tool can record how that item came to be. A tool that mined an achievement out of an interview can stamp it with the date, the tool name, the kind of input (typed, dictated, interview-derived, imported), a confidence score, or whatever else it cares to remember. A later tool that opens the file can read those notes and decide whether to trust the item, refine it, or re-prompt — instead of treating every achievement as if it were hand-typed from a blank page.</p>
 <p>Stable <code>id</code> fields belong to OCF items: source artifacts, experience entries, positions, achievements, reflections, and other records that a tool may need to edit or reference later. Human-readable slug IDs are recommended for hand-authored files because they make reviews and diffs easier: <code>old-resume-2024-03</code>, <code>northstar-onboarding-compression</code>, <code>meridian-proudest-of-2024</code>. UUIDs are also acceptable when collision safety matters more than readability. The LLM, importer, or editor does not become the item ID; it belongs in <code>provenance</code> as the tool or source that created, imported, or modified the item. This keeps update proposals precise: "add a narrative variant to achievement <code>northstar-onboarding-compression</code>" is safer than "edit the onboarding bullet in the first Northstar role."</p>
-<p>A future version is expected to add a structured <code>reviewStatus</code> lifecycle for imported or AI-mined material — values like unreviewed, user-confirmed, source-supported, stale, or do-not-use. That slot is deliberately reserved in the schema comments on source artifacts, achievements, narrative variants, and title variants. OCF v0.2 does not commit to the enum yet; it uses provenance, confidence, and <code>openQuestions</code> until real importer workflows prove the right shape.</p>
+<p><code>reviewStatus</code> records whether durable, user-facing or user-quoted material is safe to use in curation. Typical values are <code>unreviewed</code>, <code>needs-review</code>, <code>user-confirmed</code>, <code>do-not-use</code>, and <code>superseded</code>. Tools should treat a missing <code>reviewStatus</code> on imported, inferred, or LLM-mined durable items as <code>unreviewed</code> until the user confirms otherwise. Do not overload review status with evidence strength; provenance, confidence, source artifacts, and open questions carry the evidence context.</p>
 <p>OCF deliberately does not hard-validate what goes inside the provenance object. The point is the <em>slot</em>, not a brittle mini-schema. Unknown fields are preserved on round-trip and ignored by tools that don't recognize them. Once tools know where to leave their notes for each other, an ecosystem of cooperating tools becomes possible — interview tools, editors, curators, exporters, and importers can hand a file back and forth without each one starting from scratch.</p>
 
 <h3>Boring provenance</h3>
@@ -691,7 +696,7 @@
 
 <h2>A Note on Credential Verification</h2>
 <p>Credentials live on a spectrum of verifiability. Traditional certifications — CISSP, PMP, CFA — give the holder a number and a registry URL; verification is "look it up at the issuer's site." Modern industry credentials — AWS, Microsoft, Google, Cisco badges — are mostly issued through hosted-badge platforms like Credly, where verification is "open the badge URL and trust the platform that hosts it." The emerging direction is Open Badges 3.0 and W3C Verifiable Credentials, where each credential is cryptographically signed by its issuer and verifiable offline by anyone with the issuer's public key.</p>
-<p>OCF v0.2 covers the first two models cleanly. <code>credentialId</code> holds the registry number (CISSP cert number, NPI, bar number). <code>url</code> holds the hosted-badge URL. The structured <code>issuer</code> field with an optional <code>identifier</code> (typically a DID) gives an exporter what it needs to reach a Verifiable Credential's issuer. What v0.2 deliberately does <em>not</em> include is a dedicated structure for the cryptographic proofs themselves — the signed VC payloads — because that ecosystem is still maturing and the standards underneath it (VC Data Model 2.0, Open Badges 3.0, Velocity Network) are still settling. Locking in details now would risk committing to fields that change.</p>
+<p>OCF covers the first two models cleanly. <code>credentialId</code> holds the registry number (CISSP cert number, NPI, bar number). <code>url</code> holds the hosted-badge URL. The structured <code>issuer</code> field with an optional <code>identifier</code> (typically a DID) gives an exporter what it needs to reach a Verifiable Credential's issuer. What OCF deliberately does <em>not</em> include yet is a dedicated structure for the cryptographic proofs themselves — the signed VC payloads — because that ecosystem is still maturing and the standards underneath it (VC Data Model 2.0, Open Badges 3.0, Velocity Network) are still settling. Locking in details now would risk committing to fields that change.</p>
 <p>Vendor-specific verification metadata can live under <code>extensions</code> in the meantime — a Credly-using tool can attach badge IDs and assertion URLs under <code>credly.com</code>; a Velocity-aware tool can attach issuance metadata under <code>velocitynetwork.foundation</code>; an Open Badges 3.0 wallet can carry signed credentials under a vendor-owned domain. A future OCF revision is expected to add a structured <code>verification</code> array to certifications that names the verification method (registry / open-badge / verifiable-credential) with a method-appropriate payload, capturing VC details uniformly. Until then, the existing surface is enough for most practical needs, and the extension mechanism handles the rest. The schema marks the reserved slot with a <code>$comment</code> on the certification definition so future implementers know where the field will land.</p>
 
 <h2>OCF Output and Downstream Tools: Curators and Exporters</h2>
@@ -781,7 +786,7 @@
 </ul>
 
 <footer>
-  <p>Open Career Format (OCF) v0.2 — <a href="https://opencareerformat.org/">opencareerformat.org</a></p>
+  <p>Open Career Format (OCF) v0.3 — <a href="https://opencareerformat.org/">opencareerformat.org</a></p>
   <p>Project: <a href="https://github.com/opencareerformat/opencareerformat">github.com/opencareerformat/opencareerformat</a></p>
   <p>Schema: <code>https://opencareerformat.org/schema.json</code></p>
 </footer>

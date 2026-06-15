@@ -12,9 +12,7 @@ const position = sample.experience
   .positions.find((item) => item.title === "Director of Cybersecurity");
 const achievement = position.achievements.find((item) => item.id === "mhs-ransomware-2024");
 const story = position.reflections.find((item) => item.kind === "never-on-resume-story");
-const talkingPoint = sample.extensions["user.local"].candidateTalkingPoints.find(
-  (item) => item.id === "authority-from-demonstrated-work",
-);
+const talkingPoint = sample.talkingPoints.find((item) => item.id === "authority-from-demonstrated-work");
 const caution = sample.cautions.find((item) => item.claim === "claimed as an AI / ML security specialist");
 const army = sample.experience.find((entry) => entry.name === "United States Army");
 const armyCyberPosition = army.positions.find((item) => item.occupationalCode?.code === "17C");
@@ -78,12 +76,13 @@ for (const key of ["source", "date", "sessionTopic", "operation"]) {
   assertEqual(storySnippet.provenance[key], story.provenance[key], `story provenance ${key} drifted`);
 }
 
-const talkingPointSnippet = jsonBlocks.find((block) => block.extensions?.["user.local"]);
+const talkingPointSnippet = jsonBlocks.find((block) => Array.isArray(block.talkingPoints));
 assert(talkingPointSnippet, "missing talking point snippet");
-const snippetTalkingPoint = talkingPointSnippet.extensions["user.local"].candidateTalkingPoints[0];
+const snippetTalkingPoint = talkingPointSnippet.talkingPoints[0];
 for (const key of ["id", "label", "statement", "visibility"]) {
   assertEqual(snippetTalkingPoint[key], talkingPoint[key], `talking point ${key} drifted`);
 }
+assertEqual(snippetTalkingPoint.reviewStatus, talkingPoint.reviewStatus, "talking point reviewStatus drifted");
 assertEqual(snippetTalkingPoint.uses, talkingPoint.uses, "talking point uses drifted");
 assertEqual(snippetTalkingPoint.supportingItemIds, talkingPoint.supportingItemIds, "talking point supportingItemIds drifted");
 assertEqual(
@@ -96,7 +95,7 @@ assertEqual(
   talkingPoint.evidenceSummary,
   "talking point evidenceSummary drifted",
 );
-for (const key of ["source", "reviewStatus", "operation"]) {
+for (const key of ["source", "operation"]) {
   assertEqual(
     snippetTalkingPoint.provenance[key],
     talkingPoint.provenance[key],
