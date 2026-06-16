@@ -1,9 +1,9 @@
 ---
 ocfPrompt: application-bootstrap-es
 status: example
-lastUpdated: 2026-06-15
+lastUpdated: 2026-06-16
 canonicalPrompt: application-bootstrap.md
-canonicalPromptCommit: f3d01f2
+canonicalPromptCommit: 2cb458a
 language: es
 compatibleSchemaVersions:
   - "0.3"
