@@ -60,7 +60,6 @@ reference/        # REFERENCE IMPLEMENTATIONS — code that is NOT part of the
   curators/       # Master OCF -> proposed improvements and/or export-ready input.
   exporters/      # Export-ready input -> files (PDF, HTML, JSON Resume, LER-RS, ...).
   importers/      # other-format -> OCF converters.
-  editor/         # A Next.js editor for authoring OCF files.
 ```
 
 The split is intentional. Anyone who wants to use OCF can read `spec/` and ignore the rest. Anyone building their own tool leveraging OCF can ignore as much of `reference/` as they'd like. Anyone bridging OCF to another format goes to `mappings/` for the mapping notes and `reference/exporters/` for one possible implementation.

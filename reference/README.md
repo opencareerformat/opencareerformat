@@ -6,12 +6,11 @@ This directory contains small proof-of-concept tools around OCF:
 - `curators/` create curated or export-ready OCF working sets for a target context.
 - `exporters/` translate export-ready OCF files into neighboring formats or paste bundles.
 - `validator/` validates OCF JSON against `spec/schema.json`.
-- `editor/` is a local reference editor.
 - `ollama/` demonstrates a local-only LLM workflow using Ollama.
 
 These tools are examples. They demonstrate the data flow, not a production hiring product.
 
-The validator is different from the other reference scripts: it checks OCF files against the full current JSON Schema and prints the schema version it loaded. Its first CI use is expected to be validating the repository's example OCF files against the current schema whenever the repo changes. The importer, curator, exporters, and editor are intentionally partial examples and should not be mistaken for full schema coverage.
+The validator is different from the other reference scripts: it checks OCF files against the full current JSON Schema and prints the schema version it loaded. Its first CI use is expected to be validating the repository's example OCF files against the current schema whenever the repo changes. The importer, curator, and exporters are intentionally partial examples and should not be mistaken for full schema coverage.
 
 The importer and curator are deliberately deterministic and shallow so the pipeline can run without API keys, network access, or model behavior. They could be substantially improved by using an LLM for extraction, follow-up questions, conflict detection, audience-specific wording, and job-description matching. That would improve the tool, not change the OCF schema.
 
@@ -28,7 +27,6 @@ These tools are intentionally bare bones. They prove the concept and make the da
 | `curators/job-description.js` | Skeleton proof of concept | Scores a master OCF against target text, filters visibility, and writes a curated working file; currently smoke-tested against the current examples. | Keyword scoring only; no real judgment, no user interview, no nuanced fit analysis. |
 | `exporters/json-resume.js` | Minimal mapper | Converts visible OCF content into JSON Resume shape. | Loses OCF-only concepts such as cautions, open questions, provenance detail, and private memory. |
 | `exporters/linkedin.js` | Minimal paste-bundle mapper | Produces Markdown organized around LinkedIn editing areas. | Does not call LinkedIn APIs; users must review and paste manually. |
-| `editor/` | Partial local editor | Lets a user open, edit, and save common OCF sections locally. | Covers only part of the schema; unsupported sections may round-trip as JSON but are not fully editable in the UI. |
 | `ollama/ocf-local-llm.js` | Local LLM proof of concept | Sends OCF prompts, schema-core, and user-provided files to a local Ollama model; can write either a transcript or a provisional-master JSON draft. | Requires local Ollama and a model; model-authored JSON still needs validator checks and human review. |
 
 ## End-to-End Demo
