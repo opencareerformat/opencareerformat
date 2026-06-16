@@ -30,9 +30,9 @@ function curateForJob(doc, jobText, options = {}) {
     meta: {
       id: crypto.randomUUID(),
       version: `curated-${now}`,
-      canonical: false,
       fileRole: "candidate-curated",
-      variant: "role-targeted",
+      targetRole: options.targetRole,
+      targetCompany: options.targetCompany,
       lastModified: now,
       language: doc.meta?.language,
       source: {
@@ -156,10 +156,18 @@ function filterVisibility(value, visibilityMode) {
 function isVisibilityAllowed(item, visibilityMode, options = {}) {
   if (!item || typeof item !== "object") return true;
   const hasVisibility = Object.prototype.hasOwnProperty.call(item, "visibility");
-  if (!hasVisibility && !options.defaultShared) return true;
-  const visibility = hasVisibility ? item.visibility : "shared";
+  if (!hasVisibility && !options.defaultShared && !isContact(item)) return true;
+  const visibility = hasVisibility ? item.visibility : (isContact(item) ? "private" : "shared");
   if (visibilityMode === "public") return visibility === "public";
   return visibility !== "private";
+}
+
+function isContact(item) {
+  return item
+    && typeof item === "object"
+    && typeof item.kind === "string"
+    && Object.prototype.hasOwnProperty.call(item, "value")
+    && ["email", "phone", "url", "linkedin", "github", "social", "other"].includes(item.kind);
 }
 
 function countCollection(doc, key) {

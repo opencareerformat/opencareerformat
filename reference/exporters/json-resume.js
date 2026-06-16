@@ -3,6 +3,8 @@
 const {
   collectAchievements,
   contactProfiles,
+  dateRangeEnd,
+  dateRangeStart,
   firstPrimaryOrVisible,
   formatPartialDate,
   organizationName,
@@ -19,10 +21,10 @@ function toJsonResume(doc) {
   const basics = {
     name: person.name?.renderAs,
     label: person.headline,
-    image: person.photoVisibility === "public" ? person.photo : undefined,
-    email: firstPrimaryOrVisible(person.contacts, "email") || person.email,
-    phone: firstPrimaryOrVisible(person.contacts, "phone") || person.phone,
-    url: person.website,
+    image: person.photo?.visibility === "public" ? person.photo.uri : undefined,
+    email: firstPrimaryOrVisible(person.contacts, "email"),
+    phone: firstPrimaryOrVisible(person.contacts, "phone"),
+    url: firstPrimaryOrVisible(person.contacts, "url"),
     summary: person.summary,
     location: personLocation(person),
     profiles: contactProfiles(person),
@@ -37,10 +39,8 @@ function toJsonResume(doc) {
         name: parentName,
         position: selectedTitle(position),
         url: position.url || parentUrl,
-        startDate: formatPartialDate(position.dateRange?.start || entry.dateRange?.start),
-        endDate: position.dateRange?.end?.present || entry.dateRange?.end?.present
-          ? undefined
-          : formatPartialDate(position.dateRange?.end || entry.dateRange?.end),
+        startDate: dateRangeStart(position.dateRange, entry.dateRange),
+        endDate: dateRangeEnd(position.dateRange, entry.dateRange),
         summary: position.summary || entry.description,
         highlights: collectAchievements(position),
       });
@@ -52,15 +52,15 @@ function toJsonResume(doc) {
     url: item.url,
     area: item.field,
     studyType: item.degree,
-    startDate: formatPartialDate(item.dateRange?.start),
-    endDate: formatPartialDate(item.dateRange?.end),
+    startDate: dateRangeStart(item.dateRange),
+    endDate: dateRangeEnd(item.dateRange),
     score: item.gpa,
     courses: item.notableCourses,
   }));
 
   const certificates = visibleItems(doc.certifications).map((item) => ({
     name: item.name,
-    date: formatPartialDate(item.dateRange?.start),
+    date: dateRangeStart(item.dateRange),
     issuer: typeof item.issuer === "string" ? item.issuer : item.issuer?.name,
     url: item.url,
   }));
@@ -76,8 +76,8 @@ function toJsonResume(doc) {
     description: item.description,
     highlights: collectAchievements(item),
     keywords: item.audiences,
-    startDate: formatPartialDate(item.dateRange?.start),
-    endDate: formatPartialDate(item.dateRange?.end),
+    startDate: dateRangeStart(item.dateRange),
+    endDate: dateRangeEnd(item.dateRange),
     url: item.links?.find((link) => link.url)?.url,
     roles: item.role ? [item.role] : undefined,
     entity: item.client,

@@ -2,9 +2,7 @@
   "$schema": "https://opencareerformat.org/v0.3/schema.json",
   "schemaVersion": "0.3",
   "meta": {
-    "canonical": true,
     "fileRole": "candidate-master",
-    "variant": "master",
     "lastModified": "2026-05-24",
     "language": "en-US",
     "source": {
@@ -27,28 +25,33 @@
       {
         "kind": "email",
         "value": "maria.reyes@example.com",
-        "primary": true
+        "primary": true,
+        "visibility": "private"
       },
       {
         "kind": "phone",
         "value": "+1-555-0142",
-        "label": "mobile"
+        "label": "mobile",
+        "visibility": "private"
       },
       {
         "kind": "linkedin",
-        "value": "https://linkedin.com/in/mariacreyes.example"
+        "value": "https://linkedin.com/in/mariacreyes.example",
+        "visibility": "public"
       },
       {
         "kind": "social",
         "label": "Bluesky",
-        "value": "https://bsky.app/profile/mariacreyes.example"
+        "value": "https://bsky.app/profile/mariacreyes.example",
+        "visibility": "public"
       }
     ],
     "locations": [
       {
         "city": "San Antonio",
         "region": "TX",
-        "country": "US"
+        "country": "US",
+        "visibility": "shared"
       }
     ],
     "workAuthorization": [
@@ -236,7 +239,8 @@
       "location": {
         "city": "Fort Eisenhower",
         "region": "GA",
-        "country": "US"
+        "country": "US",
+        "visibility": "shared"
       },
       "status": "renamed",
       "successor": "Fort Eisenhower"
@@ -252,7 +256,8 @@
       "location": {
         "city": "San Antonio",
         "region": "TX",
-        "country": "US"
+        "country": "US",
+        "visibility": "shared"
       }
     },
     "vetsintech.org": {
@@ -264,7 +269,8 @@
       "location": {
         "city": "San Francisco",
         "region": "CA",
-        "country": "US"
+        "country": "US",
+        "visibility": "shared"
       }
     },
     "utsa.edu": {
@@ -279,7 +285,8 @@
       "location": {
         "city": "San Antonio",
         "region": "TX",
-        "country": "US"
+        "country": "US",
+        "visibility": "shared"
       },
       "wikipedia": "https://en.wikipedia.org/wiki/University_of_Texas_at_San_Antonio"
     },
@@ -295,7 +302,8 @@
       "location": {
         "city": "Austin",
         "region": "TX",
-        "country": "US"
+        "country": "US",
+        "visibility": "shared"
       }
     },
     "tidewaterfederal.example.com": {
@@ -310,7 +318,8 @@
       "location": {
         "city": "McLean",
         "region": "VA",
-        "country": "US"
+        "country": "US",
+        "visibility": "shared"
       }
     }
   },
@@ -331,7 +340,8 @@
         {
           "city": "San Antonio",
           "region": "TX",
-          "country": "US"
+          "country": "US",
+          "visibility": "shared"
         }
       ],
       "positions": [
@@ -353,7 +363,13 @@
           "supervisor": {
             "name": "Alicia Moreno",
             "title": "Chief Information Security Officer",
-            "linkedin": "https://linkedin.com/in/aliciamoreno-example",
+            "contacts": [
+              {
+                "kind": "linkedin",
+                "value": "https://linkedin.com/in/aliciamoreno-example",
+                "visibility": "private"
+              }
+            ],
             "visibility": "private"
           },
           "achievements": [
@@ -640,7 +656,8 @@
           "city": "Austin",
           "region": "TX",
           "country": "US",
-          "remote": true
+          "remote": true,
+          "visibility": "shared"
         }
       ],
       "positions": [
@@ -713,7 +730,8 @@
         {
           "city": "Fort Meade",
           "region": "MD",
-          "country": "US"
+          "country": "US",
+          "visibility": "shared"
         }
       ],
       "positions": [
@@ -766,12 +784,14 @@
         {
           "city": "Fort Gordon",
           "region": "GA",
-          "country": "US"
+          "country": "US",
+          "visibility": "shared"
         },
         {
           "city": "Fort Hood",
           "region": "TX",
-          "country": "US"
+          "country": "US",
+          "visibility": "shared"
         }
       ],
       "positions": [
@@ -799,7 +819,8 @@
             {
               "city": "Fort Gordon",
               "region": "GA",
-              "country": "US"
+              "country": "US",
+              "visibility": "shared"
             }
           ],
           "summary": "Led a 6-person cyber operations team conducting defensive cyber operations and vulnerability assessments for Army networks.",
@@ -870,7 +891,8 @@
             {
               "name": "Operation Inherent Resolve",
               "location": {
-                "country": "KW"
+                "country": "KW",
+                "visibility": "shared"
               },
               "dateRange": {
                 "start": {
@@ -912,7 +934,8 @@
             {
               "city": "Fort Hood",
               "region": "TX",
-              "country": "US"
+              "country": "US",
+              "visibility": "shared"
             }
           ],
           "summary": "Maintained and operated signal systems supporting brigade-level communications. Progressed from Specialist to Sergeant.",
@@ -935,7 +958,8 @@
             {
               "name": "Operation Enduring Freedom",
               "location": {
-                "country": "AF"
+                "country": "AF",
+                "visibility": "shared"
               },
               "dateRange": {
                 "start": {
@@ -1230,7 +1254,13 @@
       "name": "COL (Ret.) James Whitfield",
       "relationship": "Battalion Commander at Fort Gordon, oversaw cyber operations team",
       "title": "VP of Cyber Programs, Raytheon",
-      "linkedin": "https://linkedin.com/in/jameswhitfield-example",
+      "contacts": [
+        {
+          "kind": "linkedin",
+          "value": "https://linkedin.com/in/jameswhitfield-example",
+          "visibility": "private"
+        }
+      ],
       "strengths": [
         "military leadership",
         "technical capability",
@@ -1462,9 +1492,13 @@
       "recovered",
       "decided"
     ],
-    "customNotes": "Active voice, past tense for completed work. Short sentences over compound ones. When in doubt between two framings, pick the one that names what was actually done rather than what was 'contributed to'."
+    "customNotes": "Active voice, past tense for completed work. Short sentences over compound ones. When in doubt between two framings, pick the one that names what was actually done rather than what was 'contributed to'.",
+    "visibility": "private"
   },
-  "aiInstructions": "Push back when I undersell. Default to plain-direct voice. When drafting for a CISO-track role, prioritize executive-judgment achievements over technical-depth achievements unless the JD specifically calls for deep technical hands-on work. When unsure about something I might have said in a previous session, ask before drafting — do not pattern-match from generic security-leader resumes I have not approved.",
+  "aiInstructions": {
+    "text": "Push back when I undersell. Default to plain-direct voice. When drafting for a CISO-track role, prioritize executive-judgment achievements over technical-depth achievements unless the JD specifically calls for deep technical hands-on work. When unsure about something I might have said in a previous session, ask before drafting — do not pattern-match from generic security-leader resumes I have not approved.",
+    "visibility": "private"
+  },
   "sourceArtifacts": [
     {
       "id": "sample-resume-source-2026-05",

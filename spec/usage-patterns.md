@@ -32,7 +32,7 @@ An imported or converted first pass is a provisional file built from resumes, Li
 
 The current schema no longer uses a separate `imported-starter` file role. A first-pass file usually uses `meta.fileRole: "candidate-master"` when it is becoming the person's working master, plus `meta.source.kind: "imported"` or `"converted"` and item-level `reviewStatus`, provenance, cautions, and open questions to show what still needs review.
 
-If the first pass is only a temporary working artifact, use `meta.fileRole: "other"` or a tool-owned working file, keep `meta.canonical: false`, and avoid naming it as a master. The trust posture lives in the items: default mined facts to `reviewStatus: "unreviewed"` or `"needs-review"` until the user accepts them.
+If the first pass is only a temporary working artifact, use `meta.fileRole: "other"` or a tool-owned working file, and avoid naming it as a master. The trust posture lives in the items: default mined facts to `reviewStatus: "unreviewed"` or `"needs-review"` until the user accepts them.
 
 After review, the usual path is to keep the accepted material in the `candidate-master` and preserve the original inputs as `sourceArtifacts`. Do not silently overwrite a reviewed master with a reduced, third-party, or unreviewed imported file.
 
@@ -73,10 +73,10 @@ Example distinction:
 {
   "meta": {
     "fileRole": "candidate-curated",
-    "canonical": false,
-    "variant": "company-targeted",
     "targetRole": "CISO",
-    "targetCompany": "Acme Health"
+    "targetCompany": "Acme Health",
+    "parentFileId": "c94ffaa9-31fd-40d7-96cd-a66725a9784a",
+    "parentVersion": "db2a5a6fc562"
   },
   "openQuestions": [
     {
@@ -93,10 +93,11 @@ The curated file is still a working set: it can carry review questions or propos
 {
   "meta": {
     "fileRole": "export-ready",
-    "canonical": false,
-    "variant": "company-targeted",
     "targetRole": "CISO",
-    "targetCompany": "Acme Health"
+    "targetCompany": "Acme Health",
+    "parentFileId": "c94ffaa9-31fd-40d7-96cd-a66725a9784a",
+    "parentVersion": "db2a5a6fc562",
+    "lineageNotes": "Reviewed handoff for Acme Health CISO resume exporter."
   },
   "openQuestions": []
 }

@@ -20,7 +20,6 @@ function importResumeText(text, sourceFileName = "resume.txt") {
     meta: {
       id: crypto.randomUUID(),
       version: `imported-${now}`,
-      canonical: false,
       fileRole: "candidate-master",
       lastModified: now,
       language: "en-US",
@@ -86,15 +85,15 @@ function parsePerson(header) {
 
   for (const part of (contactLine || "").split("|").map((item) => item.trim()).filter(Boolean)) {
     if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(part)) {
-      contacts.push({ kind: "email", value: part, primary: true });
+      contacts.push({ kind: "email", value: part, primary: true, visibility: "private" });
     } else if (/linkedin\.com/i.test(part)) {
-      contacts.push({ kind: "linkedin", value: part });
+      contacts.push({ kind: "linkedin", value: part, visibility: "public" });
     } else if (/github\.com/i.test(part)) {
-      contacts.push({ kind: "github", value: part });
+      contacts.push({ kind: "github", value: part, visibility: "public" });
     } else if (/^https?:\/\//i.test(part)) {
-      contacts.push({ kind: "social", label: inferSocialLabel(part), value: part });
+      contacts.push({ kind: "social", label: inferSocialLabel(part), value: part, visibility: "public" });
     } else if (/[0-9]/.test(part)) {
-      contacts.push({ kind: "phone", value: part });
+      contacts.push({ kind: "phone", value: part, visibility: "private" });
     }
   }
 
@@ -108,7 +107,7 @@ function parsePerson(header) {
 
 function parseLocation(line) {
   const parts = line.split(",").map((part) => part.trim());
-  return prune({ city: parts[0], region: parts[1], country: parts[2] });
+  return prune({ city: parts[0], region: parts[1], country: parts[2], visibility: "shared" });
 }
 
 function parseSkills(lines, sourceArtifactId) {

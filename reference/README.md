@@ -6,6 +6,7 @@ This directory contains small proof-of-concept tools around OCF:
 - `curators/` create curated or export-ready OCF working sets for a target context.
 - `exporters/` translate export-ready OCF files into neighboring formats or paste bundles.
 - `validator/` validates OCF JSON against `spec/schema.json`.
+- `cli/` provides a minimal Python helper for summary output, validation delegation, and private-item filtering.
 - `ollama/` demonstrates a local-only LLM workflow using Ollama.
 
 These tools are examples. They demonstrate the data flow, not a production hiring product.
@@ -23,6 +24,7 @@ These tools are intentionally bare bones. They prove the concept and make the da
 | Tool | Current maturity | What it demonstrates | Known limits |
 |---|---|---|---|
 | `validator/` | Full-schema structure check | Validates OCF JSON against the full current schema. | Checks structure only; does not judge whether claims are true, well-curated, or appropriate to export. |
+| `cli/ocf.py` | Minimal proof of concept | Prints key fields, delegates validation to the reference validator, and emits a private-filtered JSON document. | Not a full editor; private filtering is not anonymization and does not judge whether remaining content is safe to share. |
 | `importers/resume-text-to-ocf.js` | Skeleton proof of concept | Turns a very regular plain-text resume into a current-schema provisional OCF master with provenance and a review question. | Not a robust resume parser; does not handle PDFs, tables, complex layouts, conflict detection, or follow-up questions. |
 | `curators/job-description.js` | Skeleton proof of concept | Scores a master OCF against target text, filters visibility, and writes a curated working file; currently smoke-tested against the current examples. | Keyword scoring only; no real judgment, no user interview, no nuanced fit analysis. |
 | `exporters/json-resume.js` | Minimal mapper | Converts visible OCF content into JSON Resume shape. | Loses OCF-only concepts such as cautions, open questions, provenance detail, and private memory. |

@@ -31,8 +31,7 @@ A LinkedIn exporter will usually produce a paste/update bundle rather than an AP
 |---|---|---|
 | `person.headline` or curated headline | Headline | Should be public-safe and current. |
 | curated profile summary | About | May synthesize from goals, achievements, and selected experience, but must be reviewed by the user. |
-| `person.website` | Contact Info / Website | Include when intended for the public LinkedIn profile. |
-| `person.contacts[]` | Contact Info / Websites | Include selected public profile links such as Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitHub, GitLab, YouTube, or portfolio networks. |
+| `person.contacts[]` | Contact Info / Websites | Include selected public contact methods and profile links such as website, GitHub, Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitLab, YouTube, or portfolio networks. |
 | `experience[].positions[]` | Experience | LinkedIn can represent multiple roles at one organization. Preserve dates and role progression where useful. |
 | `position.title` or selected `titleVariants[]` | Title | Title variants should be defensible and public-safe. |
 | achievements / selected variants | Description bullets or prose | Use audience-appropriate wording; do not introduce unsupported facts. |

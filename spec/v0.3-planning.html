@@ -419,7 +419,7 @@
 <li>Use top-level <code>positioningVariants</code>.</li>
 <li>Keep <code>person.headline</code> as the canonical default general-purpose headline.</li>
 <li>Do not require a default positioning variant to mirror <code>person.headline</code>.</li>
-<li>Treat <code>reviewStatus</code>, <code>voice</code>, <code>cautions</code>, and <code>aiInstructions</code> as curation inputs; exporters should not use unreviewed or tool-assembled positioning variants without subject confirmation.</li>
+<li>Treat <code>reviewStatus</code>, <code>voice</code>, <code>cautions</code>, and <code>aiInstructions.text</code> as curation inputs; exporters should not use unreviewed or tool-assembled positioning variants without subject confirmation.</li>
 </ul>
 
 <p>Open design question: whether a small reference selector is useful enough to include under <code>reference/</code>, so consuming tools do not each invent slightly different matching behavior.</p>

@@ -31,10 +31,6 @@
           "type": "string",
           "description": "A content fingerprint or version label that changes when the file is meaningfully saved. Typically a short hash (e.g. SHA-256 truncated to 12 hex chars), timestamp, or incrementing counter. Child files record the parent version at creation time in parentVersion so tools can tell whether a curated/export-ready file is stale."
         },
-        "canonical": {
-          "type": "boolean",
-          "description": "True if this file is canonical within its own authoring context. For a candidate-owned master, this means the person's source of truth. For a third-party working OCF, it may mean the recruiter's or tool's working record, not the candidate's private master."
-        },
         "fileRole": {
           "type": "string",
           "enum": [
@@ -54,25 +50,13 @@
           "type": "string",
           "description": "BCP-47 tag, e.g. en-US"
         },
-        "variant": {
-          "type": "string",
-          "enum": [
-            "master",
-            "public-profile",
-            "role-targeted",
-            "company-targeted",
-            "portfolio",
-            "other"
-          ],
-          "description": "What kind of OCF file this is. master = the complete source of truth. public-profile = a general-purpose reduced copy safe for broad sharing (e.g. LinkedIn, personal website) with all private items stripped but no role-specific filtering. role-targeted = filtered for a specific kind of role (e.g. 'cybersecurity director' positions generally). company-targeted = tailored for a specific company and job posting. portfolio = curated for a creative or project-based audience. other = anything else."
-        },
         "targetRole": {
           "type": "string",
-          "description": "For role-targeted or company-targeted variants: the role this was filtered for, e.g. 'Director of Cybersecurity', 'Senior Backend Engineer'."
+          "description": "For targeted curated or export-ready files: the role this file was filtered for, e.g. Director of Cybersecurity or Senior Backend Engineer."
         },
         "targetCompany": {
           "type": "string",
-          "description": "For company-targeted variants: the specific company, e.g. 'Meridian Health Systems'."
+          "description": "For targeted curated or export-ready files: the specific company, e.g. Meridian Health Systems."
         },
         "translatedFrom": {
           "type": "string",
@@ -135,13 +119,6 @@
             "renderAs": {
               "type": "string",
               "description": "The name as it should appear on a resume — professional name, stage name, shortened form, westernized name, whatever you go by. This is the display string; everything else is metadata behind it."
-            },
-            "legalName": {
-              "type": "string",
-              "description": "Full legal name when different from renderAs. Needed for background checks, government resumes, and some international formats."
-            },
-            "legalNameVisibility": {
-              "$ref": "#/$defs/visibilityPrivate"
             },
             "nativeScript": {
               "type": "string",
@@ -210,72 +187,33 @@
           "type": "string",
           "description": "Professional profile / about paragraph."
         },
+        "legalName": {
+          "$ref": "#/$defs/privateText",
+          "description": "Full legal name when different from renderAs. Needed for background checks, government resumes, and some international formats."
+        },
         "photo": {
-          "type": "string",
-          "format": "uri",
+          "$ref": "#/$defs/privateUri",
           "description": "URL to a professional headshot. Regional: required in Germany, France, Japan, South Korea, much of the Middle East, parts of Latin America. Prohibited or discouraged in the US, UK, Canada, Australia."
         },
-        "photoVisibility": {
-          "$ref": "#/$defs/visibilityPrivate"
-        },
         "dateOfBirth": {
-          "$ref": "#/$defs/partialDate",
+          "$ref": "#/$defs/privatePartialDate",
           "description": "Date of birth. Regional: required in Germany, Japan, South Korea, China. Irrelevant or illegal to request in the US, UK, Canada."
         },
-        "dateOfBirthVisibility": {
-          "$ref": "#/$defs/visibilityPrivate"
-        },
         "nationality": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
+          "$ref": "#/$defs/privateStringArray",
           "description": "Nationality or citizenships, e.g. ['US', 'Italian']. Distinct from work authorization — nationality is who you are; work authorization is where you can legally work. Multiple nationalities are common. Regional: required in some countries, irrelevant in others."
         },
-        "nationalityVisibility": {
-          "$ref": "#/$defs/visibilityPrivate"
-        },
         "maritalStatus": {
-          "type": "string",
+          "$ref": "#/$defs/privateText",
           "description": "Regional: required on resumes in parts of Asia and the Middle East; considered inappropriate or illegal to request in the US, UK, Canada, Australia, and most of Europe. Freeform to accommodate cultural variation."
         },
-        "maritalStatusVisibility": {
-          "$ref": "#/$defs/visibilityPrivate"
-        },
         "gender": {
-          "type": "string",
+          "$ref": "#/$defs/privateText",
           "description": "Regional: required on applications in some jurisdictions; prohibited to request in others. Freeform to be inclusive."
-        },
-        "genderVisibility": {
-          "$ref": "#/$defs/visibilityPrivate"
-        },
-        "email": {
-          "type": "string",
-          "format": "email",
-          "description": "Primary email address."
-        },
-        "phone": {
-          "type": "string",
-          "description": "Primary phone number. Include country code for international use, e.g. '+1-555-867-5309'."
-        },
-        "linkedin": {
-          "type": "string",
-          "format": "uri",
-          "description": "LinkedIn profile URL."
-        },
-        "github": {
-          "type": "string",
-          "format": "uri",
-          "description": "GitHub profile URL."
-        },
-        "website": {
-          "type": "string",
-          "format": "uri",
-          "description": "Personal website or portfolio URL."
         },
         "contacts": {
           "type": "array",
-          "description": "Additional ways to reach you beyond the common fields above. Use this for anything not covered by the named fields: Mastodon, Bluesky, X/Twitter, ORCID, Signal, a second email, a fax number, etc.",
+          "description": "Contact methods for the subject of the OCF file: email, phone, LinkedIn, GitHub, website, social profiles, ORCID, Signal, fax, or other ways to reach or identify the person professionally. Each contact method carries its own explicit visibility.",
           "items": {
             "$ref": "#/$defs/contact"
           }
@@ -1614,21 +1552,12 @@
             "type": "string",
             "description": "Their current or relevant title."
           },
-          "contact": {
-            "$ref": "#/$defs/contact",
-            "description": "Primary contact method retained for backward compatibility. Prefer `contacts` when storing multiple methods."
-          },
           "contacts": {
             "type": "array",
-            "description": "Additional contact methods for this reference, e.g. email, phone, LinkedIn, personal site, or assistant contact.",
+            "description": "Contact methods for this reference, e.g. email, phone, LinkedIn, personal site, or assistant contact. Use explicit contact objects with visibility rather than scalar contact fields.",
             "items": {
               "$ref": "#/$defs/contact"
             }
-          },
-          "linkedin": {
-            "type": "string",
-            "format": "uri",
-            "description": "LinkedIn profile URL for this reference."
           },
           "strengths": {
             "type": "array",
@@ -1909,14 +1838,29 @@
         "customNotes": {
           "type": "string",
           "description": "Open-text additional voice guidance that doesn't fit the canonical fields."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
         }
       },
       "additionalProperties": false
     },
     "aiInstructions": {
-      "type": "string",
-      "description": "Open-text instructions that customize or supplement the canonical LLM prompt (https://opencareerformat.org/prompts/llm-operating.md) for this specific file. Tools using the canonical prompt should append these to it. Examples: 'always push back on optimistic framing — I tend to undersell'; 'prefer paragraphs over bullets in any draft'; 'I'm in the middle of a career pivot from CS leadership to product; weigh recent product-adjacent achievements higher than the importance tags suggest'. Per-file overrides on the canonical prompt without requiring tools to support this explicitly.",
-      "$comment": "Per-file AI instructions are open-text in v0.3. If structured behavior controls (model preferences, max output length, refusal preferences) become common, they may get dedicated fields in a future revision; for now everything is in the string."
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "description": "Instructions that customize or supplement the canonical LLM prompt (https://opencareerformat.org/prompts/llm-operating.md) for this specific file. Tools using the canonical prompt should append these to it in a trusted user-controlled session. Examples: 'always push back on optimistic framing — I tend to undersell'; 'prefer paragraphs over bullets in any draft'; 'I'm in the middle of a career pivot from CS leadership to product; weigh recent product-adjacent achievements higher than the importance tags suggest'.",
+      "$comment": "Per-file AI instructions are structured as an object so generic visibility filters can remove them without understanding field semantics. If structured behavior controls (model preferences, max output length, refusal preferences) become common, they may get dedicated fields in a future revision.",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        }
+      },
+      "additionalProperties": false
     },
     "positioningVariants": {
       "type": "array",
@@ -1986,10 +1930,9 @@
         "end": {
           "$ref": "#/$defs/partialDate"
         },
-        "dateIsPrivate": {
-          "type": "boolean",
-          "default": false,
-          "description": "When true, the dates remain in the master file but derivation and rendering should suppress them. The containing entry stays visible — only the dates are withheld. Common use: education dates that reveal age, employment dates that expose gaps, or deployment dates with sensitivity concerns."
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared",
+          "description": "Controls whether this date range appears in curated/export-ready files. Mark the dateRange private when the containing entry may remain visible but the dates should be suppressed, such as education dates that reveal age, employment dates that expose gaps, or deployment dates with sensitivity concerns."
         }
       },
       "additionalProperties": false
@@ -2013,6 +1956,70 @@
       ],
       "default": "private",
       "description": "Controls whether this item appears in curated/export-ready files or other downstream outputs. Visibility is relative to the file role and controller: in a candidate-owned master, private usually means private to the candidate's master; in a third-party working OCF, private may mean private to the recruiter, coach, agency, employer, or tool workflow controlling that file. public = safe for broad exposure in the relevant workflow. shared = include when the recipient has a reason to see it. private = keep inside the controlling file/workflow. Default is private — this field contains sensitive information that most curation/export workflows should exclude unless explicitly included."
+    },
+    "privateText": {
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "privateUri": {
+      "type": "object",
+      "required": [
+        "uri"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "privatePartialDate": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/partialDate"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "privateStringArray": {
+      "type": "object",
+      "required": [
+        "values"
+      ],
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        }
+      },
+      "additionalProperties": false
     },
     "provenance": {
       "type": "object",
@@ -2427,6 +2434,9 @@
         "renderAs": {
           "type": "string",
           "description": "Resume-facing or human display text for this location when structured fields alone would lose meaning, e.g. Remote, company based in New York."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
         }
       },
       "additionalProperties": false
@@ -2539,6 +2549,10 @@
         },
         "primary": {
           "type": "boolean"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate",
+          "description": "Explicit curation visibility for this contact method. Authoring tools should write this deliberately; consumers should not infer contact privacy from omission."
         }
       },
       "additionalProperties": false
@@ -3055,21 +3069,12 @@
             "title": {
               "type": "string"
             },
-            "contact": {
-              "$ref": "#/$defs/contact",
-              "description": "Primary contact method retained for backward compatibility. Prefer `contacts` when storing multiple methods."
-            },
             "contacts": {
               "type": "array",
-              "description": "Additional contact methods for this person, e.g. email, phone, LinkedIn, personal site, or assistant contact.",
+              "description": "Contact methods for this person, e.g. email, phone, LinkedIn, personal site, or assistant contact. Use explicit contact objects with visibility rather than scalar contact fields.",
               "items": {
                 "$ref": "#/$defs/contact"
               }
-            },
-            "linkedin": {
-              "type": "string",
-              "format": "uri",
-              "description": "LinkedIn profile URL for the supervisor or person the user worked for. Useful when capturing role context before the user loses easy access to internal directories."
             },
             "mayContact": {
               "type": "boolean",
@@ -3929,11 +3934,8 @@
           "additionalProperties": false
         },
         "notes": {
-          "type": "string",
+          "$ref": "#/$defs/privateText",
           "description": "Free-form notes not captured by `progression`, `spanning`, or `exitContext`. Often contains sensitive context (internal politics, personal reasons, health details) — never include in a derived file without manual review."
-        },
-        "notesVisibility": {
-          "$ref": "#/$defs/visibilityPrivate"
         },
         "provenance": {
           "$ref": "#/$defs/provenance"
@@ -4430,107 +4432,5 @@
       "additionalProperties": false
     }
   },
-  "additionalProperties": false,
-  "allOf": [
-    {
-      "if": {
-        "properties": {
-          "meta": {
-            "required": [
-              "parentFileId"
-            ]
-          }
-        },
-        "required": [
-          "meta"
-        ]
-      },
-      "then": {
-        "properties": {
-          "meta": {
-            "properties": {
-              "canonical": {
-                "const": false
-              }
-            },
-            "required": [
-              "canonical"
-            ]
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "meta": {
-            "properties": {
-              "variant": {
-                "const": "master"
-              }
-            },
-            "required": [
-              "variant"
-            ]
-          }
-        },
-        "required": [
-          "meta"
-        ]
-      },
-      "then": {
-        "properties": {
-          "meta": {
-            "properties": {
-              "canonical": {
-                "const": true
-              }
-            },
-            "required": [
-              "canonical"
-            ]
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "meta": {
-            "properties": {
-              "variant": {
-                "enum": [
-                  "public-profile",
-                  "role-targeted",
-                  "company-targeted",
-                  "portfolio"
-                ]
-              }
-            },
-            "required": [
-              "variant"
-            ]
-          }
-        },
-        "required": [
-          "meta"
-        ]
-      },
-      "then": {
-        "properties": {
-          "meta": {
-            "properties": {
-              "canonical": {
-                "const": false
-              }
-            },
-            "required": [
-              "canonical",
-              "parentFileId"
-            ]
-          }
-        }
-      }
-    }
-  ]
+  "additionalProperties": false
 }

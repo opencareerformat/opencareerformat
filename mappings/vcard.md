@@ -15,12 +15,11 @@ Export from a public-profile or contact-card export-ready file, not from the mas
 | `person.name` | `FN`, `N` | Use `renderAs` for `FN`; use structured name parts for `N` when available. |
 | `person.headline` | `TITLE` or `ROLE` | Use only when appropriate for a contact card. |
 | current organization | `ORG` | Include only if public and current. |
-| `person.email` | `EMAIL` | Include selected email only. |
-| `person.phone` | `TEL` | Include selected phone only. |
-| `person.location` | `ADR` | Prefer coarse location unless the user explicitly wants a full address in the contact card. |
-| `person.website` | `URL` | Prefer canonical personal site. |
-| `person.linkedin`, `person.github`, `person.contacts[]` | `URL` or `X-SOCIALPROFILE` | Use standard fields where possible; vendor extensions vary by address book. Use `label` for Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitLab, YouTube, and similar profiles. |
-| `person.photo` | `PHOTO` | Include only when intentionally public and suitable for the target region/use. |
+| `person.contacts[]` with `kind: "email"` | `EMAIL` | Include selected email only. |
+| `person.contacts[]` with `kind: "phone"` | `TEL` | Include selected phone only. |
+| selected visible `person.locations[]` item | `ADR` | Prefer coarse location unless the user explicitly wants a full address in the contact card. |
+| `person.contacts[]` with `kind: "url"`, `"linkedin"`, `"github"`, or `"social"` | `URL` or `X-SOCIALPROFILE` | Use standard fields where possible; vendor extensions vary by address book. Use `label` for Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitLab, YouTube, and similar profiles. |
+| public `person.photo.uri` | `PHOTO` | Include only when intentionally public and suitable for the target region/use. |
 | short bio | `NOTE` | Optional; keep concise and public-safe. |
 
 ## Limits

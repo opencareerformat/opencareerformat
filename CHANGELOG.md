@@ -13,8 +13,13 @@ This is a clean-language schema update. It includes small breaking changes from 
 ### Breaking changes
 
 - Removed `meta.fileRole: "imported-starter"`. A first-pass file that is becoming the user's working career memory should use `meta.fileRole: "candidate-master"` with imported or LLM-mined durable items marked `reviewStatus: "unreviewed"` or `"needs-review"` until accepted.
+- Removed overlapping `meta.variant` and `meta.canonical` fields. Use `meta.fileRole` as the single file lifecycle/control field; use `targetRole`, `targetCompany`, `parentFileId`, `parentVersion`, and `lineageNotes` for targeted child files.
 - Replaced the earlier derived-file lineage names: `meta.derivedFrom` -> `meta.parentFileId`, `meta.derivedFromVersion` -> `meta.parentVersion`, and `meta.derivationNotes` -> `meta.lineageNotes`.
 - Removed lifecycle-like `meta.source.kind` values such as `derived`; use `fileRole` plus `parentFileId`, `parentVersion`, and `lineageNotes` for curation/export lineage. `source.kind` now records origin mechanics such as `authored`, `imported`, `converted`, `merged`, or `translated`.
+- Removed legacy scalar subject contact fields: `person.email`, `person.phone`, `person.linkedin`, `person.github`, and `person.website`. Also removed single-contact and LinkedIn scalar shortcuts from references and supervisors. Use the relevant `contacts[]` array with explicit `kind`, `value`, and `visibility` for contact methods.
+- Changed `aiInstructions` from a bare string to an object with `text` and `visibility` so generic visibility filters can remove it without field-name inference.
+- Replaced companion visibility fields (`legalNameVisibility`, `photoVisibility`, `dateOfBirthVisibility`, `nationalityVisibility`, `maritalStatusVisibility`, `genderVisibility`, and `notesVisibility`) with object-valued fields that carry their own `visibility`.
+- Replaced `dateRange.dateIsPrivate` with `dateRange.visibility`, defaulting to `shared`, so date suppression uses the same visibility mechanism as other private-capable objects.
 
 ### Added
 
@@ -27,12 +32,15 @@ This is a clean-language schema update. It includes small breaking changes from 
 - Added `co-led` to achievement attribution roles.
 - Added `job-description`, `photo`, `video`, and `conversation` source artifact kinds, plus metric visibility.
 - Added `location.renderAs` and `person.workAuthorization[].renderAs` so files can preserve resume-ready display strings alongside structured values.
+- Added explicit `visibility` to contact objects so generic tools can filter contact methods without inferring privacy from field names.
+- Added explicit `visibility` to location objects and the top-level `voice` object.
 - Added `v0.3/schema.json` as a version-pinned schema copy.
 
 ### Changed
 
 - Aligned `schema-core.json` with the full schema as a strict minimal subset rather than a starter dialect.
 - Updated examples, prompts, reference scripts, and generated docs for the current schema shape.
+- Removed the experimental Next.js reference editor to reduce dependency and maintenance surface; the reference path is now validator, importer, curator, exporters, local LLM example, and minimal CLI helper.
 - Reference importer, curator, validator, and local LLM scripts now read the current schema version from `spec/schema.json` where practical instead of hard-coding release strings.
 - Added `spec/usage-patterns.md` and updated the guide, README, prompts, starter/core schema, and examples to clarify that a candidate-owned master is one important OCF use case, not the only possible OCF file role. The top-level `person` is the subject of the OCF; the controller of the file and editors of individual items may be different.
 - Added optional `achievement.attribution` to capture the subject's role in an outcome (`owned`, `led`, `co-led`, `drove`, `contributed-to`, `supported`, `advised`, `observed`, `other`) plus optional budget/headcount/upward-reporting context.

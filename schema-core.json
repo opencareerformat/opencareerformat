@@ -21,11 +21,8 @@
     },
     "meta": {
       "type": "object",
-      "description": "Basic file metadata. Starter files should set fileRole and lastModified when known. A candidate-owned master usually sets canonical=true, fileRole=candidate-master, and variant=master. Imported or converted source material should use source.kind and reviewStatus/provenance on items rather than a separate provisional file role.",
+      "description": "Basic file metadata. Starter files should set fileRole and lastModified when known. A candidate-owned master usually sets fileRole=candidate-master. Imported or converted source material should use source.kind and reviewStatus/provenance on items rather than a separate provisional file role.",
       "properties": {
-        "canonical": {
-          "type": "boolean"
-        },
         "fileRole": {
           "type": "string",
           "enum": [
@@ -33,17 +30,6 @@
             "candidate-curated",
             "third-party-working",
             "export-ready",
-            "other"
-          ]
-        },
-        "variant": {
-          "type": "string",
-          "enum": [
-            "master",
-            "public-profile",
-            "role-targeted",
-            "company-targeted",
-            "portfolio",
             "other"
           ]
         },
@@ -157,6 +143,9 @@
               },
               "primary": {
                 "type": "boolean"
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibilityPrivate"
               }
             },
             "additionalProperties": false
@@ -178,6 +167,9 @@
               },
               "remote": {
                 "type": "boolean"
+              },
+              "visibility": {
+                "$ref": "#/$defs/visibilityShared"
               }
             },
             "additionalProperties": false
@@ -748,6 +740,24 @@
         "shared",
         "private"
       ]
+    },
+    "visibilityShared": {
+      "type": "string",
+      "enum": [
+        "public",
+        "shared",
+        "private"
+      ],
+      "default": "shared"
+    },
+    "visibilityPrivate": {
+      "type": "string",
+      "enum": [
+        "public",
+        "shared",
+        "private"
+      ],
+      "default": "private"
     },
     "reviewStatus": {
       "type": "string",

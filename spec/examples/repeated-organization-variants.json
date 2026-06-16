@@ -4,9 +4,7 @@
   "meta": {
     "id": "7fb58e4f-7c93-4f7c-b04c-93de0b5a2c91",
     "version": "example-v1",
-    "canonical": true,
     "fileRole": "candidate-master",
-    "variant": "master",
     "lastModified": "2026-05-22",
     "language": "en-US",
     "source": {
@@ -60,7 +58,8 @@
       {
         "kind": "email",
         "value": "alex.kim@example.com",
-        "primary": true
+        "primary": true,
+        "visibility": "private"
       }
     ]
   },

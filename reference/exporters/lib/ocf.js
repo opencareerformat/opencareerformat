@@ -14,8 +14,22 @@ function writeOutput(outputPath, content) {
   process.stdout.write(content);
 }
 
+function isContact(item) {
+  return item
+    && typeof item === "object"
+    && typeof item.kind === "string"
+    && Object.prototype.hasOwnProperty.call(item, "value")
+    && ["email", "phone", "url", "linkedin", "github", "social", "other"].includes(item.kind);
+}
+
+function resolvedVisibility(item, fallback = "shared") {
+  if (!item || typeof item !== "object") return fallback;
+  if (item.visibility) return item.visibility;
+  return isContact(item) ? "private" : fallback;
+}
+
 function isVisible(item) {
-  return !item || item.visibility !== "private";
+  return !item || resolvedVisibility(item) !== "private";
 }
 
 function visibleItems(items) {
@@ -39,13 +53,25 @@ function formatPartialDate(date) {
 }
 
 function formatDateRange(dateRange) {
-  if (!dateRange) return "";
+  if (!dateRange || !isVisible(dateRange)) return "";
   const start = formatPartialDate(dateRange.start);
   const end = formatPartialDate(dateRange.end);
   if (start && end) return `${start} - ${end}`;
   if (start) return `${start} - Present`;
   if (end) return end;
   return "";
+}
+
+function dateRangeStart(...dateRanges) {
+  const dateRange = dateRanges.find((item) => item && isVisible(item));
+  return formatPartialDate(dateRange?.start);
+}
+
+function dateRangeEnd(...dateRanges) {
+  const dateRange = dateRanges.find((item) => item && isVisible(item));
+  if (!dateRange) return undefined;
+  if (dateRange.end?.present) return undefined;
+  return formatPartialDate(dateRange.end);
 }
 
 function organizationName(doc, entry) {
@@ -81,18 +107,11 @@ function collectAchievements(positionOrEntry) {
 function contactProfiles(person = {}) {
   const profiles = [];
 
-  if (person.linkedin) {
-    profiles.push({ network: "LinkedIn", url: person.linkedin });
-  }
-  if (person.github) {
-    profiles.push({ network: "GitHub", url: person.github });
-  }
-
   for (const contact of visibleItems(person.contacts)) {
     if (!contact.value) continue;
-    if (contact.kind === "linkedin" && contact.value !== person.linkedin) {
+    if (contact.kind === "linkedin") {
       profiles.push({ network: "LinkedIn", url: contact.value });
-    } else if (contact.kind === "github" && contact.value !== person.github) {
+    } else if (contact.kind === "github") {
       profiles.push({ network: "GitHub", url: contact.value });
     } else if (contact.kind === "social") {
       profiles.push({ network: contact.label || "Social", url: contact.value });
@@ -117,6 +136,8 @@ function personLocation(person = {}) {
 module.exports = {
   collectAchievements,
   contactProfiles,
+  dateRangeEnd,
+  dateRangeStart,
   firstPrimaryOrVisible,
   formatDateRange,
   formatPartialDate,

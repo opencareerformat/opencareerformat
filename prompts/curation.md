@@ -45,7 +45,7 @@ For each relevant item in the OCF, make three decisions:
 
 **Respect attribution.** When an achievement has `attribution`, use it to choose defensible verbs. Owned, led, drove, contributed to, supported, advised, and observed are different claims. If attribution is missing and the current output depends on the distinction, ask what the subject personally owned: budget, headcount, workstream, technical design, customer relationship, delivery plan, executive reporting, or another scope.
 
-**Apply leading controls.** Before drafting any external-facing content, read relevant `cautions`, `openQuestions`, `goals`, `aiInstructions`, reflections, source artifacts, and narrative variants for the target audience, role, organization, or achievement. Use them to prevent predictable mistakes in the first draft. Do not wait for the user to correct the same overclaim again.
+**Apply leading controls.** Before drafting any external-facing content, read relevant `cautions`, `openQuestions`, `goals`, `aiInstructions.text`, reflections, source artifacts, and narrative variants for the target audience, role, organization, or achievement. Use them to prevent predictable mistakes in the first draft. Do not wait for the user to correct the same overclaim again.
 
 After asking the user any necessary questions, produce one or both of these outputs:
 

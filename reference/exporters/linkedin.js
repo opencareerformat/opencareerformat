@@ -3,6 +3,7 @@
 const {
   collectAchievements,
   contactProfiles,
+  dateRangeStart,
   firstPrimaryOrVisible,
   formatDateRange,
   formatPartialDate,
@@ -27,11 +28,12 @@ function toLinkedInBundle(doc) {
   addSection(lines, "About", [person.summary]);
 
   const contactLines = [];
-  const email = firstPrimaryOrVisible(person.contacts, "email") || person.email;
-  const phone = firstPrimaryOrVisible(person.contacts, "phone") || person.phone;
+  const email = firstPrimaryOrVisible(person.contacts, "email");
+  const phone = firstPrimaryOrVisible(person.contacts, "phone");
+  const website = firstPrimaryOrVisible(person.contacts, "url");
   if (email) contactLines.push(`Email: ${email}`);
   if (phone) contactLines.push(`Phone: ${phone}`);
-  if (person.website) contactLines.push(`Website: ${person.website}`);
+  if (website) contactLines.push(`Website: ${website}`);
   for (const profile of contactProfiles(person)) {
     contactLines.push(`${profile.network}: ${profile.url}`);
   }
@@ -70,7 +72,7 @@ function toLinkedInBundle(doc) {
 
   const certificationLines = visibleItems(doc.certifications).map((item) => {
     const issuer = typeof item.issuer === "string" ? item.issuer : item.issuer?.name;
-    const issued = formatPartialDate(item.dateRange?.start);
+    const issued = dateRangeStart(item.dateRange);
     return [item.name, issuer, issued, item.url].filter(Boolean).join(" | ");
   });
   addSection(lines, "Licenses & Certifications", certificationLines);

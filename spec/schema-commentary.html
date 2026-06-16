@@ -282,11 +282,9 @@
 <ul>
 <li><code>id</code>: stable ID for this OCF file across its lifetime.</li>
 <li><code>version</code>: content version or fingerprint.</li>
-<li><code>canonical</code>: whether this file is canonical in its own authoring context.</li>
 <li><code>fileRole</code>: what role this file plays in a workflow.</li>
-<li><code>variant</code>: what kind of filtered or targeted form this file is.</li>
-<li><code>targetRole</code>: role target for role-targeted or company-targeted files.</li>
-<li><code>targetCompany</code>: company target for company-targeted files.</li>
+<li><code>targetRole</code>: role target for targeted curated or export-ready files.</li>
+<li><code>targetCompany</code>: company target for targeted curated or export-ready files.</li>
 <li><code>lastModified</code>: when this file last changed.</li>
 <li><code>source</code>: original source mechanics for this file, such as authored, imported, converted, merged, or translated.</li>
 <li><code>parentFileId</code>: the parent file's <code>meta.id</code> when this file was prepared from another OCF file.</li>
@@ -298,9 +296,7 @@
 
 <pre><code class="language-json">{
   &quot;meta&quot;: {
-    &quot;fileRole&quot;: &quot;candidate-master&quot;,
-    &quot;canonical&quot;: true,
-    &quot;variant&quot;: &quot;master&quot;
+    &quot;fileRole&quot;: &quot;candidate-master&quot;
   }
 }</code></pre>
 
@@ -309,9 +305,9 @@
 <pre><code class="language-json">{
   &quot;meta&quot;: {
     &quot;fileRole&quot;: &quot;candidate-curated&quot;,
-    &quot;canonical&quot;: false,
-    &quot;variant&quot;: &quot;role-targeted&quot;,
-    &quot;targetRole&quot;: &quot;CISO&quot;
+    &quot;targetRole&quot;: &quot;CISO&quot;,
+    &quot;parentFileId&quot;: &quot;c94ffaa9-31fd-40d7-96cd-a66725a9784a&quot;,
+    &quot;parentVersion&quot;: &quot;db2a5a6fc562&quot;
   }
 }</code></pre>
 
@@ -320,9 +316,11 @@
 <pre><code class="language-json">{
   &quot;meta&quot;: {
     &quot;fileRole&quot;: &quot;export-ready&quot;,
-    &quot;canonical&quot;: false,
-    &quot;variant&quot;: &quot;company-targeted&quot;,
-    &quot;targetCompany&quot;: &quot;Example Health&quot;
+    &quot;targetRole&quot;: &quot;CISO&quot;,
+    &quot;targetCompany&quot;: &quot;Example Health&quot;,
+    &quot;parentFileId&quot;: &quot;c94ffaa9-31fd-40d7-96cd-a66725a9784a&quot;,
+    &quot;parentVersion&quot;: &quot;db2a5a6fc562&quot;,
+    &quot;lineageNotes&quot;: &quot;Reviewed handoff for Example Health CISO resume exporter.&quot;
   }
 }</code></pre>
 
@@ -331,7 +329,6 @@
 <pre><code class="language-json">{
   &quot;meta&quot;: {
     &quot;fileRole&quot;: &quot;third-party-working&quot;,
-    &quot;canonical&quot;: true,
     &quot;source&quot;: {
       &quot;kind&quot;: &quot;imported&quot;
     }
@@ -359,13 +356,20 @@
       {
         &quot;kind&quot;: &quot;email&quot;,
         &quot;value&quot;: &quot;maria.reyes@example.com&quot;,
-        &quot;primary&quot;: true
+        &quot;primary&quot;: true,
+        &quot;visibility&quot;: &quot;private&quot;
       }
     ]
   }
 }</code></pre>
 
-<p>Use <code>renderAs</code> for the name that should appear in ordinary outputs. <code>given</code>, <code>family</code>, and <code>preferred</code> are structured helper fields for tools; <code>renderAs</code> remains the display string because not every professional name decomposes cleanly. Put legal names, former names, native-script names, and regional fields behind the appropriate fields and visibility controls.</p>
+<p>Use <code>renderAs</code> for the name that should appear in ordinary outputs. <code>given</code>, <code>family</code>, and <code>preferred</code> are structured helper fields for tools; <code>renderAs</code> remains the display string because not every professional name decomposes cleanly.</p>
+
+<p>Sensitive person-level facts use object-valued fields with their own <code>visibility</code>, so a generic filter can remove the object without understanding field-specific companion names. Use <code>person.legalName.text</code>, <code>person.photo.uri</code>, <code>person.dateOfBirth.value</code>, <code>person.nationality.values</code>, <code>person.maritalStatus.text</code>, and <code>person.gender.text</code>; do not create <code>legalNameVisibility</code>, <code>photoVisibility</code>, <code>dateOfBirthVisibility</code>, <code>nationalityVisibility</code>, <code>maritalStatusVisibility</code>, or <code>genderVisibility</code>.</p>
+
+<p>A contact method belongs to the object that contains it: <code>person.contacts</code> describes the subject of the OCF file, <code>references[].contacts</code> describes that reference, and <code>experience[].positions[].supervisor.contacts</code> describes that supervisor. Use <code>contacts[]</code>, not legacy scalar fields, for email, phone, LinkedIn, GitHub, website, and other contact/profile URLs.</p>
+
+<p>When tools create contact methods, write <code>visibility</code> explicitly. Do not rely on downstream tools inferring that an email, phone number, or profile URL is private from the field name alone.</p>
 
 <p>Do not store government identity numbers, account secrets, passwords, passport numbers, taxpayer IDs, bank details, or API keys in OCF.</p>
 
@@ -495,6 +499,8 @@
 
 <p>Public-only export paths should include only <code>public</code> material. The reference curator demonstrates this with <code>--public-only</code>, which strips both <code>private</code> and <code>shared</code> content.</p>
 
+<p>Private-by-default means &quot;do not include automatically,&quot; not &quot;never ask.&quot; A curator may ask the user whether a private group, type, or specific item should be shared in the export being prepared. Frame it as an output-specific curation checkpoint, not an abstract permission request: &quot;We have the right choices to create this targeted resume; I want to make sure you are okay using these private-by-default fields for this version.&quot; The question should name what would be shared and the recipient or context, and the answer should apply to that output unless the user also asks to update the master visibility.</p>
+
 <p>Filtering by visibility does not anonymize a file. Organization names, dates, locations, rare skills, metrics, and combinations of facts can identify someone.</p>
 
 <h2><code>experience</code></h2>
@@ -521,6 +527,8 @@
 }</code></pre>
 
 <p>Use <code>dateRange.end.present: true</code> to mean present as of the source or current file context. When importing multiple resumes, remember that &quot;Present&quot; in an old resume means &quot;present when that resume was written,&quot; not necessarily present today.</p>
+
+<p>Use <code>dateRange.visibility: &quot;private&quot;</code> when the containing item may remain visible but its dates should be suppressed. Common examples include education dates that reveal age, employment dates that expose gaps, or deployment dates with sensitivity concerns.</p>
 
 <p>If a person has separate periods doing similar work for the same organization or client, model them as separate positions with the same or similar title and different <code>dateRange</code> values. This is clearer than hiding a gap inside prose. A future schema may add richer repeated-period support if this pattern becomes common.</p>
 
@@ -554,6 +562,8 @@
 }</code></pre>
 
 <p>Do not treat current willingness to travel for future roles as durable career memory. OCF does not currently define first-class fields for &quot;willing to travel up to 25%&quot; or &quot;not open to 50% travel anymore.&quot; Tools that need current travel willingness for an application should ask the user at the time of use, avoid inferring it from historical role travel, and avoid saving it as a durable fact unless the user explicitly asks.</p>
+
+<p>Use <code>experience[].notes.text</code> for free-form private context that does not fit <code>progression</code>, <code>spanning</code>, <code>exitContext</code>, or structured items. Do not create <code>notesVisibility</code>; the <code>notes</code> object carries its own <code>visibility</code>.</p>
 
 <h2><code>organizations</code></h2>
 
@@ -843,7 +853,7 @@
 
 <p><code>voice</code> describes how drafts should sound.</p>
 
-<p><code>aiInstructions</code> customizes tool behavior for this file.</p>
+<p><code>aiInstructions.text</code> customizes tool behavior for this file.</p>
 
 <p>For the longer rationale behind these fields, see <code>guide.html</code> and its discussion of OCF as input to a career conversation.</p>
 
@@ -853,12 +863,16 @@
   &quot;voice&quot;: {
     &quot;style&quot;: &quot;plain-direct&quot;,
     &quot;avoidPhrases&quot;: [&quot;leveraged&quot;, &quot;thought leader&quot;],
-    &quot;preferredPhrases&quot;: [&quot;led&quot;, &quot;owned&quot;, &quot;built&quot;]
+    &quot;preferredPhrases&quot;: [&quot;led&quot;, &quot;owned&quot;, &quot;built&quot;],
+    &quot;visibility&quot;: &quot;private&quot;
   },
-  &quot;aiInstructions&quot;: &quot;Push back when I undersell. Ask before drafting from uncertain prior-session claims.&quot;
+  &quot;aiInstructions&quot;: {
+    &quot;text&quot;: &quot;Push back when I undersell. Ask before drafting from uncertain prior-session claims.&quot;,
+    &quot;visibility&quot;: &quot;private&quot;
+  }
 }</code></pre>
 
-<p>Keep these private by default. They are not resume content.</p>
+<p>Keep these private by default. They are not resume content. Visibility is explicit so a simple filter can remove them without understanding field names.</p>
 
 <h2>Compensation, Sales Plan, And Book Of Business History</h2>
 
@@ -1126,7 +1140,6 @@ Cybersecurity leader bridging military discipline with enterprise security strat
   &quot;schemaVersion&quot;: &quot;0.3&quot;,
   &quot;meta&quot;: {
     &quot;fileRole&quot;: &quot;candidate-master&quot;,
-    &quot;canonical&quot;: true,
     &quot;lastModified&quot;: &quot;2026-05-24&quot;
   },
   &quot;person&quot;: {

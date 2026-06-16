@@ -214,7 +214,7 @@
 
 <p>The current schema no longer uses a separate <code>imported-starter</code> file role. A first-pass file usually uses <code>meta.fileRole: &quot;candidate-master&quot;</code> when it is becoming the person's working master, plus <code>meta.source.kind: &quot;imported&quot;</code> or <code>&quot;converted&quot;</code> and item-level <code>reviewStatus</code>, provenance, cautions, and open questions to show what still needs review.</p>
 
-<p>If the first pass is only a temporary working artifact, use <code>meta.fileRole: &quot;other&quot;</code> or a tool-owned working file, keep <code>meta.canonical: false</code>, and avoid naming it as a master. The trust posture lives in the items: default mined facts to <code>reviewStatus: &quot;unreviewed&quot;</code> or <code>&quot;needs-review&quot;</code> until the user accepts them.</p>
+<p>If the first pass is only a temporary working artifact, use <code>meta.fileRole: &quot;other&quot;</code> or a tool-owned working file, and avoid naming it as a master. The trust posture lives in the items: default mined facts to <code>reviewStatus: &quot;unreviewed&quot;</code> or <code>&quot;needs-review&quot;</code> until the user accepts them.</p>
 
 <p>After review, the usual path is to keep the accepted material in the <code>candidate-master</code> and preserve the original inputs as <code>sourceArtifacts</code>. Do not silently overwrite a reviewed master with a reduced, third-party, or unreviewed imported file.</p>
 
@@ -258,10 +258,10 @@
 <pre><code class="language-json">{
   &quot;meta&quot;: {
     &quot;fileRole&quot;: &quot;candidate-curated&quot;,
-    &quot;canonical&quot;: false,
-    &quot;variant&quot;: &quot;company-targeted&quot;,
     &quot;targetRole&quot;: &quot;CISO&quot;,
-    &quot;targetCompany&quot;: &quot;Acme Health&quot;
+    &quot;targetCompany&quot;: &quot;Acme Health&quot;,
+    &quot;parentFileId&quot;: &quot;c94ffaa9-31fd-40d7-96cd-a66725a9784a&quot;,
+    &quot;parentVersion&quot;: &quot;db2a5a6fc562&quot;
   },
   &quot;openQuestions&quot;: [
     {
@@ -276,10 +276,11 @@
 <pre><code class="language-json">{
   &quot;meta&quot;: {
     &quot;fileRole&quot;: &quot;export-ready&quot;,
-    &quot;canonical&quot;: false,
-    &quot;variant&quot;: &quot;company-targeted&quot;,
     &quot;targetRole&quot;: &quot;CISO&quot;,
-    &quot;targetCompany&quot;: &quot;Acme Health&quot;
+    &quot;targetCompany&quot;: &quot;Acme Health&quot;,
+    &quot;parentFileId&quot;: &quot;c94ffaa9-31fd-40d7-96cd-a66725a9784a&quot;,
+    &quot;parentVersion&quot;: &quot;db2a5a6fc562&quot;,
+    &quot;lineageNotes&quot;: &quot;Reviewed handoff for Acme Health CISO resume exporter.&quot;
   },
   &quot;openQuestions&quot;: []
 }</code></pre>

@@ -24,10 +24,10 @@ Use `Person` as the main object. Add related objects where useful:
 |---|---|---|
 | `person.name.renderAs` | `Person.name` | Use the public display name. |
 | `person.headline` | `Person.jobTitle` or `description` | Use carefully; `jobTitle` may imply current role. |
-| `person.website` | `Person.url` | Prefer canonical personal site. |
-| `person.linkedin`, `person.github`, `person.contacts[]` | `Person.sameAs` | Use for public profile URLs: LinkedIn, GitHub, Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitLab, YouTube, and similar identity/profile pages. |
-| `person.email` | `Person.email` | Include only in a public-profile export-ready OCF file when intentional. |
-| `person.location` | `Person.homeLocation` or `address` | Use coarse location unless the user explicitly wants detailed address data public. |
+| `person.contacts[]` with `kind: "url"` | `Person.url` | Prefer the selected canonical personal site. |
+| `person.contacts[]` with `kind: "linkedin"`, `"github"`, or `"social"` | `Person.sameAs` | Use for public profile URLs: LinkedIn, GitHub, Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitLab, YouTube, and similar identity/profile pages. |
+| `person.contacts[]` with `kind: "email"` | `Person.email` | Include only in a public-profile export-ready OCF file when intentional. |
+| selected visible `person.locations[]` item | `Person.homeLocation` or `address` | Use coarse location unless the user explicitly wants detailed address data public. |
 | selected current position | `Person.worksFor`, `jobTitle` | Avoid exposing stealth or private employers. |
 | education | `Person.alumniOf` | Can point to `Organization` objects. |
 | skills | `Person.knowsAbout` | Use human-readable skill labels. |

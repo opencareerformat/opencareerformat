@@ -95,11 +95,9 @@ Important fields:
 
 - `id`: stable ID for this OCF file across its lifetime.
 - `version`: content version or fingerprint.
-- `canonical`: whether this file is canonical in its own authoring context.
 - `fileRole`: what role this file plays in a workflow.
-- `variant`: what kind of filtered or targeted form this file is.
-- `targetRole`: role target for role-targeted or company-targeted files.
-- `targetCompany`: company target for company-targeted files.
+- `targetRole`: role target for targeted curated or export-ready files.
+- `targetCompany`: company target for targeted curated or export-ready files.
 - `lastModified`: when this file last changed.
 - `source`: original source mechanics for this file, such as authored, imported, converted, merged, or translated.
 - `parentFileId`: the parent file's `meta.id` when this file was prepared from another OCF file.
@@ -111,9 +109,7 @@ Important fields:
 ```json
 {
   "meta": {
-    "fileRole": "candidate-master",
-    "canonical": true,
-    "variant": "master"
+    "fileRole": "candidate-master"
   }
 }
 ```
@@ -124,9 +120,9 @@ Use this for the person's own durable master file.
 {
   "meta": {
     "fileRole": "candidate-curated",
-    "canonical": false,
-    "variant": "role-targeted",
-    "targetRole": "CISO"
+    "targetRole": "CISO",
+    "parentFileId": "c94ffaa9-31fd-40d7-96cd-a66725a9784a",
+    "parentVersion": "db2a5a6fc562"
   }
 }
 ```
@@ -137,9 +133,11 @@ Use this for a candidate-controlled curated working set. See `usage-patterns.md`
 {
   "meta": {
     "fileRole": "export-ready",
-    "canonical": false,
-    "variant": "company-targeted",
-    "targetCompany": "Example Health"
+    "targetRole": "CISO",
+    "targetCompany": "Example Health",
+    "parentFileId": "c94ffaa9-31fd-40d7-96cd-a66725a9784a",
+    "parentVersion": "db2a5a6fc562",
+    "lineageNotes": "Reviewed handoff for Example Health CISO resume exporter."
   }
 }
 ```
@@ -150,7 +148,6 @@ Use this for a handoff to a specific exporter or downstream system.
 {
   "meta": {
     "fileRole": "third-party-working",
-    "canonical": true,
     "source": {
       "kind": "imported"
     }
@@ -180,14 +177,21 @@ Minimum useful shape:
       {
         "kind": "email",
         "value": "maria.reyes@example.com",
-        "primary": true
+        "primary": true,
+        "visibility": "private"
       }
     ]
   }
 }
 ```
 
-Use `renderAs` for the name that should appear in ordinary outputs. `given`, `family`, and `preferred` are structured helper fields for tools; `renderAs` remains the display string because not every professional name decomposes cleanly. Put legal names, former names, native-script names, and regional fields behind the appropriate fields and visibility controls.
+Use `renderAs` for the name that should appear in ordinary outputs. `given`, `family`, and `preferred` are structured helper fields for tools; `renderAs` remains the display string because not every professional name decomposes cleanly.
+
+Sensitive person-level facts use object-valued fields with their own `visibility`, so a generic filter can remove the object without understanding field-specific companion names. Use `person.legalName.text`, `person.photo.uri`, `person.dateOfBirth.value`, `person.nationality.values`, `person.maritalStatus.text`, and `person.gender.text`; do not create `legalNameVisibility`, `photoVisibility`, `dateOfBirthVisibility`, `nationalityVisibility`, `maritalStatusVisibility`, or `genderVisibility`.
+
+A contact method belongs to the object that contains it: `person.contacts` describes the subject of the OCF file, `references[].contacts` describes that reference, and `experience[].positions[].supervisor.contacts` describes that supervisor. Use `contacts[]`, not legacy scalar fields, for email, phone, LinkedIn, GitHub, website, and other contact/profile URLs.
+
+When tools create contact methods, write `visibility` explicitly. Do not rely on downstream tools inferring that an email, phone number, or profile URL is private from the field name alone.
 
 Do not store government identity numbers, account secrets, passwords, passport numbers, taxpayer IDs, bank details, or API keys in OCF.
 
@@ -321,6 +325,8 @@ Private coaching example:
 
 Public-only export paths should include only `public` material. The reference curator demonstrates this with `--public-only`, which strips both `private` and `shared` content.
 
+Private-by-default means "do not include automatically," not "never ask." A curator may ask the user whether a private group, type, or specific item should be shared in the export being prepared. Frame it as an output-specific curation checkpoint, not an abstract permission request: "We have the right choices to create this targeted resume; I want to make sure you are okay using these private-by-default fields for this version." The question should name what would be shared and the recipient or context, and the answer should apply to that output unless the user also asks to update the master visibility.
+
 Filtering by visibility does not anonymize a file. Organization names, dates, locations, rare skills, metrics, and combinations of facts can identify someone.
 
 ## `experience`
@@ -349,6 +355,8 @@ Example:
 ```
 
 Use `dateRange.end.present: true` to mean present as of the source or current file context. When importing multiple resumes, remember that "Present" in an old resume means "present when that resume was written," not necessarily present today.
+
+Use `dateRange.visibility: "private"` when the containing item may remain visible but its dates should be suppressed. Common examples include education dates that reveal age, employment dates that expose gaps, or deployment dates with sensitivity concerns.
 
 If a person has separate periods doing similar work for the same organization or client, model them as separate positions with the same or similar title and different `dateRange` values. This is clearer than hiding a gap inside prose. A future schema may add richer repeated-period support if this pattern becomes common.
 
@@ -386,6 +394,8 @@ Travel is related to location but usually does not need its own first-class v0.3
 ```
 
 Do not treat current willingness to travel for future roles as durable career memory. OCF does not currently define first-class fields for "willing to travel up to 25%" or "not open to 50% travel anymore." Tools that need current travel willingness for an application should ask the user at the time of use, avoid inferring it from historical role travel, and avoid saving it as a durable fact unless the user explicitly asks.
+
+Use `experience[].notes.text` for free-form private context that does not fit `progression`, `spanning`, `exitContext`, or structured items. Do not create `notesVisibility`; the `notes` object carries its own `visibility`.
 
 ## `organizations`
 
@@ -693,7 +703,7 @@ These fields guide future conversations.
 
 `voice` describes how drafts should sound.
 
-`aiInstructions` customizes tool behavior for this file.
+`aiInstructions.text` customizes tool behavior for this file.
 
 For the longer rationale behind these fields, see `guide.html` and its discussion of OCF as input to a career conversation.
 
@@ -704,13 +714,17 @@ Example:
   "voice": {
     "style": "plain-direct",
     "avoidPhrases": ["leveraged", "thought leader"],
-    "preferredPhrases": ["led", "owned", "built"]
+    "preferredPhrases": ["led", "owned", "built"],
+    "visibility": "private"
   },
-  "aiInstructions": "Push back when I undersell. Ask before drafting from uncertain prior-session claims."
+  "aiInstructions": {
+    "text": "Push back when I undersell. Ask before drafting from uncertain prior-session claims.",
+    "visibility": "private"
+  }
 }
 ```
 
-Keep these private by default. They are not resume content.
+Keep these private by default. They are not resume content. Visibility is explicit so a simple filter can remove them without understanding field names.
 
 ## Compensation, Sales Plan, And Book Of Business History
 
@@ -987,7 +1001,6 @@ A useful OCF can be tiny:
   "schemaVersion": "0.3",
   "meta": {
     "fileRole": "candidate-master",
-    "canonical": true,
     "lastModified": "2026-05-24"
   },
   "person": {

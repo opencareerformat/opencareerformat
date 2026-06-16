@@ -26,7 +26,6 @@ The curator:
 - keyword-scores experience, positions, achievements, skills, and certifications
 - keeps a small matching subset
 - assigns a fresh curated file `meta.id` and points `meta.parentFileId` back to the master
-- sets `meta.canonical: false`
 - records curation notes in `meta.lineageNotes`
 
 It should not produce a perfect downstream OCF. A real curator would ask questions, handle audience strategy, preserve more context, explain tradeoffs, and let the user accept or reject selections.

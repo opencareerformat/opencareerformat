@@ -19,7 +19,7 @@ The recommended content-translation pattern is a translated child file, not per-
 - `meta.parentVersion`: the source OCF file's `meta.version` at translation time.
 - `meta.lineageNotes`: human-readable context about the translation.
 
-The source file remains the canonical source of facts unless the user explicitly accepts a translated file as a replacement master.
+The source file remains the source of facts unless the user explicitly accepts a translated file as a replacement master.
 
 ## Minimal Spanish Sidecar Excerpt
 
@@ -30,7 +30,6 @@ This excerpt uses the fictional Maria Reyes sample. It is not a complete transla
   "$schema": "https://opencareerformat.org/v0.3/schema.json",
   "schemaVersion": "0.3",
   "meta": {
-    "canonical": false,
     "language": "es-ES",
     "translatedFrom": "en-US",
     "source": {

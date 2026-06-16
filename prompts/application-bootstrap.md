@@ -60,7 +60,6 @@ Use the full schema for canonical validation. This compact shape is only the fir
   "schemaVersion": "0.3",
   "meta": {
     "fileRole": "candidate-master",
-    "canonical": false,
     "lastModified": "2026-06-10",
     "source": {
       "kind": "imported"

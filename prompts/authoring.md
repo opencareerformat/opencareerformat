@@ -54,7 +54,7 @@ Do not treat this first pass as canonical truth. Keep imported items visibly unr
 
 For a first useful OCF, prioritize:
 
-- `person`: name, contact details, location, headline, and summary when available.
+- `person`: name, contact details in `person.contacts[]`, location, headline, and summary when available.
 - `sourceArtifacts`: each resume, LinkedIn export, note, transcript, photo, video, job description, or pasted conversation used as evidence. Use the current schema's `sourceArtifact.kind` enum.
 - `experience`: each organization, tenure, role, promotion, self-employment period, military service, caregiving period, career break, or other timeline entry.
 - `positions`: each specific role within an experience entry.
@@ -67,6 +67,8 @@ For a first useful OCF, prioritize:
 - `openQuestions`: anything important but uncertain, conflicting, missing, or worth asking later.
 
 Do not try to fill every field in the full schema. A small accurate OCF is better than a large speculative one.
+
+Use `contacts[]` arrays for contact methods; do not create scalar shortcuts such as `person.email`, `person.phone`, `person.linkedin`, `person.github`, `person.website`, `reference.linkedin`, or `supervisor.linkedin`. A contact method belongs to the object that contains it: `person.contacts[]` describes the subject, `references[].contacts[]` describes that reference, and `positions[].supervisor.contacts[]` describes that supervisor. Write `visibility` explicitly on contact methods.
 
 Set `meta.fileRole` when creating a new file. Use `candidate-master` for the person's private durable master, `candidate-curated` or `export-ready` for reduced files prepared for a purpose, and `third-party-working` for recruiter, coach, agency, employer, or tool-owned working files about a person. For a first-pass import that is becoming the user's working master, use `candidate-master` with `meta.source.kind: "imported"` or `"converted"` and mark mined durable items `reviewStatus: "unreviewed"` or `"needs-review"` until accepted.
 
@@ -141,7 +143,7 @@ Cautions are not weaknesses and not admissions. They are guardrails for future t
 
 Store the caution in plain language, with the reason and provenance when available. Future authoring, curation, and export work should read cautions before drafting.
 
-When updating an existing OCF, read relevant `cautions`, `openQuestions`, `goals`, `aiInstructions`, reflections, and narrative variants before drafting externally facing content. These fields are leading controls. They should shape the first draft, not merely explain corrections after an overclaim appears.
+When updating an existing OCF, read relevant `cautions`, `openQuestions`, `goals`, `aiInstructions.text`, reflections, and narrative variants before drafting externally facing content. These fields are leading controls. They should shape the first draft, not merely explain corrections after an overclaim appears.
 
 If you store reusable career-memory structure under `extensions.user.local` because no first-class OCF field fits, tell the user this may be useful schema feedback. Do not send anything automatically. Offer to help them create a redacted or fictionalized suggestion for the OCF project that explains the concept, the current best mapping, what felt awkward, and what private details were removed.
 

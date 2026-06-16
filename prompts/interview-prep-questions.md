@@ -44,7 +44,7 @@ Tools should ask these for each `position` in the master file. Each answer is st
 | Why did you take this role? | `why-took-role` | `text` |
 | Why did you leave this role? (position-to-position move within same company) | `why-left-position` | `text` |
 
-For the supervisor question, tools should capture enough structured data to make the later rating question meaningful: name, title when known, and useful contact/profile details. A LinkedIn URL is often the safest durable identifier because phone numbers and work emails go stale when people change companies. Store it on `position.supervisor.linkedin` or as a `contacts[]` item with `kind: "linkedin"`. Supervisor data defaults to private.
+For the supervisor question, tools should capture enough structured data to make the later rating question meaningful: name, title when known, and useful contact/profile details. A LinkedIn URL is often the safest durable identifier because phone numbers and work emails go stale when people change companies. Store contact methods as `positions[].supervisor.contacts[]` items with explicit `kind` and `visibility`; do not use scalar supervisor contact fields. Supervisor data defaults to private.
 
 Long careers make this question less simple than it sounds. "I worked for X" might mean direct manager in one period, skip-level leader in another, client sponsor on a consulting engagement, commanding officer, principal investigator, or executive several layers above the role. OCF intentionally does not model a full people graph. Use `position.supervisor` for the most relevant person for the role and preserve nuance in private reflection text or notes when it matters for interview prep.
 

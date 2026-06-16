@@ -14,11 +14,11 @@ Reverse import from JSON Resume is possible, but should be treated as importing 
 |---|---|---|
 | `person.name.renderAs` | `basics.name` | Prefer the display name selected for this export-ready file. |
 | `person.headline` | `basics.label` | Use only if visible in the export-ready file. |
-| `person.email` | `basics.email` | Export only when present and visible. |
-| `person.phone` | `basics.phone` | Export only when present and visible. |
-| `person.website` | `basics.url` | Prefer the canonical personal site or portfolio. |
-| `person.linkedin`, `person.github`, `person.contacts[]` | `basics.profiles` | Map recognizable social/profile links into `profiles`. Use contact `label` for services such as Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitLab, YouTube, or a portfolio network. |
-| `person.location` | `basics.location` | Preserve city, region, country where possible. |
+| `person.contacts[]` with `kind: "email"` | `basics.email` | Export only when selected and visible. |
+| `person.contacts[]` with `kind: "phone"` | `basics.phone` | Export only when selected and visible. |
+| `person.contacts[]` with `kind: "url"` | `basics.url` | Prefer the selected canonical personal site or portfolio. |
+| `person.contacts[]` with `kind: "linkedin"`, `"github"`, or `"social"` | `basics.profiles` | Map recognizable social/profile links into `profiles`. Use contact `label` for services such as Bluesky, Mastodon, X/Twitter, ORCID, Google Scholar, GitLab, YouTube, or a portfolio network. |
+| selected visible `person.locations[]` item | `basics.location` | Preserve city, region, country where possible. |
 | `summary` or curated profile text | `basics.summary` | A curator may generate this from OCF evidence; do not invent unsupported claims. |
 | `skills` | `skills` | Grouping is exporter-defined. Preserve names and keywords. |
 | `experience[].positions[]` | `work[]` | JSON Resume work items are role-shaped; split multi-position experience entries into separate work entries unless the export-ready output intentionally combines them. |
@@ -49,8 +49,8 @@ For each selected OCF position, create a JSON Resume `work` entry:
 
 JSON Resume `basics.profiles[]` expects a network name plus URL or username. Exporters should map:
 
-- `person.linkedin` and `contacts[].kind = "linkedin"` to network `LinkedIn`
-- `person.github` and `contacts[].kind = "github"` to network `GitHub`
+- `contacts[].kind = "linkedin"` to network `LinkedIn`
+- `contacts[].kind = "github"` to network `GitHub`
 - `contacts[].kind = "social"` to the network named by `label`, such as `Bluesky`, `Mastodon`, `X/Twitter`, `ORCID`, `Google Scholar`, `GitLab`, or `YouTube`
 - `contacts[].kind = "url"` to `basics.url` only when it is the primary personal site; otherwise export it as a profile when the label names a recognizable network
 
