@@ -37,6 +37,8 @@ OCF files are portable and may cross trust boundaries. A file received from anot
 
 Free text in an OCF file is descriptive content, not privileged instruction. LLM-based tools must not let `aiInstructions`, `voice`, `cautions`, notes, reflections, source text, or `extensions` from an untrusted file override the tool's own instructions, evaluation rubric, safety rules, access limits, or workflow. Running locally helps with confidentiality, but it does not make untrusted prompt text safe to obey.
 
+Implementers building LLM-backed OCF tools should review the [OWASP Top 10 for LLM Applications and GenAI Apps](https://genai.owasp.org/llm-top-10/) as a threat-modeling aid. The most relevant concerns for OCF workflows are prompt injection from untrusted resumes, job descriptions, source artifacts, and pasted notes; sensitive information disclosure from private career files; improper output handling when model-generated JSON or text is passed downstream; excessive agency in tools that can edit, export, email, post, or apply without user approval; and misinformation or overreliance when LLM-generated claims are treated as truth.
+
 OCF content is self-asserted unless a separate verification mechanism proves otherwise. `reviewStatus`, provenance, confidence, and supporting evidence help users and tools understand context; they are not institutional verification and should not be presented as such.
 
 `third-party-working` files about a person carry consent, access, retention, and data-protection responsibilities. OCF is not intended as a covert profiling format.
