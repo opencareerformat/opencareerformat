@@ -22,6 +22,11 @@ const docs = [
     description: "Guidance for translated OCF documentation and translated career-content sidecars.",
   },
   {
+    source: "spec/ocf-vs-resume-linkedin.md",
+    title: "OCF Vs Resumes, LinkedIn, And LLM Chats",
+    description: "How Open Career Format relates to resumes, LinkedIn profiles, JSON Resume, and LLM resume workflows.",
+  },
+  {
     source: "spec/schema-commentary.md",
     title: "OCF Schema Commentary",
     description: "Annotated Open Career Format schema commentary with examples and common pitfalls.",

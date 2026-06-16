@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF Vs Resumes, LinkedIn, And LLM Chats — Open Career Format</title>
+<meta name="description" content="How Open Career Format relates to resumes, LinkedIn profiles, JSON Resume, and LLM resume workflows.">
+<link rel="canonical" href="https://opencareerformat.org/spec/ocf-vs-resume-linkedin.html">
+<link rel="icon" type="image/png" href="./assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF Vs Resumes, LinkedIn, And LLM Chats">
+<meta property="og:description" content="How Open Career Format relates to resumes, LinkedIn profiles, JSON Resume, and LLM resume workflows.">
+<meta property="og:url" content="https://opencareerformat.org/spec/ocf-vs-resume-linkedin.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF Vs Resumes, LinkedIn, And LLM Chats">
+<meta name="twitter:description" content="How Open Career Format relates to resumes, LinkedIn profiles, JSON Resume, and LLM resume workflows.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF Vs Resumes, LinkedIn, And LLM Chats",
+  "name": "OCF Vs Resumes, LinkedIn, And LLM Chats",
+  "url": "https://opencareerformat.org/spec/ocf-vs-resume-linkedin.html",
+  "description": "How Open Career Format relates to resumes, LinkedIn profiles, JSON Resume, and LLM resume workflows.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="./assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./ocf-vs-resume-linkedin.md">View the Markdown source</a>.</p>
+<h1>Is this just a resume? OCF vs resumes, LinkedIn, and LLM chats</h1>
+
+<p>A fair first reaction to Open Career Format is &quot;I already have a resume, a LinkedIn profile, maybe even a JSON Resume file. Why do I need another format?&quot;</p>
+
+<p>You probably already have what you need to <em>apply</em> to a job. OCF is not trying to replace any of those. It sits underneath them. A resume, a LinkedIn profile, and a JSON Resume file are all <strong>views</strong> of your career, each shaped for one reader at one moment. OCF is the <strong>memory</strong> they can be rendered from: one private file you own that keeps everything. When you need to send something out, you pull together the right version for that specific role, and you can get help choosing exactly what fits.</p>
+
+<p>If you only ever need one resume, once, a Word document is fine. OCF earns its place when you apply more than once, to more than one kind of role, over more than one year, and you are tired of rebuilding your history from scratch every time.</p>
+
+<h2>&quot;Isn't this just a resume (Word, Google Doc, PDF)?&quot;</h2>
+
+<p>For most people the real status quo is not one resume. It is a folder full of them: resume.docx, resume_2023.docx, resume_final.docx, resume_final_USE_THIS.docx, plus the versions you tailored for specific jobs and the one a friend reformatted. Each is a little different. None is complete. The strong line you wrote at 11pm for one application is buried in a file you can no longer find, so the next time you apply you start over from whichever copy you happened to open.</p>
+
+<p>That pile is what OCF replaces. A resume is a rendered output: shaped for one reader, trimmed to a page, dropping whatever did not fit. That is the right call for a resume and a poor way to <em>remember</em> a career. OCF keeps the full record in one place, marks what is private versus shareable, and lets every resume be a view drawn from it. You keep using Word. You just stop scattering your career across near-duplicate files, and stop losing your best lines every time you save a new one.</p>
+
+<h2>&quot;But I already paste my resume into an LLM. Isn't that enough?&quot;</h2>
+
+<p>More and more people drop a resume into ChatGPT or Claude and ask it to tailor a cover letter or sharpen a bullet. That is genuinely useful, and OCF is not an argument against it. OCF is what you bring to that chat so it works far better.</p>
+
+<p>Two things hold it back today. First, the model only sees what you paste, and what you paste is the trimmed two-page resume. It reasons over the compressed version and cannot recover the project that got cut or the win that never had a number, because they were gone before the chat began. Give it the full record and the advice gets sharper.</p>
+
+<p>Second, the chat forgets. Every new session starts from zero. You re-paste, re-explain your goals, re-establish your voice, and the strong framing you landed on last week lives in a transcript you will not find again. The work improves the conversation, then evaporates with it.</p>
+
+<p>OCF fixes both. It is the full career memory you hand the model instead of a thin resume, and it is where the good output gets saved, so the next session starts ahead of the last one instead of starting over. Keep using the LLM. Just give it something better to work from, and keep what it helps you make.</p>
+
+<h2>&quot;Isn't this just my LinkedIn?&quot;</h2>
+
+<p>LinkedIn is a public profile on a platform someone else runs. The fields are theirs, the visibility rules are theirs, the audience is everyone, and the export format is whatever they decide to give you. It is a shared view, and a good one.</p>
+
+<p>OCF is private by default and lives on your machine. You decide what is private, what is shareable, and what becomes public. LinkedIn is one more view you can generate from your OCF, not the place your career memory should live. (There is a <a href="../mappings/linkedin.md">LinkedIn mapping</a> for exactly this.)</p>
+
+<h2>&quot;Isn't this just JSON Resume?&quot;</h2>
+
+<p>If you already use JSON Resume, you are already using a more technical resume workflow, and the short answer is this: JSON Resume describes <strong>one resume</strong> as a file, while OCF describes the <strong>career behind many resumes</strong>, including the private context, provenance, alternate wordings, and stories a resume schema has no place for. They are complementary, not competing. OCF exports cleanly to JSON Resume (see <a href="../mappings/json-resume.md"><code>mappings/json-resume.md</code></a>), so you keep that ecosystem and let OCF be the source behind it.</p>
+
+<h2>&quot;Why a file instead of an app or an account?&quot;</h2>
+
+<p>Because a file you own outlives any company, requires no login, and cannot be discontinued, paywalled, or quietly changed under you. It is vendor-neutral: any tool, any LLM, today or in ten years, can read it. And because it lives on your computer, your career history never has to be uploaded anywhere to be useful.</p>
+
+<p>An account ties your memory to a company's survival and terms. A file ties it to you.</p>
+
+<h2>&quot;Why JSON and not a document?&quot;</h2>
+
+<p>Because the file is meant to be <strong>read by tools and rendered into documents</strong>, not read raw. JSON is boring on purpose: documented, validated, and vendor-neutral, so any tool or model can use it without a special reader. The polished document is the output. OCF is the thing the output is made from.</p>
+
+<h2>How they relate, at a glance</h2>
+
+<table>
+<thead><tr><th></th><th>What it is</th><th>Great at</th><th>What it can't hold</th><th>How OCF relates</th></tr></thead>
+<tbody>
+<tr><td><strong>Word / PDF resume</strong></td><td>One rendered document</td><td>A specific application, human-readable</td><td>Anything trimmed for space; anything private; older roles</td><td>OCF renders resumes as views; keeps the rest</td></tr>
+<tr><td><strong>LinkedIn</strong></td><td>A public profile on a platform</td><td>Reach, networking, discovery</td><td>Privacy, ownership, your own export format</td><td>One more view generated from your OCF</td></tr>
+<tr><td><strong>JSON Resume</strong></td><td>A schema for one resume</td><td>Structured rendering, theme ecosystem</td><td>Visibility, provenance, variants, reflections, goals, sources</td><td>OCF exports to it; OCF is the source behind it</td></tr>
+<tr><td><strong>An LLM plus your resume</strong></td><td>AI working from a pasted file</td><td>Fast tailoring and rewriting in the moment</td><td>Memory across sessions; it sees only what you paste; the output stays in the chat</td><td>OCF is the fuller memory you hand it, and where the good output is kept</td></tr>
+<tr><td><strong>OCF</strong></td><td>A private career-memory file you own</td><td>Durable record, many tailored outputs, AI-ready</td><td>It is not itself a finished resume; you render those</td><td>The source the others are views of</td></tr>
+</tbody>
+</table>
+
+<h2>When you might <em>not</em> need OCF</h2>
+
+<p>If you are applying to one role, once, and your current resume already covers it, a Word document is the right tool and OCF is overkill. OCF pays off across many applications, varied roles, and time, when the cost of forgetting and rebuilding adds up, and when you want one owned record that every resume, profile, and export is drawn from.</p>
+
+<p>You do not have to choose. Keep your resume, your JSON Resume file, and your LinkedIn. OCF is the memory underneath all of them.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./ocf-vs-resume-linkedin.md"><code>spec/ocf-vs-resume-linkedin.md</code></a>.</p>
+</footer>
+</body>
+</html>

@@ -18,6 +18,7 @@ OCF is currently at **v0.3** and should be treated as pre-1.0 beta. The current 
 
 - **If you are an individual using OCF with a resume, job description, or LLM:** start with <https://opencareerformat.org/>.
 - **If you are an LLM, or pointing one at this project:** start with <https://opencareerformat.org/llms.txt>.
+- **If you are wondering how OCF differs from resumes, LinkedIn, JSON Resume, or LLM resume chats:** read [`spec/ocf-vs-resume-linkedin.md`](spec/ocf-vs-resume-linkedin.md).
 - **If you are reading the schema:** start with [`spec/guide.html`](spec/guide.html), then [`spec/schema-commentary.md`](spec/schema-commentary.md).
 - **If you are building a tool:** start with [`spec/implementer-quick-reference.md`](spec/implementer-quick-reference.md), [`spec/usage-patterns.md`](spec/usage-patterns.md), and [`schema.json`](schema.json).
 - **If you want runnable examples:** start with [`reference/README.md`](reference/README.md).
