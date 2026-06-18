@@ -26,6 +26,8 @@ OCF fixes both. It is the full career memory you hand the model instead of a thi
 
 LinkedIn is a public profile on a platform someone else runs. The fields are theirs, the visibility rules are theirs, the audience is everyone, and the export format is whatever they decide to give you. It is a shared view, and a good one.
 
+LinkedIn and other platforms are also moving toward app-verified or machine-generated profile signals: badges, connected-app summaries, usage descriptions, and proof-like statements the platform controls. Those may be useful, but they are still platform-controlled. OCF is the private career memory you own underneath every profile, resume, and verification badge. It can preserve claims, source context, provenance, and pointers to external verification systems without becoming the system that decides whether every claim is institutionally true.
+
 OCF is private by default and lives on your machine. You decide what is private, what is shareable, and what becomes public. LinkedIn is one more view you can generate from your OCF, not the place your career memory should live. (There is a [LinkedIn mapping](../mappings/linkedin.md) for exactly this.)
 
 ## "Isn't this just JSON Resume?"
