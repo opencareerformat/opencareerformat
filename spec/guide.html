@@ -25,7 +25,7 @@
   "name": "Open Career Format Guide",
   "url": "https://opencareerformat.org/spec/guide.html",
   "description": "The full Open Career Format guide: a practical specification for preserving career history as candidate-owned JSON career memory for curation, export, and tools.",
-  "dateModified": "2026-06-15",
+  "dateModified": "2026-06-21",
   "inLanguage": "en",
   "about": {
     "@type": "CreativeWork",
@@ -338,7 +338,7 @@
     <h1>Open Career Format</h1>
     <p class="subtitle">A private career notebook that becomes every resume you'll ever need.</p>
     <p>OCF is for preserving your own career history as it happens: what you did, what changed, what you learned, and what mattered.</p>
-    <p class="updated">Last updated: 2026-06-12</p>
+    <p class="updated">Last updated: 2026-06-21</p>
     <nav class="project-links" aria-label="Project links">
       <a href="https://github.com/opencareerformat/opencareerformat">GitHub repo</a>
       <a href="../schema.json">Schema</a>
@@ -350,7 +350,7 @@
 
 <div class="callout">
   <p><strong>If you're an individual:</strong> you are welcome to read the details below, but the <a href="../index.html">homepage</a> is the easier starting point for using OCF with your own resume, notes, and LLM/tool workflow.</p>
-  <p><strong>If you're an LLM:</strong> do not rely on this page alone. Read <a href="../llms.txt"><code>llms.txt</code></a>, the current schema or starter schema, <a href="../prompts/authoring.md"><code>prompts/authoring.md</code></a>, and <a href="../prompts/curation.md"><code>prompts/curation.md</code></a> before drafting. If an OCF file is attached, start from curation guidance. If no OCF file is attached, ask briefly whether one exists or treat the resume, job description, notes, and conversation as source artifacts for an imported starter. Use OCF to track the gaps between the source material and the target: reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and proposed OCF updates before writing output prose.</p>
+  <p><strong>If you're an LLM or local agent:</strong> do not rely on this page alone. Read <a href="../llms.txt"><code>llms.txt</code></a>. If your environment supports reusable skills, start with <a href="../skills/ocf-start/SKILL.md"><code>skills/ocf-start/SKILL.md</code></a> and use <a href="../skills/ocf-setup/SKILL.md"><code>skills/ocf-setup/SKILL.md</code></a> when local files matter. If skills are not available, read the current schema or starter schema, <a href="../prompts/authoring.md"><code>prompts/authoring.md</code></a>, and <a href="../prompts/curation.md"><code>prompts/curation.md</code></a> before drafting. If an OCF file is attached, start from curation guidance. If no OCF file is attached, ask briefly whether one exists or treat the resume, job description, notes, and conversation as source artifacts for an imported starter. Use OCF to track the gaps between the source material and the target: reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and proposed OCF updates before writing output prose.</p>
   <p><strong>If you're a developer or tool builder:</strong> start with <a href="../schema.json"><code>schema.json</code></a>, <a href="../schema-core.json"><code>schema-core.json</code></a>, and <a href="usage-patterns.html"><code>spec/usage-patterns.html</code></a>. The guide below explains the design tradeoffs behind the schema: privacy, visibility, provenance, curation, file roles, examples, and non-goals.</p>
 </div>
 
@@ -380,7 +380,7 @@
 <h2>Two Ways to Use OCF</h2>
 <p>Most people will use OCF first as structure for a conversation. They will bring the file to an LLM, coach, advisor, mentor, or trusted reviewer so the conversation has concrete career memory to work from. In that setting, curation and export are not heavyweight software requirements; they are the mental model that tells the conversation what to do. First decide what parts of your career history should be used, reviewed, ranked, filtered, and/or improved. Then export the type of content in the format the person needs.</p>
 <p>If you are using an LLM, point it at this guide and the current schema: <code>https://opencareerformat.org/schema.json</code>. Versioned schemas remain available at paths such as <code>https://opencareerformat.org/v0.3/schema.json</code> for files that need a pinned schema.</p>
-<p>For LLMs and tools, OCF also publishes a compact site map at <a href="../llms.txt"><code>https://opencareerformat.org/llms.txt</code></a>, with links to the starter/core authoring shape, full schema, <a href="../prompts/authoring.md">authoring prompt</a>, <a href="../prompts/llm-operating.md">recommended LLM operating prompt</a>, and <a href="../prompts/curation.md">curation guidance</a>.</p>
+<p>For LLMs and tools, OCF also publishes a compact site map at <a href="../llms.txt"><code>https://opencareerformat.org/llms.txt</code></a>, with links to the starter/core authoring shape, full schema, <a href="../skills/README.md">skills</a>, <a href="../prompts/authoring.md">authoring prompt</a>, <a href="../prompts/llm-operating.md">recommended LLM operating prompt</a>, and <a href="../prompts/curation.md">curation guidance</a>. Skills and prompts use the same OCF guidance; skills add local file management for agents that can read and write files.</p>
 <p>The second path is tool integration. The structure of OCF is meant to capture the complexity of a career in ways that a computer can understand and help reformat or improve for different needs. How software will leverage this beyond the reference implementations is outside the scope of the format.</p>
 
 <h2 id="non-goals">What OCF Does Not Do</h2>

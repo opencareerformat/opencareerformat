@@ -4,6 +4,12 @@ This is the compact tool-builder view of Open Career Format. Read `guide.html` f
 
 OCF is an open schema for preserving career memory, curating it for a purpose, and exporting it into other formats. A partial, honest OCF is better than a complete-looking file full of invented certainty.
 
+## Prompts and Skills
+
+Prompts and skills are operating guidance, not schema. Prompts work anywhere a user can paste text. Skills package the same guidance for local agents that can route workflows and manage files: where the master lives, where backups go, where sources are stored, and where each application's outputs belong.
+
+The schema remains the validation contract. If skill or prompt advice conflicts with `schema.json`, the schema wins for file structure.
+
 ## Field Tiers
 
 | Tier | Sections and fields | Implementer expectation |

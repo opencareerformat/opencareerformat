@@ -8,11 +8,13 @@
 
 A candidate-owned, portable file format for preserving career history and curating targeted resumes, cover letters, public profiles, and exports to other systems.
 
-> **Looking for a job?** You don't need this repository. Start at <https://opencareerformat.org/> — copy one prompt, attach your resume and the job description, and go.
+> **Looking for a job?** You don't need this repository. Start at <https://opencareerformat.org/>. If your AI tool supports skills, use the OCF Start skill; if you are in a normal chat window, copy the bootstrap prompt, attach your resume and the job description, and go.
 
 This repository contains the schema, prompts, mappings, and reference implementations behind that site. The rest of this README is for people reading the spec, building tools, or contributing.
 
 OCF is currently at **v0.3** and should be treated as pre-1.0 beta. The current schema URL is <https://opencareerformat.org/schema.json>; this alias may change as feedback comes in. Tools that need stability should pin to a versioned schema URL such as <https://opencareerformat.org/v0.3/schema.json>. Breaking changes may occur before 1.0 and will be documented in the changelog.
+
+OCF is not hiding changes behind the website. Git history shows what changed and when. For most docs, prompts, skills, examples, and guidance, use the latest version. For the schema, use the latest version unless you need to pin a specific schema version for validation or compatibility.
 
 ## Start Here
 
@@ -41,7 +43,7 @@ spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
 
 schema.json       # Current schema alias, suitable for new files and tools that want "latest".
 schema-core.json  # Starter/core authoring shape for LLMs and first-time OCF creation.
-llms.txt          # LLM/tool site map pointing to the guide, schemas, and prompts.
+llms.txt          # LLM/tool site map pointing to the guide, schemas, skills, and prompts.
 
 prompts/          # OPTIONAL OPERATING GUIDANCE — LLM/coach/curator prompts that can evolve separately.
   application-bootstrap.md # Single-fetch first-session prompt for resume + job-description help.
@@ -49,6 +51,11 @@ prompts/          # OPTIONAL OPERATING GUIDANCE — LLM/coach/curator prompts th
   coaching.md     # Prompt for discovering story, voice, goals, boundaries, and reflection.
   curation.md     # Prompt for target-specific filtering, questioning, ranking, and improvement.
   llm-operating.md # Baseline instruction set for conversational OCF use.
+
+skills/           # OPTIONAL AGENT WORKFLOWS — packaged skills for Codex,
+                  # Claude Code, Cursor, and similar tools.
+  ocf-start/      # Front-door router: what do you have, and what are you trying to do?
+  ocf-setup/      # Local career folder setup for the master file, backups, sources, and outputs.
 
 mappings/         # CROSS-FORMAT DOCS — prose-only specifications for how OCF
                   # maps to / from neighbouring formats (JSON Resume, LER-RS,
@@ -81,6 +88,8 @@ The master OCF is a private archive for an individual, not a file to hand to an 
 Important caveat: validation checks structure, not truth or shareability. A valid OCF can still contain false claims, private material, stale facts, or content that should not be sent to a particular recipient. See the guide section "Caveats and Operating Practices" before sharing a master or curated file.
 
 A small master with person information, one experience entry, one position, and a few achievements is enough to validate, prepare a first output, and improve through later conversations. Nobody needs a complete career archive before OCF becomes useful — the [application bootstrap](prompts/application-bootstrap.md) exists so a first session can help with a real application and produce a provisional master or proposed update set as a by-product.
+
+Skills and prompts use the same OCF guidance. The prompt works anywhere you can paste text. The skill adds local file management: where the master lives, where backups go, where sources are stored, and where each application's outputs belong. All still under your control, and fully open and readable. If your agent environment supports reusable skills, [`skills/ocf-start/SKILL.md`](skills/ocf-start/SKILL.md) routes the user to the right prompt or workflow, and [`skills/ocf-setup/SKILL.md`](skills/ocf-setup/SKILL.md) helps organize local files.
 
 See [`spec/guide.html`](spec/guide.html) for the full design walkthrough, including the rationale behind organizations versus experience entries, visibility controls, narrative depth, vendor extensions, provenance, curation, and exports.
 

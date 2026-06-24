@@ -4,6 +4,8 @@ These prompts are operational guidance for LLMs, coaches, curators, importers, a
 
 The current prompt URLs are intentionally not version-pinned. If you need an older prompt, use Git history. Versioned schema URLs remain available separately under paths such as `https://opencareerformat.org/v0.2/schema.json`.
 
+OCF is not hiding changes behind the website. Git history shows what changed and when. For prompts and other operating guidance, use the latest version unless you intentionally need historical behavior from Git history. For the schema, use the latest version unless you need to pin a specific schema version.
+
 ## Schema vs Advice
 
 The prompts deliberately blur a line that the schema keeps sharp. They mention real OCF fields such as `sourceArtifacts`, `cautions`, `openQuestions`, `narrativeVariants`, `visibility`, and `provenance`; when they do that, the JSON Schema remains the validation contract. They also give behavioral advice: ask better questions, avoid generic resume prose, read cautions before drafting, switch into coaching when the user is trying to find their story, and suggest what should be saved for next time.
@@ -25,6 +27,12 @@ If a prompt and the schema seem to disagree, the schema wins for file structure.
 - [`coaching.md`](coaching.md): help a user discover story, voice, goals, boundaries, and reflection from their OCF.
 - [`llm-operating.md`](llm-operating.md): baseline behavior for conversational LLM use of OCF.
 - [`interview-prep-questions.md`](interview-prep-questions.md): recommended reflection questions and portable `kind` strings.
+
+## Related Skills
+
+Skills and prompts use the same OCF guidance. The prompt works anywhere you can paste text. The skill adds local file management: where the master lives, where backups go, where sources are stored, and where each application's outputs belong. All still under your control, and fully open and readable.
+
+If an agent environment supports reusable skills, use [`../skills/ocf-start/SKILL.md`](../skills/ocf-start/SKILL.md) as the front-door router. It may route to [`../skills/ocf-setup/SKILL.md`](../skills/ocf-setup/SKILL.md) for local workspace organization, then to the appropriate prompt for the user's goal.
 
 ## Metadata
 

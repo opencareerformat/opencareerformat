@@ -145,3 +145,22 @@ Match the contents of an OCF file to the role the file is playing:
 OCF does not prescribe how users keep historical versions. Git, cloud document history, dated backups, app-managed snapshots, and plain local files are all valid. But when a tool applies accepted updates to a candidate-owned master, it should preserve `meta.id` and refresh the file's own freshness markers, such as `meta.version` and `meta.lastModified`, when it manages those fields. A curated, imported, or export-ready file should record lineage to the source master rather than pretending to be the updated master.
 
 The principle is simple: OCF files can move through many workflows, but the candidate-owned master remains special because it is controlled by the person whose career it describes.
+
+## Local File Convention
+
+OCF does not require a particular folder layout, but local-agent workflows benefit from a boring convention. The optional [`ocf-setup`](../skills/ocf-setup/SKILL.md) skill recommends:
+
+```text
+career/
+  ocf/
+    {person}.master.ocf.json
+    backups/
+  sources/
+    resumes/
+    job-descriptions/
+    notes/
+  outputs/
+    {company}-{role}-{date}/
+```
+
+This is not schema. It is a local file-management pattern: keep the private master and backups separate from source evidence and from per-application outputs. If a machine should remember the user's preferred workspace, `~/.ocf-home` may contain a single absolute path to that folder, but tools should ask before creating, changing, or using it.

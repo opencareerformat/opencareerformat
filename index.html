@@ -278,7 +278,7 @@
     <h1>Open Career Format</h1>
     <p class="subtitle">A private career notebook that becomes every resume you'll ever need.</p>
     <p>OCF preserves what you did, what changed, what you learned, and what mattered — so it's there the next time you need it.</p>
-    <p class="updated">Site last updated: <span id="last-updated">2026-06-15</span></p>
+    <p class="updated">Site last updated: <span id="last-updated">2026-06-21</span></p>
     <nav class="project-links" aria-label="Project links">
       <a href="https://github.com/opencareerformat/opencareerformat">GitHub repo</a>
       <a href="schema.json">Schema</a>
@@ -291,8 +291,10 @@
 
 <div class="callout">
   <p><strong>Applying for a job right now?</strong> If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and the job description. Do not include anything that tool should not process.</p>
+  <p><strong>Best local-agent experience:</strong> if your tool supports skills, start with the <a href="skills/ocf-start/SKILL.md">OCF Start skill</a>. It routes you to the right OCF workflow. The <a href="skills/ocf-setup/SKILL.md">OCF Setup skill</a> can organize your local master file, backups, source materials, and application outputs.</p>
+  <p>Skills and prompts use the same OCF guidance. The prompt works anywhere you can paste text. The skill adds local file management: where the master lives, where backups go, where sources are stored, and where each application's outputs belong. All still under your control, and fully open and readable.</p>
   <details class="prompt-details" open>
-    <summary>Copyable LLM prompt</summary>
+    <summary>Works anywhere: copyable LLM prompt</summary>
     <div class="prompt-panel">
       <div class="prompt-toolbar">
         <button class="copy-prompt" type="button" aria-live="polite" data-copy-target="quickstart-prompt">Copy prompt</button>
@@ -318,7 +320,7 @@ First give me the gap read: what the job asks for, what my resume proves, and wh
 </section>
 
 <div class="llm-instructions" aria-hidden="true">
-  <p>For LLMs: do not rely on the homepage alone. If a user asks you to use OCF for a resume and job description, first read https://opencareerformat.org/prompts/application-bootstrap.md. If the user provides an existing OCF, also read https://opencareerformat.org/prompts/curation.md. Validate final OCF JSON against https://opencareerformat.org/schema.json when possible.</p>
+  <p>For LLMs: do not rely on the homepage alone. If your environment supports reusable skills, start with https://opencareerformat.org/skills/ocf-start/SKILL.md and use https://opencareerformat.org/skills/ocf-setup/SKILL.md when local files matter. If a user asks you to use OCF for a resume and job description in a chat-only environment, first read https://opencareerformat.org/prompts/application-bootstrap.md. If the user provides an existing OCF, also read https://opencareerformat.org/prompts/curation.md. Validate final OCF JSON against https://opencareerformat.org/schema.json when possible.</p>
 </div>
 
 <h2>The Problem</h2>
@@ -326,7 +328,7 @@ First give me the gap read: what the job asks for, what my resume proves, and wh
 <p>OCF's answer isn't "keep better records." A tool helps with the resume you need right now and quietly keeps what it learns about you — so next time, the details are already there instead of lost.</p>
 
 <h2>A Schema, Not an App</h2>
-<p>OCF defines what gets preserved and how it stays portable. Tools decide how to ask questions, curate for a target, and export finished files. For most people, the first tool is an LLM in a chat window. The project ships reference <a href="prompts/README.md">prompts</a> and <a href="spec/examples/">examples</a> so people and tool builders have a practical starting point. For file roles, third-party workflows, and integration patterns, see <a href="spec/usage-patterns.html">usage patterns</a>.</p>
+<p>OCF defines what gets preserved and how it stays portable. Tools decide how to ask questions, curate for a target, and export finished files. For many people, the first tool is an LLM in a chat window. For local agents such as Codex, Claude Code, or Cursor, OCF also publishes small <a href="skills/README.md">skills</a> that route the workflow and organize files without changing the underlying prompts. The project ships reference <a href="prompts/README.md">prompts</a>, skills, and <a href="spec/examples/">examples</a> so people and tool builders have a practical starting point. For file roles, third-party workflows, and integration patterns, see <a href="spec/usage-patterns.html">usage patterns</a>.</p>
 
 <h2>How It Works</h2>
 
@@ -358,6 +360,7 @@ First give me the gap read: what the job asks for, what my resume proves, and wh
   <li><a href="spec/usage-patterns.html">Usage patterns and file roles</a></li>
   <li><a href="spec/language-and-translation.html">Language and translation guidance</a></li>
   <li><a href="schema.json">Current schema</a> and <a href="schema-core.json">starter/core authoring shape</a></li>
+  <li><a href="skills/README.md">Skill index</a>: <a href="skills/ocf-start/SKILL.md">OCF Start</a>, <a href="skills/ocf-setup/SKILL.md">OCF Setup</a></li>
   <li><a href="prompts/README.md">Prompt index</a>: <a href="prompts/application-bootstrap.md">application bootstrap</a>, <a href="prompts/authoring.md">authoring</a>, <a href="prompts/curation.md">curation</a>, <a href="prompts/coaching.md">coaching</a></li>
   <li><a href="spec/implementer-quick-reference.html">Implementer quick reference</a></li>
   <li><a href="llms.txt">LLM/tool site map</a></li>

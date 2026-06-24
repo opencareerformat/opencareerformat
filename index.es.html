@@ -133,7 +133,7 @@
     <h1>Open Career Format</h1>
     <p class="subtitle">Un cuaderno privado de carrera que puede convertirse en cada currículum que necesites.</p>
     <p>OCF conserva lo que hiciste, qué cambió, qué aprendiste y qué importó, para que esté disponible la próxima vez que lo necesites.</p>
-    <p class="updated">Sitio actualizado por última vez: <span id="last-updated">2026-06-15</span></p>
+    <p class="updated">Sitio actualizado por última vez: <span id="last-updated">2026-06-21</span></p>
     <nav class="project-links" aria-label="Enlaces del proyecto">
       <a href="https://github.com/opencareerformat/opencareerformat">Repositorio GitHub</a>
       <a href="schema.json">Schema</a>
@@ -146,8 +146,10 @@
 
 <div class="callout">
   <p><strong>¿Estás postulando a un trabajo ahora?</strong> Si te sientes cómodo compartiendo los materiales con el LLM o herramienta que estás usando, adjunta tu currículum y la descripción del puesto. No incluyas nada que esa herramienta no deba procesar.</p>
+  <p><strong>Mejor experiencia con agente local:</strong> si tu herramienta admite skills, empieza con el <a href="skills/ocf-start/SKILL.md">skill OCF Start</a>. Te dirige al flujo OCF correcto. El <a href="skills/ocf-setup/SKILL.md">skill OCF Setup</a> puede organizar tu archivo master local, backups, materiales fuente y outputs de postulaciones.</p>
+  <p>Los skills y los prompts usan la misma guía OCF. El prompt funciona en cualquier lugar donde puedas pegar texto. El skill agrega gestión local de archivos: dónde vive el master, dónde van los backups, dónde se guardan las fuentes y dónde queda cada output de una postulación. Todo sigue bajo tu control, abierto y legible.</p>
   <details class="prompt-details" open>
-    <summary>Prompt para copiar</summary>
+    <summary>Funciona en cualquier chat: prompt para copiar</summary>
     <div class="prompt-panel">
       <div class="prompt-toolbar">
         <button class="copy-prompt" type="button" aria-live="polite" data-copy-target="quickstart-prompt">Copiar prompt</button>
@@ -173,7 +175,7 @@ Primero dame la lectura de brechas: qué pide el trabajo, qué prueba mi curríc
 </section>
 
 <div class="llm-instructions" aria-hidden="true">
-  <p>Para LLMs: no dependas solo de esta página. Si una persona te pide usar OCF con un currículum y una descripción de puesto, primero lee https://opencareerformat.org/prompts/application-bootstrap.es.md y el prompt canónico en inglés enlazado desde allí. Si la persona proporciona un OCF existente, lee también https://opencareerformat.org/prompts/curation.md. Valida el OCF JSON final contra https://opencareerformat.org/schema.json cuando sea posible.</p>
+  <p>Para LLMs: no dependas solo de esta página. Si tu entorno admite skills reutilizables, empieza con https://opencareerformat.org/skills/ocf-start/SKILL.md y usa https://opencareerformat.org/skills/ocf-setup/SKILL.md cuando importen los archivos locales. Si una persona te pide usar OCF con un currículum y una descripción de puesto en un chat normal, primero lee https://opencareerformat.org/prompts/application-bootstrap.es.md y el prompt canónico en inglés enlazado desde allí. Si la persona proporciona un OCF existente, lee también https://opencareerformat.org/prompts/curation.md. Valida el OCF JSON final contra https://opencareerformat.org/schema.json cuando sea posible.</p>
 </div>
 
 <h2>El problema</h2>
@@ -181,7 +183,7 @@ Primero dame la lectura de brechas: qué pide el trabajo, qué prueba mi curríc
 <p>La respuesta de OCF no es "lleva mejores registros". Una herramienta te ayuda con el currículum que necesitas ahora y conserva discretamente lo que aprende sobre ti, para que la próxima vez los detalles ya estén allí.</p>
 
 <h2>Un schema, no una aplicación</h2>
-<p>OCF define qué se conserva y cómo sigue siendo portable. Las herramientas deciden cómo hacer preguntas, curar para un objetivo y exportar archivos terminados. Para la mayoría de las personas, la primera herramienta será un LLM en una ventana de chat. El proyecto publica <a href="prompts/README.md">prompts</a> y <a href="spec/examples/">ejemplos</a> de referencia para que personas y desarrolladores tengan un punto de partida práctico. Para roles de archivo, flujos de terceros e integración, consulta <a href="spec/usage-patterns.html">usage patterns</a>.</p>
+<p>OCF define qué se conserva y cómo sigue siendo portable. Las herramientas deciden cómo hacer preguntas, curar para un objetivo y exportar archivos terminados. Para muchas personas, la primera herramienta será un LLM en una ventana de chat. Para agentes locales como Codex, Claude Code o Cursor, OCF también publica pequeños <a href="skills/README.md">skills</a> que dirigen el flujo y organizan archivos sin cambiar los prompts subyacentes. El proyecto publica <a href="prompts/README.md">prompts</a>, skills y <a href="spec/examples/">ejemplos</a> de referencia para que personas y desarrolladores tengan un punto de partida práctico. Para roles de archivo, flujos de terceros e integración, consulta <a href="spec/usage-patterns.html">usage patterns</a>.</p>
 
 <h2>Cómo funciona</h2>
 
@@ -214,12 +216,13 @@ Primero dame la lectura de brechas: qué pide el trabajo, qué prueba mi curríc
   <li><a href="spec/usage-patterns.html">Patrones de uso y roles de archivo</a></li>
   <li><a href="spec/language-and-translation.html">Guía de idioma y traducción</a></li>
   <li><a href="schema.json">Schema actual</a> y <a href="schema-core.json">forma starter/core para autoría</a></li>
+  <li><a href="skills/README.md">Índice de skills</a>: <a href="skills/ocf-start/SKILL.md">OCF Start</a>, <a href="skills/ocf-setup/SKILL.md">OCF Setup</a> (en inglés)</li>
   <li><a href="prompts/README.md">Índice de prompts</a>: <a href="prompts/application-bootstrap.es.md">bootstrap de aplicación en español</a>, <a href="prompts/application-bootstrap.md">bootstrap canónico</a>, <a href="prompts/authoring.md">authoring</a>, <a href="prompts/curation.md">curation</a>, <a href="prompts/coaching.md">coaching</a></li>
   <li><a href="spec/implementer-quick-reference.html">Referencia rápida para implementadores</a></li>
   <li><a href="llms.txt">Mapa del sitio para LLMs/herramientas</a></li>
 </ul>
 
-<p class="translation-note">Traducción española no canónica. Fuente canónica: <a href="/">index.html</a>, commit <code>f3d01f2</code>, traducido el 2026-06-15. Si hay conflicto, controla el inglés.</p>
+<p class="translation-note">Traducción española no canónica. Fuente canónica: <a href="/">index.html</a>, commit <code>f3d01f2</code>, traducido el 2026-06-21. Si hay conflicto, controla el inglés.</p>
 
 <footer>
   <p>Open Career Format (OCF) v0.3 — <a href="https://opencareerformat.org/">opencareerformat.org</a></p>
