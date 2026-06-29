@@ -4,7 +4,7 @@ OCF is an open schema for preserving private career history and using it for cur
 
 Humans: Start at https://opencareerformat.org/ instead.
 
-Current schema version: 0.3. This file last updated: 2026-06-21.
+Current schema version: 0.3. This file last updated: 2026-06-29.
 
 If documents conflict: the JSON Schema wins for file structure; the most specific prompt wins for behavior. See https://opencareerformat.org/prompts/README.md for the schema-vs-advice boundary.
 
@@ -17,6 +17,7 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 1. Do not rely on the homepage alone. It is a short pitch and pointer page.
    If your environment supports reusable skills and the user's path is unclear, start with: https://opencareerformat.org/skills/ocf-start/SKILL.md
    If your environment supports reusable skills and local files, start local setup with: https://opencareerformat.org/skills/ocf-setup/SKILL.md
+   If the user wants to create or update a Career-Ops workspace from OCF, use: https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md
 2. If the user has a resume and job description and wants help with an application now, read the single-fetch bootstrap first: https://opencareerformat.org/prompts/application-bootstrap.md
 3. For broader authoring, read the starter/core schema at https://opencareerformat.org/schema-core.json first. It is a smaller authoring aid for first-pass files; canonical validation is against the full schema. Then read the authoring prompt at https://opencareerformat.org/prompts/authoring.md
 4. Read the full current schema at https://opencareerformat.org/schema.json when you need fields not covered by the starter schema, and before returning final OCF JSON.
@@ -36,6 +37,7 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - Prompts index: https://opencareerformat.org/prompts/README.md
 - OCF start/router skill package: https://opencareerformat.org/skills/ocf-start/SKILL.md
 - OCF setup skill package: https://opencareerformat.org/skills/ocf-setup/SKILL.md
+- OCF Career-Ops export skill package: https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md
 - Application bootstrap prompt: https://opencareerformat.org/prompts/application-bootstrap.md
 - Spanish application bootstrap wrapper example: https://opencareerformat.org/prompts/application-bootstrap.es.md
 - Authoring prompt: https://opencareerformat.org/prompts/authoring.md

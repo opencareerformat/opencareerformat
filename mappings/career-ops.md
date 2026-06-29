@@ -24,6 +24,8 @@ Both directions follow the general principles in this directory: export from an 
 
 **File generation.** An OCF exporter writes career-ops User Layer files directly, such as `cv.md`, `config/profile.yml`, `modes/_profile.md`, `interview-prep/story-bank.md`, `article-digest.md`, and selected `jds/*`. This works with career-ops as a local workspace because those files are plain Markdown and YAML and are treated as user-owned data. This is the pragmatic first integration and belongs in OCF's exporter category.
 
+**Agent skill workflow.** A reusable OCF skill can manage the local filesystem layer: locate the OCF file, locate or create the career-ops workspace, inspect career-ops' own examples/templates for the current expected file shapes, ask for operational job-search preferences that OCF does not normally store, and write user-layer files after confirmation. The skill should adapt to the installed career-ops workspace rather than copying frozen template text into OCF.
+
 **Native OCF ingestion.** A future career-ops mode could read an OCF file directly as the candidate source instead of `cv.md` plus profile files. This is cleaner and avoids a generation step, but it requires upstream support from career-ops. File generation is the practical path; native ingestion is a possible later integration.
 
 ## User Layer Mapping
@@ -40,7 +42,9 @@ Both directions follow the general principles in this directory: export from an 
 
 ## `cv.md`
 
-`cv.md` is career-ops' candidate source. Treat it the way the JSON Resume mapping treats an export: render from a curated or export-ready OCF file, select only visible items, use canonical facts for claims and selected `narrativeVariants` / `titleVariants` for wording, and never emit `private` content.
+`cv.md` is career-ops' candidate source. Treat it as a broad job-search substrate rather than a normal two-page human resume. Render from a curated or export-ready OCF file when possible, select only visible items, use canonical facts for claims and selected `narrativeVariants` / `titleVariants` for wording, and never emit `private` content.
+
+For a conventional resume export, curate hard. For a career-ops `cv.md`, include every visible role, skill, and achievement that plausibly matches the search spec, even if the result is longer than a resume you would send to a human. Career-ops can then score, tailor, and generate narrower outputs from a richer working view.
 
 Do not overwrite a user-owned `cv.md` without explicit user action. Career-ops' update contract protects User Layer files from automatic upstream updates, but an agent or exporter may still help the user create or revise them. An OCF exporter should make that write deliberate and reviewable.
 
@@ -59,6 +63,12 @@ When importing from a career-ops story bank, preserve the user's wording where p
 Job descriptions can be OCF source artifacts, but only in context. A JD may identify a gap, trigger an open question, or prompt a story that improves the master. In those cases, register the JD or a pointer to it as a `sourceArtifacts[]` item with `kind: "job-description"` and use provenance to explain what it affected.
 
 Do not use the OCF master as a bulk JD archive or application tracker. Large collections of JDs, application statuses, follow-up history, and scan history belong to the job-search workspace, not the career-memory master.
+
+## Operational Overlay
+
+Some career-ops configuration values are job-search operating preferences, not durable career facts. Examples include expected compensation range, travel tolerance, relocation preference, remote/hybrid/on-site preference, target locations, excluded industries, urgency, and current availability.
+
+An OCF exporter or skill may ask the user for these values and write them to career-ops configuration files for the current workspace. It should not save them back to the OCF master unless the user explicitly asks to preserve them as reviewed goals or preferences with visibility and provenance. If the user does not want to answer, leave placeholders rather than inventing values.
 
 ## Out Of Scope
 

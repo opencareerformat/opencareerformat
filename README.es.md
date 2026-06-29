@@ -6,7 +6,7 @@
   <img src="spec/assets/ocf-logo.png" alt="Open Career Format logo" width="160">
 </p>
 
-> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `d162d64`, traducido el 2026-06-21. Si hay conflicto, controla el inglés.
+> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `d162d64`, traducido el 2026-06-29. Si hay conflicto, controla el inglés.
 
 > Nota: este README, la página principal, el prompt inicial y el ejemplo trabajado tienen versiones en español. La mayoría de los enlaces técnicos más profundos todavía van a documentación canónica en inglés.
 
@@ -14,7 +14,7 @@ OCF es un formato de archivo abierto y portable para preservar historia profesio
 
 > **¿Estás buscando trabajo?** No necesitas este repositorio. Empieza en <https://opencareerformat.org/index.es.html>. Si tu herramienta de IA admite skills, usa OCF Start; si estás en una ventana de chat normal, copia el prompt bootstrap, adjunta tu currículum y la descripción del puesto, y trabaja desde allí.
 
-Este repositorio contiene el schema, prompts, mappings e implementaciones de referencia detrás del sitio. El resto de este README es para personas que leen la especificación, construyen herramientas o contribuyen al proyecto.
+Este repositorio contiene el schema, prompts, skills, mappings e implementaciones de referencia detrás del sitio. El resto de este README es para personas que leen la especificación, construyen herramientas o contribuyen al proyecto.
 
 OCF está actualmente en **v0.3** y debe tratarse como beta pre-1.0. El schema actual está en <https://opencareerformat.org/schema.json>. Las herramientas que necesitan estabilidad deberían fijarse a una URL versionada, como <https://opencareerformat.org/v0.3/schema.json>. Puede haber cambios incompatibles antes de 1.0 y se documentarán en el changelog.
 
@@ -66,4 +66,4 @@ Si el schema no puede expresar algo que tu herramienta, mapping o flujo necesita
 
 ## Licencia
 
-La especificación, mappings, prompts, ejemplos y documentación están bajo [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). Las implementaciones de referencia en `reference/` están bajo [MIT License](LICENSE-code). Consulta [LICENSING.md](LICENSING.md).
+La especificación, mappings, prompts, skills, ejemplos y documentación están bajo [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). Las implementaciones de referencia en `reference/` están bajo [MIT License](LICENSE-code). Consulta [LICENSING.md](LICENSING.md).

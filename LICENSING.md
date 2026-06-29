@@ -9,6 +9,7 @@ The following are licensed under the Creative Commons Attribution 4.0 Internatio
 - `spec/`
 - `mappings/`
 - `prompts/`
+- `skills/`
 - `schema.json`
 - `schema-core.json`
 - `llms.txt`
@@ -28,7 +29,7 @@ This includes the validator, importers, curators, exporters, renderers, and edit
 
 OCF has two kinds of material:
 
-- prose, schemas, prompts, examples, mappings, and project documentation that explain the format and its intended use;
+- prose, schemas, prompts, skills, examples, mappings, and project documentation that explain the format and its intended use;
 - runnable reference code that developers may want to copy into their own tools.
 
 CC BY 4.0 is a better fit for the specification and documentation. MIT is a better fit for code.

@@ -43,6 +43,7 @@ Use this routing table:
 | User has old resumes, LinkedIn exports, notes, or pasted history and wants to build a master | Use `prompts/authoring.md`. |
 | User has an existing OCF and a target job, role, audience, or output | Use `prompts/curation.md`. |
 | User has an existing OCF and wants a resume, cover letter, profile, or interview-prep packet | Use `prompts/curation.md`; treat export formatting as downstream of curation. |
+| User wants to seed, create, or update a Career-Ops workspace from OCF | Use `ocf-export-career-ops`. |
 | User is thinking about a new career, unclear goals, story, voice, boundaries, or what they want next | Use `prompts/coaching.md`. |
 | User wants a plain first session in a chat-only environment | Use `prompts/application-bootstrap.md` directly. |
 | User wants language/localization guidance | Use `spec/language-and-translation.md`; keep schema keys and enum values canonical. |

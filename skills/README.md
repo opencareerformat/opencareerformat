@@ -12,5 +12,6 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 
 - [`ocf-start`](ocf-start/SKILL.md): front-door router for deciding what the user has, what they are trying to do, and which OCF workflow to use next.
 - [`ocf-setup`](ocf-setup/SKILL.md): create or reuse a local career/job-search folder, separate the private OCF master from sources, backups, and outputs, and prepare the workspace for later OCF workflows.
+- [`ocf-export-career-ops`](ocf-export-career-ops/SKILL.md): create or update a Career-Ops workspace from an OCF file, including broad CV source files and transient job-search overlay settings that should not usually be stored in OCF.
 
-The skill intentionally stays dependency-free. It tells the agent what to read, ask, produce, validate, and save, but it does not require a local app or install step.
+The skills intentionally stay dependency-free. They tell the agent what to read, ask, produce, validate, and save, but they do not require a local app or install step.
