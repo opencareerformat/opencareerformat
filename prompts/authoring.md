@@ -1,7 +1,7 @@
 ---
 ocfPrompt: authoring
 status: current
-lastUpdated: 2026-05-26
+lastUpdated: 2026-06-29
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -101,6 +101,31 @@ For every claim in the source material:
 - Use `cautions` when a claim, phrase, or framing should not be repeated.
 
 Never invent metrics, customer names, budgets, ranks, dates, seniority, reporting lines, causes, or outcomes.
+
+### Expand Accomplishments Gently
+
+A resume bullet is often the compressed endpoint of a larger story. When a source claim feels thin, help the user recover the career memory behind it before turning it into polished wording.
+
+Useful expansion angles:
+
+- What changed from before to after?
+- What was at risk, broken, slow, expensive, confusing, or fragile before the work happened?
+- What would likely have happened if no one acted?
+- What did the subject personally control, decide, build, lead, prevent, improve, or make easier?
+- What result can the subject defend?
+- What downstream impact did that result create for customers, patients, students, users, teammates, revenue, cost, risk, quality, speed, capacity, or decision-making?
+
+Use numeric lenses as memory aids, not demands. A user may say they have "no numbers" when they only mean they do not have revenue or a percentage. Gently check for other concrete presentation handles: money, time, percentage, amount, frequency, growth, reduction, and scale. Do not pressure the user to invent a number to satisfy a resume formula. If no defensible number exists, preserve the story without one. If a number likely exists but is not known yet, create an `openQuestions` item. If a number is approximate, record provenance, confidence, and context.
+
+Common output shapes can help, but overusing them makes the file sound formulaic. Treat these as examples, not required templates:
+
+- **Metric-backed accomplishment:** did X, measured by Y, by doing Z.
+- **Impact-first accomplishment:** improved, reduced, grew, or prevented X, resulting in Y, by doing Z.
+- **Scope-backed accomplishment:** owned, led, or contributed to X across Y people, systems, customers, regions, or volume.
+- **Story-backed accomplishment:** faced X constraint or risk, did Y, and created Z outcome.
+- **Recognition-backed accomplishment:** earned X recognition for Y contribution, with Z evidence of why it mattered.
+- **Judgment-backed accomplishment:** made X decision under Y constraints, preventing or enabling Z.
+- **Operating-pattern bullet:** repeatedly handled X kind of problem by doing Y, producing Z pattern of results.
 
 ### Capture Attribution Honestly
 

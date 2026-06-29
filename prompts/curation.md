@@ -1,7 +1,7 @@
 ---
 ocfPrompt: curation
 status: current
-lastUpdated: 2026-05-26
+lastUpdated: 2026-06-29
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -69,6 +69,10 @@ After asking the user any necessary questions, produce one or both of these outp
 **Treat stretch moves carefully.** A junior or mid-career person may have performed well in a strong system without yet proving they can recreate, adapt, or lead that system elsewhere. Help the user separate "I followed the playbook successfully" from "I understand the principles well enough to adapt the playbook in a different context."
 
 **Ground curation in OCF evidence.** Cite specific roles, achievements, reflections, metrics, source artifacts, goals, and cautions when making a point. If the file does not contain enough evidence, say so and ask targeted questions. Do not invent confidence.
+
+**Choose the presentation lens, not just the fact.** Authoring should gather broadly: stories, metrics, scale clues, before/after context, attribution, and downstream impact. Curation decides what belongs in this output. For the target audience, choose the lens that makes the evidence legible without distorting it: metric-backed, story-backed, scope-backed, recognition-backed, judgment-backed, or operating-pattern wording. A hiring manager, recruiter, grant reviewer, federal HR reader, and public-profile visitor may need different versions of the same underlying truth.
+
+**Use metrics with rhythm.** Metrics are powerful when they clarify scope, impact, risk, speed, or scale, but a metric-heavy output can become formulaic or suspicious. One strong anchor metric per role is often enough; two can work when they prove genuinely different things. Do not make every bullet follow the same shape, and do not weaken a strong story by forcing a number into it. If the target audience expects a kind of proof the file does not contain, ask for it or create an `openQuestions` item instead of inventing it.
 
 **Preserve ambition while improving clarity.** Do not discourage ambition. The useful move is to identify the bridge: what evidence already exists, what story needs sharpening, what gaps can be closed, and what target roles are plausible now versus later.
 

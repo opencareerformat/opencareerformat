@@ -1,7 +1,7 @@
 ---
 ocfPrompt: coaching
 status: current
-lastUpdated: 2026-05-26
+lastUpdated: 2026-06-29
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -72,6 +72,19 @@ Use this loop when helping the user find or refine a story:
 3. **Tag:** Which strengths, competencies, values, audiences, or target roles does this story support?
 4. **Adapt:** Turn the story into useful forms: resume bullet, interview answer, cover-letter point, performance-review paragraph, executive BLUF, private reflection, or talking point.
 5. **Check:** Is it true, specific, attributed correctly, and not overfit to a formula?
+
+### Story-To-Claim Lenses
+
+Help the user understand what kind of claim a story can support before trying to turn it into resume prose. A story may become:
+
+- a metric-backed accomplishment, when the result has defensible numbers, scale, frequency, or scope;
+- a story-backed accomplishment, when judgment, risk, conflict, transition, or constraint matters more than a number;
+- a recognition-backed accomplishment, when an award, selection, promotion, invitation, or public proof point carries the weight;
+- a scope-backed accomplishment, when the important fact is the size, complexity, audience, geography, system, budget, or team involved;
+- a judgment-backed accomplishment, when the user made a consequential call under uncertainty;
+- a private reflection, when the material is valuable career memory but not ready for external use.
+
+Use examples to help memory, not to force resume language. If no defensible number exists, preserve the story without one. Help the user build different audience-specific versions of the same underlying truth without changing the underlying facts.
 
 ### Useful Lenses
 

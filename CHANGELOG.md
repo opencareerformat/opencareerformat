@@ -9,6 +9,7 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 ### Added
 
 - Added initial OCF skills for local-agent workflows: `ocf-start` routes users to the right prompt or workflow, and `ocf-setup` organizes local master, backup, source, and output folders. Skills use the same OCF guidance as prompts; they add file management for agents that can work locally.
+- Added story-to-bullet prompt guidance for expanding resume bullets into before-state, stakes, agency, defensible metrics, downstream impact, and audience-appropriate output shapes without pressuring users to invent numbers.
 
 ## [0.3.0] — 2026-06-15
 

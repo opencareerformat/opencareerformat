@@ -1,7 +1,7 @@
 ---
 ocfPrompt: application-bootstrap
 status: current
-lastUpdated: 2026-06-15
+lastUpdated: 2026-06-29
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -41,6 +41,7 @@ Do not make the user complete a full career archive before helping with the appl
 - The job description is target evidence, not a career fact.
 - Do not invent facts, metrics, names, dates, or responsibilities.
 - Use the user's evidence first. If evidence is missing, ask or create an `openQuestions` item.
+- Targeted questions may probe missing ownership, before/after context, scale, defensible metrics, or downstream impact, but do not pressure the user to invent a number.
 - Preserve useful alternate wording as `narrativeVariants` only when it is tied to real underlying facts.
 - Record risky or rejected framings as `cautions`.
 - Ask once for a story or anecdote about the user's work that they would never put on a formal resume. This may be something that happened at work, how they work, what they like doing at work, a memorable moment, a credibility story, a habit or method, or context that explains a role. Preserve the user's wording and do not force the story into resume prose before they review it. If they decline, move on without pressure.
