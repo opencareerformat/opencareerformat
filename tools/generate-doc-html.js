@@ -48,6 +48,11 @@ const docs = [
     description: "Mappings between Open Career Format and related career, resume, and profile formats.",
   },
   {
+    source: "mappings/career-ops-integration.md",
+    title: "OCF And Career-Ops",
+    description: "How Open Career Format and Career-Ops can work together while keeping career memory separate from job-search workflow state.",
+  },
+  {
     source: "spec/examples/README.md",
     output: "spec/examples/index.html",
     title: "OCF Example Files",

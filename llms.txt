@@ -47,6 +47,7 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - Interview-prep questions: https://opencareerformat.org/prompts/interview-prep-questions.md
 - Usage patterns and file roles: https://opencareerformat.org/spec/usage-patterns.md
 - Language and translation guidance: https://opencareerformat.org/spec/language-and-translation.md
+- OCF and Career-Ops integration framing: https://opencareerformat.org/mappings/career-ops-integration.html
 - Worked example walkthrough: https://opencareerformat.org/spec/examples/worked-example-walkthrough.md
 - Spanish worked example walkthrough: https://opencareerformat.org/spec/examples/worked-example-walkthrough.es.md
 - v0.3 planning notes: https://opencareerformat.org/spec/v0.3-planning.md

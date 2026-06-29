@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF And Career-Ops — Open Career Format</title>
+<meta name="description" content="How Open Career Format and Career-Ops can work together while keeping career memory separate from job-search workflow state.">
+<link rel="canonical" href="https://opencareerformat.org/mappings/career-ops-integration.html">
+<link rel="icon" type="image/png" href="../spec/assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF And Career-Ops">
+<meta property="og:description" content="How Open Career Format and Career-Ops can work together while keeping career memory separate from job-search workflow state.">
+<meta property="og:url" content="https://opencareerformat.org/mappings/career-ops-integration.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF And Career-Ops">
+<meta name="twitter:description" content="How Open Career Format and Career-Ops can work together while keeping career memory separate from job-search workflow state.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF And Career-Ops",
+  "name": "OCF And Career-Ops",
+  "url": "https://opencareerformat.org/mappings/career-ops-integration.html",
+  "description": "How Open Career Format and Career-Ops can work together while keeping career memory separate from job-search workflow state.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="../spec/assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./career-ops-integration.md">View the Markdown source</a>.</p>
+<h1>OCF And Career-Ops</h1>
+
+<p>Career-Ops and Open Career Format appear complementary.</p>
+
+<p>Career-Ops runs a local-first job-search workflow: candidate context, job search, matching, scoring, reports, generated application materials, and pipeline activity. OCF preserves candidate-owned career memory: durable facts, evidence, variants, cautions, stories, goals, and provenance that can travel across tools.</p>
+
+<p>The useful boundary is simple:</p>
+
+<ul>
+<li><strong>OCF is the career substrate.</strong> It stores what the candidate wants to remember, question, curate, and reuse.</li>
+<li><strong>Career-Ops is the job-search workflow.</strong> It can run searches, evaluate opportunities, generate outputs, and manage operational search state.</li>
+</ul>
+
+<p>OCF deliberately avoids key Career-Ops concerns such as application pipeline, scoring, reports, portal scanning, and workflow automation. Those belong in Career-Ops or another job-search tool.</p>
+
+<h2>First Step: OCF Export To Career-Ops Files</h2>
+
+<p>As a first step, OCF includes a simple OCF-side skill that helps curate and export files into the format and directory structure Career-Ops expects. The goal is modest: let someone with an OCF file seed a Career-Ops workspace, which can then operate without caring where the data came from.</p>
+
+<p>The skill is:</p>
+
+<ul>
+<li><a href="../skills/ocf-export-career-ops/SKILL.md"><code>skills/ocf-export-career-ops/SKILL.md</code></a></li>
+</ul>
+
+<p>The detailed mapping notes are:</p>
+
+<ul>
+<li><a href="career-ops.md"><code>mappings/career-ops.md</code></a></li>
+</ul>
+
+<p>The skill is intentionally adaptive. It should inspect the installed Career-Ops workspace's own examples/templates before writing files, because Career-Ops may change its expected file shapes over time. OCF should not copy or freeze Career-Ops templates.</p>
+
+<h2>What The Skill Exports</h2>
+
+<p>The skill prepares Career-Ops user-layer files, such as:</p>
+
+<ul>
+<li><code>cv.md</code>;</li>
+<li><code>config/profile.yml</code>;</li>
+<li><code>modes/_profile.md</code>;</li>
+<li><code>interview-prep/story-bank.md</code>;</li>
+<li><code>article-digest.md</code>;</li>
+<li>selected <code>jds/*</code> files when relevant.</li>
+</ul>
+
+<p>For Career-Ops, <code>cv.md</code> should be treated as a broad candidate source, not a two-page human resume. A normal resume export should curate hard. A Career-Ops source file may include more visible roles, achievements, skills, stories, and proof points so Career-Ops has enough context to score, tailor, and generate narrower outputs.</p>
+
+<p>The skill asks what type of role the Career-Ops workspace should aim for before choosing content. That target role track is especially important for OCF variants:</p>
+
+<ul>
+<li><code>positioningVariants</code>;</li>
+<li><code>narrativeVariants</code>;</li>
+<li><code>titleVariants</code>;</li>
+<li><code>talkingPoints</code>;</li>
+<li>cautions, goals, and provenance relevant to the track.</li>
+</ul>
+
+<p>If someone is running multiple searches, such as customer success leadership and solutions consulting, the skill should avoid blending them into one ambiguous candidate profile. Separate Career-Ops workspaces or clearly separated output folders may be better today; a future deeper integration could let Career-Ops choose from OCF's track-specific variants directly.</p>
+
+<h2>Example: Maria Starts A Career-Ops Search</h2>
+
+<p>OCF uses a fictional candidate, Maria E. Reyes, as a worked example for showing how a source resume and job description can become richer career memory. See the <a href="../spec/examples/sample-resume.html"><code>Maria sample overview</code></a> and the <a href="../spec/examples/worked-example-walkthrough.html"><code>fully worked walkthrough</code></a>.</p>
+
+<p>Specifically for Career-Ops, the OCF export skill can use Maria's sample OCF as the starting point for a Career-Ops search workspace instead of asking Career-Ops to rediscover her whole career from a flat resume.</p>
+
+<p>For a healthcare cybersecurity director search, the OCF export skill would start from:</p>
+
+<ul>
+<li><a href="../spec/examples/sample-resume.ocf.json"><code>spec/examples/sample-resume.ocf.json</code></a> as the OCF source;</li>
+<li><a href="../spec/examples/sample-job-description.txt"><code>spec/examples/sample-job-description.txt</code></a> as the first relevant JD;</li>
+<li>the role track <code>healthcare-security</code> or <code>cybersecurity director</code>.</li>
+</ul>
+
+<p>That track would steer the export toward Maria's healthcare-security headline:</p>
+
+<blockquote><p>Healthcare cybersecurity leader protecting clinical continuity through incident response, compliance, and SOC maturity</p></blockquote>
+
+<p>It would also pull broad Career-Ops source material from her ransomware recovery, SOC buildout, HITRUST/SOC 2 work, executive-risk communication, healthcare data-protection scope, and relevant Army cyber background. A federal or defense search would choose different wording, including rank and MOS details that are useful for that audience but often unnecessary for a healthcare-sector resume.</p>
+
+<p>The likely Career-Ops starting files would be:</p>
+
+<ul>
+<li><code>cv.md</code>: a broad search source for Maria, not a two-page resume;</li>
+<li><code>config/profile.yml</code>: identity plus current search overlay values Maria chooses to provide;</li>
+<li><code>modes/_profile.md</code>: healthcare-security positioning, cautions, and target-specific framing;</li>
+<li><code>interview-prep/story-bank.md</code>: only visible or explicitly approved story material, because some OCF talking points and reflections are private by default;</li>
+<li><code>jds/healthcare-cybersecurity-director.md</code>: the sample healthcare cybersecurity JD.</li>
+</ul>
+
+<p>This is the useful handoff: OCF provides durable career memory and target-aware variants; Career-Ops can then run the search, scoring, reporting, and application workflow from those starting files.</p>
+
+<h2>Operational Overlay</h2>
+
+<p>Some Career-Ops configuration values are useful for a current search but are not normally durable OCF career facts. Examples include:</p>
+
+<ul>
+<li>expected compensation range;</li>
+<li>remote, hybrid, on-site, relocation, and travel preferences;</li>
+<li>target or excluded locations;</li>
+<li>preferred or excluded industries;</li>
+<li>urgency or availability;</li>
+<li>current search-specific dealbreakers.</li>
+</ul>
+
+<p>An OCF skill may ask for those values and write them to Career-Ops configuration files for the current workspace. It should not save them back to the OCF master unless the user explicitly asks to preserve them as reviewed goals or preferences with visibility and provenance.</p>
+
+<h2>Deeper Integration: Career-Ops As Curator And Exporter</h2>
+
+<p>A deeper integration could be more interesting than file export.</p>
+
+<p>OCF already stores stable career facts separately from target/audience-specific variants: positioning, narrative variants, talking points, cautions, goals, and provenance. Career-Ops could potentially use OCF as the candidate's career substrate, curate and export what it needs for a given search track, run its job-search workflow, and then feed user-approved career-history improvements back into the OCF file.</p>
+
+<p>The back channel to OCF should be limited to reusable career memory, such as:</p>
+
+<ul>
+<li>improved <code>narrativeVariants</code>;</li>
+<li>improved <code>positioningVariants</code>;</li>
+<li>new or refined <code>talkingPoints</code>;</li>
+<li>cautions about risky or weak claims;</li>
+<li>open questions surfaced by repeated job requirements;</li>
+<li>provenance or evidence notes that make a claim more defensible;</li>
+<li>user-approved story-bank material that belongs in OCF as reflections or talking points.</li>
+</ul>
+
+<p>It should not import Career-Ops runtime state back into OCF:</p>
+
+<ul>
+<li>job scores;</li>
+<li>pipeline state;</li>
+<li>application status;</li>
+<li>portal scan results;</li>
+<li>batch reports;</li>
+<li>transient ranking metadata;</li>
+<li>generated files that are not user-reviewed career memory.</li>
+</ul>
+
+<h2>Shared Values</h2>
+
+<p>The projects appear to share useful values:</p>
+
+<ul>
+<li>local-first files;</li>
+<li>user-owned data;</li>
+<li>AI-assisted workflows with review;</li>
+<li>generated outputs separate from source memory;</li>
+<li>no invented experience, metrics, or claims.</li>
+</ul>
+
+<p>The integration should preserve those values. OCF can help Career-Ops start from richer, more durable candidate context. Career-Ops can help OCF improve through real search workflows, as long as the improvements are reviewed by the user and stay focused on career memory rather than job-search runtime state.</p>
+
+<h2>Project Links</h2>
+
+<ul>
+<li>Career-Ops website: &lt;https://career-ops.org/&gt;</li>
+<li>Career-Ops GitHub: &lt;https://github.com/santifer/career-ops&gt;</li>
+<li>Open Career Format website: &lt;https://opencareerformat.org/&gt;</li>
+<li>Open Career Format GitHub: &lt;https://github.com/opencareerformat/opencareerformat&gt;</li>
+</ul>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./career-ops-integration.md"><code>mappings/career-ops-integration.md</code></a>.</p>
+</footer>
+</body>
+</html>

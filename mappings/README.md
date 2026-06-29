@@ -14,6 +14,7 @@ These files are prose specifications, not code. They describe expected behavior 
 | [LinkedIn](linkedin.md) | OCF export-ready file -> LinkedIn paste/update bundle | Help users update LinkedIn without treating LinkedIn as the source of truth. |
 | [vCard](vcard.md) | OCF export-ready file -> vCard | Export contact/profile information for address books and lightweight profile exchange. |
 | [Career-ops](career-ops.md) | OCF curated/export-ready file <-> career-ops User Layer files | Integrate OCF career memory with a local-first job-search workspace without turning OCF into a pipeline tracker. |
+| [OCF and Career-Ops](career-ops-integration.md) | Collaboration framing | Explain how OCF can seed Career-Ops workspaces and how user-approved curation improvements could flow back into OCF. |
 
 ## General Principles
 

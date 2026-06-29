@@ -27,7 +27,16 @@ Establish:
 
 1. OCF source file: preferably `candidate-curated` or `export-ready`; otherwise the user's master with visibility filtering.
 2. Career-Ops workspace: existing folder or new folder.
-3. Search overlay: operational preferences Career-Ops needs now but OCF usually should not preserve as durable career facts.
+3. Search track: what type of role this Career-Ops workspace is aiming for.
+4. Search overlay: operational preferences Career-Ops needs now but OCF usually should not preserve as durable career facts.
+
+Ask early:
+
+> What type of role should this Career-Ops workspace aim for?
+
+Examples: customer success leadership, cybersecurity director, solutions consulting, product operations, federal roles, healthcare security, startup operator, or another track. If the user has multiple tracks, create or recommend separate Career-Ops workspaces or clearly separate output folders rather than blending them into one ambiguous `cv.md`.
+
+Use the role track when choosing OCF variants. Prefer `positioningVariants`, `narrativeVariants`, `titleVariants`, and `talkingPoints` whose audience, target role, use, or notes fit the track. Do not collapse competing variants into one generic wording. If two variants both fit different plausible tracks, ask which one this Career-Ops workspace should optimize for.
 
 If the OCF workspace is known from `ocf-setup`, suggest a sibling folder:
 
@@ -57,9 +66,9 @@ Generate or update only Career-Ops user-layer files.
 
 Common targets:
 
-- `cv.md`: a broad Career-Ops CV source, not a two-page human resume. Include every visible role, skill, and achievement that plausibly matches the user's search spec. Keep it factual and reviewable.
+- `cv.md`: a broad Career-Ops CV source, not a two-page human resume. Include every visible role, skill, and achievement that plausibly matches the search track. Keep it factual and reviewable.
 - `config/profile.yml`: identity and current search overlay. Populate durable OCF facts where available; ask for transient operational preferences when Career-Ops needs them.
-- `modes/_profile.md`: positioning, voice, cautions, talking points, and operating guidance.
+- `modes/_profile.md`: track-specific positioning, voice, cautions, talking points, and operating guidance.
 - `interview-prep/story-bank.md`: visible or explicitly approved reflections and interview-oriented talking points.
 - `article-digest.md`: high-evidence proof points, metrics, and supporting facts.
 - `jds/`: only selected job descriptions relevant to this Career-Ops workspace. Do not turn OCF into a bulk JD archive.
@@ -68,7 +77,7 @@ If a file already exists, summarize the intended change and ask before overwriti
 
 ## Search Overlay Questions
 
-OCF does not normally store some Career-Ops configuration values because they are transient, sensitive, or specific to the current search. Ask only what the target Career-Ops workspace needs now.
+OCF does not normally store some Career-Ops configuration values because they are transient, sensitive, or specific to the current search. Ask only what the target Career-Ops workspace needs now, after the role track is clear.
 
 Possible overlay fields:
 
@@ -92,6 +101,7 @@ Default to a broad Career-Ops source file, not a concise resume:
 
 - include more relevant visible evidence than a human resume would;
 - include older but still relevant roles when they match the search;
+- prefer audience-specific variants that fit the role track;
 - preserve enough context for Career-Ops to evaluate and tailor later;
 - exclude private material by default;
 - avoid unsupported claims, invented metrics, or inflated verbs.
@@ -103,12 +113,13 @@ If the user asks for a normal resume instead, route to OCF curation/export rathe
 1. Locate the OCF file and Career-Ops workspace.
 2. Inspect local Career-Ops examples/templates and existing user-layer files.
 3. Read the OCF file and relevant mapping guidance in `mappings/career-ops.md` if available.
-4. Confirm whether to use a broad Career-Ops CV source or a narrower curated view.
-5. Ask for missing search overlay fields or choose placeholders when the user prefers not to answer.
-6. Draft the target files.
-7. Show a file-by-file summary before writing.
-8. Write only after confirmation; preserve or back up existing user-layer files.
-9. Summarize what came from OCF, what came from the overlay answers, and what was left blank.
+4. Ask what type of role this Career-Ops workspace should aim for, unless the user has already made the track clear.
+5. Confirm whether to use a broad Career-Ops CV source or a narrower curated view for that track.
+6. Ask for missing search overlay fields or choose placeholders when the user prefers not to answer.
+7. Draft the target files.
+8. Show a file-by-file summary before writing.
+9. Write only after confirmation; preserve or back up existing user-layer files.
+10. Summarize what came from OCF, what came from the track/overlay answers, and what was left blank.
 
 ## Final Response Checklist
 
@@ -116,6 +127,7 @@ Report:
 
 - OCF source file used;
 - Career-Ops workspace path;
+- target role track;
 - user-layer files created or updated;
 - overlay fields supplied by the user;
 - placeholders left for the user to fill;
