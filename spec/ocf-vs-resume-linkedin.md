@@ -52,7 +52,10 @@ Because the file is meant to be **read by tools and rendered into documents**, n
 | **LinkedIn** | A public profile on a platform | Reach, networking, discovery | Privacy, ownership, your own export format | One more view generated from your OCF |
 | **JSON Resume** | A schema for one resume | Structured rendering, theme ecosystem | Visibility, provenance, variants, reflections, goals, sources | OCF exports to it; OCF is the source behind it |
 | **An LLM plus your resume** | AI working from a pasted file | Fast tailoring and rewriting in the moment | Memory across sessions; it sees only what you paste; the output stays in the chat | OCF is the fuller memory you hand it, and where the good output is kept |
+| **Career-Ops** | A local-first job-search workflow | Search, scoring, reports, application workflow | Durable career memory across tools; private master/context separation | OCF can seed it with richer candidate context; see [OCF and Career-Ops](../mappings/career-ops-integration.md) |
 | **OCF** | A private career-memory file you own | Durable record, many tailored outputs, AI-ready | It is not itself a finished resume; you render those | The source the others are views of |
+
+Career-Ops is a useful example of the boundary. It manages the active search; OCF preserves the career memory the search can draw from and improve.
 
 ## When you might *not* need OCF
 
