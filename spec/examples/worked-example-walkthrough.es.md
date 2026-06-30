@@ -1,6 +1,6 @@
 # Ejemplo trabajado
 
-> Traducción española no canónica. Fuente canónica: [`worked-example-walkthrough.md`](worked-example-walkthrough.md), commit `f3d01f2`, traducido el 2026-06-15. Si hay conflicto, controla el inglés.
+> Traducción española no canónica. Fuente canónica: [`worked-example-walkthrough.md`](worked-example-walkthrough.md), commit `1c8f4d2`, traducido el 2026-06-29. Si hay conflicto, controla el inglés.
 
 > Nota: este ejemplo está traducido al español, pero varios archivos enlazados son fuentes, schemas o documentación canónica en inglés.
 

@@ -50,13 +50,16 @@ for (const item of localizedDocs) {
   }
 
   const stampedCommit = match[1];
-  if (!commitExists(stampedCommit)) {
+  const resolvedStampedCommit = resolveCommit(stampedCommit);
+  if (!resolvedStampedCommit) {
     failures.push(`${item.localized}: stamped commit ${stampedCommit} is not present in git history`);
     continue;
   }
 
   const sourceCommit = latestCommitForPath(item.source);
   const localizedCommit = latestCommitForPath(item.localized);
+  const sourceChangedInWorktree = hasUncommittedChanges(item.source);
+  const localizedChangedInWorktree = hasUncommittedChanges(item.localized);
   if (!sourceCommit) {
     failures.push(`${item.localized}: no git history found for source ${item.source}`);
     continue;
@@ -66,14 +69,21 @@ for (const item of localizedDocs) {
     continue;
   }
 
-  if (!isAncestor(stampedCommit, localizedCommit)) {
+  if (sourceChangedInWorktree) {
     failures.push(
-      `${item.localized}: stamped commit ${stampedCommit} is newer than the localized file's latest update ${localizedCommit}`,
+      `${item.localized}: ${item.source} has uncommitted changes; commit the canonical source first, then review the localized file against that committed version`,
     );
     continue;
   }
 
-  if (!isAncestor(sourceCommit, localizedCommit)) {
+  if (resolvedStampedCommit !== sourceCommit) {
+    failures.push(
+      `${item.localized}: stamped source commit ${stampedCommit} does not match latest ${item.source} commit ${shortCommit(sourceCommit)}`,
+    );
+    continue;
+  }
+
+  if (!localizedChangedInWorktree && !isAncestor(sourceCommit, localizedCommit)) {
     const noun = item.kind === "wrapper" ? "localized wrapper" : "translation";
     failures.push(
       `${item.localized}: ${item.source} changed in ${sourceCommit} after the ${noun}'s latest update ${localizedCommit}`,
@@ -95,12 +105,11 @@ function latestCommitForPath(filePath) {
   return git(["log", "-1", "--format=%H", "--", filePath]).trim();
 }
 
-function commitExists(commit) {
+function resolveCommit(commit) {
   try {
-    git(["cat-file", "-e", `${commit}^{commit}`]);
-    return true;
+    return git(["rev-parse", `${commit}^{commit}`]).trim();
   } catch {
-    return false;
+    return null;
   }
 }
 
@@ -111,6 +120,14 @@ function isAncestor(ancestor, descendant) {
   } catch {
     return false;
   }
+}
+
+function hasUncommittedChanges(filePath) {
+  return git(["diff", "--name-only", "HEAD", "--", filePath]).trim().length > 0;
+}
+
+function shortCommit(commit) {
+  return commit.slice(0, 7);
 }
 
 function git(args) {
