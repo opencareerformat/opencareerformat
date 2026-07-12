@@ -14,10 +14,6 @@ import sys
 from pathlib import Path
 
 
-OMIT = object()
-CONTACT_KINDS = {"email", "phone", "url", "linkedin", "github", "social", "other"}
-
-
 def main(argv):
     if len(argv) == 2:
         return print_summary(Path(argv[1]))
@@ -129,47 +125,13 @@ def render_name(name):
 
 
 def print_private_filtered(path):
-    doc = load_json(path)
-    filtered = filter_private(doc)
-    json.dump(filtered, sys.stdout, indent=2, ensure_ascii=False)
-    sys.stdout.write("\n")
-    return 0
-
-
-def filter_private(value):
-    if isinstance(value, list):
-        filtered = [filter_private(item) for item in value]
-        return [item for item in filtered if item is not OMIT]
-
-    if isinstance(value, dict):
-        if resolved_visibility(value) == "private":
-            return OMIT
-        filtered = {}
-        for key, item in value.items():
-            cleaned = filter_private(item)
-            if cleaned is not OMIT:
-                filtered[key] = cleaned
-        return filtered
-
-    return value
-
-
-def resolved_visibility(value):
-    if not isinstance(value, dict):
-        return None
-    if value.get("visibility"):
-        return value["visibility"]
-    if is_contact(value):
-        return "private"
-    return None
-
-
-def is_contact(value):
-    return (
-        isinstance(value, dict)
-        and value.get("kind") in CONTACT_KINDS
-        and "value" in value
-    )
+    repo_root = Path(__file__).resolve().parents[2]
+    filter_script = repo_root / "reference" / "cli" / "filter-private.js"
+    node = os.environ.get("NODE") or shutil.which("node")
+    if not node:
+        print("Node.js not found. Install Node.js or set NODE=/path/to/node.", file=sys.stderr)
+        return 127
+    return subprocess.run([node, str(filter_script), str(path)]).returncode
 
 
 if __name__ == "__main__":

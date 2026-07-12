@@ -18,6 +18,8 @@ Treat those as different kinds of instruction:
 
 If a prompt and the schema seem to disagree, the schema wins for file structure. The prompt may still be useful as advice about what to ask, what to preserve, and what to flag for review.
 
+The prompts are examples of useful approaches, not a prescribed elicitation method. Models, coaches, and tools should improve how they discover career memory as their capabilities evolve. The desired result is clearer: preserve story-bearing source material in the person's own words. A model may interpret it, identify patterns, ask questions that uncover more gems, and propose uses for it, but should not replace the source memory with polished AI prose.
+
 ## Current Prompts
 
 - [`application-bootstrap.md`](application-bootstrap.md): single-fetch first-session prompt for resume-plus-job-description application help.

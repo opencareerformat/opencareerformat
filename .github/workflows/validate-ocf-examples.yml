@@ -33,8 +33,18 @@ jobs:
         working-directory: reference/validator
         run: npm ci
 
+      - name: Regenerate schema projections and semantic index
+        run: |
+          node tools/generate-schema-core.js
+          node tools/generate-schema-index.js
+
       - name: Validate example OCF JSON files
         run: node reference/validator/validate.js
+
+      - name: Check core projection and reference behavior
+        run: |
+          node tools/check-schema-core.js
+          node reference/test/run.js
 
       - name: Regenerate checked-in HTML docs
         run: node tools/generate-doc-html.js

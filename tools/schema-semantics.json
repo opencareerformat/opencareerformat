@@ -1,0 +1,22 @@
+{
+  "referenceFields": {
+    "supportingItemIds": { "target": "any-id", "many": true, "allowParentLineage": true },
+    "supersededById": { "target": "any-id", "many": false, "allowParentLineage": true },
+    "sourceArtifactId": { "target": "source-artifact", "many": false, "allowParentLineage": true },
+    "organizationRef": { "target": "organization-key", "many": false },
+    "relatedExperienceIds": { "target": "experience", "many": true },
+    "relatedProjectIds": { "target": "project", "many": true },
+    "relatedAchievementIds": { "target": "achievement", "many": true }
+  },
+  "ignoredReferenceLikeFields": [
+    "courseId",
+    "credentialId",
+    "grantId",
+    "parentFileId"
+  ],
+  "nonDefiningIdPaths": [
+    "meta",
+    "skills.*.taxonomies.*",
+    "talkingPoints.*.supportingEvidence.*"
+  ]
+}

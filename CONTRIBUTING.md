@@ -32,7 +32,9 @@ The repository accepts contributions in these rough categories. Each has its own
 
 **Bug reports** — broken validator runs, invalid examples, contradictions in the spec. Use the *Bug Report* template.
 
-**Reference implementations** — code in `reference/` (validators, curators, renderers, exporters, importers, editor). These are MIT-licensed (see `LICENSE-code`) and the bar is "does it work, is it readable, does it match the spec." No requirement to match a specific style or framework.
+**Reference implementations** — code in `reference/` (validators, curators, renderers, exporters, and importers). These are MIT-licensed (see `LICENSE-code`) and the bar is "does it work, is it readable, does it match the spec." No requirement to match a specific style or framework.
+
+Do not edit `schema-core.json` independently. It is generated from `schema.json` using `tools/schema-core-projection.json`; change the full schema or the projection configuration, then run `node tools/generate-schema-core.js`.
 
 ## Licensing
 

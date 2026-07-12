@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { filterByVisibility } = require("../../lib/visibility");
 
 function readOcf(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -14,22 +15,8 @@ function writeOutput(outputPath, content) {
   process.stdout.write(content);
 }
 
-function isContact(item) {
-  return item
-    && typeof item === "object"
-    && typeof item.kind === "string"
-    && Object.prototype.hasOwnProperty.call(item, "value")
-    && ["email", "phone", "url", "linkedin", "github", "social", "other"].includes(item.kind);
-}
-
-function resolvedVisibility(item, fallback = "shared") {
-  if (!item || typeof item !== "object") return fallback;
-  if (item.visibility) return item.visibility;
-  return isContact(item) ? "private" : fallback;
-}
-
 function isVisible(item) {
-  return !item || resolvedVisibility(item) !== "private";
+  return !item || item.visibility !== "private";
 }
 
 function visibleItems(items) {
@@ -89,19 +76,26 @@ function organizationUrl(doc, entry) {
 }
 
 function selectedTitle(position) {
-  const variant = visibleItems(position.titleVariants).find((item) => item.title);
-  return variant?.title || position.title;
+  return position.title;
 }
 
 function selectedAchievementStatement(achievement) {
-  const variant = visibleItems(achievement.narrativeVariants).find((item) => item.statement);
-  return variant?.statement || achievement.statement;
+  return achievement.statement;
 }
 
 function collectAchievements(positionOrEntry) {
   return visibleItems(positionOrEntry?.achievements || positionOrEntry?.spanning)
     .map(selectedAchievementStatement)
     .filter(Boolean);
+}
+
+function countUnresolvedVariants(value) {
+  if (Array.isArray(value)) return value.reduce((count, item) => count + countUnresolvedVariants(item), 0);
+  if (!value || typeof value !== "object") return 0;
+  return Object.entries(value).reduce((count, [key, item]) => {
+    const own = (key === "titleVariants" || key === "narrativeVariants") && Array.isArray(item) ? item.length : 0;
+    return count + own + countUnresolvedVariants(item);
+  }, 0);
 }
 
 function contactProfiles(person = {}) {
@@ -135,6 +129,7 @@ function personLocation(person = {}) {
 
 module.exports = {
   collectAchievements,
+  countUnresolvedVariants,
   contactProfiles,
   dateRangeEnd,
   dateRangeStart,
@@ -150,4 +145,5 @@ module.exports = {
   selectedTitle,
   visibleItems,
   writeOutput,
+  filterByVisibility,
 };

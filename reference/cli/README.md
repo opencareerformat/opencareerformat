@@ -30,9 +30,9 @@ python3 reference/cli/ocf.py --filter private spec/examples/sample-resume.ocf.js
 ```
 
 Prints the whole OCF JSON document to stdout with private objects removed
-recursively. It removes objects marked `"visibility": "private"` and contact
-objects with omitted visibility, because contacts default to private in the
-schema. For other object types, mark private content explicitly.
+recursively. It uses the compact schema index generated from `schema.json` and
+removes objects explicitly marked private or private by their schema default.
+The runtime filter uses only Node.js built-in modules.
 
 This is a convenience filter, not an anonymizer: organization names, dates, rare
 skills, metrics, and combinations of facts can still identify someone.

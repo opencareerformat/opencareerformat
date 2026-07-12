@@ -11,7 +11,7 @@ This directory contains small proof-of-concept tools around OCF:
 
 These tools are examples. They demonstrate the data flow, not a production hiring product.
 
-The validator is different from the other reference scripts: it checks OCF files against the full current JSON Schema and prints the schema version it loaded. Its first CI use is expected to be validating the repository's example OCF files against the current schema whenever the repo changes. The importer, curator, and exporters are intentionally partial examples and should not be mistaken for full schema coverage.
+The validator is different from the other reference scripts: it checks OCF files against the full current JSON Schema, verifies local referential integrity, and prints the schema version it loaded. Its first CI use is expected to be validating the repository's example OCF files against the current schema whenever the repo changes. The importer, curator, and exporters are intentionally partial examples and should not be mistaken for full schema coverage.
 
 The importer and curator are deliberately deterministic and shallow so the pipeline can run without API keys, network access, or model behavior. They could be substantially improved by using an LLM for extraction, follow-up questions, conflict detection, audience-specific wording, and job-description matching. That would improve the tool, not change the OCF schema.
 
@@ -23,12 +23,12 @@ These tools are intentionally bare bones. They prove the concept and make the da
 
 | Tool | Current maturity | What it demonstrates | Known limits |
 |---|---|---|---|
-| `validator/` | Full-schema structure check | Validates OCF JSON against the full current schema. | Checks structure only; does not judge whether claims are true, well-curated, or appropriate to export. |
-| `cli/ocf.py` | Minimal proof of concept | Prints key fields, delegates validation to the reference validator, and emits a private-filtered JSON document. | Not a full editor; private filtering is not anonymization and does not judge whether remaining content is safe to share. |
+| `validator/` | Full-schema structure check | Validates OCF JSON against the full current schema and checks local IDs and references. | Checks file integrity only; does not judge whether claims are true, well-curated, or appropriate to export. |
+| `cli/ocf.py` | Minimal proof of concept | Prints key fields, delegates validation to the reference validator, and emits a schema-aware private-filtered JSON document. | Not a full editor; private filtering is not anonymization and does not judge whether remaining content is safe to share. |
 | `importers/resume-text-to-ocf.js` | Skeleton proof of concept | Turns a very regular plain-text resume into a current-schema provisional OCF master with provenance and a review question. | Not a robust resume parser; does not handle PDFs, tables, complex layouts, conflict detection, or follow-up questions. |
 | `curators/job-description.js` | Skeleton proof of concept | Scores a master OCF against target text, filters visibility, and writes a curated working file; currently smoke-tested against the current examples. | Keyword scoring only; no real judgment, no user interview, no nuanced fit analysis. |
-| `exporters/json-resume.js` | Minimal mapper | Converts visible OCF content into JSON Resume shape. | Loses OCF-only concepts such as cautions, open questions, provenance detail, and private memory. |
-| `exporters/linkedin.js` | Minimal paste-bundle mapper | Produces Markdown organized around LinkedIn editing areas. | Does not call LinkedIn APIs; users must review and paste manually. |
+| `exporters/json-resume.js` | Minimal mapper | Converts visible canonical OCF content into JSON Resume shape. | Does not choose among unresolved variants; loses OCF-only concepts such as cautions, open questions, provenance detail, and private memory. |
+| `exporters/linkedin.js` | Minimal paste-bundle mapper | Produces Markdown from visible canonical OCF content, organized around LinkedIn editing areas. | Does not choose among unresolved variants or call LinkedIn APIs; users must review and paste manually. |
 | `ollama/ocf-local-llm.js` | Local LLM proof of concept | Sends OCF prompts, schema-core, and user-provided files to a local Ollama model; can write either a transcript or a provisional-master JSON draft. | Requires local Ollama and a model; model-authored JSON still needs validator checks and human review. |
 
 ## End-to-End Demo

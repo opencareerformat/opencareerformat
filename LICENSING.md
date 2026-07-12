@@ -23,7 +23,7 @@ This side of the project is meant to be read, copied, quoted, adapted, and imple
 
 Code under `reference/` is licensed under the MIT License, in [`LICENSE-code`](LICENSE-code).
 
-This includes the validator, importers, curators, exporters, renderers, and editor code. The reference implementations are examples, not the normative schema.
+This includes the validator, importers, curators, exporters, renderers, and CLI code. The reference implementations are examples, not the normative schema.
 
 ## Why Two Licenses?
 

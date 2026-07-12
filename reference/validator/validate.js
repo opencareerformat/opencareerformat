@@ -9,6 +9,7 @@ const Ajv = require('ajv/dist/2020');
 const addFormats = require('ajv-formats');
 const fs = require('fs');
 const path = require('path');
+const { validateSemantic } = require('./semantic');
 
 const repoRoot = path.resolve(__dirname, '..', '..');
 const schemaPath = path.join(repoRoot, 'spec', 'schema.json');
@@ -35,13 +36,14 @@ let allPassed = true;
 for (const file of examples) {
   const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
   const ok = validate(doc);
+  const semanticErrors = ok ? validateSemantic(doc) : [];
   const label = path.relative(process.cwd(), file) || file;
   const errors = validate.errors || [];
   const unknownErrors = errors.filter(error => error.keyword === 'additionalProperties');
   const hardErrors = warnUnknown
     ? errors.filter(error => error.keyword !== 'additionalProperties')
     : errors;
-  const passed = ok || (warnUnknown && hardErrors.length === 0);
+  const passed = (ok || (warnUnknown && hardErrors.length === 0)) && semanticErrors.length === 0;
   console.log(`${label}: ${passed ? 'PASS' : 'FAIL'}`);
   if (!ok) {
     if (warnUnknown && unknownErrors.length) {
@@ -52,6 +54,11 @@ for (const file of examples) {
       console.log(JSON.stringify(hardErrors, null, 2));
       allPassed = false;
     }
+  }
+  if (semanticErrors.length) {
+    console.log('OCF semantic integrity errors:');
+    console.log(JSON.stringify(semanticErrors, null, 2));
+    allPassed = false;
   }
 }
 

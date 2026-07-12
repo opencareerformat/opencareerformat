@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const { filterByVisibility } = require("../lib/visibility");
 
 const CURRENT_SCHEMA = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../spec/schema.json"), "utf8"));
 const CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA.properties?.schemaVersion?.const;
@@ -13,6 +14,7 @@ function curateForJob(doc, jobText, options = {}) {
   }
 
   const visibilityMode = options.visibilityMode || "shared";
+  doc = filterByVisibility(doc, visibilityMode);
   const terms = importantTerms(jobText);
   const now = new Date().toISOString().slice(0, 10);
   const selectedExperience = selectExperience(doc, terms, visibilityMode);
@@ -24,7 +26,7 @@ function curateForJob(doc, jobText, options = {}) {
     .map(({ item }) => item);
   const visibilityNote = visibilityMode === "public" ? "removed private and shared items" : "removed private items";
 
-  const curated = filterVisibility(prune({
+  const curated = prune({
     $schema: doc.$schema,
     schemaVersion: doc.schemaVersion,
     meta: {
@@ -42,26 +44,44 @@ function curateForJob(doc, jobText, options = {}) {
       parentVersion: doc.meta?.version,
       lineageNotes: `Proof-of-concept curator: keyword scored the target context, ${visibilityNote}, and kept a small subset of matching experience, skills, and certifications. This curated OCF is intentionally incomplete and should not overwrite the master.`,
     },
-    person: filterVisibility(doc.person, visibilityMode),
+    person: doc.person,
     experience: selectedExperience,
     skills: selectedSkills,
     certifications: selectedCertifications,
-    education: filterVisibility(doc.education, visibilityMode),
-    projects: filterVisibility(doc.projects, visibilityMode),
-    publications: filterVisibility(doc.publications, visibilityMode),
-    patents: filterVisibility(doc.patents, visibilityMode),
-    speaking: filterVisibility(doc.speaking, visibilityMode),
-    teaching: filterVisibility(doc.teaching, visibilityMode),
-    governance: filterVisibility(doc.governance, visibilityMode),
-    memberships: filterVisibility(doc.memberships, visibilityMode),
-    service: filterVisibility(doc.service, visibilityMode),
-    awards: filterVisibility(doc.awards, visibilityMode),
-    languages: filterVisibility(doc.languages, visibilityMode),
-    interests: filterVisibility(doc.interests, visibilityMode),
-    funding: filterVisibility(doc.funding, visibilityMode),
-  }), visibilityMode);
+    education: doc.education,
+    projects: doc.projects,
+    publications: doc.publications,
+    patents: doc.patents,
+    speaking: doc.speaking,
+    teaching: doc.teaching,
+    governance: doc.governance,
+    memberships: doc.memberships,
+    service: doc.service,
+    awards: doc.awards,
+    languages: doc.languages,
+    interests: doc.interests,
+  });
+
+  const organizations = referencedOrganizations(doc.organizations, curated);
+  if (Object.keys(organizations).length) curated.organizations = organizations;
 
   return curated;
+}
+
+function referencedOrganizations(registry = {}, document) {
+  const refs = new Set();
+  collectOrganizationRefs(document, refs);
+  return Object.fromEntries([...refs].filter((ref) => registry[ref]).map((ref) => [ref, registry[ref]]));
+}
+
+function collectOrganizationRefs(value, refs) {
+  if (Array.isArray(value)) {
+    value.forEach((item) => collectOrganizationRefs(item, refs));
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+  if (typeof value.organizationRef === "string") refs.add(value.organizationRef);
+  Object.values(value).forEach((item) => collectOrganizationRefs(item, refs));
 }
 
 function selectExperience(doc, terms, visibilityMode) {
@@ -90,16 +110,16 @@ function selectExperience(doc, terms, visibilityMode) {
       }, visibilityMode)
         .slice(0, 2)
         .map(({ item: position }) => ({
-          ...filterVisibility(position, visibilityMode),
+          ...position,
           achievements: scoreItems(position.achievements || [], terms, (achievement) => {
             return [achievement.statement, achievement.longform, ...(achievement.audiences || [])].join(" ");
           }, visibilityMode)
             .slice(0, 4)
-            .map(({ item }) => filterVisibility(item, visibilityMode)),
+            .map(({ item }) => item),
         }));
 
       return {
-        ...filterVisibility(entry, visibilityMode),
+        ...entry,
         positions,
         spanning: undefined,
         reflections: undefined,
@@ -109,7 +129,7 @@ function selectExperience(doc, terms, visibilityMode) {
 
 function scoreItems(items, terms, textForItem, visibilityMode = "shared") {
   return items
-    .filter((item) => item && isVisibilityAllowed(item, visibilityMode, { defaultShared: true }))
+    .filter(Boolean)
     .map((item) => {
       const haystack = normalize(textForItem(item));
       const termScore = terms.reduce((score, term) => score + (haystack.includes(term) ? 1 : 0), 0);
@@ -138,36 +158,6 @@ function importantTerms(text) {
     "your",
   ]);
   return [...new Set(normalize(text).split(/\s+/).filter((term) => term.length > 2 && !stop.has(term)))];
-}
-
-function filterVisibility(value, visibilityMode) {
-  if (Array.isArray(value)) {
-    return value
-      .filter((item) => isVisibilityAllowed(item, visibilityMode, { defaultShared: true }))
-      .map((item) => filterVisibility(item, visibilityMode));
-  }
-  if (value && typeof value === "object") {
-    if (!isVisibilityAllowed(value, visibilityMode)) return undefined;
-    return prune(Object.fromEntries(Object.entries(value).map(([key, item]) => [key, filterVisibility(item, visibilityMode)])));
-  }
-  return value;
-}
-
-function isVisibilityAllowed(item, visibilityMode, options = {}) {
-  if (!item || typeof item !== "object") return true;
-  const hasVisibility = Object.prototype.hasOwnProperty.call(item, "visibility");
-  if (!hasVisibility && !options.defaultShared && !isContact(item)) return true;
-  const visibility = hasVisibility ? item.visibility : (isContact(item) ? "private" : "shared");
-  if (visibilityMode === "public") return visibility === "public";
-  return visibility !== "private";
-}
-
-function isContact(item) {
-  return item
-    && typeof item === "object"
-    && typeof item.kind === "string"
-    && Object.prototype.hasOwnProperty.call(item, "value")
-    && ["email", "phone", "url", "linkedin", "github", "social", "other"].includes(item.kind);
 }
 
 function countCollection(doc, key) {

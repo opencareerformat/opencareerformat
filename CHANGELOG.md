@@ -8,10 +8,19 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 ### Added
 
+- Generated `schema-core.json` as a strict projection of the full schema, with CI checks that the application-bootstrap starter validates against both shapes.
+- Added a compact generated schema index for visibility defaults and local reference semantics; the reference validator now reports duplicate IDs, dangling local references, and supersession cycles.
+- Added focused reference behavior tests for private-default filtering, canonical variant export, and semantic references.
+
 - Added initial OCF skills for local-agent workflows: `ocf-start` routes users to the right prompt or workflow, and `ocf-setup` organizes local master, backup, source, and output folders. Skills use the same OCF guidance as prompts; they add file management for agents that can work locally.
 - Added `ocf-export-career-ops`, a skill for creating or updating a Career-Ops workspace from OCF while keeping transient job-search preferences out of the OCF master unless the user asks to save them.
 - Added an OCF and Career-Ops integration page describing simple file export, deeper curator/exporter possibilities, and the boundary between career memory and job-search workflow state.
 - Added story-to-bullet prompt guidance for expanding resume bullets into before-state, stakes, agency, defensible metrics, downstream impact, and audience-appropriate output shapes without pressuring users to invent numbers.
+
+### Changed
+
+- Made the minimal private filter, curator, and exporters honor schema-declared visibility defaults without adding runtime dependencies.
+- Made reference exporters use canonical fields and warn about unresolved title/narrative variants instead of silently choosing the first variant.
 
 ## [0.3.0] — 2026-06-15
 

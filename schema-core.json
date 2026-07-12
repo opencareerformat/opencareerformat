@@ -1,8 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://opencareerformat.org/schema-core.json",
   "title": "Open Career Format Starter/Core Authoring Shape",
-  "description": "A small LLM-friendly entry point for creating or reviewing a starter OCF. This is not a replacement for the full OCF schema. Use https://opencareerformat.org/schema.json for canonical validation. The overlapping fields named here use the same names and compatible shapes as the full schema. Use this core shape when converting a resume, LinkedIn export, notes, or a job-search conversation into a useful first OCF file. If you need fields not represented here, read the full schema instead of inventing core-only aliases.",
+  "description": "A generated strict projection of the current Open Career Format schema for first-pass authoring and context-constrained tools. Every included field is copied from the full schema; use schema.json for canonical validation and the complete field set.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -12,17 +11,24 @@
     "$schema": {
       "type": "string",
       "format": "uri",
-      "description": "For a canonical OCF file, use https://opencareerformat.org/schema.json."
+      "description": "Optional JSON Schema URI used by editors and validators. For OCF v0.3 this is normally https://opencareerformat.org/v0.3/schema.json."
     },
     "schemaVersion": {
       "type": "string",
-      "const": "0.3",
-      "description": "The OCF schema version used by the file, for example 0.3."
+      "const": "0.3"
     },
     "meta": {
       "type": "object",
-      "description": "Basic file metadata. Starter files should set fileRole and lastModified when known. A candidate-owned master usually sets fileRole=candidate-master. Imported or converted source material should use source.kind and reviewStatus/provenance on items rather than a separate provisional file role.",
+      "description": "Provenance and authoring metadata.",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "A stable UUID (v4) that identifies this file across its lifetime. The master gets one when created and keeps it forever. Child curated, export-ready, converted, or translated files get their own ids. Lineage fields such as parentFileId point at this value, not a filename, which can change."
+        },
+        "version": {
+          "type": "string",
+          "description": "A content fingerprint or version label that changes when the file is meaningfully saved. Typically a short hash (e.g. SHA-256 truncated to 12 hex chars), timestamp, or incrementing counter. Child files record the parent version at creation time in parentVersion so tools can tell whether a curated/export-ready file is stale."
+        },
         "fileRole": {
           "type": "string",
           "enum": [
@@ -31,20 +37,16 @@
             "third-party-working",
             "export-ready",
             "other"
-          ]
+          ],
+          "description": "The lifecycle role this OCF file plays. The top-level person is always the subject whose career is described; fileRole describes this file, not who the subject is. candidate-master = the person's private, durable career memory. candidate-curated = a reduced or purpose-specific child file prepared by or for the candidate from a master. third-party-working = an OCF-shaped working file created by a recruiter, coach, agency, employer, or tool about a person; it is not the person's private master. export-ready = curated content prepared for an exporter or downstream system. other = anything else. Treat fileRole as effectively immutable; if the lifecycle role changes, create a child file with lineage instead of relabeling the same file."
         },
         "lastModified": {
           "type": "string",
           "format": "date"
         },
-        "id": {
-          "type": "string"
-        },
-        "version": {
-          "type": "string"
-        },
         "language": {
-          "type": "string"
+          "type": "string",
+          "description": "BCP-47 tag, e.g. en-US"
         },
         "source": {
           "type": "object",
@@ -57,7 +59,16 @@
                 "converted",
                 "merged",
                 "translated"
-              ]
+              ],
+              "description": "authored = written by the person or their chosen tool as a native OCF. imported = pulled from another system or artifact such as LinkedIn, ATS, resume, or notes. converted = mechanically converted from another structured format. merged = combined from multiple sources. translated = language translation of another OCF file. Use fileRole plus parentFileId/parentVersion for lifecycle lineage; source.kind records origin mechanics, not every later update."
+            },
+            "importer": {
+              "type": "string"
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
             }
           },
           "additionalProperties": false
@@ -79,19 +90,25 @@
     },
     "person": {
       "type": "object",
+      "description": "The subject of this OCF: the person whose career is described. The subject is not necessarily the controller of this file or the actor that created/edited its contents. REGIONAL COMPLIANCE AND PRIVACY: Some fields in this section (photo, dateOfBirth, nationality, maritalStatus, gender) are expected or required on resumes in certain countries (Germany, France, Japan, South Korea, much of the Middle East and Latin America) and prohibited or strongly discouraged in others (US, UK, Canada, Australia). Store these in your master file only if they apply to you and you intentionally want them recorded. Derivation tools should include or exclude them based on the target region — never share across borders without understanding local hiring laws. Government identity numbers and secrets such as SSNs, taxpayer IDs, passport numbers, driver's license numbers, bank details, passwords, and API keys do not belong in OCF.",
       "required": [
         "name"
       ],
-      "description": "The subject of this OCF: the person whose career is described. The subject is not necessarily the controller of this file or the actor that created/edited its contents. Avoid government identifiers and account secrets.",
       "properties": {
         "name": {
           "type": "object",
+          "$comment": "Reserved future direction: person names are currently compact, but real imports will surface legal names, preferred names, localized names, former names, professional names, transliterations, and audience-specific display choices. Future versions may expand this object with structured name variants rather than adding ad hoc top-level fields.",
           "required": [
             "renderAs"
           ],
           "properties": {
             "renderAs": {
-              "type": "string"
+              "type": "string",
+              "description": "The name as it should appear on a resume — professional name, stage name, shortened form, westernized name, whatever you go by. This is the display string; everything else is metadata behind it."
+            },
+            "nativeScript": {
+              "type": "string",
+              "description": "Regional: name in its original script when the file is otherwise romanized, e.g. '田中太郎' alongside renderAs 'Taro Tanaka', or 'Ελένη Παπαδοπούλου' alongside 'Eleni Papadopoulou'."
             },
             "given": {
               "type": "string"
@@ -99,80 +116,75 @@
             "family": {
               "type": "string"
             },
+            "familyFirst": {
+              "type": "boolean",
+              "description": "Regional: true if the cultural convention is family name first (East Asia, Hungary, etc.). Helps renderers and parsers avoid assuming given-family order."
+            },
             "preferred": {
-              "type": "string"
+              "type": "string",
+              "description": "Nickname or short form used in conversation, e.g. 'Carmen', 'TJ', 'Sasha'."
             },
             "pronouns": {
               "type": "string"
+            },
+            "otherNames": {
+              "type": "array",
+              "description": "Other names this person has been known by — maiden names, former married names, pen names, stage names, names before legal change, religious names, aliases. Useful for background check matching (private) or crediting published work under a different name (public).",
+              "items": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "kind"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "maiden",
+                      "former",
+                      "alias",
+                      "pen-name",
+                      "stage-name",
+                      "religious",
+                      "birth",
+                      "other"
+                    ],
+                    "description": "maiden = pre-marriage family name; former = any prior legal name (previous marriage, legal change); birth = name at birth if different from maiden context; pen-name / stage-name = professional pseudonyms; religious = name taken upon ordination or conversion."
+                  },
+                  "visibility": {
+                    "$ref": "#/$defs/visibilityPrivate",
+                    "$comment": "A maiden name for background checks stays private; a pen name on published books may be public."
+                  }
+                },
+                "additionalProperties": false
+              }
             }
           },
           "additionalProperties": false
         },
         "headline": {
-          "type": "string"
+          "type": "string",
+          "description": "One-line positioning statement (not a job title)."
         },
         "summary": {
-          "type": "string"
+          "type": "string",
+          "description": "Professional profile / about paragraph."
         },
         "contacts": {
           "type": "array",
+          "description": "Contact methods for the subject of the OCF file: email, phone, LinkedIn, GitHub, website, social profiles, ORCID, Signal, fax, or other ways to reach or identify the person professionally. Each contact method carries its own explicit visibility.",
           "items": {
-            "type": "object",
-            "required": [
-              "kind",
-              "value"
-            ],
-            "properties": {
-              "kind": {
-                "type": "string",
-                "enum": [
-                  "email",
-                  "phone",
-                  "url",
-                  "linkedin",
-                  "github",
-                  "social",
-                  "other"
-                ]
-              },
-              "value": {
-                "type": "string"
-              },
-              "label": {
-                "type": "string"
-              },
-              "primary": {
-                "type": "boolean"
-              },
-              "visibility": {
-                "$ref": "#/$defs/visibilityPrivate"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/$defs/contact"
           }
         },
         "locations": {
           "type": "array",
+          "description": "Where you're currently based. Multiple entries allowed if you split time between cities. This is where you live, not where you're willing to work — use `relocation` for that. Examples: New York, NY, US; London, UK; 'NYC & Las Vegas'.",
           "items": {
-            "type": "object",
-            "properties": {
-              "city": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              },
-              "remote": {
-                "type": "boolean"
-              },
-              "visibility": {
-                "$ref": "#/$defs/visibilityShared"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/$defs/location"
           }
         },
         "workAuthorization": {
@@ -225,126 +237,28 @@
     },
     "sourceArtifacts": {
       "type": "array",
-      "description": "Old resumes, LinkedIn exports, pasted notes, screenshots, photos, videos, job descriptions, or conversations used as source material.",
+      "description": "Inputs used to build, import, or enrich this OCF file: old resumes, LinkedIn exports, portfolio bios, application drafts, pasted chat text, interview transcripts, or other career artifacts. Source artifacts are evidence and context; they are not automatically canonical facts. Item-level provenance and narrative/title variants may reference these IDs.",
       "items": {
-        "type": "object",
-        "required": [
-          "id",
-          "kind",
-          "capturedDate"
-        ],
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "kind": {
-            "type": "string",
-            "enum": [
-              "resume",
-              "cover-letter",
-              "linkedin-export",
-              "portfolio-bio",
-              "application-draft",
-              "chat-paste",
-              "chat-attachment",
-              "interview-transcript",
-              "manual-note",
-              "other"
-            ]
-          },
-          "label": {
-            "type": "string"
-          },
-          "capturedDate": {
-            "$ref": "#/$defs/partialDate"
-          },
-          "artifactDate": {
-            "$ref": "#/$defs/partialDate"
-          },
-          "notes": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
+        "$ref": "#/$defs/sourceArtifact"
       }
     },
     "experience": {
       "type": "array",
-      "description": "All work history in one chronological list. Include jobs, self-employment, military service, caregiving, career breaks, and similar periods when relevant.",
+      "description": "This is where all of your work history is recorded as a single chronological list. Each entry is an experience entry: one relationship, tenure, assignment, or period in the person's timeline. Career breaks, homemaker periods, caregiver roles, and retirement are entries too, so the timeline has no gaps and lives in one place. Promotions, projects, role changes, and postings within an experience entry are nested inside `positions`.",
       "items": {
-        "type": "object",
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "employment",
-              "self-employment",
-              "consulting",
-              "gig",
-              "seasonal",
-              "military",
-              "government",
-              "homemaker",
-              "caregiver",
-              "career-break",
-              "retirement",
-              "other"
-            ]
-          },
-          "name": {
-            "type": "string"
-          },
-          "dateRange": {
-            "$ref": "#/$defs/dateRange"
-          },
-          "positions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/position"
-            }
-          }
-        },
-        "additionalProperties": false
+        "$ref": "#/$defs/experienceEntry"
       }
     },
     "education": {
       "type": "array",
+      "description": "All forms of learning — degrees, executive education, bootcamps, MOOCs, military training, vocational. Not just college.",
       "items": {
-        "type": "object",
-        "required": [
-          "institution"
-        ],
-        "properties": {
-          "institution": {
-            "type": "string"
-          },
-          "degree": {
-            "type": "string"
-          },
-          "field": {
-            "type": "string"
-          },
-          "dateRange": {
-            "$ref": "#/$defs/dateRange"
-          },
-          "achievements": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/achievement"
-            }
-          },
-          "visibility": {
-            "$ref": "#/$defs/visibility"
-          }
-        },
-        "additionalProperties": false
+        "$ref": "#/$defs/education"
       }
     },
     "skills": {
       "type": "array",
+      "description": "This section contains a long list of all your skills — every tool, technology you've used, regulatory framework, language, and domain term you can legitimately claim. ATS systems want laundry lists; this is that list, but structured. Distinct from `competencies` (which are narrative clusters nested in positions, written for humans). `skills` is the machine-parseable layer; `competencies` is the human-readable layer. Both describe what you know, at different granularities.",
       "items": {
         "type": "object",
         "required": [
@@ -352,7 +266,8 @@
         ],
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "The skill as an ATS would recognize it: 'Salesforce', 'KYC/KYB', 'Python', 'JIRA', 'Agile', 'SOC 2', etc."
           },
           "category": {
             "type": "string",
@@ -369,19 +284,22 @@
               "vehicle",
               "trade",
               "other"
-            ]
+            ],
+            "description": "Grouping category. e.g. 'Tools: Salesforce, Jira, HubSpot | Regulatory: KYC, AML, SOC 2'."
           },
           "aliases": {
             "type": "array",
+            "description": "Alternate names ATS systems might search for. e.g. 'SFDC' for Salesforce, 'K8s' for Kubernetes.",
             "items": {
               "type": "string"
             }
           },
           "current": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether this skill is current. Useful when dateRange is omitted or when a past skill should remain in the master but be downweighted in derivation."
           },
           "visibility": {
-            "$ref": "#/$defs/visibility"
+            "$ref": "#/$defs/visibilityShared"
           }
         },
         "additionalProperties": false
@@ -389,7 +307,8 @@
     },
     "cautions": {
       "type": "array",
-      "description": "Claims, framings, phrases, or assumptions the user does not want tools to make.",
+      "description": "Things the user explicitly does NOT want claimed on their behalf. The typical entry origin: an AI or coach suggested a framing or claim, the user corrected it, and the correction was captured here to prevent future drafts from repeating the mistake. Cautions are not a list of weaknesses — they are constraints on positioning.",
+      "$comment": "v0.3 is intentionally minimal: claim text plus optional reason, date, and provenance. Real usage will inform whether scope tags ('only for senior-leadership-targeted drafts', 'only when applying to engineering-heavy audiences') become useful additions. Future versions may add a stronger suppression/blacklist mechanism for material the user wants tools not to reintroduce from source artifacts after deletion or explicit rejection.",
       "items": {
         "type": "object",
         "required": [
@@ -397,10 +316,12 @@
         ],
         "properties": {
           "claim": {
-            "type": "string"
+            "type": "string",
+            "description": "The claim or framing to avoid. e.g. 'positioned as a deep ML expert', 'titled as a director before 2022', 'characterized as fluent in Spanish' (when proficiency is closer to working)."
           },
           "reason": {
-            "type": "string"
+            "type": "string",
+            "description": "Why this should not be claimed. Optional but helpful for future tools that might otherwise re-suggest the same overclaim."
           },
           "addedDate": {
             "$ref": "#/$defs/partialDate"
@@ -409,7 +330,29 @@
             "$ref": "#/$defs/provenance"
           },
           "visibility": {
-            "$ref": "#/$defs/visibility"
+            "$ref": "#/$defs/visibilityPrivate"
+          },
+          "id": {
+            "type": "string",
+            "description": "Stable local ID for this caution. Optional unless another item references it; if present, future editors must preserve it."
+          },
+          "reviewStatus": {
+            "$ref": "#/$defs/reviewStatus"
+          },
+          "reviewNote": {
+            "type": "string",
+            "description": "Short note explaining review status, correction, or remaining concern."
+          },
+          "supersededById": {
+            "type": "string",
+            "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
+          },
+          "reviewedBy": {
+            "type": "string",
+            "description": "Person or tool that last set or confirmed reviewStatus."
+          },
+          "reviewedDate": {
+            "$ref": "#/$defs/partialDate"
           }
         },
         "additionalProperties": false
@@ -417,7 +360,8 @@
     },
     "openQuestions": {
       "type": "array",
-      "description": "Questions that should be asked later instead of inventing facts now.",
+      "description": "Things to revisit in a future conversation — stories to mine, claims to verify, framings to nail down, achievements to flesh out. Maintained as a working queue between sessions so the user and the AI can pick up where they left off.",
+      "$comment": "v0.3 is intentionally minimal: a question text plus optional context, date, and provenance. Real usage will inform whether priority, status (open/resolved), or assignment fields are useful additions.",
       "items": {
         "type": "object",
         "required": [
@@ -425,10 +369,12 @@
         ],
         "properties": {
           "question": {
-            "type": "string"
+            "type": "string",
+            "description": "What to come back to. e.g. 'mine more from the Acme Co. role — only one achievement listed but I was there four years'; 'verify the SOC headcount-growth metric against my notes from 2024'."
           },
           "context": {
-            "type": "string"
+            "type": "string",
+            "description": "Optional context for where this question came from."
           },
           "addedDate": {
             "$ref": "#/$defs/partialDate"
@@ -437,7 +383,29 @@
             "$ref": "#/$defs/provenance"
           },
           "visibility": {
-            "$ref": "#/$defs/visibility"
+            "$ref": "#/$defs/visibilityPrivate"
+          },
+          "id": {
+            "type": "string",
+            "description": "Stable local ID for this open question. Optional unless another item references it; if present, future editors must preserve it."
+          },
+          "reviewStatus": {
+            "$ref": "#/$defs/reviewStatus"
+          },
+          "reviewNote": {
+            "type": "string",
+            "description": "Short note explaining review status, correction, or remaining concern."
+          },
+          "supersededById": {
+            "type": "string",
+            "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
+          },
+          "reviewedBy": {
+            "type": "string",
+            "description": "Person or tool that last set or confirmed reviewStatus."
+          },
+          "reviewedDate": {
+            "$ref": "#/$defs/partialDate"
           }
         },
         "additionalProperties": false
@@ -462,294 +430,8 @@
     }
   },
   "additionalProperties": false,
+  "$id": "https://opencareerformat.org/schema-core.json",
   "$defs": {
-    "position": {
-      "type": "object",
-      "required": [
-        "title",
-        "dateRange"
-      ],
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "dateRange": {
-          "$ref": "#/$defs/dateRange"
-        },
-        "summary": {
-          "type": "string"
-        },
-        "achievements": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/achievement"
-          }
-        },
-        "techStack": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "visibility": {
-          "$ref": "#/$defs/visibility"
-        }
-      },
-      "additionalProperties": false
-    },
-    "achievement": {
-      "type": "object",
-      "required": [
-        "statement"
-      ],
-      "properties": {
-        "statement": {
-          "type": "string"
-        },
-        "longform": {
-          "type": "string"
-        },
-        "kind": {
-          "type": "string",
-          "enum": [
-            "accomplishment",
-            "responsibility",
-            "project",
-            "recognition",
-            "other"
-          ]
-        },
-        "attribution": {
-          "type": "object",
-          "description": "How directly the subject contributed to the outcome. Use this to keep verbs honest in downstream wording.",
-          "properties": {
-            "role": {
-              "type": "string",
-              "enum": [
-                "owned",
-                "led",
-                "co-led",
-                "drove",
-                "contributed-to",
-                "supported",
-                "advised",
-                "observed",
-                "other"
-              ]
-            },
-            "scope": {
-              "type": "string"
-            },
-            "ownedBudget": {
-              "type": "boolean"
-            },
-            "ownedHeadcount": {
-              "type": "boolean"
-            },
-            "reportedUpward": {
-              "type": "boolean"
-            },
-            "notes": {
-              "type": "string"
-            }
-          },
-          "additionalProperties": false
-        },
-        "metrics": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/metric"
-          }
-        },
-        "skills": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "narrativeVariants": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "statement": {
-                "type": "string"
-              },
-              "audiences": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "notes": {
-                "type": "string"
-              },
-              "provenance": {
-                "$ref": "#/$defs/provenance"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "supportingFacts": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "statement"
-            ],
-            "properties": {
-              "statement": {
-                "type": "string"
-              },
-              "visibility": {
-                "$ref": "#/$defs/visibility"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "importance": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "visibility": {
-          "$ref": "#/$defs/visibility"
-        },
-        "provenance": {
-          "$ref": "#/$defs/provenance"
-        }
-      },
-      "additionalProperties": false
-    },
-    "metric": {
-      "type": "object",
-      "required": [
-        "kind"
-      ],
-      "properties": {
-        "kind": {
-          "type": "string"
-        },
-        "value": {
-          "type": "number"
-        },
-        "from": {
-          "type": "number"
-        },
-        "to": {
-          "type": "number"
-        },
-        "unit": {
-          "type": "string"
-        },
-        "period": {
-          "type": "string"
-        },
-        "basis": {
-          "type": "string",
-          "enum": [
-            "quota",
-            "budget",
-            "plan",
-            "target",
-            "forecast",
-            "prior-year",
-            "baseline",
-            "other"
-          ]
-        },
-        "basisLabel": {
-          "type": "string"
-        },
-        "note": {
-          "type": "string"
-        }
-      },
-      "anyOf": [
-        {
-          "required": [
-            "value"
-          ]
-        },
-        {
-          "required": [
-            "from",
-            "to"
-          ]
-        }
-      ],
-      "additionalProperties": false
-    },
-    "provenance": {
-      "type": "object",
-      "description": "Open-shape provenance metadata. Prefer common keys such as source, tool, date, sourceArtifactId, confidence, operation, and note.",
-      "additionalProperties": true
-    },
-    "extensions": {
-      "type": "object",
-      "description": "Vendor or user-local extension metadata. Use domain-owned keys for vendors and top-level user.local for user-owned incubation.",
-      "propertyNames": {
-        "pattern": "^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$",
-        "description": "A domain name owned by the vendor, or the interim user.local namespace for user-owned incubation. Must contain at least one dot; subdomains are allowed."
-      },
-      "additionalProperties": {
-        "type": "object",
-        "description": "Extension payload. OCF does not constrain its shape.",
-        "additionalProperties": true
-      }
-    },
-    "partialDate": {
-      "type": "object",
-      "properties": {
-        "year": {
-          "type": "integer"
-        },
-        "month": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 12
-        },
-        "day": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 31
-        },
-        "present": {
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": false
-    },
-    "dateRange": {
-      "type": "object",
-      "properties": {
-        "start": {
-          "$ref": "#/$defs/partialDate"
-        },
-        "end": {
-          "$ref": "#/$defs/partialDate"
-        }
-      },
-      "additionalProperties": false
-    },
-    "visibility": {
-      "type": "string",
-      "enum": [
-        "public",
-        "shared",
-        "private"
-      ]
-    },
-    "visibilityShared": {
-      "type": "string",
-      "enum": [
-        "public",
-        "shared",
-        "private"
-      ],
-      "default": "shared"
-    },
     "visibilityPrivate": {
       "type": "string",
       "enum": [
@@ -757,7 +439,70 @@
         "shared",
         "private"
       ],
-      "default": "private"
+      "default": "private",
+      "description": "Controls whether this item appears in curated/export-ready files or other downstream outputs. Visibility is relative to the file role and controller: in a candidate-owned master, private usually means private to the candidate's master; in a third-party working OCF, private may mean private to the recruiter, coach, agency, employer, or tool workflow controlling that file. public = safe for broad exposure in the relevant workflow. shared = include when the recipient has a reason to see it. private = keep inside the controlling file/workflow. Default is private — this field contains sensitive information that most curation/export workflows should exclude unless explicitly included."
+    },
+    "contact": {
+      "type": "object",
+      "required": [
+        "kind",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "email",
+            "phone",
+            "url",
+            "linkedin",
+            "github",
+            "social",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "primary": {
+          "type": "boolean"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate",
+          "description": "Explicit curation visibility for this contact method. Authoring tools should write this deliberately; consumers should not infer contact privacy from omission."
+        }
+      },
+      "additionalProperties": false
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string",
+          "description": "State/province."
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 preferred."
+        },
+        "remote": {
+          "type": "boolean"
+        },
+        "renderAs": {
+          "type": "string",
+          "description": "Resume-facing or human display text for this location when structured fields alone would lose meaning, e.g. Remote, company based in New York."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        }
+      },
+      "additionalProperties": false
     },
     "reviewStatus": {
       "type": "string",
@@ -769,6 +514,271 @@
         "superseded"
       ],
       "description": "Lightweight workflow state for durable user-facing or quoted content. unreviewed = captured but not checked by the user; needs-review = flagged for explicit review; user-confirmed = accepted by the user; do-not-use = retained only to prevent future reuse; superseded = replaced by newer wording or facts. This is not an institutional verification or proof tier."
+    },
+    "partialDate": {
+      "description": "A date where month or day may be unknown. Use `present: true` for ongoing ranges.",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "year"
+          ],
+          "properties": {
+            "year": {
+              "type": "integer",
+              "minimum": 1900,
+              "maximum": 2100
+            },
+            "month": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "day": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 31
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "present"
+          ],
+          "properties": {
+            "present": {
+              "type": "boolean",
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "sourceArtifact": {
+      "type": "object",
+      "$comment": "Reserved future direction: imported artifacts will likely need a structured reviewStatus (e.g. unreviewed, reviewed, partially-mined, superseded, do-not-use) once real importer workflows prove the right lifecycle. v0.3 records source metadata and leaves item trust/review details in provenance/openQuestions.",
+      "required": [
+        "id",
+        "kind",
+        "capturedDate"
+      ],
+      "description": "A historical input artifact used to mine or verify career data. This may be a file, export, pasted text, chat attachment, interview transcript, or manual note. Store enough metadata to trace provenance without requiring the raw artifact to be embedded in the OCF.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable local ID used by provenance, narrativeVariants, titleVariants, openQuestions, and importer notes."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "resume",
+            "cover-letter",
+            "linkedin-export",
+            "portfolio-bio",
+            "application-draft",
+            "chat-paste",
+            "chat-attachment",
+            "interview-transcript",
+            "manual-note",
+            "other",
+            "job-description",
+            "photo",
+            "video",
+            "conversation"
+          ],
+          "description": "The artifact type. job-description covers employer-provided role descriptions. conversation covers a retained chat/interview conversation. photo and video cover media artifacts that are evidence or portfolio material. chat-paste covers data pasted into an LLM conversation rather than uploaded as a file."
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-readable label, e.g. '2021 cloud-security resume', 'May 21 2026 ChatGPT paste', 'LinkedIn export'."
+        },
+        "capturedDate": {
+          "$ref": "#/$defs/partialDate",
+          "description": "When this artifact was added to or considered by the OCF workflow."
+        },
+        "artifactDate": {
+          "$ref": "#/$defs/partialDate",
+          "description": "When the artifact itself was created or last modified, if known."
+        },
+        "audience": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Audience or target this artifact was originally tuned for, e.g. implementation, executive, healthcare, federal."
+        },
+        "sourceTool": {
+          "type": "string",
+          "description": "Tool, platform, or person that provided the artifact, e.g. ChatGPT, LinkedIn, Google Docs, manual upload."
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URI for a retained artifact. Avoid linking to sensitive public locations."
+        },
+        "hash": {
+          "type": "string",
+          "description": "Optional content hash if the artifact is retained elsewhere and needs integrity checking."
+        },
+        "rawIncluded": {
+          "type": "boolean",
+          "description": "True if the raw artifact text/content is stored in or alongside this OCF workflow; false if only metadata was retained."
+        },
+        "notes": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        },
+        "reviewStatus": {
+          "$ref": "#/$defs/reviewStatus"
+        },
+        "reviewNote": {
+          "type": "string",
+          "description": "Short note explaining review status, correction, or remaining concern."
+        },
+        "supersededById": {
+          "type": "string",
+          "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
+        },
+        "reviewedBy": {
+          "type": "string",
+          "description": "Person or tool that last set or confirmed reviewStatus."
+        },
+        "reviewedDate": {
+          "$ref": "#/$defs/partialDate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "experienceEntry": {
+      "type": "object",
+      "description": "A single entry in your work history: one relationship, tenure, assignment, or period in the timeline. This is separate from `organizations`, which stores reusable reference data about institutions. An experience entry may reference an organization, but it can also stand alone for self-employment, caregiving, homemaking, career breaks, retirement, or messy imported records.",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "employment",
+            "self-employment",
+            "consulting",
+            "gig",
+            "seasonal",
+            "military",
+            "government",
+            "homemaker",
+            "caregiver",
+            "career-break",
+            "retirement",
+            "other"
+          ],
+          "default": "employment",
+          "description": "What kind of experience entry this is. gig = platform-mediated work where you set your own schedule but the platform owns the customer relationship (Uber, Lyft, DoorDash, TaskRabbit, Instacart, Fiverr). Distinct from self-employment (you own the client relationship) and contract (typically a defined engagement with one client). military = active duty, reserve, or guard service in any country's armed forces. government = civil service or public-sector employment (federal, state, local, international bodies). seasonal = work that recurs cyclically (construction, agriculture, fishing, tourism). homemaker = full-time management of a household — this is not a gap, it is a role with real responsibilities (budgeting, scheduling, logistics, volunteer coordination, childcare). Use positions and achievements to capture what you actually did: PTA president, household budget manager, homeschool curriculum designer, neighborhood watch coordinator. caregiver = primary caregiver for a family member or dependent — elder care, special-needs care, post-surgical recovery support. Distinct from homemaker in that the caregiving itself is the central activity. career-break covers sabbaticals, travel, relocation, health, or other intentional pauses. retirement marks the end of active employment. Keeps the timeline in one array without forcing consumers to merge separate sections."
+        },
+        "name": {
+          "type": "string",
+          "description": "The organization as it was known when you worked there — company, agency, branch of service, union hall. For career-break, homemaker, or caregiver entries, use a descriptive label like 'Career Break', 'Self', or 'Family Caregiving'."
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange",
+          "description": "Overall date range at this organization. For traditional employment, this is typically derived from the earliest position start to the latest position end. For career-break, homemaker, caregiver, or retirement entries where positions may be empty, this is required to place the entry on the timeline."
+        },
+        "positions": {
+          "type": "array",
+          "description": "One or more roles held at this organization. For career-break, homemaker, caregiver, or retirement entries, positions may be empty — the parent entry itself tells the story via its description and dateRange.",
+          "items": {
+            "$ref": "#/$defs/position"
+          }
+        },
+        "reflections": {
+          "type": "array",
+          "description": "Open-ended reflections at the company or experience-entry level (e.g. 'why I left', perceived company strengths and weaknesses, overall takeaway from working there). See $defs/reflection for the shape and https://opencareerformat.org/prompts/interview-prep-questions.md for the canonical kinds.",
+          "items": {
+            "$ref": "#/$defs/reflection"
+          }
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "additionalProperties": false
+    },
+    "education": {
+      "type": "object",
+      "required": [
+        "institution"
+      ],
+      "description": "A single learning experience. Covers everything from a 4-year degree to a weekend workshop to a MOOC certificate.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "institution": {
+          "type": "string"
+        },
+        "degree": {
+          "type": "string",
+          "description": "For degree programs: BA, BS, MSc, MBA, PhD, JD, MD, etc. Leave blank for non-degree education."
+        },
+        "field": {
+          "type": "string",
+          "description": "Major, concentration, or subject area."
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange"
+        },
+        "achievements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/achievement"
+          }
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        }
+      },
+      "additionalProperties": false
+    },
+    "visibilityShared": {
+      "type": "string",
+      "enum": [
+        "public",
+        "shared",
+        "private"
+      ],
+      "default": "shared",
+      "description": "Controls whether this item appears in curated/export-ready files or other downstream outputs. Visibility is relative to the file role and controller: in a candidate-owned master, private usually means private to the candidate's master; in a third-party working OCF, private may mean private to the recruiter, coach, agency, employer, or tool workflow controlling that file. public = safe for broad exposure in the relevant workflow. shared = include when the recipient has a reason to see it. private = keep inside the controlling file/workflow. Default is shared — items must be explicitly opted into public. Visibility does NOT cascade: a private experience entry can contain public achievements (e.g., a stealth-mode role where you can't name the company but can still claim the work). Curation/export tools are responsible for handling these edge cases."
+    },
+    "provenance": {
+      "type": "object",
+      "$comment": "Recommended common keys for interoperable tooling: source (authored/imported/interview-derived/llm-suggested/curated/translated/merged), tool, date, sourceArtifactId, sourceFileId, sourceItemId, confidence, sessionTopic, operation, and note. The object remains open in v0.3 so tools can preserve metadata during round-trip, but tools SHOULD use these common keys when possible.",
+      "description": "Open-shape provenance metadata. Tools that author or modify items may record how this item came to be — when, by what tool or session, from what kind of input, with what confidence — but OCF does not hard-validate the internal shape. Any consumer should treat unknown fields as opaque metadata: useful when readable, safe to ignore, and preserved on round-trip. Tools should still use the recommended common keys in the schema comment so provenance stays boring and interoperable. Provenance is the sibling of extensions: extensions carry vendor-specific data the vendor cares about; provenance describes who/when/how this item was produced. Putting provenance on individual items (not just at meta) lets a later tool understand what an earlier tool did without re-prompting the user.",
+      "additionalProperties": true
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Vendor-namespaced extension surface. Each top-level key is a domain name owned by the vendor (e.g. 'greenhouse.com', 'ashbyhq.com', 'mytool.example.com'), and each value is an open-shape object that vendor may use to attach proprietary metadata. Domain names — not arbitrary identifiers — are the convention because they are globally unique and self-asserted: a vendor 'owns' their extension namespace by owning the domain. Other tools MUST leave unknown extensions untouched on round-trip, and SHOULD ignore extensions they do not understand for rendering or derivation purposes. This is how OCF stays small while letting vendors differentiate without forking the schema.",
+      "propertyNames": {
+        "pattern": "^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$",
+        "description": "A domain name owned by the vendor (lowercase, e.g. 'greenhouse.com', 'mytool.example.com'). Must contain at least one dot; subdomains are allowed."
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "Vendor-defined payload. OCF does not constrain its shape.",
+        "additionalProperties": true
+      }
     },
     "positioningVariant": {
       "type": "object",
@@ -932,6 +942,530 @@
           "$ref": "#/$defs/partialDate"
         }
       },
+      "additionalProperties": false
+    },
+    "dateRange": {
+      "type": "object",
+      "required": [
+        "start"
+      ],
+      "properties": {
+        "start": {
+          "$ref": "#/$defs/partialDate"
+        },
+        "end": {
+          "$ref": "#/$defs/partialDate"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared",
+          "description": "Controls whether this date range appears in curated/export-ready files. Mark the dateRange private when the containing entry may remain visible but the dates should be suppressed, such as education dates that reveal age, employment dates that expose gaps, or deployment dates with sensitivity concerns."
+        }
+      },
+      "additionalProperties": false
+    },
+    "position": {
+      "description": "A single role, assignment, billet, posting, or appointment within an organization. Your whole tenure at the organization is the parent entry — facts that span it live there, not here.",
+      "type": "object",
+      "required": [
+        "title",
+        "dateRange"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "description": "Literal job title, rank, or billet name for this role. Not comparable across organizations."
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "achievements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/achievement"
+          }
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "additionalProperties": false
+    },
+    "reflection": {
+      "type": "object",
+      "description": "An open-ended, often subjective answer to an interview-prep or self-reflection question about a role or company. Topgrading-style 'what did you like best', 'how would your boss rate you 1-10', 'biggest mistake', 'why you left', and similar. Reflections are raw substrate for interview prep and conversational LLM tools — they preserve voice and texture in a way that derivation outputs cannot. They are not intended to be rendered into resumes or exported to other formats directly. When a reflection contains a distillable achievement, the recommended pattern is to propose a new structured achievement entry while leaving the reflection in place. See https://opencareerformat.org/prompts/interview-prep-questions.md for the canonical kind strings and the standard question set.",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "What the reflection is about. Use canonical kinds from https://opencareerformat.org/prompts/interview-prep-questions.md when applicable (e.g. 'boss-would-rate-1-10', 'liked-most', 'liked-least', 'biggest-success', 'biggest-mistake', 'biggest-lesson', 'why-left', 'proudest-of', 'company-strength', 'company-weakness'), or use a freeform kind for content that doesn't fit those categories. Conventions emerge from tools; the schema does not enforce a fixed list."
+        },
+        "text": {
+          "type": "string",
+          "description": "Open-ended prose answer. Use for narrative reflections."
+        },
+        "value": {
+          "type": "number",
+          "description": "Numeric answer (e.g. 1-10 ratings). Use instead of or alongside text."
+        },
+        "date": {
+          "$ref": "#/$defs/partialDate",
+          "description": "When this reflection was recorded. Useful when reflections evolve across multiple sessions."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate",
+          "description": "Reflections default to private — they are sensitive personal content."
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "id": {
+          "type": "string",
+          "description": "Stable local ID for this reflection. Optional unless another item references it; if present, future editors must preserve it."
+        },
+        "reviewStatus": {
+          "$ref": "#/$defs/reviewStatus"
+        },
+        "reviewNote": {
+          "type": "string",
+          "description": "Short note explaining review status, correction, or remaining concern."
+        },
+        "supersededById": {
+          "type": "string",
+          "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
+        },
+        "reviewedBy": {
+          "type": "string",
+          "description": "Person or tool that last set or confirmed reviewStatus."
+        },
+        "reviewedDate": {
+          "$ref": "#/$defs/partialDate"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "text"
+          ]
+        },
+        {
+          "required": [
+            "value"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "achievement": {
+      "type": "object",
+      "$comment": "Imported, inferred, or LLM-mined achievements should carry reviewStatus until the user accepts or rejects them. reviewStatus is workflow state; provenance, confidence, source artifacts, and openQuestions carry evidence context.",
+      "required": [
+        "statement"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable local ID so competencies and narratives can reference it."
+        },
+        "statement": {
+          "type": "string",
+          "description": "The bullet as you'd want it to appear on a resume. Plain text, self-contained."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "accomplishment",
+            "responsibility",
+            "project",
+            "recognition",
+            "other"
+          ],
+          "description": "accomplishment = a specific thing you did; responsibility = what you were accountable for on an ongoing basis; project = a bounded initiative (migration, launch, buildout); recognition = an award, selection, or external acknowledgment."
+        },
+        "longform": {
+          "type": "string",
+          "description": "The full story behind the bullet — stakes, context, what you actually did, what you learned, who was involved. Markdown. This is the nuance that doesn't fit on a resume but matters for understanding your career."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Skills demonstrated by this achievement. Freeform strings."
+        },
+        "attribution": {
+          "$ref": "#/$defs/attribution",
+          "description": "How directly the subject contributed to the outcome. Use this to keep verbs honest in downstream wording: led, drove, owned, contributed to, supported, advised, or observed. This is not formal verification; it is the subject/workflow's characterization of role in the outcome."
+        },
+        "supportingFacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/supportingFact"
+          },
+          "description": "Granular facts behind the broader achievement statement. Example: one achievement says 'Top 5 seller from 2010-2015'; supportingFacts stores each annual rank or attainment fact separately."
+        },
+        "narrativeVariants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/narrativeVariant"
+          },
+          "description": "Audience-specific alternate wording for the same underlying facts. Use to preserve phrasing imported from old resumes or prior derivations without replacing canonical fields."
+        },
+        "importance": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Relative importance — higher numbers are more important than lower numbers. No prescribed scale or ceiling. Derivation tools and renderers may use this to filter, sort, or visually weight items."
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "reviewStatus": {
+          "$ref": "#/$defs/reviewStatus"
+        },
+        "reviewNote": {
+          "type": "string",
+          "description": "Short note explaining review status, correction, or remaining concern."
+        },
+        "supersededById": {
+          "type": "string",
+          "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
+        },
+        "reviewedBy": {
+          "type": "string",
+          "description": "Person or tool that last set or confirmed reviewStatus."
+        },
+        "reviewedDate": {
+          "$ref": "#/$defs/partialDate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "metric": {
+      "description": "A structured, queryable number extracted from an achievement. Supply either `value` (point) or `from`+`to` (growth).",
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Freeform metric kind. Prefer boring, reusable labels when possible. Common examples: revenue, arr, bookings, pipeline, quotaAttainment, revenueAttainment, budgetAttainment, yoyGrowth, headcount, customerCount, retentionRate, duration, count, safety, output, utilization. This is intentionally not an enum because real careers produce too many metric variants."
+        },
+        "value": {
+          "type": "number",
+          "description": "Point value."
+        },
+        "from": {
+          "type": "number",
+          "description": "Start value, for growth metrics."
+        },
+        "to": {
+          "type": "number",
+          "description": "End value, for growth metrics."
+        },
+        "unit": {
+          "type": "string",
+          "description": "e.g. USD, people, days, %"
+        },
+        "period": {
+          "type": "string",
+          "description": "e.g. annual, monthly"
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "quota",
+            "budget",
+            "plan",
+            "target",
+            "forecast",
+            "prior-year",
+            "baseline",
+            "other"
+          ],
+          "description": "What this metric is measured against, when relevant. Use basisLabel for prose or source-specific language when the enum is too coarse."
+        },
+        "basisLabel": {
+          "type": "string",
+          "description": "Human-readable basis when the enum is too coarse, e.g. 'FY16 budget', 'annual new-logo quota', 'pre-launch baseline'."
+        },
+        "note": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "value"
+          ]
+        },
+        {
+          "required": [
+            "from",
+            "to"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "attribution": {
+      "type": "object",
+      "$comment": "First-pass shape. RACI-like distinctions can help tools ask better questions about responsibility, accountability, consultation, and proximity to the work, but OCF does not require or encode a formal RACI model. v0.3 keeps attribution optional and lightweight so tools can clarify role-in-outcome without forcing a formal responsibility framework.",
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "owned",
+            "led",
+            "co-led",
+            "drove",
+            "contributed-to",
+            "supported",
+            "advised",
+            "observed",
+            "other"
+          ],
+          "description": "The subject's relationship to the outcome. owned = had primary accountability for the outcome. led = led people, workstream, or execution. co-led = shared leadership or accountability with one or more peers. drove = was a major force in making it happen without necessarily owning all accountability. contributed-to = meaningful contributor as part of a broader effort. supported = helped enable someone else's effort. advised = provided guidance or expertise. observed = witnessed or was near the work but should not claim direct contribution. other = explain in notes."
+        },
+        "scope": {
+          "type": "string",
+          "description": "Optional plain-language scope of the subject's contribution, e.g. 'owned technical design', 'led customer rollout', 'contributed security review', 'executive sponsor'."
+        },
+        "ownedBudget": {
+          "type": "boolean",
+          "description": "True if the subject owned or was accountable for budget tied to the outcome."
+        },
+        "ownedHeadcount": {
+          "type": "boolean",
+          "description": "True if the subject owned or managed headcount tied to the outcome."
+        },
+        "reportedUpward": {
+          "type": "boolean",
+          "description": "True if the subject was responsible for reporting the outcome, risk, status, or results upward to leadership, board, client, command, or equivalent stakeholders."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Context or caveats about attribution, including team/shared ownership or why a particular verb is defensible."
+        }
+      },
+      "additionalProperties": false
+    },
+    "supportingFact": {
+      "type": "object",
+      "description": "A granular fact that supports a broader achievement, award, recognition, or sales-performance summary. Use this when the shareable statement blends multiple facts together, e.g. 'top 5 seller 2010-2015' backed by six annual rank records. Supporting facts are evidence and memory; derivation tools may summarize them rather than rendering each fact individually.",
+      "required": [
+        "statement"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable local ID so achievements or awards can reference this fact."
+        },
+        "statement": {
+          "type": "string",
+          "description": "Atomic human-readable fact, e.g. 'Ranked in the top 5 sellers for FY2012'."
+        },
+        "date": {
+          "$ref": "#/$defs/partialDate"
+        },
+        "dateRange": {
+          "$ref": "#/$defs/dateRange"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "sourceArtifactId": {
+          "type": "string",
+          "description": "Optional source artifact ID that supports this fact."
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "note": {
+          "type": "string",
+          "description": "Context, caveat, or source detail for this fact."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityPrivate",
+          "$comment": "A supporting fact may be shareable, but private is the safest default because evidence often contains raw numbers, source notes, or confidential context."
+        },
+        "reviewStatus": {
+          "$ref": "#/$defs/reviewStatus"
+        },
+        "reviewNote": {
+          "type": "string",
+          "description": "Short note explaining review status, correction, or remaining concern."
+        },
+        "supersededById": {
+          "type": "string",
+          "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
+        },
+        "reviewedBy": {
+          "type": "string",
+          "description": "Person or tool that last set or confirmed reviewStatus."
+        },
+        "reviewedDate": {
+          "$ref": "#/$defs/partialDate"
+        }
+      },
+      "additionalProperties": false
+    },
+    "narrativeVariant": {
+      "type": "object",
+      "$comment": "Reserved future direction: narrative variants may eventually carry reviewStatus (e.g. imported-unreviewed, user-approved, stale, do-not-use). v0.3 keeps the field out until importer/curator behavior settles. Future versions may also add explicit language/locale metadata for multilingual variants; v0.3 uses provenance/notes/audiences and the file-level meta.language.",
+      "description": "Audience-specific wording for the same underlying facts. Narrative variants preserve alternate phrasings imported from old resumes, LinkedIn profiles, portfolios, application drafts, or prior derivations without replacing the canonical factual fields. They may reframe, compress, or emphasize, but must not introduce unsupported facts.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-readable label for the variant, e.g. 'Federal resume version', 'Healthcare leadership framing', 'LinkedIn profile wording'."
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Audience tags this wording is useful for, e.g. healthcare, federal, executive, startup, technical-depth."
+        },
+        "targetRole": {
+          "type": "string",
+          "description": "Specific role or role family this wording was created for, if known."
+        },
+        "targetCompany": {
+          "type": "string",
+          "description": "Specific company this wording was created for, if known."
+        },
+        "sourceArtifact": {
+          "type": "string",
+          "description": "Where this wording came from, e.g. '2021 cloud-security resume', 'LinkedIn export', 'federal resume draft'."
+        },
+        "sourceArtifactId": {
+          "type": "string",
+          "description": "ID of an entry in top-level sourceArtifacts."
+        },
+        "headline": {
+          "type": "string",
+          "description": "Audience-specific alternate headline."
+        },
+        "title": {
+          "type": "string",
+          "description": "Audience-specific alternate title or heading."
+        },
+        "summary": {
+          "type": "string",
+          "description": "Audience-specific alternate summary."
+        },
+        "description": {
+          "type": "string",
+          "description": "Audience-specific alternate description."
+        },
+        "statement": {
+          "type": "string",
+          "description": "Audience-specific alternate achievement statement or bullet."
+        },
+        "shortStatement": {
+          "type": "string",
+          "description": "Audience-specific shorter form of a statement."
+        },
+        "longform": {
+          "type": "string",
+          "description": "Audience-specific longform narrative, when the source wording is richer than a bullet."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Notes about why this variant exists or what caveats apply."
+        },
+        "visibility": {
+          "$ref": "#/$defs/visibilityShared"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "reviewStatus": {
+          "$ref": "#/$defs/reviewStatus"
+        },
+        "reviewNote": {
+          "type": "string",
+          "description": "Short note explaining review status, correction, or remaining concern."
+        },
+        "supersededById": {
+          "type": "string",
+          "description": "Stable local ID of the item that supersedes this one. Use when reviewStatus is superseded; tools should verify that the referenced item exists and preserve the referenced ID."
+        },
+        "reviewedBy": {
+          "type": "string",
+          "description": "Person or tool that last set or confirmed reviewStatus."
+        },
+        "reviewedDate": {
+          "$ref": "#/$defs/partialDate"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "headline"
+          ]
+        },
+        {
+          "required": [
+            "title"
+          ]
+        },
+        {
+          "required": [
+            "summary"
+          ]
+        },
+        {
+          "required": [
+            "description"
+          ]
+        },
+        {
+          "required": [
+            "statement"
+          ]
+        },
+        {
+          "required": [
+            "shortStatement"
+          ]
+        },
+        {
+          "required": [
+            "longform"
+          ]
+        }
+      ],
       "additionalProperties": false
     }
   }

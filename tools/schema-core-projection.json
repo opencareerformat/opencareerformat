@@ -1,0 +1,97 @@
+{
+  "rootProperties": [
+    "$schema",
+    "schemaVersion",
+    "meta",
+    "person",
+    "sourceArtifacts",
+    "experience",
+    "education",
+    "skills",
+    "cautions",
+    "openQuestions",
+    "extensions",
+    "positioningVariants",
+    "talkingPoints"
+  ],
+  "propertySelections": {
+    "#/properties/meta": [
+      "id",
+      "version",
+      "fileRole",
+      "lastModified",
+      "language",
+      "source",
+      "parentFileId",
+      "parentVersion",
+      "lineageNotes"
+    ],
+    "#/properties/person": [
+      "name",
+      "headline",
+      "summary",
+      "contacts",
+      "locations",
+      "workAuthorization"
+    ],
+    "#/properties/skills/items": [
+      "name",
+      "category",
+      "aliases",
+      "current",
+      "visibility"
+    ],
+    "#/$defs/experienceEntry": [
+      "id",
+      "kind",
+      "name",
+      "dateRange",
+      "positions",
+      "reflections",
+      "visibility",
+      "provenance"
+    ],
+    "#/$defs/position": [
+      "id",
+      "title",
+      "dateRange",
+      "summary",
+      "achievements",
+      "visibility",
+      "provenance"
+    ],
+    "#/$defs/achievement": [
+      "id",
+      "statement",
+      "kind",
+      "longform",
+      "metrics",
+      "skills",
+      "attribution",
+      "supportingFacts",
+      "narrativeVariants",
+      "importance",
+      "provenance",
+      "visibility",
+      "reviewStatus",
+      "reviewNote",
+      "supersededById",
+      "reviewedBy",
+      "reviewedDate"
+    ],
+    "#/$defs/education": [
+      "id",
+      "institution",
+      "degree",
+      "field",
+      "dateRange",
+      "achievements",
+      "visibility"
+    ]
+  },
+  "metadata": {
+    "$id": "https://opencareerformat.org/schema-core.json",
+    "title": "Open Career Format Starter/Core Authoring Shape",
+    "description": "A generated strict projection of the current Open Career Format schema for first-pass authoring and context-constrained tools. Every included field is copied from the full schema; use schema.json for canonical validation and the complete field set."
+  }
+}

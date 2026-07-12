@@ -1,7 +1,8 @@
 # OCF Reference Validator
 
-This directory contains the local OCF JSON Schema validator. It validates OCF
-JSON files against `spec/schema.json` using AJV and JSON Schema 2020-12.
+This directory contains the local OCF validator. It validates OCF JSON files
+against `spec/schema.json` using AJV and JSON Schema 2020-12, then checks local
+referential integrity using the compact index generated from the full schema.
 
 Prefer local validation. OCF files often contain private career data. Do not
 upload a user's OCF file to a third-party validator unless the user explicitly
@@ -55,9 +56,13 @@ schema violations still fail validation.
 
 ## What Validation Means
 
-Validation checks structure only. A valid OCF file can still contain false
-claims, stale facts, private material, or content that should not be exported or
-shared with a particular recipient.
+Validation checks structure and file integrity: duplicate local IDs, dangling
+local references, missing organization keys, and supersession cycles. References
+that are explicitly allowed to resolve through a declared parent lineage cannot
+be fully checked without loading that parent file.
+
+A valid OCF file can still contain false claims, stale facts, private material,
+or content that should not be exported or shared with a particular recipient.
 
 Human review is still required before treating imported material as reviewed master content,
 applying proposed updates, or using any externally facing output.

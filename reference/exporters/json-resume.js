@@ -2,6 +2,7 @@
 
 const {
   collectAchievements,
+  countUnresolvedVariants,
   contactProfiles,
   dateRangeEnd,
   dateRangeStart,
@@ -14,9 +15,11 @@ const {
   selectedTitle,
   visibleItems,
   writeOutput,
+  filterByVisibility,
 } = require("./lib/ocf");
 
 function toJsonResume(doc) {
+  doc = filterByVisibility(doc, "shared");
   const person = doc.person || {};
   const basics = {
     name: person.name?.renderAs,
@@ -171,6 +174,10 @@ function printExportSummary(doc, exported, outputPath) {
   console.error(`Private OCF items are not exported by this reference tool.`);
   if (doc.meta?.fileRole !== "export-ready") {
     console.error(`Input fileRole is ${doc.meta?.fileRole || "unspecified"}; review curation before treating this as final output.`);
+  }
+  const unresolvedVariants = countUnresolvedVariants(doc);
+  if (unresolvedVariants) {
+    console.error(`Ignored ${unresolvedVariants} unresolved title/narrative variants; exporters use canonical fields from the provided file.`);
   }
 }
 

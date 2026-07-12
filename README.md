@@ -42,7 +42,7 @@ spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
   examples/       # Canonical example OCF files.
 
 schema.json       # Current schema alias, suitable for new files and tools that want "latest".
-schema-core.json  # Starter/core authoring shape for LLMs and first-time OCF creation.
+schema-core.json  # Generated starter/core projection for LLMs and first-time OCF creation.
 llms.txt          # LLM/tool site map pointing to the guide, schemas, skills, and prompts.
 
 prompts/          # OPTIONAL OPERATING GUIDANCE — LLM/coach/curator prompts that can evolve separately.
@@ -97,6 +97,8 @@ See [`spec/guide.html`](spec/guide.html) for the full design walkthrough, includ
 ## What OCF Is Not
 
 OCF deliberately does not specify how content is elicited (the interviewing layer), how export files are produced (the export layer), or how content is scored against opportunities (the matching layer). Those are tool concerns. By staying focused on *what gets persisted*, OCF stays small enough that an individual can understand their own file and that developers/vendors can compete on tooling without forking the format.
+
+That does not mean the project is indifferent to what good elicitation produces. We hope models, coaches, and tools recover context that conventional resumes leave behind, especially stories, explanations, and reflections preserved in the person's own words. Models can interpret that material, identify patterns in it, ask questions that uncover more gems, and propose uses for it without replacing the source memory with polished AI prose. OCF structures what is worth keeping while leaving tools free to improve how they discover it.
 
 ## Conventions for Tools
 

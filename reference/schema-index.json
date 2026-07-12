@@ -1,0 +1,2162 @@
+{
+  "schemaVersion": "0.3",
+  "visibilityPaths": [
+    {
+      "segments": [
+        "aiInstructions"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "awards",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "awards",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "awards",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "awards",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "awards",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "awards",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "cautions",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "certifications",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "certifications",
+        "*",
+        "credentialId"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "certifications",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "competencies",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "education",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "location"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "discharge"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "exitContext"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "locations",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "notes"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "bookOfBusiness",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "bookOfBusiness",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "bookOfBusiness",
+        "*",
+        "outcomes",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "bookOfBusiness",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "bookOfBusiness",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "bookOfBusiness",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "compensation"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "compensation",
+        "history",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "compensation",
+        "history",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "competencies",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "deployments",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "deployments",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "deployments",
+        "*",
+        "location"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "locations",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "patents",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "funding",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "funding",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "reflections",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "salesPerformance",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "salesPerformance",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "salesPerformance",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "salesPerformance",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "salesPerformance",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "supervisor"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "supervisor",
+        "contacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "titleVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "reflections",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "goals"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "governance",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "interests",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "languages",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "mediaAppearances",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "mediaAppearances",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "mediaAppearances",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "openQuestions",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "organizations",
+        "*",
+        "location"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "patents",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "person",
+        "clearances",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "person",
+        "clearances",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "person",
+        "contacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "person",
+        "dateOfBirth"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "person",
+        "gender"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "person",
+        "legalName"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "person",
+        "locations",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "person",
+        "maritalStatus"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "person",
+        "name",
+        "otherNames",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "person",
+        "nationality"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "person",
+        "photo"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "person",
+        "relocation",
+        "preferred",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "person",
+        "workAuthorization",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "positioningVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "projects",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "funding",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "funding",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "location"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "publications",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "references",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "references",
+        "*",
+        "contacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "service",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "skills",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "skills",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "sourceArtifacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "speaking",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "speaking",
+        "*",
+        "location"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "talkingPoints",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*",
+        "metrics",
+        "*"
+      ],
+      "default": "private"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "dateRange"
+      ],
+      "default": "shared"
+    },
+    {
+      "segments": [
+        "voice"
+      ],
+      "default": "private"
+    }
+  ],
+  "idDefinitionPaths": [
+    {
+      "segments": [
+        "awards",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "cautions",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "certifications",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "education",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "education",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "experience",
+        "*"
+      ],
+      "group": "experience"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "bookOfBusiness",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "bookOfBusiness",
+        "*",
+        "outcomes",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "bookOfBusiness",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "reflections",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "salesPerformance",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "positions",
+        "*",
+        "titleVariants",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "reflections",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "experience",
+        "*",
+        "spanning",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "governance",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "governance",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "memberships",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "openQuestions",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "person",
+        "workAuthorization",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "positioningVariants",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "projects",
+        "*"
+      ],
+      "group": "project"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "projects",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "service",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "service",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "sourceArtifacts",
+        "*"
+      ],
+      "group": "source-artifact"
+    },
+    {
+      "segments": [
+        "speaking",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "talkingPoints",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*"
+      ],
+      "group": "durable-item"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*",
+        "narrativeVariants",
+        "*"
+      ],
+      "group": "achievement"
+    },
+    {
+      "segments": [
+        "teaching",
+        "*",
+        "achievements",
+        "*",
+        "supportingFacts",
+        "*"
+      ],
+      "group": "achievement"
+    }
+  ],
+  "referenceFields": {
+    "supportingItemIds": {
+      "target": "any-id",
+      "many": true,
+      "allowParentLineage": true
+    },
+    "supersededById": {
+      "target": "any-id",
+      "many": false,
+      "allowParentLineage": true
+    },
+    "sourceArtifactId": {
+      "target": "source-artifact",
+      "many": false,
+      "allowParentLineage": true
+    },
+    "organizationRef": {
+      "target": "organization-key",
+      "many": false
+    },
+    "relatedExperienceIds": {
+      "target": "experience",
+      "many": true
+    },
+    "relatedProjectIds": {
+      "target": "project",
+      "many": true
+    },
+    "relatedAchievementIds": {
+      "target": "achievement",
+      "many": true
+    }
+  }
+}
