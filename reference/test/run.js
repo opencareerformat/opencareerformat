@@ -14,7 +14,7 @@ testContextProfile();
 console.log("reference behavior tests: PASS");
 
 function testPrivateDefaults() {
-  const filtered = filterByVisibility({
+  const source = {
     person: {
       name: { renderAs: "Example Person" },
       contacts: [{ kind: "email", value: "private@example.com" }],
@@ -27,15 +27,30 @@ function testPrivateDefaults() {
       positions: [{
         id: "position",
         title: "Role",
-        achievements: [{ id: "achievement", statement: "Shared by schema default" }],
+        achievements: [{
+          id: "achievement",
+          statement: "Shared by schema default",
+          provenance: { sourceArtifactId: "resume" },
+        }],
       }],
     }],
-  });
+  };
+  const filtered = filterByVisibility(source);
 
   assert.deepStrictEqual(filtered.person.contacts, []);
   assert.deepStrictEqual(filtered.sourceArtifacts, []);
   assert.deepStrictEqual(filtered.talkingPoints, []);
   assert.strictEqual(filtered.experience[0].positions[0].achievements[0].statement, "Shared by schema default");
+  assert.strictEqual(filtered.experience[0].positions[0].achievements[0].provenance.sourceArtifactId, undefined);
+  assert.deepStrictEqual(validateSemantic(filtered), []);
+
+  const childInput = {
+    ...source,
+    meta: { parentFileId: "parent-file" },
+  };
+  const child = filterByVisibility(childInput, "shared", { preserveFilteredReferences: true });
+  assert.strictEqual(child.experience[0].positions[0].achievements[0].provenance.sourceArtifactId, "resume");
+  assert.deepStrictEqual(validateSemantic(child), []);
 }
 
 function testCanonicalVariantExport() {

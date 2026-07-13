@@ -14,7 +14,9 @@ function curateForJob(doc, jobText, options = {}) {
   }
 
   const visibilityMode = options.visibilityMode || "shared";
-  doc = filterByVisibility(doc, visibilityMode);
+  // The curated child carries parent lineage, so opaque references may still
+  // resolve in the parent even when the referenced private item is not copied.
+  doc = filterByVisibility(doc, visibilityMode, { preserveFilteredReferences: true });
   const terms = importantTerms(jobText);
   const now = new Date().toISOString().slice(0, 10);
   const selectedExperience = selectExperience(doc, terms, visibilityMode);
