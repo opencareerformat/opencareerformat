@@ -322,6 +322,27 @@
 
 <p>Possible future homes include <code>sourceArtifacts</code>, item-level <code>provenance</code>, a future evidence/trust model, or an extension convention. The important boundary is ownership: OCF should let a candidate preserve, question, curate, and reuse external attestations without making the platform or vendor the owner of their career memory.</p>
 
+<h2>Candidate Direction: Context Profiles Before Physical Sharding</h2>
+
+<p>Large OCF masters and the full schema can exceed what a model needs for one task. The first response should be selective loading, not immediately splitting the canonical career record across files.</p>
+
+<p>A context profile is optional local operating configuration that identifies which parts of the complete master a tool or model needs to know at that time. A generated context view may omit long-form reflection text, achievement <code>longform</code>, private compensation detail, source material, or voice samples while retaining stable IDs and enough metadata to request the full item later. Absence from the current context must mean <strong>not loaded</strong>, not <strong>does not exist</strong>.</p>
+
+<p>Working boundary:</p>
+
+<ul>
+<li>the complete OCF master remains the source of career-authoritative state;</li>
+<li>a local, human-readable context configuration stores optional loading preferences, not career facts;</li>
+<li>a generated context view is disposable and must never overwrite the master;</li>
+<li>accepted improvements flow back to the complete master;</li>
+<li>tools should be able to implement the profile behavior without depending on an OCF-hosted service or proprietary runtime;</li>
+<li>ordinary OCF files remain understandable without the local context configuration.</li>
+</ul>
+
+<p>Long-form stories are the likely first pressure test because they are valuable, private, individually retrievable, and expensive to load into every conversation. Start with one <code>career-summary</code> profile and test whether models can work from compact story metadata, recognize that full text was withheld, and request a specific story by ID when interview preparation, story mining, or voice-sensitive drafting requires it.</p>
+
+<p>Physical sharding remains deferred. Context-profile usage should first reveal which material is loaded together, what references must survive omission, and whether stories are retrieved individually, by role, or as a complete story bank. Any later shard or package design should grow from those observed access patterns rather than from a temporary manifest shape.</p>
+
 <h2>Deferred Or Separate Work</h2>
 
 <p>These ideas may deserve future exploration, but they should remain outside v0.3:</p>
@@ -331,7 +352,7 @@
 <li>a companion job-description schema;</li>
 <li>complex time-decay semantics beyond review timestamps and curation judgment;</li>
 <li>full scoring models for candidate-role fit;</li>
-<li>sharding or manifest shapes for very large masters;</li>
+<li>physical sharding or package/manifest shapes for very large masters, after context-profile experiments establish the access pattern;</li>
 <li>reference renderers that imply one canonical resume layout.</li>
 </ul>
 

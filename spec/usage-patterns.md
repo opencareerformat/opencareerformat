@@ -164,3 +164,17 @@ career/
 ```
 
 This is not schema. It is a local file-management pattern: keep the private master and backups separate from source evidence and from per-application outputs. If a machine should remember the user's preferred workspace, `~/.ocf-home` may contain a single absolute path to that folder, but tools should ask before creating, changing, or using it.
+
+## Local Companion Configuration
+
+OCF being a file format does not require every local operating preference to live inside the career record. A user may keep a separate, local, human-readable configuration file beside the master for preferences such as folder locations, default context profiles, or which expensive sections a local tool normally withholds from an LLM until needed.
+
+Keep the boundary explicit:
+
+- the OCF master contains career-authoritative state: what the person and their tools need to remember, question, curate, and reuse;
+- local companion configuration contains optional operating preferences for tools working with that master;
+- generated context views are disposable representations of what a model needs to know at that time.
+
+Local companion configuration must remain under the user's control, readable and editable without a proprietary application, and unnecessary for interpreting an ordinary OCF file. It should not become an activity log, hidden database, synchronization service, or second source of career truth. A tool may use it to generate a reduced context view, but accepted career updates must be applied to the complete master rather than to the context view.
+
+When a context view intentionally omits long-form stories, reflections, compensation details, source material, or other expensive/private content, it must distinguish **not loaded** from **does not exist**. Retain stable IDs and compact metadata where possible, identify the source master and version, describe which categories were omitted, and let the model or user request specific full items when the current task requires them.

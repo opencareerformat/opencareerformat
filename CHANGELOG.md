@@ -21,6 +21,7 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 - Made the minimal private filter, curator, and exporters honor schema-declared visibility defaults without adding runtime dependencies.
 - Made reference exporters use canonical fields and warn about unresolved title/narrative variants instead of silently choosing the first variant.
+- Clarified that optional, local, user-controlled configuration may hold tool operating preferences while career-authoritative state remains in the OCF; added the v0.4 context-profile direction as a precursor to physical sharding.
 
 ## [0.3.0] — 2026-06-15
 

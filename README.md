@@ -100,6 +100,8 @@ OCF deliberately does not specify how content is elicited (the interviewing laye
 
 That does not mean the project is indifferent to what good elicitation produces. We hope models, coaches, and tools recover context that conventional resumes leave behind, especially stories, explanations, and reflections preserved in the person's own words. Models can interpret that material, identify patterns in it, ask questions that uncover more gems, and propose uses for it without replacing the source memory with polished AI prose. OCF structures what is worth keeping while leaving tools free to improve how they discover it.
 
+OCF being a file format also does not prohibit small local tools or local configuration. Career-authoritative state belongs in the OCF file; optional operating preferences, such as how much of a large master to load for a particular task, may live in separate local files controlled by the user. Those files must remain readable, replaceable, and unnecessary for interpreting an ordinary OCF file. Hidden, required, hosted, or vendor-controlled state is outside the OCF model.
+
 ## Conventions for Tools
 
 The reference prompts ([`prompts/README.md`](prompts/README.md)) carry the full operating guidance. Three conventions matter enough to repeat here:

@@ -350,6 +350,22 @@
     {company}-{role}-{date}/</code></pre>
 
 <p>This is not schema. It is a local file-management pattern: keep the private master and backups separate from source evidence and from per-application outputs. If a machine should remember the user's preferred workspace, <code>~/.ocf-home</code> may contain a single absolute path to that folder, but tools should ask before creating, changing, or using it.</p>
+
+<h2>Local Companion Configuration</h2>
+
+<p>OCF being a file format does not require every local operating preference to live inside the career record. A user may keep a separate, local, human-readable configuration file beside the master for preferences such as folder locations, default context profiles, or which expensive sections a local tool normally withholds from an LLM until needed.</p>
+
+<p>Keep the boundary explicit:</p>
+
+<ul>
+<li>the OCF master contains career-authoritative state: what the person and their tools need to remember, question, curate, and reuse;</li>
+<li>local companion configuration contains optional operating preferences for tools working with that master;</li>
+<li>generated context views are disposable representations of what a model needs to know at that time.</li>
+</ul>
+
+<p>Local companion configuration must remain under the user's control, readable and editable without a proprietary application, and unnecessary for interpreting an ordinary OCF file. It should not become an activity log, hidden database, synchronization service, or second source of career truth. A tool may use it to generate a reduced context view, but accepted career updates must be applied to the complete master rather than to the context view.</p>
+
+<p>When a context view intentionally omits long-form stories, reflections, compensation details, source material, or other expensive/private content, it must distinguish <strong>not loaded</strong> from <strong>does not exist</strong>. Retain stable IDs and compact metadata where possible, identify the source master and version, describe which categories were omitted, and let the model or user request specific full items when the current task requires them.</p>
 </main>
 <footer class="source-link">
   <p>This page is generated from <a href="./usage-patterns.md"><code>spec/usage-patterns.md</code></a>.</p>
