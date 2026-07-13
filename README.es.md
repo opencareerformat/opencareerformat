@@ -6,7 +6,7 @@
   <img src="spec/assets/ocf-logo.png" alt="Open Career Format logo" width="160">
 </p>
 
-> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `b8bef8b`, traducido el 2026-07-12. Si hay conflicto, controla el inglés.
+> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `5a0d11d`, traducido el 2026-07-12. Si hay conflicto, controla el inglés.
 
 > Nota: este README, la página principal, el prompt inicial y el ejemplo trabajado tienen versiones en español. La mayoría de los enlaces técnicos más profundos todavía van a documentación canónica en inglés.
 
@@ -59,6 +59,7 @@ La validación comprueba estructura, no verdad ni seguridad para compartir. Un O
 - [`schema.json`](schema.json): alias del schema actual.
 - [`schema-core.json`](schema-core.json): forma starter/core para primeras sesiones y LLMs.
 - [`llms.txt`](llms.txt): mapa del sitio para LLMs y herramientas.
+- [`reference/context/`](reference/context/): ejemplo local que crea vistas de contexto reducidas y recupera elementos completos por ID cuando un master es grande.
 - [`skills/`](skills/): workflows empaquetados para agentes locales. Los skills usan la misma guía OCF que los prompts, pero agregan gestión local de archivos: dónde vive el master, dónde van los backups, dónde se guardan las fuentes y dónde queda cada output de una postulación.
 - [`prompts/application-bootstrap.es.md`](prompts/application-bootstrap.es.md): wrapper español del prompt inicial para currículum + descripción de puesto.
 - [`spec/examples/worked-example-walkthrough.es.html`](spec/examples/worked-example-walkthrough.es.html): ejemplo narrativo de cómo un currículum se convierte en memoria de carrera.
