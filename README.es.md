@@ -6,7 +6,7 @@
   <img src="spec/assets/ocf-logo.png" alt="Open Career Format logo" width="160">
 </p>
 
-> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `fb43f8a`, traducido el 2026-07-12. Si hay conflicto, controla el inglés.
+> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `b8bef8b`, traducido el 2026-07-12. Si hay conflicto, controla el inglés.
 
 > Nota: este README, la página principal, el prompt inicial y el ejemplo trabajado tienen versiones en español. La mayoría de los enlaces técnicos más profundos todavía van a documentación canónica en inglés.
 
@@ -49,6 +49,8 @@ OCF es un formato de archivo, no una plataforma. No hay cuenta, servicio ni nada
 OCF no define cómo entrevistar a la persona, cómo diseñar todos los documentos exportados ni cómo puntuar una candidatura contra un puesto. Esas son decisiones de herramientas. OCF se enfoca en qué se conserva para que distintas herramientas puedan trabajar con la misma memoria de carrera sin inventar un formato nuevo.
 
 Eso no significa que al proyecto le dé igual lo que produce una buena conversación. Esperamos que los modelos, coaches y herramientas recuperen el contexto que los currículums convencionales dejan fuera, especialmente historias, explicaciones y reflexiones conservadas en las propias palabras de la persona. Los modelos pueden interpretar ese material, identificar patrones, hacer preguntas que descubran más detalles valiosos y proponer cómo utilizarlo sin sustituir la memoria original por prosa pulida por una IA. OCF estructura lo que vale la pena conservar y deja que las herramientas sigan mejorando la forma de descubrirlo.
+
+Que OCF sea un formato de archivo tampoco prohíbe pequeñas herramientas locales ni configuración local. El estado que define la historia profesional pertenece al archivo OCF; las preferencias operativas opcionales, como cuánto contenido de un master grande cargar para una tarea concreta, pueden vivir en archivos locales separados bajo el control de la persona. Esos archivos deben seguir siendo legibles, sustituibles e innecesarios para interpretar un archivo OCF normal. El estado oculto, obligatorio, alojado o controlado por un proveedor queda fuera del modelo OCF.
 
 La validación comprueba estructura, no verdad ni seguridad para compartir. Un OCF válido todavía puede contener afirmaciones falsas, material privado, datos obsoletos o contenido que no debería enviarse a un destinatario concreto.
 
