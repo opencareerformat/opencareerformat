@@ -6,12 +6,20 @@ description: Use when a user wants to create or update a Career-Ops workspace fr
 # OCF Export Career-Ops
 
 Status: current  
-Last updated: 2026-06-29  
+Last updated: 2026-07-13
 Compatible schema versions: OCF 0.3
 
 Create or update a local Career-Ops workspace from an OCF file. This is a filesystem workflow, not a schema change.
 
 Career-Ops is a local job-search workspace. OCF is durable career memory. The integration should let the user bring OCF evidence into Career-Ops without making either project absorb the other.
+
+## Choose The Integration Path
+
+When this work is running inside Career-Ops and `career-ops-plugin-ocf` is installed, use that plugin's pinned skill and utilities. The plugin owns the Career-Ops-native connector contract, its supported OCF compatibility slice, and its tested Career-Ops file shapes.
+
+Use this OCF-native skill for a direct one-way bootstrap when the plugin is unavailable or the user explicitly wants to export from an OCF workspace into Career-Ops files. If the primary goal is to improve the OCF file itself, use OCF-native authoring, curation, and validation workflows first; Career-Ops can read the reviewed OCF later.
+
+Do not combine live OCF guidance with an installed plugin's pinned behavior during an ordinary Career-Ops run. Updating that behavior is plugin development and should produce a tested plugin release.
 
 ## Boundaries
 
