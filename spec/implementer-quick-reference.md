@@ -111,6 +111,20 @@ Validation checks structure only. It does not verify whether claims are true,
 whether private content is safe to share, or whether a file is appropriate for a
 specific export or recipient.
 
+## Large Masters And Selective Context
+
+A complete candidate-owned master remains authoritative even when it is too
+large for one model interaction. Tools may use a local, human-readable context
+profile to build a disposable reduced view, but they must make omitted content
+observable as **not loaded**, retain stable IDs and source-master identity, and
+apply accepted updates to the complete master.
+
+The dependency-free `reference/context/ocf-context.js` script demonstrates a
+compact context envelope and retrieval of one complete item by file-local ID.
+Its profile shape is reference-tool configuration rather than OCF schema.
+Context reduction does not enforce privacy; apply visibility filtering and
+curation separately when needed.
+
 ## Naming Conventions
 
 OCF does not force filenames. Human-readable names make workflows easier to inspect.

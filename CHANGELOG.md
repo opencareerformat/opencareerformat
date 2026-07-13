@@ -8,6 +8,7 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 ### Added
 
+- Added a dependency-free `reference/context/ocf-context.js` proof of concept for local context profiles, explicit withheld-content manifests, and full-item retrieval by stable ID.
 - Generated `schema-core.json` as a strict projection of the full schema, with CI checks that the application-bootstrap starter validates against both shapes.
 - Added a compact generated schema index for visibility defaults and local reference semantics; the reference validator now reports duplicate IDs, dangling local references, and supersession cycles.
 - Added focused reference behavior tests for private-default filtering, canonical variant export, and semantic references.

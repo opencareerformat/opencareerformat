@@ -1,0 +1,20 @@
+{
+  "format": "ocf-context-profile",
+  "profileVersion": "1",
+  "name": "career-summary",
+  "withholdFields": [
+    "longform"
+  ],
+  "withholdSections": [
+    "compensation"
+  ],
+  "compactCollections": {
+    "reflections": [
+      "text"
+    ],
+    "sourceArtifacts": [
+      "notes",
+      "raw"
+    ]
+  }
+}

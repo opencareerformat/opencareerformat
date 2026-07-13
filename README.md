@@ -65,6 +65,7 @@ mappings/         # CROSS-FORMAT DOCS — prose-only specifications for how OCF
 reference/        # REFERENCE IMPLEMENTATIONS — code that is NOT part of the
                   # schema but proves it works end-to-end.
   validator/      # A small Node-based JSON Schema validator.
+  context/        # Local context-profile views and item retrieval for large masters.
   curators/       # Master OCF -> proposed improvements and/or export-ready input.
   exporters/      # Export-ready input -> files (PDF, HTML, JSON Resume, LER-RS, ...).
   importers/      # other-format -> OCF converters.

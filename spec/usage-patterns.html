@@ -366,6 +366,8 @@
 <p>Local companion configuration must remain under the user's control, readable and editable without a proprietary application, and unnecessary for interpreting an ordinary OCF file. It should not become an activity log, hidden database, synchronization service, or second source of career truth. A tool may use it to generate a reduced context view, but accepted career updates must be applied to the complete master rather than to the context view.</p>
 
 <p>When a context view intentionally omits long-form stories, reflections, compensation details, source material, or other expensive/private content, it must distinguish <strong>not loaded</strong> from <strong>does not exist</strong>. Retain stable IDs and compact metadata where possible, identify the source master and version, describe which categories were omitted, and let the model or user request specific full items when the current task requires them.</p>
+
+<p>The dependency-free <a href="../reference/context/ocf-context.js"><code>reference/context/ocf-context.js</code></a> script demonstrates this boundary. It uses a local, editable profile to produce an explicit non-authoritative envelope and can retrieve one full item by its file-local stable ID. Its context profile is reference-tool configuration, not part of the OCF schema, and context reduction is not a substitute for visibility filtering or curation.</p>
 </main>
 <footer class="source-link">
   <p>This page is generated from <a href="./usage-patterns.md"><code>spec/usage-patterns.md</code></a>.</p>
