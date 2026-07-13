@@ -4,7 +4,7 @@ All notable changes to the Open Career Format specification and reference implem
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
-## [Unreleased]
+## 2026-07-12
 
 ### Added
 
