@@ -123,7 +123,9 @@ The dependency-free `reference/context/ocf-context.js` script demonstrates a
 compact context envelope and retrieval of one complete item by file-local ID.
 Its profile shape is reference-tool configuration rather than OCF schema.
 Context reduction does not enforce privacy; apply visibility filtering and
-curation separately when needed.
+curation separately when needed. See [Selective Context Without Splitting the
+Master](context-profiles.md) for the design rationale and the questions the
+first conservative profile is intended to test.
 
 ## Naming Conventions
 

@@ -7,6 +7,11 @@ const root = path.resolve(__dirname, "..");
 
 const docs = [
   {
+    source: "spec/context-profiles.md",
+    title: "Selective Context Without Splitting the Master",
+    description: "How local OCF context profiles can reduce model context while preserving one complete authoritative master.",
+  },
+  {
     source: "spec/usage-patterns.md",
     title: "OCF Usage Patterns",
     description: "File-role and workflow patterns for Open Career Format.",

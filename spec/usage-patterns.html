@@ -367,7 +367,7 @@
 
 <p>When a context view intentionally omits long-form stories, reflections, compensation details, source material, or other expensive/private content, it must distinguish <strong>not loaded</strong> from <strong>does not exist</strong>. Retain stable IDs and compact metadata where possible, identify the source master and version, describe which categories were omitted, and let the model or user request specific full items when the current task requires them.</p>
 
-<p>The dependency-free <a href="../reference/context/ocf-context.js"><code>reference/context/ocf-context.js</code></a> script demonstrates this boundary. It uses a local, editable profile to produce an explicit non-authoritative envelope and can retrieve one full item by its file-local stable ID. Its context profile is reference-tool configuration, not part of the OCF schema, and context reduction is not a substitute for visibility filtering or curation.</p>
+<p>The dependency-free <a href="../reference/context/ocf-context.js"><code>reference/context/ocf-context.js</code></a> script demonstrates this boundary. It uses a local, editable profile to produce an explicit non-authoritative envelope and can retrieve one full item by its file-local stable ID. Its context profile is reference-tool configuration, not part of the OCF schema, and context reduction is not a substitute for visibility filtering or curation. See <a href="./context-profiles.html">Selective Context Without Splitting the Master</a> for the rationale and limits of the experiment.</p>
 </main>
 <footer class="source-link">
   <p>This page is generated from <a href="./usage-patterns.md"><code>spec/usage-patterns.md</code></a>.</p>

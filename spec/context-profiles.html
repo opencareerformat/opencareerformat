@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selective Context Without Splitting the Master — Open Career Format</title>
+<meta name="description" content="How local OCF context profiles can reduce model context while preserving one complete authoritative master.">
+<link rel="canonical" href="https://opencareerformat.org/spec/context-profiles.html">
+<link rel="icon" type="image/png" href="./assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selective Context Without Splitting the Master">
+<meta property="og:description" content="How local OCF context profiles can reduce model context while preserving one complete authoritative master.">
+<meta property="og:url" content="https://opencareerformat.org/spec/context-profiles.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Selective Context Without Splitting the Master">
+<meta name="twitter:description" content="How local OCF context profiles can reduce model context while preserving one complete authoritative master.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Selective Context Without Splitting the Master",
+  "name": "Selective Context Without Splitting the Master",
+  "url": "https://opencareerformat.org/spec/context-profiles.html",
+  "description": "How local OCF context profiles can reduce model context while preserving one complete authoritative master.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="./assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./context-profiles.md">View the Markdown source</a>.</p>
+<h1>Selective Context Without Splitting the Master</h1>
+
+<p>An OCF master is intentionally broader than any one resume, application, interview, or conversation. Over time it may contain years of roles, achievements, alternate wording, cautions, source records, and stories preserved in the person's own words. That completeness is useful, but a model rarely needs all of it at once.</p>
+
+<p>The first response should not be to split the person's career memory into competing partial masters. OCF is testing a smaller step: keep one complete authoritative master and create disposable context views containing what a tool or model needs to know at that time.</p>
+
+<h2>The Basic Pattern</h2>
+
+<p>The pattern has four parts:</p>
+
+<ol>
+<li><strong>Complete master:</strong> The candidate-owned OCF remains the authoritative career record.</li>
+<li><strong>Local profile:</strong> A small, readable configuration describes which expensive fields to withhold for a particular kind of task.</li>
+<li><strong>Disposable view:</strong> A local tool creates a reduced context envelope and records exactly what was not loaded.</li>
+<li><strong>Selective retrieval:</strong> If the task needs a withheld story or other durable item, the tool retrieves that complete item from the master by its file-local stable ID.</li>
+</ol>
+
+<p>Accepted improvements flow back to the complete master after user review. The context view is never promoted into a replacement master and never becomes a second source of career truth.</p>
+
+<pre><code class="language-text">complete OCF master
+        |
+        | local context profile
+        v
+disposable context view  ----------&gt; model or tool
+        ^                                  |
+        |                                  | request item ID
+        +------ full item from master &lt;----+
+
+accepted, reviewed improvements ----------&gt; complete OCF master</code></pre>
+
+<h2>What &quot;Not Loaded&quot; Means</h2>
+
+<p>A reduced view must not turn absence into a false claim.</p>
+
+<p>If a long-form story is withheld, the model should be able to see that an item exists, recognize that its text was not loaded, and request it by ID. It must not conclude that the person has no story, no reflection, or no supporting evidence merely because that material was excluded from the current context.</p>
+
+<p>For that reason, a context envelope should retain:</p>
+
+<ul>
+<li>the source master's <code>meta.id</code>, schema version, file version, and freshness marker;</li>
+<li>stable IDs and compact metadata for withheld durable items when available;</li>
+<li>an explicit list of withheld paths or categories;</li>
+<li>a clear statement that the view is disposable and non-authoritative.</li>
+</ul>
+
+<h2>What The First Reference Proves</h2>
+
+<p>The dependency-free <a href="../reference/context/ocf-context.js"><code>reference/context/ocf-context.js</code></a> script implements a deliberately conservative <code>career-summary</code> profile. It withholds achievement and variant <code>longform</code>, compensation sections, reflection text, and verbose source-artifact content while retaining the surrounding structures.</p>
+
+<p>Against the fictional Maria example, the profile records eight withheld fields, leaves the never-on-resume story discoverable by stable ID, and can retrieve the complete verbatim story from the master. The normalized payload becomes only about six percent smaller.</p>
+
+<p>That modest reduction is acceptable for this first proof. The experiment is testing whether selective loading is understandable and safe before it tries to maximize compression. It demonstrates that:</p>
+
+<ul>
+<li>the master can remain untouched;</li>
+<li>omission can be explicit rather than ambiguous;</li>
+<li>a model can begin with reduced context;</li>
+<li>a specific complete item can be loaded when needed;</li>
+<li>the mechanism requires no hosted OCF service, hidden database, or schema change.</li>
+</ul>
+
+<p>It does <strong>not</strong> yet prove that <code>career-summary</code> is the right profile, that the reduction is large enough for every master, or that long-form stories are the only material worth deferring.</p>
+
+<h2>Why Start Conservatively</h2>
+
+<p>Aggressive reduction designed in the abstract would risk removing the exact nuance that makes OCF useful. A job application, career review, interview-preparation session, and public-profile update may each need different combinations of facts, cautions, voice, variants, and stories.</p>
+
+<p>Profiles should become more selective only after observing real tasks:</p>
+
+<ul>
+<li>Which sections are almost always loaded together?</li>
+<li>Which omitted items do models request?</li>
+<li>Do models ask for stories individually, by role, or as a story bank?</li>
+<li>Which compact metadata helps a model decide what to retrieve?</li>
+<li>Which content is expensive but still important as a drafting control?</li>
+<li>When does selective loading stop being enough and physical sharding become worthwhile?</li>
+</ul>
+
+<p>The current profile is therefore a probe, not an optimization target.</p>
+
+<h2>Local Configuration, Not Career State</h2>
+
+<p>A context profile describes how a particular local tool loads a file. It does not describe the person's career and does not belong in the OCF schema.</p>
+
+<p>The profile should remain:</p>
+
+<ul>
+<li>local and controlled by the user;</li>
+<li>plain JSON or another readable format;</li>
+<li>optional and replaceable;</li>
+<li>unnecessary for interpreting an ordinary OCF file;</li>
+<li>free of activity logs, hidden synchronization state, and career facts.</li>
+</ul>
+
+<p>Other developers should be able to write a different profile generator without asking permission or depending on an OCF-hosted runtime.</p>
+
+<h2>Context Reduction Is Not Privacy Filtering</h2>
+
+<p>Reducing model context does not make a file safe to share. A context view may still contain private contact details, sensitive dates, cautions, internal stories, or identifying combinations of facts.</p>
+
+<p>Visibility filtering, target-specific curation, model/provider trust, and user approval remain separate decisions. A tool must not advertise a context profile as anonymization or as permission to send the resulting view to a hosted model.</p>
+
+<h2>Try The Reference</h2>
+
+<p>Create an editable local profile:</p>
+
+<pre><code class="language-bash">node reference/context/ocf-context.js init ocf-context.json</code></pre>
+
+<p>Build a disposable view:</p>
+
+<pre><code class="language-bash">node reference/context/ocf-context.js build \
+  person.master.ocf.json \
+  ocf-context.json \
+  person.context.json</code></pre>
+
+<p>Retrieve one complete item after the model or user requests its ID:</p>
+
+<pre><code class="language-bash">node reference/context/ocf-context.js get \
+  person.master.ocf.json \
+  ITEM_ID</code></pre>
+
+<p>The profile shape and context envelope are reference-tool conventions. They are intentionally outside the OCF schema and may change as the experiment produces evidence.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./context-profiles.md"><code>spec/context-profiles.md</code></a>.</p>
+</footer>
+</body>
+</html>

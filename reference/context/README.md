@@ -68,4 +68,6 @@ cross-person lookup and does not treat IDs as global identifiers.
 
 These scripts are intentionally small and opinionated enough to test the
 context-profile idea. The profile shape is reference-tool configuration, not
-part of the OCF schema or a promised interchange standard.
+part of the OCF schema or a promised interchange standard. See [Selective
+Context Without Splitting the Master](../../spec/context-profiles.md) for the
+design rationale and the limits of the first conservative profile.
