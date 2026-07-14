@@ -4,6 +4,12 @@ All notable changes to the Open Career Format specification and reference implem
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
+## 2026-07-13
+
+### Changed
+
+- Clarified the two Career-Ops integration paths: a standalone one-way OCF export and a planned bidirectional installed plugin that uses OCF as the local career-memory backend while preserving Career-Ops ownership of search workflow and runtime state.
+
 ## 2026-07-12
 
 ### Added

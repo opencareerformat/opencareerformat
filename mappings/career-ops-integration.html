@@ -209,6 +209,17 @@
 
 <p>The skill is intentionally adaptive. It should inspect the installed Career-Ops workspace's own examples/templates before writing files, because Career-Ops may change its expected file shapes over time. OCF should not copy or freeze Career-Ops templates.</p>
 
+<h2>Two Documented Integration Paths</h2>
+
+<p>OCF documents two complementary paths:</p>
+
+<ol>
+<li><strong>Standalone OCF-side export (one-way).</strong> The OCF export skill curates a reviewed OCF file into the user-layer files a Career-Ops workspace expects. Career-Ops can then operate without caring where those files came from. This path does not require Career-Ops or a plugin to change.</li>
+<li><strong>Installed Career-Ops plugin integration (planned, bidirectional).</strong> A planned <code>career-ops-plugin-ocf</code> can use OCF as the local, durable career-memory backend beneath Career-Ops. The plugin can curate OCF for one or more search tracks, populate or refresh Career-Ops inputs, and propose user-approved career-memory improvements back to the candidate's OCF file in addition to Career-Ops' normal file updates.</li>
+</ol>
+
+<p>The plugin path augments rather than replaces Career-Ops' native files, search workflow, scoring, reports, pipeline, or runtime state. Until the plugin is published and registered, the standalone export skill remains the public integration path.</p>
+
 <h2>What The Skill Exports</h2>
 
 <p>The skill prepares Career-Ops user-layer files, such as:</p>
@@ -234,7 +245,7 @@
 <li>cautions, goals, and provenance relevant to the track.</li>
 </ul>
 
-<p>If someone is running multiple searches, such as customer success leadership and solutions consulting, the skill should avoid blending them into one ambiguous candidate profile. Separate Career-Ops workspaces or clearly separated output folders may be better today; a future deeper integration could let Career-Ops choose from OCF's track-specific variants directly.</p>
+<p>If someone is running multiple searches, such as customer success leadership and solutions consulting, the skill should avoid blending them into one ambiguous candidate profile. The standalone export path should use separate Career-Ops workspaces or clearly separated output folders. The planned plugin path can instead let Career-Ops curate distinct track-specific inputs from the same OCF master.</p>
 
 <h2>Example: Maria Starts A Career-Ops Search</h2>
 
@@ -283,11 +294,11 @@
 
 <p>An OCF skill may ask for those values and write them to Career-Ops configuration files for the current workspace. It should not save them back to the OCF master unless the user explicitly asks to preserve them as reviewed goals or preferences with visibility and provenance.</p>
 
-<h2>Deeper Integration: Career-Ops As Curator And Exporter</h2>
+<h2>Planned Plugin Integration: Career-Ops As Curator And Exporter</h2>
 
-<p>A deeper integration could be more interesting than file export.</p>
+<p>The planned installed plugin is the deeper, bidirectional integration path. OCF remains the candidate-controlled career-memory backend; the plugin is the versioned adapter that lets Career-Ops curate from it and propose reviewed improvements back to it.</p>
 
-<p>OCF already stores stable career facts separately from target/audience-specific variants: positioning, narrative variants, talking points, cautions, goals, and provenance. Career-Ops could potentially use OCF as the candidate's career substrate, curate and export what it needs for a given search track, run its job-search workflow, and then feed user-approved career-history improvements back into the OCF file.</p>
+<p>OCF already stores stable career facts separately from target/audience-specific variants: positioning, narrative variants, talking points, cautions, goals, and provenance. Through the plugin, Career-Ops can use OCF as the candidate's career substrate, curate and export what it needs for a given search track, run its job-search workflow, and then propose user-approved career-history improvements back to the OCF file.</p>
 
 <p>The back channel to OCF should be limited to reusable career memory, such as:</p>
 
