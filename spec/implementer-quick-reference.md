@@ -147,6 +147,7 @@ Use directory structure if it helps: `imports/`, `curated/`, `exports/`, `archiv
 - If a file declares a newer schema version that the tool does not understand, warn and preserve rather than silently dropping fields. Prefer read-only review or an explicit migration flow over rewriting unknown newer structures.
 - Unknown object keys should be preserved when possible.
 - Unknown `extensions` namespaces must not be deleted on round-trip.
+- Generic visibility filters cannot determine whether arbitrary content inside an unknown extension namespace is safe for a particular recipient. Preserve unknown extensions, honor explicit visibility when present, and describe filtering truthfully: the user or an extension-aware curator controls whether that content belongs in an output.
 - Stable item IDs should survive edits.
 - `visibility` defaults should be conservative when the author is a tool rather than the person.
 - The master is the source of truth for career memory; exported files are outputs.

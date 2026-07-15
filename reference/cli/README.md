@@ -38,3 +38,8 @@ runtime filter uses only Node.js built-in modules.
 
 This is a convenience filter, not an anonymizer: organization names, dates, rare
 skills, metrics, and combinations of facts can still identify someone.
+Unknown extension namespaces are preserved because a generic OCF tool cannot know
+their meaning. The filter removes explicit and schema-default private objects, but
+it cannot prove that arbitrary extension content is safe to share. The user or an
+extension-aware curator remains responsible for deciding whether that content
+belongs in a particular output.

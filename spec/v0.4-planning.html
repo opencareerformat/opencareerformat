@@ -345,6 +345,35 @@
 
 <p>The non-normative <a href="./context-profiles.html">context-profile design note</a> and dependency-free reference script document the first conservative experiment. The initial goal is to prove explicit omission and selective retrieval, not to maximize size reduction.</p>
 
+<h2>Candidate Corrections From v0.3 Use</h2>
+
+<p>These are considerations for a future schema design pass, not approved v0.4 fields and not changes to the frozen v0.3 schema.</p>
+
+<h3>Dates</h3>
+
+<ul>
+<li>Close <code>partialDate</code> objects with <code>additionalProperties: false</code> so misspelled fields do not validate.</li>
+<li>Continue allowing year-only and year-plus-month dates, but require <code>month</code> whenever <code>day</code> is present.</li>
+<li>Separate calendar dates from the ongoing-range marker: point dates and range starts should use a calendar <code>partialDate</code>; only a range end should also permit <code>{ &quot;present&quot;: true }</code>.</li>
+<li>Extend semantic validation to reject impossible calendar dates, <code>present</code> as a range start, and an end that is provably earlier than its start. Partial dates whose ordering cannot be known should remain valid.</li>
+</ul>
+
+<h3>Identity And Required Content</h3>
+
+<ul>
+<li>Describe <code>meta.id</code> as a stable file ID rather than requiring UUID v4. File-local item IDs remain free to use readable stable identifiers.</li>
+<li>Consider <code>minLength: 1</code> for common required identity and content fields such as rendered person names, item names, titles, and achievement statements. Do not apply it indiscriminately to every string.</li>
+<li>Consider requiring one minimal identifying field on lightly used objects that currently allow <code>{}</code>: <code>title</code> for awards and patents, and <code>name</code> for interests. Keep the rule lightweight and confirm it against real examples before approval.</li>
+</ul>
+
+<h3>Certification Issuers</h3>
+
+<p>The v0.3 certification issuer accepts either a display string or a structured object. The structured form is more elaborate than most OCF use requires and accidentally remains open to unknown properties. A future pass should consider a smaller closed object centered on <code>name</code> and optional <code>url</code>. More specialized issuer identifiers or verification metadata should earn first-class space through real interoperability use rather than anticipation.</p>
+
+<h3>Grants And Funding</h3>
+
+<p>The current schema contains similar funding structures with different names and shapes, including <code>grantNumber</code> in one place and <code>grantId</code> in another. Before normalizing them, determine whether OCF has enough real grant and funding use to justify first-class fields. A future release may instead remove lightly proven funding structures and publish an incubating extension convention under the appropriate user-local or producer-owned namespace. Job-search funding history and external grant-system records should not be modeled merely because fields already exist.</p>
+
 <h2>Deferred Or Separate Work</h2>
 
 <p>These ideas may deserve future exploration, but they should remain outside v0.3:</p>

@@ -8,6 +8,10 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 ### Changed
 
+- Clarified that reference visibility filtering cannot determine whether arbitrary unknown extension payloads are safe to share; users and extension-aware curators retain that decision.
+- Made the application bootstrap handle missing target or career evidence conservatively, fail honestly when its canonical URL cannot be retrieved, and suggest a stable master filename when returning a complete JSON file.
+- Added non-normative v0.4 considerations for date correctness, stable file IDs, selective non-empty requirements, lightweight item identity, simpler certification issuers, and whether lightly proven grant/funding fields should return to extension incubation.
+- Corrected Maria Reyes's structured GPA and removed unnecessary fictional thesis and publication material from both frozen OCF revisions.
 - Made visibility filtering fail closed when an object carries an invalid explicit visibility value.
 - Made imported generic social links default to shared rather than public, and stopped orphan resume bullets from being assigned to the first role.
 - Made unknown employment end dates remain unknown instead of rendering them as Present.

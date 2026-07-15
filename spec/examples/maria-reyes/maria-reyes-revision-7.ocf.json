@@ -1149,17 +1149,8 @@
         }
       },
       "status": "completed",
-      "honors": [
-        "4.0 GPA"
-      ],
-      "achievements": [
-        {
-          "statement": "Thesis: 'Automated Threat Hunting in Zero Trust Environments Using Machine Learning'",
-          "kind": "accomplishment",
-          "importance": 3,
-          "visibility": "public"
-        }
-      ],
+      "gpa": 4.0,
+      "gpaScale": 4.0,
       "importance": 4
     },
     {
@@ -1272,18 +1263,6 @@
       },
       "description": "Keynote on military-to-civilian cyber career transitions.",
       "importance": 3
-    }
-  ],
-  "publications": [
-    {
-      "title": "Automated Threat Hunting in Zero Trust Environments",
-      "venue": "UTSA Cybersecurity Research Lab",
-      "date": {
-        "year": 2021,
-        "month": 5
-      },
-      "identifier": "UTSA-CS-2021-017",
-      "importance": 2
     }
   ],
   "languages": [
