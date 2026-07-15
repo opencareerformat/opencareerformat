@@ -14,6 +14,8 @@ const { buildPrompt } = require("../ollama/ocf-local-llm");
 const { curateForJob, summarizeCuration } = require("../curators/job-description");
 const { validateSemantic } = require("../validator/semantic");
 const validateStandalone = require("../validator/standalone.cjs");
+const Ajv2020 = require("../validator/node_modules/ajv/dist/2020");
+const addFormats = require("../validator/node_modules/ajv-formats");
 
 testPrivateDefaults();
 testInvalidVisibilityFailsClosed();
@@ -266,12 +268,17 @@ function testValidatorCli() {
 
 function testStandaloneValidator() {
   const repoRoot = path.resolve(__dirname, "../..");
+  const schema = JSON.parse(fs.readFileSync(path.join(repoRoot, "schema.json"), "utf8"));
+  const ajv = new Ajv2020({ allErrors: true, strict: false });
+  addFormats(ajv);
+  const validateCanonical = ajv.compile(schema);
   const examples = [
     "spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json",
     "spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json",
   ];
   for (const example of examples) {
     const document = JSON.parse(fs.readFileSync(path.join(repoRoot, example), "utf8"));
+    assert.strictEqual(validateStandalone(document), validateCanonical(document), example);
     assert.strictEqual(validateStandalone(document), true, JSON.stringify(validateStandalone.errors));
   }
 
@@ -282,6 +289,7 @@ function testStandaloneValidator() {
     { schemaVersion: "0.3", person: { name: { renderAs: "Example" }, photo: { value: "not a URI" } } },
   ];
   for (const document of invalidCases) {
+    assert.strictEqual(validateStandalone(document), validateCanonical(document), JSON.stringify(document));
     assert.strictEqual(validateStandalone(document), false, JSON.stringify(document));
     assert.ok(validateStandalone.errors.length > 0);
   }
