@@ -9,13 +9,13 @@ This deterministic curator is intentionally shallow. An LLM-backed curator could
 ## Job Description Curator
 
 ```bash
-node reference/curators/job-description.js spec/examples/sample-resume.ocf.json spec/examples/sample-job-description.txt /tmp/sample.candidate-curated.ocf.json
+node reference/curators/job-description.js spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json spec/examples/maria-reyes/healthcare-job-description.txt /tmp/sample.candidate-curated.ocf.json
 ```
 
 For a stricter public-only demonstration, strip both private and shared items:
 
 ```bash
-node reference/curators/job-description.js --public-only spec/examples/sample-resume.ocf.json spec/examples/sample-job-description.txt /tmp/public-only.ocf.json
+node reference/curators/job-description.js --public-only spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json spec/examples/maria-reyes/healthcare-job-description.txt /tmp/public-only.ocf.json
 ```
 
 The curator:

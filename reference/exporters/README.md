@@ -7,8 +7,8 @@ Exporters should normally consume an export-ready OCF file rather than the priva
 ## JSON Resume
 
 ```bash
-node reference/exporters/json-resume.js spec/examples/sample-resume.ocf.json
-node reference/exporters/json-resume.js spec/examples/sample-resume.ocf.json /tmp/sample-resume.resume.json
+node reference/exporters/json-resume.js spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json
+node reference/exporters/json-resume.js spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json /tmp/sample-resume.resume.json
 ```
 
 The exporter maps visible OCF content into the established JSON Resume shape: `basics`, `work`, `education`, `certificates`, `skills`, `projects`, `publications`, `awards`, `languages`, and `interests`.
@@ -16,8 +16,8 @@ The exporter maps visible OCF content into the established JSON Resume shape: `b
 ## LinkedIn Paste Bundle
 
 ```bash
-node reference/exporters/linkedin.js spec/examples/sample-resume.ocf.json
-node reference/exporters/linkedin.js spec/examples/sample-resume.ocf.json /tmp/sample-linkedin.md
+node reference/exporters/linkedin.js spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json
+node reference/exporters/linkedin.js spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json /tmp/sample-linkedin.md
 ```
 
 The exporter produces a Markdown paste bundle organized around LinkedIn editing areas: headline, about, contact info, experience, education, licenses and certifications, skills, projects, publications, awards, languages, and volunteer experience.

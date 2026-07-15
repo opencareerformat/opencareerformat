@@ -2,8 +2,8 @@
 
 const fs = require("fs");
 
-const markdown = fs.readFileSync("spec/examples/worked-example-walkthrough.md", "utf8");
-const sample = JSON.parse(fs.readFileSync("spec/examples/sample-resume.ocf.json", "utf8"));
+const markdown = fs.readFileSync("spec/examples/maria-reyes/implementation-details.md", "utf8");
+const sample = JSON.parse(fs.readFileSync("spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json", "utf8"));
 
 const jsonBlocks = [...markdown.matchAll(/```json\n([\s\S]*?)\n```/g)].map((match) => JSON.parse(match[1]));
 

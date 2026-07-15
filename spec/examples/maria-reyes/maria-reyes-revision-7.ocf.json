@@ -3,13 +3,13 @@
   "schemaVersion": "0.3",
   "meta": {
     "fileRole": "candidate-master",
-    "lastModified": "2026-05-24",
+    "lastModified": "2026-07-14",
     "language": "en-US",
     "source": {
       "kind": "authored"
     },
     "id": "c94ffaa9-31fd-40d7-96cd-a66725a9784a",
-    "version": "db2a5a6fc562"
+    "version": "7"
   },
   "person": {
     "name": {
@@ -20,7 +20,7 @@
       "pronouns": "she/her"
     },
     "headline": "Cybersecurity leader bridging military discipline with enterprise security strategy",
-    "summary": "Eight years of Army service in signal and cyber operations followed by a decade in private-sector cybersecurity. Led SOC teams, built zero-trust architectures, and earned CISSP and CISM certifications. Comfortable briefing generals and board members alike.",
+    "summary": "Ten years in dedicated cybersecurity across Army cyber operations and civilian roles, preceded by Army signal-systems experience. Led SOC teams, built zero-trust architectures, and earned CISSP and CISM certifications. Briefs the CISO monthly and the board audit committee quarterly.",
     "contacts": [
       {
         "kind": "email",
@@ -201,7 +201,7 @@
     },
     {
       "label": "Security Architecture & Zero Trust",
-      "description": "Designed zero-trust network architectures for hybrid cloud environments. Led FedRAMP authorization for a SaaS product. Translated military DISA STIG experience into enterprise hardening standards.",
+      "description": "Designed zero-trust network architectures for hybrid cloud environments. Led the security-operations workstream supporting a successful FedRAMP Moderate authorization. Translated military DISA STIG experience into enterprise hardening standards.",
       "skills": [
         "Zero Trust Architecture",
         "AWS Security",
@@ -212,7 +212,7 @@
     },
     {
       "label": "Leadership & Cross-Functional Communication",
-      "description": "Led teams of 8-40 across military and civilian contexts. Briefed flag officers, C-suite executives, and board audit committees on risk posture and incident status. Mentored junior analysts through career transitions.",
+      "description": "Led a 6-person Army cyber team and later an 18-person civilian security function with 12 direct reports. Briefs the CISO monthly and the board audit committee quarterly. Has coordinated incident groups as large as 40 people, but does not describe that as management scope.",
       "skills": [
         "Personnel Management",
         "Briefing / Executive Communication"
@@ -401,6 +401,62 @@
               "kind": "accomplishment",
               "importance": 4,
               "visibility": "public"
+            },
+            {
+              "id": "mhs-fedramp-security-operations-workstream",
+              "statement": "Led the security-operations workstream supporting a successful FedRAMP Moderate authorization, accountable for logging and monitoring, incident response, vulnerability remediation, operational evidence, and assigned findings.",
+              "kind": "accomplishment",
+              "importance": 4,
+              "audiences": [
+                "government-contractor",
+                "federal",
+                "security-leadership"
+              ],
+              "skills": [
+                "FedRAMP",
+                "NIST 800-53",
+                "Incident Response",
+                "Vulnerability Management"
+              ],
+              "visibility": "shared",
+              "attribution": {
+                "role": "owned",
+                "scope": "Owned the security-operations workstream. The GRC director owned the overall authorization program and 3PAO relationship; cloud engineering owned infrastructure changes.",
+                "reportedUpward": true,
+                "notes": "The SaaS product received authorization in 2025. Do not describe Maria as having led the entire authorization."
+              },
+              "provenance": {
+                "source": "interview-derived",
+                "date": "2026-07-14",
+                "sessionTopic": "Government-contractor role review",
+                "operation": "fedramp-attribution-clarification",
+                "confidence": 0.95,
+                "sourceArtifactId": "government-contractor-review-2026-07-14"
+              },
+              "reviewStatus": "user-confirmed"
+            },
+            {
+              "id": "mhs-executive-security-briefings",
+              "statement": "Briefs the CISO monthly on operational risk and the board audit committee quarterly on security posture.",
+              "kind": "responsibility",
+              "importance": 3,
+              "audiences": [
+                "security-leadership",
+                "executive-communication"
+              ],
+              "skills": [
+                "Briefing / Executive Communication"
+              ],
+              "visibility": "shared",
+              "provenance": {
+                "source": "interview-derived",
+                "date": "2026-07-14",
+                "sessionTopic": "Government-contractor role review",
+                "operation": "executive-communication-clarification",
+                "confidence": 0.95,
+                "sourceArtifactId": "government-contractor-review-2026-07-14"
+              },
+              "reviewStatus": "user-confirmed"
             },
             {
               "statement": "Reduced mean time to detect (MTTD) from 72 hours to under 4 hours through SIEM tuning and automated triage",
@@ -1054,7 +1110,7 @@
             "operation": "recovered-promotion-dates-behind-final-rank",
             "confidence": 0.9,
             "sourceArtifactId": "sample-resume-source-2026-05",
-            "note": "Final rank and MOS appear on the source resume; the dated steps were established in conversation for this fictional example."
+              "note": "Final rank and MOS appear on the source resume; the dated steps were established during Conversation Six."
           }
         },
         {
@@ -1396,6 +1452,60 @@
         "day": 11
       },
       "id": "caution-described-as-having-held-a-leadership-rank"
+    },
+    {
+      "claim": "described as having led the entire FedRAMP authorization",
+      "reason": "Maria owned the security-operations workstream. The GRC director owned the overall authorization program and 3PAO relationship, and cloud engineering owned infrastructure changes.",
+      "visibility": "private",
+      "provenance": {
+        "source": "interview-derived",
+        "date": "2026-07-14",
+        "sourceArtifactId": "government-contractor-review-2026-07-14",
+        "operation": "fedramp-attribution-correction",
+        "confidence": 0.95
+      },
+      "addedDate": {
+        "year": 2026,
+        "month": 7,
+        "day": 14
+      },
+      "id": "caution-led-entire-fedramp-authorization"
+    },
+    {
+      "claim": "described as having managed teams of up to 40 people",
+      "reason": "Maria's largest managed function was 18 people with 12 direct reports. Forty refers to a cross-functional incident group she coordinated, not management scope.",
+      "visibility": "private",
+      "provenance": {
+        "source": "interview-derived",
+        "date": "2026-07-14",
+        "sourceArtifactId": "government-contractor-review-2026-07-14",
+        "operation": "management-scope-correction",
+        "confidence": 0.95
+      },
+      "addedDate": {
+        "year": 2026,
+        "month": 7,
+        "day": 14
+      },
+      "id": "caution-managed-teams-up-to-40"
+    },
+    {
+      "claim": "described as having briefed flag officers",
+      "reason": "Maria confirmed monthly CISO and quarterly board audit committee briefings but did not recover a specific flag-officer briefing example during Conversation Seven. Do not use that claim until supporting evidence is recovered.",
+      "visibility": "private",
+      "provenance": {
+        "source": "interview-derived",
+        "date": "2026-07-14",
+        "sourceArtifactId": "government-contractor-review-2026-07-14",
+        "operation": "unsupported-briefing-claim-correction",
+        "confidence": 0.95
+      },
+      "addedDate": {
+        "year": 2026,
+        "month": 7,
+        "day": 14
+      },
+      "id": "caution-briefed-flag-officers"
     }
   ],
   "openQuestions": [
@@ -1519,9 +1629,28 @@
         "healthcare-security"
       ],
       "sourceTool": "manual-example",
-      "fileName": "sample-resume-source.txt",
+      "fileName": "source-resume.txt",
       "rawIncluded": false,
-      "notes": "Fictional source resume captured before later refinement passes. The source resume is intentionally shorter than the OCF to demonstrate how source material can become richer career memory after review.",
+      "notes": "Source resume captured before later refinement passes. It is intentionally shorter than the OCF to demonstrate how source material can become richer career memory after review.",
+      "visibility": "private"
+    },
+    {
+      "id": "healthcare-job-description-2026-05-20",
+      "kind": "job-description",
+      "label": "Healthcare cybersecurity director job description",
+      "capturedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 20
+      },
+      "audience": [
+        "healthcare-security",
+        "security-leadership"
+      ],
+      "sourceTool": "manual-example",
+      "fileName": "healthcare-job-description.txt",
+      "rawIncluded": false,
+      "notes": "Employer-provided target used during Conversation One. It shaped curation questions but is not treated as career truth.",
       "visibility": "private"
     },
     {
@@ -1540,6 +1669,45 @@
       "sourceTool": "Recommended OCF LLM prompt",
       "rawIncluded": false,
       "notes": "Fictional LLM-assisted review conversation that expanded a compressed ransomware bullet point into structured facts, private reflections, narrative variants, cautions, and open questions.",
+      "visibility": "private"
+    },
+    {
+      "id": "government-contractor-job-description-2026-07-14",
+      "kind": "job-description",
+      "label": "Cybersecurity operations director job description for government programs",
+      "capturedDate": {
+        "year": 2026,
+        "month": 7,
+        "day": 14
+      },
+      "audience": [
+        "government-contractor",
+        "federal",
+        "defense"
+      ],
+      "sourceTool": "manual-example",
+      "fileName": "government-contractor-job-description.txt",
+      "rawIncluded": false,
+      "notes": "Private-employer job description for a role serving U.S. government customers. Used as target evidence during Conversation Seven.",
+      "visibility": "private"
+    },
+    {
+      "id": "government-contractor-review-2026-07-14",
+      "kind": "conversation",
+      "label": "Government-contractor role review",
+      "capturedDate": {
+        "year": 2026,
+        "month": 7,
+        "day": 14
+      },
+      "audience": [
+        "government-contractor",
+        "security-leadership"
+      ],
+      "sourceTool": "Recommended OCF LLM prompt",
+      "fileName": "README.md",
+      "rawIncluded": true,
+      "notes": "Conversation preserved under Conversation Seven in README.md. It compared the target first with Maria's source resume and then with revision 6 of her OCF. Maria corrected the private-sector timeline, management scope, FedRAMP attribution, and executive-briefing evidence.",
       "visibility": "private"
     }
   ],

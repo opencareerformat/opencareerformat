@@ -9,7 +9,7 @@ This deterministic importer is intentionally modest. An LLM-backed importer coul
 ## Resume Text Importer
 
 ```bash
-node reference/importers/resume-text-to-ocf.js spec/examples/sample-resume-source.txt /tmp/draft-master.ocf.json
+node reference/importers/resume-text-to-ocf.js spec/examples/maria-reyes/source-resume.txt /tmp/draft-master.ocf.json
 ```
 
 The importer expects simple resume text with headings such as `SUMMARY`, `SKILLS`, `EXPERIENCE`, `EDUCATION`, and `CERTIFICATIONS`. It creates:

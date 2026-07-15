@@ -9,7 +9,7 @@ to the reference Node/AJV validator.
 ## Summary
 
 ```bash
-python3 reference/cli/ocf.py spec/examples/sample-resume.ocf.json
+python3 reference/cli/ocf.py spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json
 ```
 
 Prints key file fields, person headline, collection counts, and headline
@@ -18,7 +18,7 @@ positioning variants.
 ## Validate
 
 ```bash
-python3 reference/cli/ocf.py validate spec/examples/sample-resume.ocf.json
+python3 reference/cli/ocf.py validate spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json
 ```
 
 Calls `node reference/validator/validate.js <file>`.
@@ -26,7 +26,7 @@ Calls `node reference/validator/validate.js <file>`.
 ## Filter Private Items
 
 ```bash
-python3 reference/cli/ocf.py --filter private spec/examples/sample-resume.ocf.json
+python3 reference/cli/ocf.py --filter private spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json
 ```
 
 Prints the whole OCF JSON document to stdout with private objects removed

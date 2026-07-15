@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maria Reyes: An OCF Growing Through Conversation — Open Career Format</title>
+<meta name="description" content="A complete fictional example showing an OCF grow, improve, and become more useful across repeated career conversations.">
+<link rel="canonical" href="https://opencareerformat.org/spec/examples/maria-reyes/index.html">
+<link rel="icon" type="image/png" href="../../assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maria Reyes: An OCF Growing Through Conversation">
+<meta property="og:description" content="A complete fictional example showing an OCF grow, improve, and become more useful across repeated career conversations.">
+<meta property="og:url" content="https://opencareerformat.org/spec/examples/maria-reyes/index.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maria Reyes: An OCF Growing Through Conversation">
+<meta name="twitter:description" content="A complete fictional example showing an OCF grow, improve, and become more useful across repeated career conversations.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Maria Reyes: An OCF Growing Through Conversation",
+  "name": "Maria Reyes: An OCF Growing Through Conversation",
+  "url": "https://opencareerformat.org/spec/examples/maria-reyes/index.html",
+  "description": "A complete fictional example showing an OCF grow, improve, and become more useful across repeated career conversations.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  .layout-conversation {
+    background: #ffffff;
+    max-width: 920px;
+  }
+  .conversation-turn {
+    border: 0;
+    border-radius: 12px;
+    color: var(--fg);
+    padding: 0;
+  }
+  .conversation-turn > :last-child {
+    margin-bottom: 0;
+  }
+  .conversation-turn > p:first-child strong:first-child {
+    display: block;
+    font-size: 0.82rem;
+    letter-spacing: 0;
+    margin-bottom: 0.45rem;
+    text-transform: uppercase;
+  }
+  .user-turn {
+    background: #f0f0ef;
+    margin-left: auto;
+    max-width: 88%;
+    padding: 1rem 1.15rem;
+  }
+  .assistant-turn {
+    background: transparent;
+    border-radius: 0;
+    margin-right: auto;
+    max-width: 100%;
+  }
+  .user-turn > p:last-child a {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    display: inline-block;
+    margin: 0.35rem 0.35rem 0 0;
+    padding: 0.28rem 0.7rem;
+    text-decoration: none;
+  }
+  .assistant-turn h2,
+  .assistant-turn h3 {
+    border-top: 0;
+    margin-top: 1.25rem;
+    padding-top: 0;
+  }
+  .assistant-turn h2:first-child,
+  .assistant-turn h3:first-child {
+    margin-top: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body class="layout-conversation">
+<header class="site-header">
+  <a href="../../.."><img src="../../assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="../../..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./README.md">View the Markdown source</a>.</p>
+<h1 id="maria-reyes-an-ocf-growing-through-conversation">Maria Reyes: An OCF Growing Through Conversation</h1>
+
+<p>Maria E. Reyes, most of her employers, and the specific events in this example are fictional. They are not based on a real person, but they are designed to be credible. The conversations are based on real interactions with LLMs, with some exchanges reconstructed or lightly edited to demonstrate the OCF workflow.</p>
+
+<p>The example shows how one person's Open Career Format file can be created and grow through repeated conversations using OCF and modern LLMs. Maria's questions, corrections, targets, and remembered stories shape what her file contains. A different person, or different conversations, would produce a different OCF.</p>
+
+<p>OCF provides the structure for what is learned; it does not prescribe a single interview or finished career record. The model follows what Maria is trying to accomplish in each conversation, preserves what matters, and leaves unanswered questions for another time.</p>
+
+<h2 id="how-maria-s-ocf-grew">How Maria's OCF Grew</h2>
+
+<ol>
+<li><strong><a href="#conversation-one-maria-creates-her-first-ocf">Conversation One</a> — 2026-05-20: create the first OCF.</strong> Maria brings a conventional resume and a healthcare cybersecurity job description. She wants help with the application, not a long intake project. The assistant produces a gap read, works only from supported claims, saves unanswered questions, and creates a useful first OCF from the same session.</li>
+<li><strong>Conversation Two — 2026-05-21: recover the story behind a bullet.</strong> A CISO-track review expands Maria's short ransomware bullet into a structured achievement with context, metrics, private reflections, and language for different audiences.</li>
+<li><strong>Conversation Three — 2026-05-21: preserve corrections.</strong> Maria rejects positioning that overstates Big Four consulting and AI/ML specialization. The OCF records those corrections so future drafts do not repeat them.</li>
+<li><strong>Conversation Four — 2026-05-24: find the next useful questions.</strong> A coaching review notices that the file says little about Maria's military-to-civilian leadership transition and that the SOC buildout needs more precise attribution.</li>
+<li><strong><a href="#conversation-five-maria-explores-a-leadership-transition">Conversation Five</a> — 2026-05-24: follow the question Maria chooses.</strong> Maria explores the leadership transition, preserves the parking-garage story in her own words, and confirms a pattern connecting that story to the later SOC buildout.</li>
+<li><strong>Conversation Six — 2026-06-11: recover the path behind the endpoint.</strong> Maria fills in how she progressed from PV2 to Staff Sergeant and clarifies when she moved into cyber operations and leadership. Her OCF can now emphasize team scope for civilian audiences or retain rank and military specialty where government contractors expect them. The accumulated career-memory file at this point is <a href="maria-reyes-revision-6.ocf.json"><code>OCF revision 6</code></a>.</li>
+<li><strong><a href="#conversation-seven-maria-considers-a-government-contractor-role">Conversation Seven</a> — 2026-07-14: reuse and improve the memory.</strong> A government-contractor role first receives a resume-only gap read. Maria then supplies revision 6, which reveals much more relevant evidence and several claims that need correction. She clarifies her cybersecurity timeline, management scope, FedRAMP responsibility, executive briefings, and clearance wording. The accepted result is <a href="maria-reyes-revision-7.ocf.json"><code>OCF revision 7</code></a>.</li>
+</ol>
+
+<p>The full versions of Conversations One, Five, and Seven follow on this page. We haven't shared the other conversations or intermediate OCF snapshots, but their accepted results live in revisions 6 and 7.</p>
+
+<h2 id="conversations-in-full">Conversations In Full</h2>
+
+<h2 id="conversation-one-maria-creates-her-first-ocf">Conversation One: Maria Creates Her First OCF</h2>
+
+<p>This reconstructed conversation shows one plausible first OCF session. It is not a required interview script: the assistant follows what Maria wants to accomplish and records unanswered questions for another time.</p>
+
+<p><strong>Date:</strong> 2026-05-20</p>
+
+<p>Files used in the conversation:</p>
+
+<table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><a href="source-resume.txt"><code>source-resume.txt</code></a></td><td>Maria's current resume.</td></tr>
+<tr><td><a href="healthcare-job-description.txt"><code>healthcare-job-description.txt</code></a></td><td>The healthcare cybersecurity role she wants to pursue.</td></tr>
+<tr><td><a href="../../../prompts/application-bootstrap.md"><code>application-bootstrap.md</code></a></td><td>The OCF first-application guidance used by the assistant.</td></tr>
+</tbody>
+</table>
+
+<h3 id="starting-with-the-application">Starting With The Application</h3>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> I have attached my current resume and the job description. Use the <a href="../../../prompts/application-bootstrap.md">OCF application bootstrap</a> to help me apply.</p>
+
+<p>I want a better resume and cover letter for this role, but I do not want to spend the whole session building a career database.</p>
+
+<p><strong>Attachments:</strong> <a href="source-resume.txt"><code>source-resume.txt</code></a> and <a href="healthcare-job-description.txt"><code>healthcare-job-description.txt</code></a></p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> I have read both files. Do you already have an OCF file?</p></blockquote>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> No.</p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> That is fine. We can work on the application first and create a useful provisional OCF from the same material at the end. You do not need to reconstruct your entire career today.</p>
+
+<h2 id="gap-read">Gap read</h2>
+
+<p>This is a strong match. Your resume already supports the role's central requirements:</p>
+
+<ul>
+<li>You lead cybersecurity for a healthcare technology company handling PHI for more than two million patients.</li>
+<li>You built a SOC from zero to 12 analysts and reached 24/7 coverage within six months.</li>
+<li>You reduced mean time to detect from 72 hours to under four.</li>
+<li>You led a first-assessment HITRUST certification with zero corrective actions and also supported SOC 2 Type II.</li>
+<li>You led recovery from a ransomware incident with no patient-care impact.</li>
+<li>Your earlier consulting, DoD, and Army work supports the incident-response and critical-infrastructure parts of the role.</li>
+</ul>
+
+<p>The main gaps are not necessarily missing experience. They are areas the resume names without showing enough evidence:</p>
+
+<ul>
+<li>vulnerability-management ownership;</li>
+<li>AWS, cloud-security, and zero-trust implementation;</li>
+<li>executive reporting and the decisions your briefings influenced.</li>
+</ul>
+
+<p>I would ask three focused questions before making stronger claims:</p>
+
+<ol>
+<li>The job makes vulnerability management a core responsibility. Did you run a formal program, own part of it through the SOC, or mainly provide oversight?</li>
+<li>Your skills list AWS and zero trust. What did you personally design, implement, or operate, and at what scale?</li>
+<li>You report to the CISO. What decisions, priorities, funding, or risk acceptance changed because of information you presented?</li>
+</ol></blockquote>
+
+<h3 id="maria-chooses-the-depth">Maria Chooses The Depth</h3>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> I would need to think about those. For now, use only what the resume already supports. The SOC buildout, ransomware response, detection improvement, and HITRUST work are the parts I most want to emphasize. Keep the other questions for later.</p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> I will. I will not turn skills into accomplishments you have not confirmed.</p>
+
+<p>For this application, I would lead with healthcare security operations and use your military and consulting background as supporting depth. A targeted opening could read:</p>
+
+<p><strong>Cybersecurity leader with Army cyber operations, incident-response consulting, and healthcare security leadership experience. Built a 24/7 SOC, reduced detection time from 72 hours to under four, led first-assessment HITRUST certification, and restored critical clinical systems after ransomware with no patient-care impact.</strong></p>
+
+<p>The strongest resume bullets remain close to your source evidence:</p>
+
+<ul>
+<li>Built a SOC from zero to 12 analysts, achieving 24/7 coverage within six months.</li>
+<li>Reduced mean time to detect from 72 hours to under four through SIEM tuning and automated triage.</li>
+<li>Led HITRUST r2 certification, passing the first assessment with zero corrective actions.</li>
+<li>Led response to a ransomware incident, restoring critical clinical systems within 41 hours with zero patient-care impact.</li>
+</ul>
+
+<p>A cover-letter paragraph can connect those facts to the target without copying the job description:</p>
+
+<p><strong>At Meridian Health Systems, I built the security operations function supporting healthcare technology used for more than two million patients. My team reached 24/7 coverage within six months, reduced mean time to detect from 72 hours to under four, and restored critical clinical systems within 41 hours during a ransomware incident without patient-care impact. That combination of operational leadership, healthcare context, and measurable improvement is what I would bring to this role.</strong></p>
+
+<p>You should carefully review and edit every word before using either document. The claims remain yours.</p></blockquote>
+
+<h3 id="saving-something-for-next-time">Saving Something For Next Time</h3>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> Before I create the provisional OCF, tell me one story about your work that you would never put on a formal resume. It can be something that happened, how you work, or what you most enjoy doing. I will preserve it in your own words rather than turn it into a bullet.</p></blockquote>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> Not today. I want to finish the application, and I would rather think about that question first.</p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> No problem. I will leave it for another conversation.</p>
+
+<p>I can still create a useful first OCF from what you provided. It will contain:</p>
+
+<ul>
+<li>the resume and job description as private source records;</li>
+<li>your roles, education, certifications, and skills from the resume;</li>
+<li>the resume's supported achievements, marked as imported and still open to your review;</li>
+<li>private contact information that should not be exported automatically;</li>
+<li>open questions about vulnerability management, cloud and zero-trust work, and executive communication.</li>
+</ul>
+
+<p>The job description helps choose what matters for this application, but it does not become truth about your career. The unanswered questions remain questions rather than invented accomplishments.</p>
+
+<p>Save the provisional OCF file next to your resume. Next time, attach both.</p></blockquote>
+
+<h2 id="conversation-five-maria-explores-a-leadership-transition">Conversation Five: Maria Explores A Leadership Transition</h2>
+
+<p>This reconstructed conversation begins with an open question saved during Maria's previous coaching review. It shows how a person can choose to explore one thread from their career memory when it becomes interesting or useful. It is not a required fifth step or a prescribed interview sequence.</p>
+
+<p><strong>Date:</strong> 2026-05-24</p>
+
+<h3 id="an-open-question-creates-a-starting-point">An Open Question Creates A Starting Point</h3>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> The last review left an open question about how my Army leadership translated into civilian work. What are we actually trying to understand? My resume already says I led an Army team and later built a SOC.</p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> The resume shows both endpoints, but not what you had to change between them. Was there a moment when something that worked in the Army did not work in a civilian team, or when you realized leadership meant something different?</p>
+
+<p>Tell it in your own words. It does not need to sound polished, end with a metric, or turn into a resume bullet. I will preserve what you say rather than rewrite it.</p></blockquote>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard &quot;no&quot; to a lawful tasking. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. In the Army, my rank was the authority. Out here, working for someone meant something different. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the thing that worked.</p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> I will keep that story exactly as you told it and mark it private. I will not flatten it into something like &quot;adapted military leadership style to improve team engagement.&quot; That would discard the part worth remembering.</p>
+
+<p>I see a possible pattern, but I want to offer it as a question rather than tell you what your story means.</p>
+
+<p><strong>Does this ring true: you rebuild authority from demonstrated work rather than inherited position?</strong> I see it in this story, where you took the first shifts yourself, and in the SOC buildout already in your OCF: zero to 12 analysts and 24/7 coverage within six months.</p></blockquote>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> Yes, that rings true. Keep the story private, but save the pattern because I may want to use it in a leadership conversation later.</p></blockquote>
+
+<h3 id="the-ocf-remembers-both">The OCF Remembers Both</h3>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> I will save two different things because they serve different purposes:</p>
+
+<ul>
+<li>Your complete story remains a private reflection in your own words.</li>
+<li>&quot;I rebuild authority from demonstrated work rather than inherited position&quot; becomes a private talking point, marked as suggested by the model and confirmed by you.</li>
+</ul>
+
+<p>The talking point will cite both the story and the SOC buildout that made the pattern defensible. I will also narrow the existing question about your military-to-civilian leadership transition. This story gives us one strong example, but it does not answer every future question about coaching, performance management, or difficult staffing decisions.</p></blockquote>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> That sounds right. Do not turn the story itself into a resume bullet.</p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> Understood. A future tool can interpret the story, ask questions about it, or propose a use for it. It should not replace the source memory with polished AI prose.</p></blockquote>
+
+<h2 id="conversation-seven-maria-considers-a-government-contractor-role">Conversation Seven: Maria Considers A Government-Contractor Role</h2>
+
+<p>This is a lightly edited transcript from a model session using Maria's example files. Tool traces, permission messages, repeated file reads, and pasted copies of linked files have been removed. A final clarification exchange completes the correction loop.</p>
+
+<p><strong>Date:</strong> 2026-07-14</p>
+
+<p>Files used in the conversation:</p>
+
+<table>
+<thead><tr><th>File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><a href="source-resume.txt"><code>source-resume.txt</code></a></td><td>Maria's short source resume.</td></tr>
+<tr><td><a href="government-contractor-job-description.txt"><code>government-contractor-job-description.txt</code></a></td><td>A private-employer role supporting U.S. government customers.</td></tr>
+<tr><td><a href="maria-reyes-revision-6.ocf.json"><code>maria-reyes-revision-6.ocf.json</code></a></td><td>Maria's accumulated career memory before this conversation.</td></tr>
+<tr><td><a href="../../../prompts/application-bootstrap.md"><code>application-bootstrap.md</code></a></td><td>The OCF first-application guidance used by the assistant.</td></tr>
+</tbody>
+</table>
+
+<h3 id="the-session-starts-with-the-resume">The Session Starts With The Resume</h3>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> I am considering this cybersecurity role at a government contractor. Use the <a href="../../../prompts/application-bootstrap.md">OCF application bootstrap</a> to help me apply. Start with my resume and tell me how well it fits.</p>
+
+<p><strong>Attachments:</strong> <a href="source-resume.txt"><code>source-resume.txt</code></a> and <a href="government-contractor-job-description.txt"><code>government-contractor-job-description.txt</code></a></p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> This is a strong match, but the resume leaves several of the role's government-program requirements under-evidenced.</p>
+
+<h2 id="what-the-role-asks-for">What the role asks for</h2>
+
+<p>The hiring case rests on four pillars:</p>
+
+<ul>
+<li>Leading defensive cyber operations and developing teams.</li>
+<li>Directing serious incidents involving ransomware and nation-state activity.</li>
+<li>Delivering security programs for federal or defense customers.</li>
+<li>Applying federal controls while explaining risk to government and company leaders.</li>
+</ul>
+
+<h2 id="what-your-resume-proves">What your resume proves</h2>
+
+<p>Your strongest direct matches are:</p>
+
+<ul>
+<li>Approximately 10 years in dedicated cybersecurity roles by 2026, plus earlier Army signal experience.</li>
+<li>Director-level leadership and a SOC built from zero to 12 analysts with 24/7 coverage.</li>
+<li>Army defensive-cyber leadership for a 15,000-node network.</li>
+<li>DoD-contractor threat-analysis experience.</li>
+<li>Leadership during ransomware, nation-state, and critical-infrastructure incidents.</li>
+<li>Detection improvement from 72 hours to under four.</li>
+<li>Threat intelligence, SIEM, AWS security, endpoint security, zero trust, vulnerability management, Python, and Terraform in your skills inventory.</li>
+<li>CISSP and CISM, both explicitly preferred.</li>
+<li>San Antonio location and prior military cyber experience.</li>
+</ul>
+
+<p>The combined Army and Meridian roles may satisfy the five-year leadership requirement, but the resume should make that chronology unmistakable.</p>
+
+<h2 id="what-remains-missing-or-under-evidenced">What remains missing or under-evidenced</h2>
+
+<p>The largest issue is <strong>government-program delivery</strong>. Your resume says you performed DoD threat analysis, but it does not show whether you owned contract deliverables, briefed government customers, supported reviews, or coordinated across program organizations.</p>
+
+<p>Other gaps:</p>
+
+<ul>
+<li>U.S. citizenship and clearance history are absent.</li>
+<li>RMF, NIST 800-53, and FedRAMP appear as skills without an applied example.</li>
+<li>No government authorization artifacts or processes are named.</li>
+<li>No evidence of DISA STIG work.</li>
+<li>AWS, endpoint security, vulnerability management, Terraform, and zero trust lack supporting accomplishments.</li>
+<li>No explicit example of briefing government stakeholders or influencing investment and risk decisions.</li>
+<li>&quot;Built a SOC team&quot; is excellent, but distributed or multi-team leadership is not established.</li>
+</ul>
+
+<p>FedRAMP ownership is not strictly required here; the posting asks for working knowledge. If your experience is limited, we can say that accurately. RMF and DoD authorization experience may be more important for this position.</p>
+
+<h2 id="three-questions-that-would-resolve-the-major-risks">Three questions that would resolve the major risks</h2>
+
+<ol>
+<li><strong>Clearance eligibility:</strong> Are you a U.S. citizen, and have you previously held a clearance? If so, what level, when was it last active, and is it accurate to say you are eligible for reactivation?</li>
+<li><strong>Government-controls evidence:</strong> In any role, what did you actually do with RMF, NIST 800-53, FedRAMP, DISA STIGs, eMASS, SSPs, POA&amp;Ms, control assessments, or authorization decisions? It is fine if your level was contribution rather than ownership.</li>
+<li><strong>Government-program delivery and communication:</strong> At Tidewater or in the Army, did you brief government leaders, support a contract or mission program, lead distributed personnel, establish escalation practices, or prepare material for customer reviews? Please identify the audience without disclosing anything sensitive.</li>
+</ol></blockquote>
+
+<h3 id="the-existing-ocf-changes-the-assessment">The Existing OCF Changes The Assessment</h3>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> I am sorry, I did have an OCF file. Perhaps it is better to start with that.</p>
+
+<p>I attached <a href="maria-reyes-revision-6.ocf.json"><code>maria-reyes-revision-6.ocf.json</code></a>.</p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> Yes, this is the better source of career memory. Starting with the OCF materially improves the match assessment. It contains several qualifications that the short resume omitted:</p>
+
+<ul>
+<li>U.S. citizenship.</li>
+<li>Previously held TS/SCI with CI polygraph, recorded as inactive since 2022.</li>
+<li>Leadership of teams across military and civilian settings.</li>
+<li>Briefings to flag officers, C-suite leaders, and board audit committees.</li>
+<li>A claim of leading FedRAMP authorization for a SaaS product.</li>
+<li>DISA STIG experience.</li>
+<li>Zero-trust architecture for hybrid cloud environments.</li>
+<li>AWS Security Hub, Terraform, CrowdStrike, Splunk, and security-automation evidence.</li>
+<li>An OIR deployment and richer Army rank/MOS progression.</li>
+<li>A federal-specific, previously confirmed positioning headline.</li>
+</ul>
+
+<p>That changes this from &quot;strong but under-evidenced&quot; to &quot;very strong match with a few facts needing attribution.&quot;</p>
+
+<p>The OCF also reveals three items I would not use externally without clarification:</p>
+
+<ol>
+<li><strong>FedRAMP attribution:</strong> Which employer and SaaS product were involved? What authorization level or baseline applied, what did &quot;led&quot; mean, and did the work reach authorization or only readiness or assessment?</li>
+<li><strong>Government leadership evidence:</strong> What is the strongest specific example behind briefing flag officers or government stakeholders? Separately, the competency says you led teams of 8-40, but the detailed entries currently establish six Army personnel, 12 direct reports, and an 18-person Meridian organization. Where does 40 come from?</li>
+<li><strong>Clearance wording:</strong> Can we accurately state, &quot;Previously held TS/SCI with CI polygraph; inactive since 2022 and able to pursue reactivation&quot;? If not, I will use the narrower first clause.</li>
+</ol>
+
+<p>One OCF inconsistency also needs correction eventually: its summary says &quot;a decade in private-sector cybersecurity,&quot; but the dated civilian roles begin in September 2018. Your defensible qualification is over 10 years in cybersecurity when Army cyber service from January 2016 is included, not 10 years in the private sector.</p></blockquote>
+
+<h3 id="private-does-not-mean-never-useful">Private Does Not Mean Never Useful</h3>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> Do any of my private details make sense to consider adding to the resume, or perhaps to my talking points for this role?</p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> Yes. A few private details are valuable for this government-contractor role, but most belong in interview talking points rather than the resume. Nothing marked private should be included automatically; I would ask before using specific items.</p>
+
+<table>
+<thead><tr><th>Private detail</th><th>Resume?</th><th>Talking points?</th><th>Recommended use</th></tr></thead>
+<tbody>
+<tr><td>U.S. citizenship and prior TS/SCI with CI polygraph</td><td>Yes, with approval</td><td>Yes</td><td>Highly relevant. Use precise status and do not imply an active clearance.</td></tr>
+<tr><td>Ransomware executive-room decision</td><td>Sanitized version</td><td>Yes, fuller version</td><td>Strong evidence of incident command and executive risk communication.</td></tr>
+<tr><td>SOC budget, headcount, and hiring ownership</td><td>Yes, after confirmation</td><td>Yes</td><td>Establishes director-level authority beyond technical leadership.</td></tr>
+<tr><td>First-month civilian leadership story</td><td>No</td><td>Yes</td><td>Strong answer about leadership style, trust, and team development.</td></tr>
+<tr><td>Security-awareness underinvestment</td><td>No</td><td>Yes</td><td>A useful failure-and-learning story showing strategic judgment.</td></tr>
+<tr><td>Career motivations</td><td>No</td><td>Yes</td><td>Useful for &quot;Why this role?&quot; and &quot;What are you looking for?&quot; after confirming that the framing fits.</td></tr>
+<tr><td>Supervisor and reference contact details</td><td>No</td><td>Usually no</td><td>Keep private until a formal reference stage.</td></tr>
+<tr><td>Army exit rationale</td><td>No</td><td>Rarely</td><td>Not important to this application.</td></tr>
+<tr><td>Travel and on-call constraints</td><td>No</td><td>During fit discussions</td><td>The 25 percent travel ceiling matches the posting, but it is a fit constraint rather than a resume fact.</td></tr>
+</tbody>
+</table>
+
+<p>For the resume, I would consider this after you approve using it:</p>
+
+<blockquote><p><strong>U.S. citizen | Previously held DoD TS/SCI with CI polygraph; inactive since 2022</strong></p></blockquote>
+
+<p>That should not say &quot;eligible for reactivation&quot; unless you confirm that wording.</p>
+
+<p>The OCF also contains a stronger, user-confirmed version of the ransomware achievement:</p>
+
+<blockquote><p>Led evidence-based ransomware recovery by analyzing attacker tooling, advising executives against payment, and restoring critical systems from backups within 41 hours.</p></blockquote>
+
+<p>I would add &quot;with no patient-care impact&quot; if space permits. I would exclude the ransom amount, names of executives, and internal uncertainty from the resume.</p>
+
+<p>For interviews, three private stories are especially strong:</p>
+
+<ul>
+<li><strong>Leadership and team development:</strong> The story about learning that civilian authority had to be earned through demonstrated work.</li>
+<li><strong>Executive judgment under pressure:</strong> The full ransomware story, including the forensic work, recommendation against payment, and commitment to a recovery timeline.</li>
+<li><strong>Failure and learning:</strong> Underinvesting in security awareness while prioritizing the SOC, then recognizing that technical controls and human-risk programs have different time-to-impact curves.</li>
+</ul></blockquote>
+
+<h3 id="the-conversation-improves-the-career-memory">The Conversation Improves The Career Memory</h3>
+
+<blockquote class="conversation-turn user-turn"><p><strong>Maria:</strong> The private-sector summary is wrong. What I meant was that I have about 10 years in dedicated cybersecurity beginning when I reclassified to 17C in January 2016. My civilian employment began in 2018.</p>
+
+<p>The 40-person number was a cross-functional incident group, not a team that reported to me. The largest security function I led was 18 people at Meridian, with 12 direct reports. We should not say I led a team of 40.</p>
+
+<p>The FedRAMP work was at Meridian for a SaaS product pursuing the Moderate baseline. Our GRC director owned the overall authorization program and the 3PAO relationship. I was accountable for the security-operations workstream: logging and monitoring, incident response, vulnerability remediation, operational evidence, and closing the findings assigned to my team. Cloud engineering owned the infrastructure changes. The product received authorization in 2025, but saying I led the entire authorization is too broad.</p>
+
+<p>At Meridian, I briefed the CISO monthly and the board audit committee quarterly. In the Army, I briefed operational status through the chain of command, but I cannot point to a specific flag-officer briefing without checking old records. Do not use that claim yet.</p>
+
+<p>My TS/SCI with CI polygraph is correctly recorded as inactive since 2022. I do not know whether &quot;eligible for reactivation&quot; is accurate, so use only the narrower statement.</p></blockquote>
+
+<blockquote class="conversation-turn assistant-turn"><p><strong>Assistant:</strong> That resolves the important discrepancies without weakening your fit for the role.</p>
+
+<p>I would carry these corrections forward in the same OCF career-memory file:</p>
+
+<ul>
+<li>Replace &quot;a decade in private-sector cybersecurity&quot; with a supported statement: <strong>10 years in dedicated cybersecurity across Army cyber operations and civilian roles.</strong></li>
+<li>Replace &quot;led teams of 8-40&quot; with the supported scope: <strong>led a 6-person Army cyber team and later an 18-person civilian security function with 12 direct reports.</strong> The 40-person incident group can remain context for a specific event, but not management scope.</li>
+<li>Replace &quot;led FedRAMP authorization&quot; with an attributed statement: <strong>led the security-operations workstream supporting a successful FedRAMP Moderate authorization, accountable for monitoring, incident response, vulnerability remediation, operational evidence, and assigned findings.</strong></li>
+<li>Retain the CISO and board-audit-committee briefings with their cadence. Remove the flag-officer claim unless a later review recovers a specific, supportable example.</li>
+<li>Keep the clearance wording narrow: <strong>previously held DoD TS/SCI with CI polygraph; inactive since 2022.</strong> Do not assert reactivation eligibility.</li>
+</ul>
+
+<p>Those changes make the application stronger because they make responsibility clearer, not because they make the claims larger. The resume can now use the relevant, approved subset. The same OCF file also becomes more reliable for the next conversation.</p>
+
+<p>I saved the accepted changes in the complete <a href="maria-reyes-revision-7.ocf.json"><code>OCF revision 7</code></a>.</p></blockquote>
+
+<h3 id="continue-into-the-implementation-details">Continue Into The Implementation Details</h3>
+
+<p>The conversation shows what using OCF can feel like. The <a href="./implementation-details.html">Implementation Details</a> page then opens the file and explains how the source resume, structured achievements, provenance, narrative variants, private reflections, talking points, cautions, and target-aware curation fit together.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./README.md"><code>spec/examples/maria-reyes/README.md</code></a>.</p>
+</footer>
+</body>
+</html>

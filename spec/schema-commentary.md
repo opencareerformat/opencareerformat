@@ -69,7 +69,7 @@ The same career fact may appear in several forms:
 Recommended filename pattern:
 
 - `{person}.master.ocf.json`
-- `sample-resume.ocf.json`
+- `maria-reyes.master.ocf.json`
 - `acme-ciso-2026-05-24.ocf.json`
 - `public-profile.ocf.json`
 
@@ -77,7 +77,7 @@ Directory layout is a workflow choice. See `usage-patterns.md` for import, curat
 
 OCF does not force structure into filenames, but humans often benefit from names that describe the purpose. For example, a file generated specifically for a CISO role at Acme in May 2026 should have a name that reflects that context.
 
-Use explicit names before introducing abbreviations. A future curated example might be named `sample-resume.public-profile.ocf.json` or `sample-resume.acme-ciso.ocf.json`; do not assume a shorthand such as `.c.ocf.json` until usage proves it helpful.
+Use explicit names before introducing abbreviations. A future curated file might be named `maria-reyes.public-profile.ocf.json` or `maria-reyes.acme-ciso.ocf.json`; do not assume a shorthand such as `.c.ocf.json` until usage proves it helpful.
 
 ## v0.3 Lineage Names
 
@@ -222,7 +222,7 @@ Example:
         "day": 20
       },
       "audience": ["cybersecurity-leadership", "healthcare-security"],
-      "fileName": "sample-resume-source.txt",
+      "fileName": "source-resume.txt",
       "rawIncluded": false,
       "visibility": "private"
     }

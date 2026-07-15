@@ -25,8 +25,8 @@ Use this when the user has source material but no master OCF yet and wants a rev
 node reference/ollama/ocf-local-llm.js \
   --mode authoring \
   --model llama3.1:8b \
-  --resume spec/examples/sample-resume-source.txt \
-  --job spec/examples/sample-job-description.txt \
+  --resume spec/examples/maria-reyes/source-resume.txt \
+  --job spec/examples/maria-reyes/healthcare-job-description.txt \
   --out /tmp/ocf-local-authoring-response.md
 ```
 
@@ -57,14 +57,14 @@ node reference/ollama/ocf-local-llm.js \
 node reference/validator/validate.js /tmp/ocf-local-sample.imported.ocf.json
 ```
 
-`--sample-resume` uses `spec/examples/sample-resume-source.txt`. For another resume or source text, use `--resume <source.txt>` instead:
+`--sample-resume` uses `spec/examples/maria-reyes/source-resume.txt`. For another resume or source text, use `--resume <source.txt>` instead:
 
 ```bash
 node reference/ollama/ocf-local-llm.js \
   --mode authoring \
   --output provisional-master \
   --model qwen2.5:14b \
-  --resume spec/examples/sample-resume-source.txt \
+  --resume spec/examples/maria-reyes/source-resume.txt \
   --out /tmp/ocf-local-imported.ocf.json
 ```
 
@@ -80,8 +80,8 @@ Use this when the user already has an OCF and wants help with a target:
 node reference/ollama/ocf-local-llm.js \
   --mode curation \
   --model llama3.1:8b \
-  --ocf spec/examples/sample-resume.ocf.json \
-  --job spec/examples/sample-job-description.txt \
+  --ocf spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json \
+  --job spec/examples/maria-reyes/healthcare-job-description.txt \
   --out /tmp/ocf-local-curation-response.md
 ```
 

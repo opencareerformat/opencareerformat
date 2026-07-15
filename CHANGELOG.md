@@ -4,6 +4,14 @@ All notable changes to the Open Career Format specification and reference implem
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
+## 2026-07-14
+
+### Changed
+
+- Reorganized the Maria Reyes teaching set around one conversation-first entry page, with complete OCF revisions before and after Conversation Seven, two target job descriptions, selected full transcripts, and separate implementation details.
+- Pinned the Maria teaching set to OCF 0.3 so later schema releases do not require rewriting a stable example narrative.
+- Made the reference validator discover nested example files and validate each example against its declared local versioned schema.
+
 ## 2026-07-13
 
 ### Changed

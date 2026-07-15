@@ -176,28 +176,30 @@
 </header>
 <main>
 <p class="doc-meta">Readable HTML version. <a href="./README.md">View the Markdown source</a>.</p>
-<h1>OCF Example Files</h1>
+<h1>OCF Examples</h1>
 
-<p>Canonical example OCF files used by the validator and by tool authors as references.</p>
+<p>These examples show different parts of Open Career Format. Each OCF JSON file declares the schema version it uses and should be validated against that version.</p>
+
+<h2>Maria Reyes: A Complete Teaching Example</h2>
+
+<p>Start with <strong><a href="./maria-reyes/index.html">Maria Reyes: An OCF Growing Through Conversation</a></strong>.</p>
+
+<p>It is the single entry point for Maria's fictional OCF 0.3 example: the source resume, two target job descriptions, Conversations One through Seven, complete OCF revisions 6 and 7, and optional implementation details. The main page shows the full text of Conversations One, Five, and Seven; supporting files appear where the conversation uses them.</p>
+
+<p>The Maria set is intentionally frozen to OCF 0.3. Revision 6 contains unresolved claims that Conversation Seven discovers; revision 7 is the current reference file after Maria's corrections. Reference tools should use <code>maria-reyes/maria-reyes-revision-7.ocf.json</code> unless they are specifically demonstrating the comparison.</p>
+
+<h2>Focused Examples</h2>
 
 <table>
 <thead><tr><th>File</th><th>Description</th></tr></thead>
 <tbody>
-<tr><td><a href="./worked-example-walkthrough.html"><code>worked-example-walkthrough.md</code></a></td><td>Narrative walkthrough of the example lifecycle: source resume, provisional master, richer career memory, target curation, export, and updates flowing back.</td></tr>
-<tr><td><a href="./worked-example-walkthrough.es.html"><code>worked-example-walkthrough.es.md</code></a></td><td>Spanish non-canonical translation of the worked example walkthrough.</td></tr>
-<tr><td><a href="./sample-resume.html"><code>sample-resume.md</code></a></td><td>Explanation and history for the Maria E. Reyes sample set: how the source resume became a richer OCF, what review passes added, and what readers should notice.</td></tr>
-<tr><td><code>sample-resume-source.txt</code></td><td>Fictional source resume used as the starting material for <code>sample-resume.ocf.json</code> and the reference importer example.</td></tr>
-<tr><td><code>sample-resume.ocf.json</code></td><td>A fictional but richly-built example covering most of the schema surface — Maria E. Reyes, a cybersecurity leader with military background. Includes a worked demonstration of the conversational-mining pattern (<code>mhs-ransomware-2024</code>), a military progression pattern where rank/MOS details matter differently by audience, and a &quot;stays in master but typically curated out&quot; item (<code>mhs-mssp-transition</code>) so readers can inspect those patterns directly.</td></tr>
-<tr><td><code>sample-job-description.txt</code></td><td>Fictional target job description used by the reference curator examples.</td></tr>
-<tr><td><code>repeated-organization-variants.json</code></td><td>A compact fictional example showing a reusable <code>organizations</code> record referenced by two separate tenures, a <code>sourceArtifacts</code> registry for old resumes / pasted chat data, bullet-level <code>narrativeVariants</code>, and position-level <code>titleVariants</code> with required basis.</td></tr>
-<tr><td><code>sales-compensation-private.json</code></td><td>A compact fictional example showing private compensation history and sales quota records alongside shareable quota-attainment achievements and a public podcast appearance.</td></tr>
-<tr><td><code>open-source-project.json</code></td><td>A compact fictional example showing independent open-source work as a top-level <code>projects</code> entry with a GitHub repository link, public achievements, skills, and renderer grouping.</td></tr>
+<tr><td><a href="repeated-organization-variants.json"><code>repeated-organization-variants.json</code></a></td><td>Two tenures at one organization, reusable organization records, source artifacts, narrative variants, and title variants.</td></tr>
+<tr><td><a href="sales-compensation-private.json"><code>sales-compensation-private.json</code></a></td><td>Private compensation and quota history alongside shareable sales achievements.</td></tr>
+<tr><td><a href="open-source-project.json"><code>open-source-project.json</code></a></td><td>Independent open-source work represented as a top-level project with public achievements and skills.</td></tr>
 </tbody>
 </table>
 
-<p>All files in this directory validate against <code>../schema.json</code> and are exercised by <code>reference/validator/validate.js</code>. They are fictional; do not infer real persons or events.</p>
-
-<p>For the minimal first-time user flow, use <code>prompts/application-bootstrap.md</code>: read the resume and job description, ask whether an OCF exists, produce the requested application help, ask one story question, and save a provisional OCF master or proposed update set for next time.</p>
+<p>The examples are fictional. Do not infer real people, employers, or events from them.</p>
 </main>
 <footer class="source-link">
   <p>This page is generated from <a href="./README.md"><code>spec/examples/README.md</code></a>.</p>

@@ -64,30 +64,32 @@ const docs = [
     description: "Canonical example Open Career Format files used by validators and tool authors.",
   },
   {
-    source: "spec/examples/worked-example-walkthrough.md",
-    title: "Worked Example Walkthrough",
-    description: "A narrative walkthrough of the Open Career Format example lifecycle.",
+    source: "spec/examples/maria-reyes/README.md",
+    output: "spec/examples/maria-reyes/index.html",
+    title: "Maria Reyes: An OCF Growing Through Conversation",
+    description: "A complete fictional example showing an OCF grow, improve, and become more useful across repeated career conversations.",
+    layout: "conversation",
+  },
+  {
+    source: "spec/examples/maria-reyes/implementation-details.md",
+    title: "Maria Reyes Example: Implementation Details",
+    description: "Implementation details behind the Maria Reyes OCF 0.3 teaching example.",
     alternates: [
-      { lang: "en", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.html" },
-      { lang: "es", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.es.html" },
-      { lang: "x-default", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.html" },
+      { lang: "en", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html" },
+      { lang: "es", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.es.html" },
+      { lang: "x-default", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html" },
     ],
   },
   {
-    source: "spec/examples/worked-example-walkthrough.es.md",
-    title: "Ejemplo Trabajado",
-    description: "Recorrido narrativo en español del ciclo de ejemplo de Open Career Format.",
+    source: "spec/examples/maria-reyes/implementation-details.es.md",
+    title: "Ejemplo de Maria Reyes: detalles de implementación",
+    description: "Detalles de implementación en español del ejemplo didáctico OCF 0.3 de Maria Reyes.",
     lang: "es",
     alternates: [
-      { lang: "en", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.html" },
-      { lang: "es", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.es.html" },
-      { lang: "x-default", href: "https://opencareerformat.org/spec/examples/worked-example-walkthrough.html" },
+      { lang: "en", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html" },
+      { lang: "es", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.es.html" },
+      { lang: "x-default", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html" },
     ],
-  },
-  {
-    source: "spec/examples/sample-resume.md",
-    title: "Sample Resume Review Notes",
-    description: "Explanation and review history for the fictional Maria E. Reyes sample set.",
   },
 ];
 
@@ -114,11 +116,68 @@ function renderPage(doc, outputRel, markdown) {
   const toRoot = relativeHref(outputDir, ".");
   const logoHref = relativeHref(outputDir, "spec/assets/ocf-logo.png");
   const sourceHref = relativeHref(outputDir, doc.source);
+  const sourceSummary = `Readable HTML version. <a href="${sourceHref}">View the Markdown source</a>.`;
   const canonical = `https://opencareerformat.org/${outputRel}`;
   const alternateLinks = (doc.alternates || [])
     .map((alternate) => `<link rel="alternate" hreflang="${escapeHtml(alternate.lang)}" href="${escapeHtml(alternate.href)}">`)
     .join("\n");
-  const content = markdownToHtml(markdown, doc.source);
+  const renderedMarkdown = markdown.replace(
+    /<!-- markdown-only:start -->[\s\S]*?<!-- markdown-only:end -->\s*/g,
+    "",
+  );
+  const content = markdownToHtml(renderedMarkdown, doc.source, doc.layout);
+  const conversationStyles = doc.layout === "conversation" ? `  .layout-conversation {
+    background: #ffffff;
+    max-width: 920px;
+  }
+  .conversation-turn {
+    border: 0;
+    border-radius: 12px;
+    color: var(--fg);
+    padding: 0;
+  }
+  .conversation-turn > :last-child {
+    margin-bottom: 0;
+  }
+  .conversation-turn > p:first-child strong:first-child {
+    display: block;
+    font-size: 0.82rem;
+    letter-spacing: 0;
+    margin-bottom: 0.45rem;
+    text-transform: uppercase;
+  }
+  .user-turn {
+    background: #f0f0ef;
+    margin-left: auto;
+    max-width: 88%;
+    padding: 1rem 1.15rem;
+  }
+  .assistant-turn {
+    background: transparent;
+    border-radius: 0;
+    margin-right: auto;
+    max-width: 100%;
+  }
+  .user-turn > p:last-child a {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    display: inline-block;
+    margin: 0.35rem 0.35rem 0 0;
+    padding: 0.28rem 0.7rem;
+    text-decoration: none;
+  }
+  .assistant-turn h2,
+  .assistant-turn h3 {
+    border-top: 0;
+    margin-top: 1.25rem;
+    padding-top: 0;
+  }
+  .assistant-turn h2:first-child,
+  .assistant-turn h3:first-child {
+    margin-top: 0;
+  }
+` : "";
 
   return `<!DOCTYPE html>
 <html lang="${escapeHtml(doc.lang || "en")}">
@@ -266,7 +325,7 @@ ${JSON.stringify(
     color: var(--muted);
     padding-left: 1rem;
   }
-  table {
+${conversationStyles}  table {
     width: 100%;
     border-collapse: collapse;
     display: block;
@@ -295,13 +354,13 @@ ${JSON.stringify(
   }
 </style>
 </head>
-<body>
+<body${doc.layout === "conversation" ? ' class="layout-conversation"' : ""}>
 <header class="site-header">
   <a href="${toRoot}"><img src="${logoHref}" alt="Open Career Format logo"></a>
   <a href="${toRoot}">Open Career Format</a>
 </header>
 <main>
-<p class="doc-meta">Readable HTML version. <a href="${sourceHref}">View the Markdown source</a>.</p>
+<p class="doc-meta">${sourceSummary}</p>
 ${content}
 </main>
 <footer class="source-link">
@@ -312,7 +371,7 @@ ${content}
 `;
 }
 
-function markdownToHtml(markdown, sourceRel) {
+function markdownToHtml(markdown, sourceRel, layout) {
   const lines = markdown.replace(/\r\n/g, "\n").split("\n");
   const out = [];
   let i = 0;
@@ -342,7 +401,8 @@ function markdownToHtml(markdown, sourceRel) {
     const heading = line.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
       const level = heading[1].length;
-      out.push(`<h${level}>${inline(heading[2], sourceRel)}</h${level}>`);
+      const id = layout === "conversation" ? ` id="${headingId(heading[2])}"` : "";
+      out.push(`<h${level}${id}>${inline(heading[2], sourceRel)}</h${level}>`);
       i += 1;
       continue;
     }
@@ -369,7 +429,14 @@ function markdownToHtml(markdown, sourceRel) {
         quote.push(lines[i].replace(/^>\s?/, ""));
         i += 1;
       }
-      out.push(`<blockquote>${markdownToHtml(quote.join("\n"), sourceRel)}</blockquote>`);
+      const firstContentLine = quote.find((item) => item.trim()) || "";
+      const speaker = layout === "conversation"
+        ? firstContentLine.match(/^\*\*(Maria|Assistant):\*\*/)
+        : null;
+      const quoteClass = speaker
+        ? ` class="conversation-turn ${speaker[1] === "Maria" ? "user-turn" : "assistant-turn"}"`
+        : "";
+      out.push(`<blockquote${quoteClass}>${markdownToHtml(quote.join("\n"), sourceRel, layout)}</blockquote>`);
       continue;
     }
 
@@ -427,6 +494,13 @@ function renderTable(lines, sourceRel) {
 ${body.map((row) => `<tr>${row.map((cell) => `<td>${inline(cell, sourceRel)}</td>`).join("")}</tr>`).join("\n")}
 </tbody>
 </table>`;
+}
+
+function headingId(value) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 function isTableStart(lines, index) {

@@ -5,7 +5,7 @@ const path = require("path");
 const { spawn } = require("child_process");
 
 const ROOT = path.resolve(__dirname, "../..");
-const SAMPLE_RESUME = "spec/examples/sample-resume-source.txt";
+const SAMPLE_RESUME = "spec/examples/maria-reyes/source-resume.txt";
 const CURRENT_SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, "spec/schema.json"), "utf8"));
 const CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA.properties?.schemaVersion?.const;
 const CURRENT_SCHEMA_URL = CURRENT_SCHEMA.$id || "https://opencareerformat.org/schema.json";
@@ -85,7 +85,7 @@ function importedStarterContract() {
     "Do not use person.email, person.phone, person.linkedin, person.github, person.website, person.city, person.country, person.url, or string person.name.",
     "",
     "sourceArtifacts shape:",
-    'Use exactly one source artifact: {"id":"source-sample-resume-source","kind":"resume","label":"sample-resume-source.txt","capturedDate":{"year":2026,"month":5,"day":28},"fileName":"sample-resume-source.txt","rawIncluded":false,"visibility":"private"}.',
+    'Use exactly one source artifact: {"id":"source-resume","kind":"resume","label":"source-resume.txt","capturedDate":{"year":2026,"month":5,"day":28},"fileName":"source-resume.txt","rawIncluded":false,"visibility":"private"}.',
     "",
     "skills shape:",
     'skills must be an array of objects like [{"name":"Incident Response","visibility":"shared"}]. Do not use an object keyed by skill name.',
@@ -125,7 +125,7 @@ function taskForMode(options) {
       `Set "schemaVersion" to "${CURRENT_SCHEMA_VERSION}".`,
       'Set "meta.fileRole" to "candidate-master", "meta.source.kind" to "imported", "meta.language" to "en-US", and "meta.lastModified" to "2026-05-28".',
       "Do not include meta.variant or meta.canonical.",
-      'Include sourceArtifacts as an array with one object: id "source-sample-resume-source", kind "resume", label "sample-resume-source.txt", capturedDate {"year":2026,"month":5,"day":28}, fileName "sample-resume-source.txt", rawIncluded false, visibility "private".',
+      'Include sourceArtifacts as an array with one object: id "source-resume", kind "resume", label "source-resume.txt", capturedDate {"year":2026,"month":5,"day":28}, fileName "source-resume.txt", rawIncluded false, visibility "private".',
       "person may contain only valid person fields. Contacts must be objects with required kind and value. Contact kind must be one of email, phone, url, linkedin, github, social, other.",
       "Prefer conservative extraction over guessing. Do not invent facts. Put uncertainty in openQuestions.",
       'skills must be top-level. Each skill needs at least {"name": "..."} and may include visibility "shared".',

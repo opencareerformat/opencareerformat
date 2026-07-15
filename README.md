@@ -14,7 +14,7 @@ This repository contains the schema, prompts, skills, mappings, and reference im
 
 OCF is currently at **v0.3** and should be treated as pre-1.0 beta. The current schema URL is <https://opencareerformat.org/schema.json>; this alias may change as feedback comes in. Tools that need stability should pin to a versioned schema URL such as <https://opencareerformat.org/v0.3/schema.json>. Breaking changes may occur before 1.0 and will be documented in the changelog.
 
-OCF is not hiding changes behind the website. Git history shows what changed and when. For most docs, prompts, skills, examples, and guidance, use the latest version. For the schema, use the latest version unless you need to pin a specific schema version for validation or compatibility.
+OCF is not hiding changes behind the website. Git history shows what changed and when. For most docs, prompts, skills, and guidance, use the latest version. For the schema, use the latest version unless you need to pin a specific schema version for validation or compatibility. Version-pinned teaching examples, such as the Maria Reyes OCF 0.3 set, remain valid against the schema they declare and are not automatically migrated to each new release.
 
 ## Start Here
 
@@ -24,7 +24,7 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - **If you are reading the schema:** start with [`spec/guide.html`](spec/guide.html), then [`spec/schema-commentary.md`](spec/schema-commentary.md).
 - **If you are building a tool:** start with [`spec/implementer-quick-reference.md`](spec/implementer-quick-reference.md), [`spec/usage-patterns.md`](spec/usage-patterns.md), and [`schema.json`](schema.json).
 - **If you want runnable examples:** start with [`reference/README.md`](reference/README.md).
-- **If you want a worked example lifecycle:** start with [`spec/examples/worked-example-walkthrough.md`](spec/examples/worked-example-walkthrough.md).
+- **If you want to see an OCF grow through repeated conversations:** start with [`spec/examples/maria-reyes/README.md`](spec/examples/maria-reyes/README.md).
 - **If you are mapping OCF to another format:** start with [`mappings/README.md`](mappings/README.md).
 
 ## Repository Layout
@@ -120,7 +120,7 @@ If the schema cannot express something your tool, mapping, or workflow needs, [o
 ```bash
 cd reference/validator
 npm install        # one-time, installs ajv and ajv-formats
-node validate.js   # validates every file in spec/examples/ against spec/schema.json
+node validate.js   # recursively validates spec/examples/ against each file's declared schema version
 ```
 
 Or from the repo root:

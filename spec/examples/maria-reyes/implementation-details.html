@@ -3,30 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Worked Example Walkthrough — Open Career Format</title>
-<meta name="description" content="A narrative walkthrough of the Open Career Format example lifecycle.">
-<link rel="canonical" href="https://opencareerformat.org/spec/examples/worked-example-walkthrough.html">
-<link rel="alternate" hreflang="en" href="https://opencareerformat.org/spec/examples/worked-example-walkthrough.html">
-<link rel="alternate" hreflang="es" href="https://opencareerformat.org/spec/examples/worked-example-walkthrough.es.html">
-<link rel="alternate" hreflang="x-default" href="https://opencareerformat.org/spec/examples/worked-example-walkthrough.html">
-<link rel="icon" type="image/png" href="../assets/ocf-logo.png">
+<title>Maria Reyes Example: Implementation Details — Open Career Format</title>
+<meta name="description" content="Implementation details behind the Maria Reyes OCF 0.3 teaching example.">
+<link rel="canonical" href="https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html">
+<link rel="alternate" hreflang="en" href="https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html">
+<link rel="alternate" hreflang="es" href="https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.es.html">
+<link rel="alternate" hreflang="x-default" href="https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html">
+<link rel="icon" type="image/png" href="../../assets/ocf-logo.png">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Worked Example Walkthrough">
-<meta property="og:description" content="A narrative walkthrough of the Open Career Format example lifecycle.">
-<meta property="og:url" content="https://opencareerformat.org/spec/examples/worked-example-walkthrough.html">
+<meta property="og:title" content="Maria Reyes Example: Implementation Details">
+<meta property="og:description" content="Implementation details behind the Maria Reyes OCF 0.3 teaching example.">
+<meta property="og:url" content="https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html">
 <meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Worked Example Walkthrough">
-<meta name="twitter:description" content="A narrative walkthrough of the Open Career Format example lifecycle.">
+<meta name="twitter:title" content="Maria Reyes Example: Implementation Details">
+<meta name="twitter:description" content="Implementation details behind the Maria Reyes OCF 0.3 teaching example.">
 <meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Worked Example Walkthrough",
-  "name": "Worked Example Walkthrough",
-  "url": "https://opencareerformat.org/spec/examples/worked-example-walkthrough.html",
-  "description": "A narrative walkthrough of the Open Career Format example lifecycle.",
+  "headline": "Maria Reyes Example: Implementation Details",
+  "name": "Maria Reyes Example: Implementation Details",
+  "url": "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html",
+  "description": "Implementation details behind the Maria Reyes OCF 0.3 teaching example.",
   "inLanguage": "en",
   "isPartOf": {
     "@type": "WebSite",
@@ -174,28 +174,31 @@
 </head>
 <body>
 <header class="site-header">
-  <a href="../.."><img src="../assets/ocf-logo.png" alt="Open Career Format logo"></a>
-  <a href="../..">Open Career Format</a>
+  <a href="../../.."><img src="../../assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="../../..">Open Career Format</a>
 </header>
 <main>
-<p class="doc-meta">Readable HTML version. <a href="./worked-example-walkthrough.md">View the Markdown source</a>.</p>
-<h1>Worked Example Walkthrough</h1>
+<p class="doc-meta">Readable HTML version. <a href="./implementation-details.md">View the Markdown source</a>.</p>
+<h1>Maria Reyes Example: Implementation Details</h1>
 
-<p><a href="./worked-example-walkthrough.html">English</a> | <a href="./worked-example-walkthrough.es.html">Español</a></p>
+<p><a href="./implementation-details.html">English</a> | <a href="./implementation-details.es.html">Español</a></p>
+
+<blockquote><p>Last updated: 2026-07-14.</p></blockquote>
 
 <p>The details behind a resume bullet point fade fast — usually right when you next need them. This walkthrough takes one bullet point, a hospital ransomware response, and recovers the career memory behind it.</p>
 
-<p>This walkthrough explains the lifecycle behind the fictional Maria E. Reyes example files. It is not a new schema requirement; it is a concrete way to read the examples as a small OCF workflow.</p>
+<p>This page explains the OCF structures behind the <a href="./index.html">Maria Reyes conversation example</a>. It is not a new schema requirement; it is a technical view of how the conversations become durable career memory.</p>
 
 <p>Files:</p>
 
 <table>
 <thead><tr><th>File</th><th>Website</th><th>GitHub source</th></tr></thead>
 <tbody>
-<tr><td>Source resume</td><td><a href="https://opencareerformat.org/spec/examples/sample-resume-source.txt"><code>sample-resume-source.txt</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume-source.txt"><code>spec/examples/sample-resume-source.txt</code></a></td></tr>
-<tr><td>Enriched OCF file</td><td><a href="https://opencareerformat.org/spec/examples/sample-resume.ocf.json"><code>sample-resume.ocf.json</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.ocf.json"><code>spec/examples/sample-resume.ocf.json</code></a></td></tr>
-<tr><td>Detailed change history, from source resume through OCF improvements</td><td><a href="https://opencareerformat.org/spec/examples/sample-resume.html"><code>sample-resume.html</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.md"><code>spec/examples/sample-resume.md</code></a></td></tr>
-<tr><td>Target job description</td><td><a href="https://opencareerformat.org/spec/examples/sample-job-description.txt"><code>sample-job-description.txt</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-job-description.txt"><code>spec/examples/sample-job-description.txt</code></a></td></tr>
+<tr><td>Main conversation example</td><td><a href="https://opencareerformat.org/spec/examples/maria-reyes/"><code>index.html</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/README.md"><code>spec/examples/maria-reyes/README.md</code></a></td></tr>
+<tr><td>Source resume</td><td><a href="https://opencareerformat.org/spec/examples/maria-reyes/source-resume.txt"><code>source-resume.txt</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/source-resume.txt"><code>spec/examples/maria-reyes/source-resume.txt</code></a></td></tr>
+<tr><td>Healthcare target</td><td><a href="https://opencareerformat.org/spec/examples/maria-reyes/healthcare-job-description.txt"><code>healthcare-job-description.txt</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/healthcare-job-description.txt"><code>spec/examples/maria-reyes/healthcare-job-description.txt</code></a></td></tr>
+<tr><td>Pre-Conversation-Seven OCF</td><td><a href="https://opencareerformat.org/spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json"><code>maria-reyes-revision-6.ocf.json</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json"><code>spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json</code></a></td></tr>
+<tr><td>Post-Conversation-Seven OCF</td><td><a href="https://opencareerformat.org/spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json"><code>maria-reyes-revision-7.ocf.json</code></a></td><td><a href="https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json"><code>spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json</code></a></td></tr>
 </tbody>
 </table>
 
@@ -235,7 +238,7 @@
 <li>a narrative variant for a particular audience.</li>
 </ul>
 
-<p>The ransomware response story in <code>sample-resume.ocf.json</code> shows this pattern. After follow-up questions, the career event that boiled down to a short bullet point turns into structured data and reusable memory:</p>
+<p>The ransomware response story in <code>maria-reyes-revision-7.ocf.json</code> shows this pattern. After follow-up questions, the career event that boiled down to a short bullet point turns into structured data and reusable memory:</p>
 
 <ul>
 <li>a structured achievement;</li>
@@ -345,13 +348,13 @@
     &quot;operation&quot;: &quot;recovered-promotion-dates-behind-final-rank&quot;,
     &quot;confidence&quot;: 0.9,
     &quot;sourceArtifactId&quot;: &quot;sample-resume-source-2026-05&quot;,
-    &quot;note&quot;: &quot;Final rank and MOS appear on the source resume; the dated steps were established in conversation for this fictional example.&quot;
+    &quot;note&quot;: &quot;Final rank and MOS appear on the source resume; the dated steps were established during Conversation Six.&quot;
   }
 }</code></pre>
 
-<p>The excerpt shows two of the six supporting facts in the sample file. Note the provenance split: the final rank is supported by the resume itself; the dated steps are interview-derived. The resume proves the endpoint; the conversation recovers the path.</p>
+<p>The excerpt shows two of the six supporting facts in Maria's OCF. Note the provenance split: the final rank is supported by the resume itself; the dated steps are interview-derived. The resume proves the endpoint; the conversation recovers the path.</p>
 
-<p>Whether the steps appear in any output is a separate decision. A civilian resume shows none of them; a federal resume may list every one. The master stores the full path so curation can choose. Storage and display are different questions, and OCF only fixes the first.</p>
+<p>Whether the steps appear in any output is a separate decision. A general civilian resume may show none of them; a government-contracting resume may list every one. The OCF stores the full path so curation can choose. Storage and display are different questions, and OCF only fixes the first.</p>
 
 <h3>Stories Improve Career Memory</h3>
 
@@ -446,7 +449,7 @@
 
 <p>Early drafts often overstate something. OCF records those corrections instead of making the user repeat them in every future session.</p>
 
-<p>In the sample file, cautions and open questions show how a reviewer or LLM can preserve:</p>
+<p>In Maria's OCF, cautions and open questions show how a reviewer or LLM can preserve:</p>
 
 <ul>
 <li>claims not to make;</li>
@@ -457,7 +460,7 @@
 
 <p>Cautions are leading controls. A future curation pass should read them before drafting.</p>
 
-<p>For example, the sample file records a caution against positioning Maria as an &quot;AI / ML security specialist.&quot; The underlying fact is useful: she has operational exposure to ML-based detection tooling. The risky draft leap is turning that exposure into research-level AI/ML specialization. Once the caution is saved, a later tool can still use the real fact, but it should choose safer wording such as &quot;evaluated and operationalized ML-assisted detection tooling&quot; rather than overstating her expertise.</p>
+<p>For example, Maria's OCF records a caution against positioning her as an &quot;AI / ML security specialist.&quot; The underlying fact is useful: she has operational exposure to ML-based detection tooling. The risky draft leap is turning that exposure into research-level AI/ML specialization. Once the caution is saved, a later tool can still use the real fact, but it should choose safer wording such as &quot;evaluated and operationalized ML-assisted detection tooling&quot; rather than overstating her expertise.</p>
 
 <p>That is the value of a caution: the user corrects the mistake once, and future curation starts with that correction already in memory.</p>
 
@@ -618,20 +621,18 @@
 
 <p>That feedback loop is why OCF gets more useful after each session.</p>
 
-<h2>8. Session Two Reuses And Improves The Memory</h2>
+<h2>8. Conversation Seven Reuses And Improves The Memory</h2>
 
-<p>Six months later, Maria can bring the OCF to a different conversation:</p>
+<p>Conversation Seven provides the real reuse example. Maria initially shares only her short resume and a government-contractor job description. The gap read finds a strong match but little evidence behind several government-program qualifications.</p>
 
-<blockquote><p><strong>Maria:</strong> I am applying for a VP Security role. Use my OCF and help me prepare for the interview.</p>
+<p>When Maria remembers and attaches <a href="maria-reyes-revision-6.ocf.json"><code>maria-reyes-revision-6.ocf.json</code></a>, the assessment changes. The OCF recovers clearance history, military progression, private leadership stories, target-aware positioning, and applied security context that the resume compressed or omitted. It also exposes claims that should not be trusted merely because they are structured: the private-sector timeline is wrong, the management range conflates coordination with direct leadership, the FedRAMP claim overstates Maria's role, and the flag-officer briefing lacks support.</p>
 
-<p><strong>LLM:</strong> Your resume alone would show SOC buildout and ransomware response. Your OCF adds a useful leadership pattern: you rebuild authority from demonstrated work rather than inherited position. For a VP interview, I would use that carefully as a military-to-civilian leadership answer, not as a resume bullet point.</p>
+<p>Maria corrects those claims in conversation. The complete <a href="maria-reyes-revision-7.ocf.json"><code>maria-reyes-revision-7.ocf.json</code></a> preserves everything from revision 6 while carrying the accepted corrections, new attribution, cautions, provenance, and source records. This is the compounding value claim with its necessary guardrail: each reviewed session gives the next session better memory, and each later session can still question and improve that memory.</p>
 
-<p><strong>LLM draft answer:</strong> &quot;The biggest adjustment after the Army was learning that civilian authority starts from evidence, not rank. At Meridian, I learned that the hard way when a weekend coverage request got a flat no. I took the worst rotations first, wrote clean handoffs, and let the team see the standard before I asked them to share it. That became part of how we built 24/7 SOC coverage: not just a staffing plan, but a credibility plan.&quot;</p></blockquote>
-
-<p>That paragraph could not come from the source resume alone. It needs the resume fact, the preserved story, and the confirmed through-line. This second session is also a good time to capture fresh items and stories from Maria's current role before they fade into old resume shorthand. That is the compounding value claim: each reviewed session gives the next session better memory to work with.</p>
+<p>The <a href="./index.html">main Maria page</a> shows the full Conversation Seven transcript.</p>
 </main>
 <footer class="source-link">
-  <p>This page is generated from <a href="./worked-example-walkthrough.md"><code>spec/examples/worked-example-walkthrough.md</code></a>.</p>
+  <p>This page is generated from <a href="./implementation-details.md"><code>spec/examples/maria-reyes/implementation-details.md</code></a>.</p>
 </footer>
 </body>
 </html>

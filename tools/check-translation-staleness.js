@@ -23,10 +23,11 @@ const localizedDocs = [
     kind: "wrapper",
   },
   {
-    localized: "spec/examples/worked-example-walkthrough.es.md",
-    source: "spec/examples/worked-example-walkthrough.md",
-    stamp: /Fuente canónica:\s+\[`worked-example-walkthrough\.md`\]\(worked-example-walkthrough\.md\), commit `([0-9a-f]+)`/,
-    kind: "translation",
+    localized: "spec/examples/maria-reyes/implementation-details.es.md",
+    source: "spec/examples/maria-reyes/implementation-details.md",
+    stamp: /Fuente canónica:\s+\[`implementation-details\.md`\]\(implementation-details\.md\), actualizada el (\d{4}-\d{2}-\d{2})\. Traducción revisada el (\d{4}-\d{2}-\d{2})\./,
+    sourceStamp: /Last updated:\s+(\d{4}-\d{2}-\d{2})\./,
+    kind: "dated-translation",
   },
 ];
 
@@ -45,7 +46,12 @@ for (const item of localizedDocs) {
   const text = fs.readFileSync(item.localized, "utf8");
   const match = text.match(item.stamp);
   if (!match) {
-    failures.push(`${item.localized}: missing canonical source commit stamp`);
+    failures.push(`${item.localized}: missing canonical source stamp`);
+    continue;
+  }
+
+  if (item.kind === "dated-translation") {
+    checkDatedTranslation(item, match, failures);
     continue;
   }
 
@@ -87,6 +93,37 @@ for (const item of localizedDocs) {
     const noun = item.kind === "wrapper" ? "localized wrapper" : "translation";
     failures.push(
       `${item.localized}: ${item.source} changed in ${sourceCommit} after the ${noun}'s latest update ${localizedCommit}`,
+    );
+  }
+}
+
+function checkDatedTranslation(item, localizedMatch, failures) {
+  const sourceText = fs.readFileSync(item.source, "utf8");
+  const sourceMatch = sourceText.match(item.sourceStamp);
+  if (!sourceMatch) {
+    failures.push(`${item.source}: missing Last updated date`);
+    return;
+  }
+
+  if (hasUncommittedChanges(item.source)) {
+    failures.push(
+      `${item.localized}: ${item.source} has uncommitted changes; commit the canonical source first, then review the localized file against that committed version`,
+    );
+    return;
+  }
+
+  const sourceDate = sourceMatch[1];
+  const stampedSourceDate = localizedMatch[1];
+  const reviewedDate = localizedMatch[2];
+  if (stampedSourceDate !== sourceDate) {
+    failures.push(
+      `${item.localized}: stamped source date ${stampedSourceDate} does not match ${item.source} date ${sourceDate}`,
+    );
+    return;
+  }
+  if (reviewedDate < sourceDate) {
+    failures.push(
+      `${item.localized}: translation review date ${reviewedDate} predates source date ${sourceDate}`,
     );
   }
 }

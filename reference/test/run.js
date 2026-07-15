@@ -101,7 +101,7 @@ function testSemanticReferences() {
 function testContextProfile() {
   const repoRoot = path.resolve(__dirname, "../..");
   const script = path.join(repoRoot, "reference/context/ocf-context.js");
-  const master = path.join(repoRoot, "spec/examples/sample-resume.ocf.json");
+  const master = path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json");
   const profile = path.join(repoRoot, "reference/context/career-summary.profile.json");
   const build = spawnSync(process.execPath, [script, "build", master, profile], { encoding: "utf8" });
   assert.strictEqual(build.status, 0, build.stderr);

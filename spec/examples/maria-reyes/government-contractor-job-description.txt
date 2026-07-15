@@ -1,0 +1,34 @@
+Director, Cybersecurity Operations - Government Programs
+
+We are a private technology and services company seeking a cybersecurity operations director to lead defensive cyber and incident-response programs supporting U.S. government customers. This role combines mission delivery, technical leadership, team development, and executive communication across federal and defense environments.
+
+The director will lead distributed security operations teams, strengthen detection and response capabilities, oversee high-severity incident response, and translate operational risk for government and company leaders. The role partners with cloud, engineering, compliance, and program teams to deliver secure services aligned with the Risk Management Framework, NIST 800-53, FedRAMP, and applicable DoD security requirements.
+
+Responsibilities
+
+- Lead multi-team defensive cyber operations, including 24/7 monitoring, incident response, threat analysis, vulnerability management, and continuous improvement.
+- Build and mentor technical teams while setting clear operational standards, escalation paths, and handoff practices.
+- Direct response to ransomware, nation-state activity, and other high-impact incidents affecting mission-critical systems.
+- Brief government stakeholders and company executives on cyber risk, operational readiness, incident status, and investment priorities.
+- Apply RMF, NIST 800-53, FedRAMP, zero trust, and defense-in-depth principles to cloud and enterprise environments.
+- Work across technical and program organizations to improve delivery, document decisions, and prepare for customer reviews and assessments.
+
+Required qualifications
+
+- 10+ years of cybersecurity experience, including 5+ years leading security operations, incident response, network defense, or closely related teams.
+- Demonstrated leadership during complex or high-pressure cyber incidents.
+- Experience supporting U.S. government, DoD, intelligence community, critical-infrastructure, or other regulated environments.
+- Working knowledge of RMF, NIST 800-53, FedRAMP, and federal security authorization processes.
+- Experience with SIEM, endpoint security, cloud security, vulnerability management, threat intelligence, and zero trust architecture.
+- Ability to communicate technical risk clearly to senior government, business, and technical audiences.
+- U.S. citizenship and the ability to obtain or reactivate a Top Secret / SCI clearance.
+
+Preferred qualifications
+
+- Active Top Secret / SCI clearance.
+- Prior military cyber operations experience, including leadership of defensive cyber or network-defense teams.
+- Experience leading cybersecurity delivery for federal contracts or mission programs.
+- CISSP, CISM, or comparable advanced cybersecurity certification.
+- Experience with AWS security, DISA STIGs, infrastructure as code, and security automation.
+
+The role may be based in San Antonio, TX, or the Washington, DC area, with hybrid work and travel of up to 25 percent to customer and company sites.

@@ -59,14 +59,14 @@ If someone is running multiple searches, such as customer success leadership and
 
 ## Example: Maria Starts A Career-Ops Search
 
-OCF uses a fictional candidate, Maria E. Reyes, as a worked example for showing how a source resume and job description can become richer career memory. See the [`Maria sample overview`](../spec/examples/sample-resume.md) and the [`fully worked walkthrough`](../spec/examples/worked-example-walkthrough.md).
+OCF uses Maria E. Reyes as a fictional teaching example for showing how a source resume and job description can become richer career memory. Start with [`Maria Reyes: An OCF Growing Through Conversation`](../spec/examples/maria-reyes/README.md); its optional [`implementation details`](../spec/examples/maria-reyes/implementation-details.md) explain the underlying structures.
 
 Specifically for Career-Ops, the OCF export skill can use Maria's sample OCF as the starting point for a Career-Ops search workspace instead of asking Career-Ops to rediscover her whole career from a flat resume.
 
 For a healthcare cybersecurity director search, the OCF export skill would start from:
 
-- [`spec/examples/sample-resume.ocf.json`](../spec/examples/sample-resume.ocf.json) as the OCF source;
-- [`spec/examples/sample-job-description.txt`](../spec/examples/sample-job-description.txt) as the first relevant JD;
+- [`spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json`](../spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json) as the OCF source;
+- [`spec/examples/maria-reyes/healthcare-job-description.txt`](../spec/examples/maria-reyes/healthcare-job-description.txt) as the first relevant JD;
 - the role track `healthcare-security` or `cybersecurity director`.
 
 That track would steer the export toward Maria's healthcare-security headline:

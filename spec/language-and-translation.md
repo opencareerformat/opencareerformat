@@ -75,4 +75,4 @@ Current Spanish human-facing examples:
 
 - [`README.es.md`](../README.es.md)
 - [`index.es.html`](../index.es.html)
-- [`spec/examples/worked-example-walkthrough.es.md`](examples/worked-example-walkthrough.es.md)
+- [`spec/examples/maria-reyes/implementation-details.es.md`](examples/maria-reyes/implementation-details.es.md)

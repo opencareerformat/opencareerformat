@@ -34,7 +34,7 @@ including its stable ID when one exists.
 
 ```bash
 node reference/context/ocf-context.js build \
-  spec/examples/sample-resume.ocf.json \
+  spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json \
   reference/context/career-summary.profile.json \
   /tmp/maria.context.json
 ```
@@ -59,7 +59,7 @@ When the model needs a withheld story, retrieve it from the complete master:
 
 ```bash
 node reference/context/ocf-context.js get \
-  spec/examples/sample-resume.ocf.json \
+  spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json \
   meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection
 ```
 

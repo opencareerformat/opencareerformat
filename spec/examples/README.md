@@ -1,19 +1,21 @@
-# OCF Example Files
+# OCF Examples
 
-Canonical example OCF files used by the validator and by tool authors as references.
+These examples show different parts of Open Career Format. Each OCF JSON file declares the schema version it uses and should be validated against that version.
+
+## Maria Reyes: A Complete Teaching Example
+
+Start with **[Maria Reyes: An OCF Growing Through Conversation](maria-reyes/README.md)**.
+
+It is the single entry point for Maria's fictional OCF 0.3 example: the source resume, two target job descriptions, Conversations One through Seven, complete OCF revisions 6 and 7, and optional implementation details. The main page shows the full text of Conversations One, Five, and Seven; supporting files appear where the conversation uses them.
+
+The Maria set is intentionally frozen to OCF 0.3. Revision 6 contains unresolved claims that Conversation Seven discovers; revision 7 is the current reference file after Maria's corrections. Reference tools should use `maria-reyes/maria-reyes-revision-7.ocf.json` unless they are specifically demonstrating the comparison.
+
+## Focused Examples
 
 | File | Description |
-|------|-------------|
-| [`worked-example-walkthrough.md`](worked-example-walkthrough.md) | Narrative walkthrough of the example lifecycle: source resume, provisional master, richer career memory, target curation, export, and updates flowing back. |
-| [`worked-example-walkthrough.es.md`](worked-example-walkthrough.es.md) | Spanish non-canonical translation of the worked example walkthrough. |
-| [`sample-resume.md`](sample-resume.md) | Explanation and history for the Maria E. Reyes sample set: how the source resume became a richer OCF, what review passes added, and what readers should notice. |
-| `sample-resume-source.txt` | Fictional source resume used as the starting material for `sample-resume.ocf.json` and the reference importer example. |
-| `sample-resume.ocf.json` | A fictional but richly-built example covering most of the schema surface — Maria E. Reyes, a cybersecurity leader with military background. Includes a worked demonstration of the conversational-mining pattern (`mhs-ransomware-2024`), a military progression pattern where rank/MOS details matter differently by audience, and a "stays in master but typically curated out" item (`mhs-mssp-transition`) so readers can inspect those patterns directly. |
-| `sample-job-description.txt` | Fictional target job description used by the reference curator examples. |
-| `repeated-organization-variants.json` | A compact fictional example showing a reusable `organizations` record referenced by two separate tenures, a `sourceArtifacts` registry for old resumes / pasted chat data, bullet-level `narrativeVariants`, and position-level `titleVariants` with required basis. |
-| `sales-compensation-private.json` | A compact fictional example showing private compensation history and sales quota records alongside shareable quota-attainment achievements and a public podcast appearance. |
-| `open-source-project.json` | A compact fictional example showing independent open-source work as a top-level `projects` entry with a GitHub repository link, public achievements, skills, and renderer grouping. |
+|---|---|
+| [`repeated-organization-variants.json`](repeated-organization-variants.json) | Two tenures at one organization, reusable organization records, source artifacts, narrative variants, and title variants. |
+| [`sales-compensation-private.json`](sales-compensation-private.json) | Private compensation and quota history alongside shareable sales achievements. |
+| [`open-source-project.json`](open-source-project.json) | Independent open-source work represented as a top-level project with public achievements and skills. |
 
-All files in this directory validate against `../schema.json` and are exercised by `reference/validator/validate.js`. They are fictional; do not infer real persons or events.
-
-For the minimal first-time user flow, use `prompts/application-bootstrap.md`: read the resume and job description, ask whether an OCF exists, produce the requested application help, ask one story question, and save a provisional OCF master or proposed update set for next time.
+The examples are fictional. Do not infer real people, employers, or events from them.

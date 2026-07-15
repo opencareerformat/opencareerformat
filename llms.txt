@@ -50,8 +50,9 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - Selective context for large OCF masters: https://opencareerformat.org/spec/context-profiles.md
 - Language and translation guidance: https://opencareerformat.org/spec/language-and-translation.md
 - OCF and Career-Ops integration framing: https://opencareerformat.org/mappings/career-ops-integration.html
-- Worked example walkthrough: https://opencareerformat.org/spec/examples/worked-example-walkthrough.md
-- Spanish worked example walkthrough: https://opencareerformat.org/spec/examples/worked-example-walkthrough.es.md
+- Maria Reyes conversation example: https://opencareerformat.org/spec/examples/maria-reyes/
+- Maria example implementation details: https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.md
+- Spanish implementation details: https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.es.md
 - v0.3 planning notes: https://opencareerformat.org/spec/v0.3-planning.md
 - Local validator: https://github.com/opencareerformat/opencareerformat/tree/main/reference/validator
 - Local context-profile reference: https://github.com/opencareerformat/opencareerformat/tree/main/reference/context

@@ -1,19 +1,22 @@
-# Worked Example Walkthrough
+# Maria Reyes Example: Implementation Details
 
-[English](worked-example-walkthrough.md) | [Español](worked-example-walkthrough.es.md)
+[English](implementation-details.md) | [Español](implementation-details.es.md)
+
+> Last updated: 2026-07-14.
 
 The details behind a resume bullet point fade fast — usually right when you next need them. This walkthrough takes one bullet point, a hospital ransomware response, and recovers the career memory behind it.
 
-This walkthrough explains the lifecycle behind the fictional Maria E. Reyes example files. It is not a new schema requirement; it is a concrete way to read the examples as a small OCF workflow.
+This page explains the OCF structures behind the [Maria Reyes conversation example](README.md). It is not a new schema requirement; it is a technical view of how the conversations become durable career memory.
 
 Files:
 
 | File | Website | GitHub source |
 |---|---|---|
-| Source resume | [`sample-resume-source.txt`](https://opencareerformat.org/spec/examples/sample-resume-source.txt) | [`spec/examples/sample-resume-source.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume-source.txt) |
-| Enriched OCF file | [`sample-resume.ocf.json`](https://opencareerformat.org/spec/examples/sample-resume.ocf.json) | [`spec/examples/sample-resume.ocf.json`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.ocf.json) |
-| Detailed change history, from source resume through OCF improvements | [`sample-resume.html`](https://opencareerformat.org/spec/examples/sample-resume.html) | [`spec/examples/sample-resume.md`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-resume.md) |
-| Target job description | [`sample-job-description.txt`](https://opencareerformat.org/spec/examples/sample-job-description.txt) | [`spec/examples/sample-job-description.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/sample-job-description.txt) |
+| Main conversation example | [`index.html`](https://opencareerformat.org/spec/examples/maria-reyes/) | [`spec/examples/maria-reyes/README.md`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/README.md) |
+| Source resume | [`source-resume.txt`](https://opencareerformat.org/spec/examples/maria-reyes/source-resume.txt) | [`spec/examples/maria-reyes/source-resume.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/source-resume.txt) |
+| Healthcare target | [`healthcare-job-description.txt`](https://opencareerformat.org/spec/examples/maria-reyes/healthcare-job-description.txt) | [`spec/examples/maria-reyes/healthcare-job-description.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/healthcare-job-description.txt) |
+| Pre-Conversation-Seven OCF | [`maria-reyes-revision-6.ocf.json`](https://opencareerformat.org/spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json) | [`spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json) |
+| Post-Conversation-Seven OCF | [`maria-reyes-revision-7.ocf.json`](https://opencareerformat.org/spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json) | [`spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json) |
 
 ## 1. Source Resume Captured
 
@@ -49,7 +52,7 @@ An OCF-oriented intake pass does more than rewrite resume bullet points. It asks
 - an open question;
 - a narrative variant for a particular audience.
 
-The ransomware response story in `sample-resume.ocf.json` shows this pattern. After follow-up questions, the career event that boiled down to a short bullet point turns into structured data and reusable memory:
+The ransomware response story in `maria-reyes-revision-7.ocf.json` shows this pattern. After follow-up questions, the career event that boiled down to a short bullet point turns into structured data and reusable memory:
 
 - a structured achievement;
 - supporting facts and metrics;
@@ -164,14 +167,14 @@ The master stores each step as a dated supporting fact on a spanning achievement
     "operation": "recovered-promotion-dates-behind-final-rank",
     "confidence": 0.9,
     "sourceArtifactId": "sample-resume-source-2026-05",
-    "note": "Final rank and MOS appear on the source resume; the dated steps were established in conversation for this fictional example."
+    "note": "Final rank and MOS appear on the source resume; the dated steps were established during Conversation Six."
   }
 }
 ```
 
-The excerpt shows two of the six supporting facts in the sample file. Note the provenance split: the final rank is supported by the resume itself; the dated steps are interview-derived. The resume proves the endpoint; the conversation recovers the path.
+The excerpt shows two of the six supporting facts in Maria's OCF. Note the provenance split: the final rank is supported by the resume itself; the dated steps are interview-derived. The resume proves the endpoint; the conversation recovers the path.
 
-Whether the steps appear in any output is a separate decision. A civilian resume shows none of them; a federal resume may list every one. The master stores the full path so curation can choose. Storage and display are different questions, and OCF only fixes the first.
+Whether the steps appear in any output is a separate decision. A general civilian resume may show none of them; a government-contracting resume may list every one. The OCF stores the full path so curation can choose. Storage and display are different questions, and OCF only fixes the first.
 
 ### Stories Improve Career Memory
 
@@ -270,7 +273,7 @@ This is the give-back loop. The user contributes a story that was never resume-s
 
 Early drafts often overstate something. OCF records those corrections instead of making the user repeat them in every future session.
 
-In the sample file, cautions and open questions show how a reviewer or LLM can preserve:
+In Maria's OCF, cautions and open questions show how a reviewer or LLM can preserve:
 
 - claims not to make;
 - missing attribution details;
@@ -279,7 +282,7 @@ In the sample file, cautions and open questions show how a reviewer or LLM can p
 
 Cautions are leading controls. A future curation pass should read them before drafting.
 
-For example, the sample file records a caution against positioning Maria as an "AI / ML security specialist." The underlying fact is useful: she has operational exposure to ML-based detection tooling. The risky draft leap is turning that exposure into research-level AI/ML specialization. Once the caution is saved, a later tool can still use the real fact, but it should choose safer wording such as "evaluated and operationalized ML-assisted detection tooling" rather than overstating her expertise.
+For example, Maria's OCF records a caution against positioning her as an "AI / ML security specialist." The underlying fact is useful: she has operational exposure to ML-based detection tooling. The risky draft leap is turning that exposure into research-level AI/ML specialization. Once the caution is saved, a later tool can still use the real fact, but it should choose safer wording such as "evaluated and operationalized ML-assisted detection tooling" rather than overstating her expertise.
 
 That is the value of a caution: the user corrects the mistake once, and future curation starts with that correction already in memory.
 
@@ -437,14 +440,12 @@ Examples:
 
 That feedback loop is why OCF gets more useful after each session.
 
-## 8. Session Two Reuses And Improves The Memory
+## 8. Conversation Seven Reuses And Improves The Memory
 
-Six months later, Maria can bring the OCF to a different conversation:
+Conversation Seven provides the real reuse example. Maria initially shares only her short resume and a government-contractor job description. The gap read finds a strong match but little evidence behind several government-program qualifications.
 
-> **Maria:** I am applying for a VP Security role. Use my OCF and help me prepare for the interview.
->
-> **LLM:** Your resume alone would show SOC buildout and ransomware response. Your OCF adds a useful leadership pattern: you rebuild authority from demonstrated work rather than inherited position. For a VP interview, I would use that carefully as a military-to-civilian leadership answer, not as a resume bullet point.
->
-> **LLM draft answer:** "The biggest adjustment after the Army was learning that civilian authority starts from evidence, not rank. At Meridian, I learned that the hard way when a weekend coverage request got a flat no. I took the worst rotations first, wrote clean handoffs, and let the team see the standard before I asked them to share it. That became part of how we built 24/7 SOC coverage: not just a staffing plan, but a credibility plan."
+When Maria remembers and attaches [`maria-reyes-revision-6.ocf.json`](maria-reyes-revision-6.ocf.json), the assessment changes. The OCF recovers clearance history, military progression, private leadership stories, target-aware positioning, and applied security context that the resume compressed or omitted. It also exposes claims that should not be trusted merely because they are structured: the private-sector timeline is wrong, the management range conflates coordination with direct leadership, the FedRAMP claim overstates Maria's role, and the flag-officer briefing lacks support.
 
-That paragraph could not come from the source resume alone. It needs the resume fact, the preserved story, and the confirmed through-line. This second session is also a good time to capture fresh items and stories from Maria's current role before they fade into old resume shorthand. That is the compounding value claim: each reviewed session gives the next session better memory to work with.
+Maria corrects those claims in conversation. The complete [`maria-reyes-revision-7.ocf.json`](maria-reyes-revision-7.ocf.json) preserves everything from revision 6 while carrying the accepted corrections, new attribution, cautions, provenance, and source records. This is the compounding value claim with its necessary guardrail: each reviewed session gives the next session better memory, and each later session can still question and improve that memory.
+
+The [main Maria page](README.md) shows the full Conversation Seven transcript.

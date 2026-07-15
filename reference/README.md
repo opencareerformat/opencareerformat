@@ -38,14 +38,14 @@ These tools are intentionally bare bones. They prove the concept and make the da
 Import a plain-text resume into a provisional current-schema OCF master:
 
 ```bash
-node reference/importers/resume-text-to-ocf.js spec/examples/sample-resume-source.txt /tmp/sample.imported.ocf.json
+node reference/importers/resume-text-to-ocf.js spec/examples/maria-reyes/source-resume.txt /tmp/sample.imported.ocf.json
 node reference/validator/validate.js /tmp/sample.imported.ocf.json
 ```
 
 Curate the richer fictional sample OCF for a healthcare cybersecurity director job:
 
 ```bash
-node reference/curators/job-description.js spec/examples/sample-resume.ocf.json spec/examples/sample-job-description.txt /tmp/sample.candidate-curated.ocf.json
+node reference/curators/job-description.js spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json spec/examples/maria-reyes/healthcare-job-description.txt /tmp/sample.candidate-curated.ocf.json
 node reference/validator/validate.js /tmp/sample.candidate-curated.ocf.json
 ```
 
@@ -59,7 +59,7 @@ node reference/exporters/linkedin.js /tmp/sample.candidate-curated.ocf.json /tmp
 Run a local LLM intake pass with Ollama:
 
 ```bash
-node reference/ollama/ocf-local-llm.js --mode authoring --model llama3.1:8b --resume spec/examples/sample-resume-source.txt --job spec/examples/sample-job-description.txt --out /tmp/ocf-local-authoring-response.md
+node reference/ollama/ocf-local-llm.js --mode authoring --model llama3.1:8b --resume spec/examples/maria-reyes/source-resume.txt --job spec/examples/maria-reyes/healthcare-job-description.txt --out /tmp/ocf-local-authoring-response.md
 ```
 
 Use the bundled sample resume to ask Ollama for a validator-ready provisional master:
