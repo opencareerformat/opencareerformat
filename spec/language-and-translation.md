@@ -75,8 +75,8 @@ The gateway files intentionally carry no source-commit or synchronization stamp.
 
 Available gateways:
 
-- [Español](../index.es.html)
-- [Français](../index.fr.html)
-- [Deutsch](../index.de.html)
-- [Português](../index.pt.html)
-- [日本語](../index.ja.html)
+- Español: [website](https://opencareerformat.org/index.es.html) | [GitHub README](../README.es.md)
+- Français: [website](https://opencareerformat.org/index.fr.html) | [GitHub README](../README.fr.md)
+- Deutsch: [website](https://opencareerformat.org/index.de.html) | [GitHub README](../README.de.md)
+- Português: [website](https://opencareerformat.org/index.pt.html) | [GitHub README](../README.pt.md)
+- 日本語: [website](https://opencareerformat.org/index.ja.html) | [GitHub README](../README.ja.md)

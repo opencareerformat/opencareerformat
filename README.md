@@ -1,6 +1,6 @@
 # Open Career Format (OCF)
 
-[English](README.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português](README.pt.md) | [日本語](README.ja.md)
+[Other languages](spec/language-and-translation.md#documentation-language-gateways)
 
 <p align="center">
   <img src="spec/assets/ocf-logo.png" alt="Open Career Format logo" width="160">
