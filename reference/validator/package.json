@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "generate:standalone": "node generate-standalone.js",
     "test": "node ../test/run.js"
   },
   "keywords": [],

@@ -13,6 +13,7 @@ const { importResumeText } = require("../importers/resume-text-to-ocf");
 const { buildPrompt } = require("../ollama/ocf-local-llm");
 const { curateForJob, summarizeCuration } = require("../curators/job-description");
 const { validateSemantic } = require("../validator/semantic");
+const validateStandalone = require("../validator/standalone.cjs");
 
 testPrivateDefaults();
 testInvalidVisibilityFailsClosed();
@@ -23,6 +24,7 @@ testImporterSafety();
 testOllamaImportMetadata();
 testSemanticReferences();
 testValidatorCli();
+testStandaloneValidator();
 testPythonCli();
 testContextProfile();
 console.log("reference behavior tests: PASS");
@@ -259,6 +261,29 @@ function testValidatorCli() {
     assert.match(refused.stderr, /Refusing to filter/);
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
+function testStandaloneValidator() {
+  const repoRoot = path.resolve(__dirname, "../..");
+  const examples = [
+    "spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json",
+    "spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json",
+  ];
+  for (const example of examples) {
+    const document = JSON.parse(fs.readFileSync(path.join(repoRoot, example), "utf8"));
+    assert.strictEqual(validateStandalone(document), true, JSON.stringify(validateStandalone.errors));
+  }
+
+  const invalidCases = [
+    { schemaVersion: "0.3", person: {} },
+    { schemaVersion: "0.3", person: { name: { renderAs: "Example" } }, futureField: true },
+    { schemaVersion: "0.3", person: { name: { renderAs: "Example" } }, meta: { lastModified: "2026-02-30" } },
+    { schemaVersion: "0.3", person: { name: { renderAs: "Example" }, photo: { value: "not a URI" } } },
+  ];
+  for (const document of invalidCases) {
+    assert.strictEqual(validateStandalone(document), false, JSON.stringify(document));
+    assert.ok(validateStandalone.errors.length > 0);
   }
 }
 
