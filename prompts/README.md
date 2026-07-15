@@ -23,7 +23,7 @@ The prompts are examples of useful approaches, not a prescribed elicitation meth
 ## Current Prompts
 
 - [`application-bootstrap.md`](application-bootstrap.md): single-fetch first-session prompt for resume-plus-job-description application help.
-- [`application-bootstrap.es.md`](application-bootstrap.es.md): Spanish wrapper example for the application bootstrap; the English bootstrap remains canonical.
+- Language gateways for the application bootstrap: [`Español`](application-bootstrap.es.md), [`Français`](application-bootstrap.fr.md), [`Deutsch`](application-bootstrap.de.md), [`Português`](application-bootstrap.pt.md), and [`日本語`](application-bootstrap.ja.md). Each wrapper asks the model to use the current canonical English bootstrap while conversing in the selected language.
 - [`authoring.md`](authoring.md): create or update an OCF from resumes, notes, conversations, or other source artifacts.
 - [`curation.md`](curation.md): select, question, rank, improve, and prepare content for a target or export.
 - [`coaching.md`](coaching.md): help a user discover story, voice, goals, boundaries, and reflection from their OCF.

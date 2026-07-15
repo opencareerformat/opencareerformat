@@ -53,8 +53,5 @@ jobs:
       - name: Check worked example snippets
         run: node tools/check-worked-example-snippets.js
 
-      - name: Check localized docs are current
-        run: node tools/check-translation-staleness.js
-
       - name: Check generated files are current
         run: git diff --exit-code

@@ -8,6 +8,7 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 ### Changed
 
+- Replaced synchronized Spanish documentation with static Spanish, French, German, Portuguese, and Japanese language gateways that defer to the current canonical English guidance.
 - Clarified that reference visibility filtering cannot determine whether arbitrary unknown extension payloads are safe to share; users and extension-aware curators retain that decision.
 - Made the application bootstrap handle missing target or career evidence conservatively, fail honestly when its canonical URL cannot be retrieved, and suggest a stable master filename when returning a complete JSON file.
 - Added non-normative v0.4 considerations for date correctness, stable file IDs, selective non-empty requirements, lightweight item identity, simpler certification issuers, and whether lightly proven grant/funding fields should return to extension incubation.

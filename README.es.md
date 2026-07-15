@@ -1,85 +1,18 @@
 # Open Career Format (OCF)
 
-[English](README.md) | [Español](README.es.md)
+[English](README.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português](README.pt.md) | [日本語](README.ja.md)
 
-<p align="center">
-  <img src="spec/assets/ocf-logo.png" alt="Open Career Format logo" width="160">
-</p>
+OCF es un formato de archivo abierto y propiedad de la persona para conservar su historia profesional y reutilizarla en currículums, cartas de presentación, perfiles, entrevistas y herramientas profesionales.
 
-> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `d76b41a`, traducido el 2026-07-15. Si hay conflicto, controla el inglés.
+Esta página es una puerta de entrada estable en español, no una traducción completa del repositorio. La documentación técnica canónica se mantiene en inglés.
 
-> Nota: este README, la página principal, el prompt inicial y el ejemplo trabajado tienen versiones en español. La mayoría de los enlaces técnicos más profundos todavía van a documentación canónica en inglés.
+## Usar OCF en español
 
-OCF es un formato de archivo abierto y portable para preservar historia profesional y curarla para currículums, cartas de presentación, perfiles públicos y exportaciones a otros sistemas.
+Empieza en <https://opencareerformat.org/index.es.html>. Un LLM moderno puede seguir las instrucciones canónicas en inglés y mantener la conversación, las preguntas y los documentos para la persona en español. Las claves JSON, los valores controlados por el schema y las reglas de validación permanecen sin traducir.
 
-> **¿Estás buscando trabajo?** No necesitas este repositorio. Empieza en <https://opencareerformat.org/index.es.html>. Si tu herramienta de IA admite skills, usa OCF Start; si estás en una ventana de chat normal, copia el prompt bootstrap, adjunta tu currículum y la descripción del puesto, y trabaja desde allí.
+- [Prompt inicial en español](prompts/application-bootstrap.es.md)
+- [Documentación canónica en inglés](README.md)
+- [Schema actual](schema.json)
+- [Ejemplo de Maria Reyes](spec/examples/maria-reyes/README.md)
 
-Este repositorio contiene el schema, prompts, skills, mappings e implementaciones de referencia detrás del sitio. El resto de este README es para personas que leen la especificación, construyen herramientas o contribuyen al proyecto.
-
-OCF está actualmente en **v0.3** y debe tratarse como beta pre-1.0. El schema actual está en <https://opencareerformat.org/schema.json>. Las herramientas que necesitan estabilidad deberían fijarse a una URL versionada, como <https://opencareerformat.org/v0.3/schema.json>. Puede haber cambios incompatibles antes de 1.0 y se documentarán en el changelog.
-
-OCF no oculta cambios detrás del sitio web. El historial de Git muestra qué cambió y cuándo. Para la mayoría de la documentación, prompts, skills y guía operativa, usa la versión más reciente. Para el schema, usa la versión más reciente salvo que necesites fijar una versión específica para validación o compatibilidad. Los ejemplos didácticos fijados a una versión, como el conjunto OCF 0.3 de Maria Reyes, siguen siendo válidos contra el schema que declaran y no se migran automáticamente en cada release.
-
-## Empieza aquí
-
-- **Si eres una persona usando OCF con un currículum, descripción de puesto o LLM:** empieza en <https://opencareerformat.org/index.es.html>.
-- **Si eres un LLM, o vas a apuntar uno a este proyecto:** empieza con <https://opencareerformat.org/llms.txt>.
-- **Si tu herramienta de IA admite skills reutilizables:** empieza con [`skills/ocf-start/SKILL.md`](skills/ocf-start/SKILL.md). Si estás en una ventana de chat normal, usa el prompt bootstrap.
-- **Si quieres ver el ciclo completo:** lee los [detalles de implementación en español del ejemplo de Maria Reyes](spec/examples/maria-reyes/implementation-details.es.html).
-- **Si quieres entender cómo OCF se compara con currículums, LinkedIn, JSON Resume o chats con LLMs:** lee [`spec/ocf-vs-resume-linkedin.md`](spec/ocf-vs-resume-linkedin.md) (en inglés).
-- **Si estás leyendo el schema:** empieza con [`spec/guide.html`](spec/guide.html), luego [`spec/schema-commentary.md`](spec/schema-commentary.md).
-- **Si estás construyendo una herramienta:** empieza con [`spec/implementer-quick-reference.md`](spec/implementer-quick-reference.md), [`spec/usage-patterns.md`](spec/usage-patterns.md), y [`schema.json`](schema.json).
-- **Si quieres ejemplos ejecutables:** empieza con [`reference/README.md`](reference/README.md).
-- **Si estás mapeando OCF a otro formato:** empieza con [`mappings/README.md`](mappings/README.md).
-
-## Qué es OCF
-
-OCF es un formato estructurado basado en JSON para una memoria de carrera privada. El archivo maestro conserva más de lo que debería caber en cualquier currículum: roles, logros, métricas, habilidades, certificaciones, historias, procedencia, preguntas abiertas, cautions, variantes narrativas y material privado que ayuda en entrevistas o coaching.
-
-El flujo tiene tres capas:
-
-1. **Archivo maestro**: el registro privado y duradero de la carrera de una persona.
-2. **Curación**: seleccionar, filtrar, preguntar y priorizar contenido para un objetivo específico.
-3. **Exportación**: producir lo que otra persona o sistema verá, como PDF, DOCX, JSON Resume, Schema.org JSON-LD, LinkedIn o notas de entrevista.
-
-OCF es un formato de archivo, no una plataforma. No hay cuenta, servicio ni nada que comprar. El archivo maestro pertenece a la persona: puede guardarlo localmente, hacer backup a su manera y compartir solo contenido curado cuando lo decida.
-
-## Qué no es OCF
-
-OCF no define cómo entrevistar a la persona, cómo diseñar todos los documentos exportados ni cómo puntuar una candidatura contra un puesto. Esas son decisiones de herramientas. OCF se enfoca en qué se conserva para que distintas herramientas puedan trabajar con la misma memoria de carrera sin inventar un formato nuevo.
-
-Eso no significa que al proyecto le dé igual lo que produce una buena conversación. Esperamos que los modelos, coaches y herramientas recuperen el contexto que los currículums convencionales dejan fuera, especialmente historias, explicaciones y reflexiones conservadas en las propias palabras de la persona. Los modelos pueden interpretar ese material, identificar patrones, hacer preguntas que descubran más detalles valiosos y proponer cómo utilizarlo sin sustituir la memoria original por prosa pulida por una IA. OCF estructura lo que vale la pena conservar y deja que las herramientas sigan mejorando la forma de descubrirlo.
-
-Que OCF sea un formato de archivo tampoco prohíbe pequeñas herramientas locales ni configuración local. El estado que define la historia profesional pertenece al archivo OCF; las preferencias operativas opcionales, como cuánto contenido de un master grande cargar para una tarea concreta, pueden vivir en archivos locales separados bajo el control de la persona. Esos archivos deben seguir siendo legibles, sustituibles e innecesarios para interpretar un archivo OCF normal. El estado oculto, obligatorio, alojado o controlado por un proveedor queda fuera del modelo OCF.
-
-La validación comprueba estructura, no verdad ni seguridad para compartir. Un OCF válido todavía puede contener afirmaciones falsas, material privado, datos obsoletos o contenido que no debería enviarse a un destinatario concreto.
-
-## Archivos importantes
-
-- [`schema.json`](schema.json): alias del schema actual.
-- [`schema-core.json`](schema-core.json): forma starter/core para primeras sesiones y LLMs.
-- [`llms.txt`](llms.txt): mapa del sitio para LLMs y herramientas.
-- [`reference/context/`](reference/context/): ejemplo local que crea vistas de contexto reducidas y recupera elementos completos por ID cuando un master es grande.
-- [`skills/`](skills/): workflows empaquetados para agentes locales. Los skills usan la misma guía OCF que los prompts, pero agregan gestión local de archivos: dónde vive el master, dónde van los backups, dónde se guardan las fuentes y dónde queda cada output de una postulación.
-- [`prompts/application-bootstrap.es.md`](prompts/application-bootstrap.es.md): wrapper español del prompt inicial para currículum + descripción de puesto.
-- [`spec/examples/maria-reyes/implementation-details.es.html`](spec/examples/maria-reyes/implementation-details.es.html): detalles en español de cómo las conversaciones se convierten en memoria de carrera estructurada.
-- [`spec/language-and-translation.md`](spec/language-and-translation.md): guía de idioma y traducción.
-
-## Validación local
-
-La validación de referencia requiere Node.js. Instala una vez las dependencias fijadas y valida los
-ejemplos contra la versión de schema que declara cada archivo:
-
-```bash
-cd reference/validator
-npm ci
-node validate.js
-```
-
-## Contribuir
-
-Si el schema no puede expresar algo que tu herramienta, mapping o flujo necesita, abre un issue con el caso concreto: qué querías preservar, curar, exportar o intercambiar, y por qué la forma actual no alcanzó. Para preguntas abiertas, usa [GitHub Discussions](https://github.com/opencareerformat/opencareerformat/discussions).
-
-## Licencia
-
-La especificación, mappings, prompts, skills, ejemplos y documentación están bajo [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). Las implementaciones de referencia en `reference/` y las herramientas de mantenimiento en `tools/` están bajo [MIT License](LICENSE-code). Consulta [LICENSING.md](LICENSING.md).
+No hay cuenta, servicio ni nada que comprar. El archivo OCF permanece bajo el control de la persona.

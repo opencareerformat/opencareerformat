@@ -29,7 +29,7 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 ## Site map
 
 - Homepage: https://opencareerformat.org/
-- Spanish homepage: https://opencareerformat.org/index.es.html
+- Language gateways: https://opencareerformat.org/index.es.html, https://opencareerformat.org/index.fr.html, https://opencareerformat.org/index.de.html, https://opencareerformat.org/index.pt.html, https://opencareerformat.org/index.ja.html
 - Full guide: https://opencareerformat.org/spec/guide.html
 - Current schema: https://opencareerformat.org/schema.json
 - Starter/core authoring shape: https://opencareerformat.org/schema-core.json
@@ -40,7 +40,7 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - OCF setup skill package: https://opencareerformat.org/skills/ocf-setup/SKILL.md
 - OCF Career-Ops export skill package: https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md
 - Application bootstrap prompt: https://opencareerformat.org/prompts/application-bootstrap.md
-- Spanish application bootstrap wrapper example: https://opencareerformat.org/prompts/application-bootstrap.es.md
+- Language bootstrap gateways: https://opencareerformat.org/prompts/application-bootstrap.es.md, https://opencareerformat.org/prompts/application-bootstrap.fr.md, https://opencareerformat.org/prompts/application-bootstrap.de.md, https://opencareerformat.org/prompts/application-bootstrap.pt.md, https://opencareerformat.org/prompts/application-bootstrap.ja.md
 - Authoring prompt: https://opencareerformat.org/prompts/authoring.md
 - Coaching prompt: https://opencareerformat.org/prompts/coaching.md
 - Recommended LLM guidance: https://opencareerformat.org/prompts/llm-operating.md
@@ -52,7 +52,6 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - OCF and Career-Ops integration framing: https://opencareerformat.org/mappings/career-ops-integration.html
 - Maria Reyes conversation example: https://opencareerformat.org/spec/examples/maria-reyes/
 - Maria example implementation details: https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.md
-- Spanish implementation details: https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.es.md
 - v0.3 decision record: https://opencareerformat.org/spec/v0.3-planning.md
 - v0.4 early planning notes: https://opencareerformat.org/spec/v0.4-planning.md
 - Local validator: https://github.com/opencareerformat/opencareerformat/tree/main/reference/validator

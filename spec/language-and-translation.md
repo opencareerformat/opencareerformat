@@ -63,16 +63,20 @@ Translated sidecars can drift when the source file changes. Use `parentVersion` 
 
 When a source update affects translated presentation, tools should mark the translated sidecar or affected output as needing review in their own workflow. If a translated file contains reviewable OCF items that support `reviewStatus`, ordinary review state can be used there too. Do not invent a second translation-specific review mechanism before real usage proves it is needed.
 
-## Documentation Translation
+## Documentation Language Gateways
 
-Translated documentation should name its English source, source version or commit when known, and translation date. If the English source changes materially, the translation should be marked stale or regenerated before users rely on it.
+English remains the canonical documentation language. OCF does not maintain parallel translations of the full documentation set because synchronized copies add substantial review cost and can silently drift.
 
-Localized bootstrap prompts should be wrappers around the canonical English prompt. They should tell the LLM to speak to the user in the target language while keeping OCF schema keys, enum values, JSON snippets, and validation behavior canonical.
+Instead, OCF provides small, static language gateways in Spanish, French, German, Portuguese, and Japanese. The gateways explain the project in that language and direct an LLM to use the current canonical English guidance while conversing with the person in their preferred language. They are not claims that the linked technical documentation has been translated.
 
-The Spanish application bootstrap wrapper is an example of this pattern: [`prompts/application-bootstrap.es.md`](../prompts/application-bootstrap.es.md).
+Localized bootstrap wrappers keep OCF schema keys, enum values, JSON snippets, and validation behavior canonical. If a model cannot retrieve the current English bootstrap, it should say so and stop rather than improvise OCF instructions.
 
-Current Spanish human-facing examples:
+The gateway files intentionally carry no source-commit or synchronization stamp. They should need revision only when this language policy or their stable destination URLs change.
 
-- [`README.es.md`](../README.es.md)
-- [`index.es.html`](../index.es.html)
-- [`spec/examples/maria-reyes/implementation-details.es.md`](examples/maria-reyes/implementation-details.es.md)
+Available gateways:
+
+- [Español](../index.es.html)
+- [Français](../index.fr.html)
+- [Deutsch](../index.de.html)
+- [Português](../index.pt.html)
+- [日本語](../index.ja.html)

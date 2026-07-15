@@ -1,7 +1,5 @@
 # Maria Reyes Example: Implementation Details
 
-[English](implementation-details.md) | [Español](implementation-details.es.md)
-
 > Last updated: 2026-07-14.
 
 The details behind a resume bullet point fade fast — usually right when you next need them. This walkthrough takes one bullet point, a hospital ransomware response, and recovers the career memory behind it.

@@ -74,22 +74,6 @@ const docs = [
     source: "spec/examples/maria-reyes/implementation-details.md",
     title: "Maria Reyes Example: Implementation Details",
     description: "Implementation details behind the Maria Reyes OCF 0.3 teaching example.",
-    alternates: [
-      { lang: "en", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html" },
-      { lang: "es", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.es.html" },
-      { lang: "x-default", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html" },
-    ],
-  },
-  {
-    source: "spec/examples/maria-reyes/implementation-details.es.md",
-    title: "Ejemplo de Maria Reyes: detalles de implementación",
-    description: "Detalles de implementación en español del ejemplo didáctico OCF 0.3 de Maria Reyes.",
-    lang: "es",
-    alternates: [
-      { lang: "en", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html" },
-      { lang: "es", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.es.html" },
-      { lang: "x-default", href: "https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.html" },
-    ],
   },
 ];
 

@@ -81,12 +81,11 @@ node tools/check-schema-core.js
 node reference/test/run.js
 node tools/generate-doc-html.js
 node tools/check-worked-example-snippets.js
-node tools/check-translation-staleness.js
 git diff --exit-code
 ```
 
 The generators update checked-in files. Review those changes before committing. `index.html`,
-`index.es.html`, and `spec/guide.html` are hand-authored; the other checked-in HTML counterparts
+the static `index.{language}.html` gateways, and `spec/guide.html` are hand-authored; the other checked-in HTML counterparts
 produced by `tools/generate-doc-html.js` are generated from Markdown.
 
 ## Editor's Preferences (Informal)
