@@ -6,7 +6,7 @@
   <img src="spec/assets/ocf-logo.png" alt="Open Career Format logo" width="160">
 </p>
 
-> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `5a0d11d`, traducido el 2026-07-12. Si hay conflicto, controla el inglés.
+> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `68a1d7f`, traducido el 2026-07-14. Si hay conflicto, controla el inglés.
 
 > Nota: este README, la página principal, el prompt inicial y el ejemplo trabajado tienen versiones en español. La mayoría de los enlaces técnicos más profundos todavía van a documentación canónica en inglés.
 
@@ -18,14 +18,14 @@ Este repositorio contiene el schema, prompts, skills, mappings e implementacione
 
 OCF está actualmente en **v0.3** y debe tratarse como beta pre-1.0. El schema actual está en <https://opencareerformat.org/schema.json>. Las herramientas que necesitan estabilidad deberían fijarse a una URL versionada, como <https://opencareerformat.org/v0.3/schema.json>. Puede haber cambios incompatibles antes de 1.0 y se documentarán en el changelog.
 
-OCF no oculta cambios detrás del sitio web. El historial de Git muestra qué cambió y cuándo. Para la mayoría de la documentación, prompts, skills, ejemplos y guía operativa, usa la versión más reciente. Para el schema, usa la versión más reciente salvo que necesites fijar una versión específica para validación o compatibilidad.
+OCF no oculta cambios detrás del sitio web. El historial de Git muestra qué cambió y cuándo. Para la mayoría de la documentación, prompts, skills y guía operativa, usa la versión más reciente. Para el schema, usa la versión más reciente salvo que necesites fijar una versión específica para validación o compatibilidad. Los ejemplos didácticos fijados a una versión, como el conjunto OCF 0.3 de Maria Reyes, siguen siendo válidos contra el schema que declaran y no se migran automáticamente en cada release.
 
 ## Empieza aquí
 
 - **Si eres una persona usando OCF con un currículum, descripción de puesto o LLM:** empieza en <https://opencareerformat.org/index.es.html>.
 - **Si eres un LLM, o vas a apuntar uno a este proyecto:** empieza con <https://opencareerformat.org/llms.txt>.
 - **Si tu herramienta de IA admite skills reutilizables:** empieza con [`skills/ocf-start/SKILL.md`](skills/ocf-start/SKILL.md). Si estás en una ventana de chat normal, usa el prompt bootstrap.
-- **Si quieres ver el ciclo completo:** lee el [ejemplo trabajado en español](spec/examples/worked-example-walkthrough.es.html).
+- **Si quieres ver el ciclo completo:** lee los [detalles de implementación en español del ejemplo de Maria Reyes](spec/examples/maria-reyes/implementation-details.es.html).
 - **Si quieres entender cómo OCF se compara con currículums, LinkedIn, JSON Resume o chats con LLMs:** lee [`spec/ocf-vs-resume-linkedin.md`](spec/ocf-vs-resume-linkedin.md) (en inglés).
 - **Si estás leyendo el schema:** empieza con [`spec/guide.html`](spec/guide.html), luego [`spec/schema-commentary.md`](spec/schema-commentary.md).
 - **Si estás construyendo una herramienta:** empieza con [`spec/implementer-quick-reference.md`](spec/implementer-quick-reference.md), [`spec/usage-patterns.md`](spec/usage-patterns.md), y [`schema.json`](schema.json).
@@ -62,7 +62,7 @@ La validación comprueba estructura, no verdad ni seguridad para compartir. Un O
 - [`reference/context/`](reference/context/): ejemplo local que crea vistas de contexto reducidas y recupera elementos completos por ID cuando un master es grande.
 - [`skills/`](skills/): workflows empaquetados para agentes locales. Los skills usan la misma guía OCF que los prompts, pero agregan gestión local de archivos: dónde vive el master, dónde van los backups, dónde se guardan las fuentes y dónde queda cada output de una postulación.
 - [`prompts/application-bootstrap.es.md`](prompts/application-bootstrap.es.md): wrapper español del prompt inicial para currículum + descripción de puesto.
-- [`spec/examples/worked-example-walkthrough.es.html`](spec/examples/worked-example-walkthrough.es.html): ejemplo narrativo de cómo un currículum se convierte en memoria de carrera.
+- [`spec/examples/maria-reyes/implementation-details.es.html`](spec/examples/maria-reyes/implementation-details.es.html): detalles en español de cómo las conversaciones se convierten en memoria de carrera estructurada.
 - [`spec/language-and-translation.md`](spec/language-and-translation.md): guía de idioma y traducción.
 
 ## Contribuir
