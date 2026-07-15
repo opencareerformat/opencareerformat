@@ -6,7 +6,7 @@
   <img src="spec/assets/ocf-logo.png" alt="Open Career Format logo" width="160">
 </p>
 
-> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `68a1d7f`, traducido el 2026-07-14. Si hay conflicto, controla el inglés.
+> Traducción española no canónica. Fuente canónica: [`README.md`](README.md), commit `d76b41a`, traducido el 2026-07-15. Si hay conflicto, controla el inglés.
 
 > Nota: este README, la página principal, el prompt inicial y el ejemplo trabajado tienen versiones en español. La mayoría de los enlaces técnicos más profundos todavía van a documentación canónica en inglés.
 
@@ -65,10 +65,21 @@ La validación comprueba estructura, no verdad ni seguridad para compartir. Un O
 - [`spec/examples/maria-reyes/implementation-details.es.html`](spec/examples/maria-reyes/implementation-details.es.html): detalles en español de cómo las conversaciones se convierten en memoria de carrera estructurada.
 - [`spec/language-and-translation.md`](spec/language-and-translation.md): guía de idioma y traducción.
 
+## Validación local
+
+La validación de referencia requiere Node.js. Instala una vez las dependencias fijadas y valida los
+ejemplos contra la versión de schema que declara cada archivo:
+
+```bash
+cd reference/validator
+npm ci
+node validate.js
+```
+
 ## Contribuir
 
 Si el schema no puede expresar algo que tu herramienta, mapping o flujo necesita, abre un issue con el caso concreto: qué querías preservar, curar, exportar o intercambiar, y por qué la forma actual no alcanzó. Para preguntas abiertas, usa [GitHub Discussions](https://github.com/opencareerformat/opencareerformat/discussions).
 
 ## Licencia
 
-La especificación, mappings, prompts, skills, ejemplos y documentación están bajo [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). Las implementaciones de referencia en `reference/` están bajo [MIT License](LICENSE-code). Consulta [LICENSING.md](LICENSING.md).
+La especificación, mappings, prompts, skills, ejemplos y documentación están bajo [Creative Commons Attribution 4.0 International](LICENSE-spec) (CC BY 4.0). Las implementaciones de referencia en `reference/` y las herramientas de mantenimiento en `tools/` están bajo [MIT License](LICENSE-code). Consulta [LICENSING.md](LICENSING.md).
