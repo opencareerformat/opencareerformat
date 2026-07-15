@@ -98,7 +98,7 @@ function toJsonResume(doc) {
     title: item.title,
     date: formatPartialDate(item.date),
     awarder: item.awarder,
-    summary: item.summary || item.description,
+    summary: item.description,
   }));
 
   const languages = visibleItems(doc.languages).map((item) => ({
@@ -108,7 +108,6 @@ function toJsonResume(doc) {
 
   const interests = visibleItems(doc.interests).map((item) => ({
     name: item.name,
-    keywords: item.keywords,
   }));
 
   return prune({

@@ -4,7 +4,7 @@ OCF is an open schema for preserving private career history and using it for cur
 
 Humans: Start at https://opencareerformat.org/ instead.
 
-Current schema version: 0.3. This file last updated: 2026-07-12.
+Current schema version: 0.3. This file last updated: 2026-07-15.
 
 If documents conflict: the JSON Schema wins for file structure; the most specific prompt wins for behavior. See https://opencareerformat.org/prompts/README.md for the schema-vs-advice boundary.
 
@@ -53,7 +53,8 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - Maria Reyes conversation example: https://opencareerformat.org/spec/examples/maria-reyes/
 - Maria example implementation details: https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.md
 - Spanish implementation details: https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.es.md
-- v0.3 planning notes: https://opencareerformat.org/spec/v0.3-planning.md
+- v0.3 decision record: https://opencareerformat.org/spec/v0.3-planning.md
+- v0.4 early planning notes: https://opencareerformat.org/spec/v0.4-planning.md
 - Local validator: https://github.com/opencareerformat/opencareerformat/tree/main/reference/validator
 - Local context-profile reference: https://github.com/opencareerformat/opencareerformat/tree/main/reference/context
 - GitHub repository: https://github.com/opencareerformat/opencareerformat

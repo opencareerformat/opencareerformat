@@ -27,7 +27,15 @@ const examples = inputs.length
 
 let allPassed = true;
 for (const file of examples) {
-  const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
+  let doc;
+  try {
+    doc = JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch (error) {
+    console.log(`${path.relative(process.cwd(), file) || file}: FAIL`);
+    console.log(`Could not read valid JSON: ${error.message}`);
+    allPassed = false;
+    continue;
+  }
   const schemaVersion = doc.schemaVersion;
   const validator = getValidator(schemaVersion);
   if (!validator) {
@@ -40,7 +48,7 @@ for (const file of examples) {
   const ok = validate(doc);
   // Semantic rules are generated from the current schema. Older pinned examples
   // still receive structural validation from their declared versioned schema.
-  const semanticErrors = ok && schemaVersion === currentSchemaVersion ? validateSemantic(doc) : [];
+  const semanticErrors = schemaVersion === currentSchemaVersion ? validateSemantic(doc) : [];
   const label = path.relative(process.cwd(), file) || file;
   const errors = validate.errors || [];
   const unknownErrors = errors.filter(error => error.keyword === 'additionalProperties');

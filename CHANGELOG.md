@@ -4,6 +4,17 @@ All notable changes to the Open Career Format specification and reference implem
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
+## 2026-07-15
+
+### Changed
+
+- Made visibility filtering fail closed when an object carries an invalid explicit visibility value.
+- Made imported generic social links default to shared rather than public, and stopped orphan resume bullets from being assigned to the first role.
+- Made unknown employment end dates remain unknown instead of rendering them as Present.
+- Made the validator continue after malformed input files and retain semantic checks in `--warn-unknown` mode.
+- Added an explicit current-schema-copy consistency check and broadened deterministic reference behavior tests.
+- Corrected contributor, licensing, planning, reference-tool, and organization-example documentation drift found during a repository-wide review.
+
 ## 2026-07-14
 
 ### Changed
@@ -80,6 +91,18 @@ This is a clean-language schema update. It includes small breaking changes from 
 - Added optional `achievement.attribution` to capture the subject's role in an outcome (`owned`, `led`, `co-led`, `drove`, `contributed-to`, `supported`, `advised`, `observed`, `other`) plus optional budget/headcount/upward-reporting context.
 - Reframed reflections as a private review and conversation layer, with interview prep as one use case rather than the whole concept.
 - Moved active LLM and coaching prompts from `spec/` to top-level `prompts/` paths (`prompts/authoring.md`, `prompts/curation.md`, `prompts/coaching.md`, `prompts/llm-operating.md`, and `prompts/interview-prep-questions.md`). The old `spec/*` prompt paths remain as compatibility stubs.
+
+## [0.2.0] — 2026-05-24
+
+### Added
+
+- Added optional `meta.fileRole` to distinguish candidate-owned master files, candidate-curated files, imported starter files, third-party working files, export-ready files, and other OCF workflow contexts.
+- Added `spec/usage-patterns.md` and updated the guide, README, prompts, starter/core schema, and examples to clarify that a candidate-owned master is one important OCF use case, not the only possible OCF file role. The top-level `person` is the subject of the OCF; the controller of the file and editors of individual items may be different.
+- Added optional `achievement.attribution` to capture the subject's role in an outcome (`owned`, `led`, `drove`, `contributed-to`, `supported`, `advised`, `observed`, `other`) plus optional budget, headcount, and upward-reporting context.
+
+### Changed
+
+- Reframed reflections as a private review and conversation layer, with interview preparation as one use case rather than the whole concept.
 
 ## [0.1.0] — Initial release
 

@@ -12,6 +12,7 @@ labels: bug
 ## How to reproduce
 
 <!-- Minimal steps. If this involves the validator, paste the command and the error. -->
+<!-- Use fictional or redacted data. Do not paste private career data, phone numbers, addresses, or secrets. -->
 
 ## Expected behavior
 

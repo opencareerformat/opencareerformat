@@ -10,7 +10,7 @@ A few things are worth checking before opening anything:
 
 2. **Check the [CHANGELOG](CHANGELOG.md).** A surprising number of "this should be added" ideas have already been considered. If something is marked as deferred to a future version, the issue or discussion that led to that decision is usually linked.
 
-3. **Decide whether your idea is a Discussion or an Issue.** Open-ended exploration ("should OCF support X kind of content?") belongs in [Discussions](../../discussions). Concrete proposals ("adding this field with this shape would allow people who do X to describe Y") belong in [Issues](../../issues). If you are not a developer and simply hit a missing use case, use the *Use case or suggestion* issue template and describe what you were trying to do in plain language.
+3. **Decide whether your idea is a Discussion or an Issue.** Open-ended exploration ("should OCF support X kind of content?") belongs in [Discussions](https://github.com/opencareerformat/opencareerformat/discussions). Concrete proposals ("adding this field with this shape would allow people who do X to describe Y") belong in [Issues](https://github.com/opencareerformat/opencareerformat/issues). If you are not a developer and simply hit a missing use case, use the *Use case or suggestion* issue template and describe what you were trying to do in plain language.
 
 ## Design Posture
 
@@ -32,7 +32,7 @@ The repository accepts contributions in these rough categories. Each has its own
 
 **Bug reports** — broken validator runs, invalid examples, contradictions in the spec. Use the *Bug Report* template.
 
-**Reference implementations** — code in `reference/` (validators, curators, renderers, exporters, and importers). These are MIT-licensed (see `LICENSE-code`) and the bar is "does it work, is it readable, does it match the spec." No requirement to match a specific style or framework.
+**Reference implementations and maintenance tools** — code in `reference/` and `tools/` (validators, curators, renderers, exporters, importers, generators, and repository checks). These are MIT-licensed (see `LICENSE-code`) and the bar is "does it work, is it readable, does it match the spec." No requirement to match a specific style or framework.
 
 Do not edit `schema-core.json` independently. It is generated from `schema.json` using `tools/schema-core-projection.json`; change the full schema or the projection configuration, then run `node tools/generate-schema-core.js`.
 
@@ -40,8 +40,8 @@ Do not edit `schema-core.json` independently. It is generated from `schema.json`
 
 OCF is dual-licensed by artifact type:
 
-- Specification, mapping, prompt, example, and project documentation contributions are licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). This includes `spec/`, `mappings/`, `prompts/`, root documentation, schemas, examples, and issue/PR templates unless noted otherwise.
-- Reference implementation code contributions under `reference/` are licensed under MIT.
+- Specification, mapping, prompt, skill, example, and project documentation contributions are licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). This includes `spec/`, `mappings/`, `prompts/`, `skills/`, root documentation, schemas, examples, and issue/PR templates unless noted otherwise.
+- Reference implementation and repository maintenance code under `reference/` and `tools/` is licensed under MIT.
 
 See [`LICENSING.md`](LICENSING.md) for the umbrella explainer. By contributing, you agree that your contribution is licensed under the license that applies to the files you touch.
 
@@ -66,7 +66,28 @@ OCF is currently pre-1.0 and in beta. The current schema alias (`https://opencar
 
 **1.0 and after.** Minor versions are additive only — a 1.1 schema validates every 1.0 file. Major versions can be breaking, but the migration path is documented.
 
-The schema's `$id` URL includes the version (e.g. `https://opencareerformat.org/v0.1/schema.json`). Older versions remain accessible at their URLs after newer versions ship; nothing breaks just because a new version is released.
+The schema's `$id` URL includes the version (e.g. `https://opencareerformat.org/v0.3/schema.json`). Older versions remain accessible at their URLs after newer versions ship; nothing breaks just because a new version is released.
+
+## Before You Push
+
+Run the repository's generated-artifact and behavior checks from the repository root:
+
+```bash
+node tools/generate-schema-core.js
+node tools/generate-schema-index.js
+node tools/check-schema-copies.js
+node reference/validator/validate.js
+node tools/check-schema-core.js
+node reference/test/run.js
+node tools/generate-doc-html.js
+node tools/check-worked-example-snippets.js
+node tools/check-translation-staleness.js
+git diff --exit-code
+```
+
+The generators update checked-in files. Review those changes before committing. `index.html`,
+`index.es.html`, and `spec/guide.html` are hand-authored; the other checked-in HTML counterparts
+produced by `tools/generate-doc-html.js` are generated from Markdown.
 
 ## Editor's Preferences (Informal)
 
@@ -119,4 +140,4 @@ Open a Discussion. Questions don't need an issue; they need a conversation.
 
 ## Saying Thanks
 
-If OCF helped you or you implemented something with it, a short note in [Discussions](../../discussions) is welcome. It helps the project understand which parts of the format are useful for real people.
+If OCF helped you or you implemented something with it, a short note in [Discussions](https://github.com/opencareerformat/opencareerformat/discussions) is welcome. It helps the project understand which parts of the format are useful for real people.

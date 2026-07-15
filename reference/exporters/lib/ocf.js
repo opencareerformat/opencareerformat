@@ -44,7 +44,7 @@ function formatDateRange(dateRange) {
   const start = formatPartialDate(dateRange.start);
   const end = formatPartialDate(dateRange.end);
   if (start && end) return `${start} - ${end}`;
-  if (start) return `${start} - Present`;
+  if (start) return start;
   if (end) return end;
   return "";
 }

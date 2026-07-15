@@ -1,6 +1,7 @@
 const schemaIndex = require("../schema-index.json");
 
 const OMIT = Symbol("omit");
+const VALID_VISIBILITY = new Set(["public", "shared", "private"]);
 const defaultByPath = new Map(
   schemaIndex.visibilityPaths.map((item) => [item.segments.join("."), item.default]),
 );
@@ -19,7 +20,9 @@ function filterByVisibility(value, mode = "shared", options = {}) {
 
 function resolvedVisibility(value, segments = []) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return undefined;
-  if (value.visibility) return value.visibility;
+  if (Object.prototype.hasOwnProperty.call(value, "visibility")) {
+    return VALID_VISIBILITY.has(value.visibility) ? value.visibility : "private";
+  }
   return defaultByPath.get(segments.join("."));
 }
 

@@ -43,6 +43,7 @@ jobs:
 
       - name: Check core projection and reference behavior
         run: |
+          node tools/check-schema-copies.js
           node tools/check-schema-core.js
           node reference/test/run.js
 

@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
 const fs = require("fs");
+const path = require("path");
 
-const markdown = fs.readFileSync("spec/examples/maria-reyes/implementation-details.md", "utf8");
-const sample = JSON.parse(fs.readFileSync("spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json", "utf8"));
+const repoRoot = path.resolve(__dirname, "..");
+const markdown = fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/implementation-details.md"), "utf8");
+const sample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json"), "utf8"));
 
 const jsonBlocks = [...markdown.matchAll(/```json\n([\s\S]*?)\n```/g)].map((match) => JSON.parse(match[1]));
 

@@ -20,7 +20,7 @@
 ## Checklist
 
 - [ ] `node reference/validator/validate.js` runs cleanly
-- [ ] CHANGELOG entry added under `[Unreleased]`
+- [ ] CHANGELOG entry added when the change is notable
 - [ ] Documentation updated (`spec/guide.html` and related)
 - [ ] If this changes example files, they still validate
 - [ ] If this adds a new reflection `kind`, an audience tag, or another canonical string, it's added to the relevant doc (`prompts/interview-prep-questions.md`, etc.)

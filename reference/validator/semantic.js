@@ -51,15 +51,23 @@ function validateSemantic(document) {
     }
   }
 
+  const reportedCycles = new Set();
   for (const start of supersession.keys()) {
-    const seen = new Set();
+    const seen = new Map();
+    const path = [];
     let current = start;
     while (supersession.has(current)) {
       if (seen.has(current)) {
-        errors.push(error([], `supersession cycle includes ${JSON.stringify(current)}`));
+        const cycle = path.slice(seen.get(current));
+        const signature = [...cycle].sort().join("\u0000");
+        if (!reportedCycles.has(signature)) {
+          reportedCycles.add(signature);
+          errors.push(error([], `supersession cycle includes ${cycle.map((id) => JSON.stringify(id)).join(", ")}`));
+        }
         break;
       }
-      seen.add(current);
+      seen.set(current, path.length);
+      path.push(current);
       current = supersession.get(current);
     }
   }

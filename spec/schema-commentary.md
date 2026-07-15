@@ -409,7 +409,12 @@ Example:
     "meridianhealth.example.com": {
       "name": "Meridian Health Systems",
       "kind": "company",
-      "domain": "meridianhealth.example.com"
+      "identifiers": [
+        {
+          "system": "domain",
+          "value": "meridianhealth.example.com"
+        }
+      ]
     }
   },
   "experience": [

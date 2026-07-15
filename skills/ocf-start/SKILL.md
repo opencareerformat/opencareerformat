@@ -39,14 +39,14 @@ Use this routing table:
 | Situation | Route |
 | --- | --- |
 | User wants local folder organization, does not know where files should live, or is starting a job-search folder | Use `ocf-setup`. |
-| User has resume/profile material plus a job description and wants help applying now | Use the canonical bootstrap prompt at `prompts/application-bootstrap.md`; use `ocf-setup` first when local files or outputs matter. |
-| User has old resumes, LinkedIn exports, notes, or pasted history and wants to build a master | Use `prompts/authoring.md`. |
-| User has an existing OCF and a target job, role, audience, or output | Use `prompts/curation.md`. |
-| User has an existing OCF and wants a resume, cover letter, profile, or interview-prep packet | Use `prompts/curation.md`; treat export formatting as downstream of curation. |
+| User has resume/profile material plus a job description and wants help applying now | Use `prompts/application-bootstrap.md` (or https://opencareerformat.org/prompts/application-bootstrap.md); use `ocf-setup` first when local files or outputs matter. |
+| User has old resumes, LinkedIn exports, notes, or pasted history and wants to build a master | Use `prompts/authoring.md` (or https://opencareerformat.org/prompts/authoring.md). |
+| User has an existing OCF and a target job, role, audience, or output | Use `prompts/curation.md` (or https://opencareerformat.org/prompts/curation.md). |
+| User has an existing OCF and wants a resume, cover letter, profile, or interview-prep packet | Use `prompts/curation.md` (or https://opencareerformat.org/prompts/curation.md); treat export formatting as downstream of curation. |
 | User wants to seed, create, or update a Career-Ops workspace from OCF | Use `ocf-export-career-ops`. |
-| User is thinking about a new career, unclear goals, story, voice, boundaries, or what they want next | Use `prompts/coaching.md`. |
-| User wants a plain first session in a chat-only environment | Use `prompts/application-bootstrap.md` directly. |
-| User wants language/localization guidance | Use `spec/language-and-translation.md`; keep schema keys and enum values canonical. |
+| User is thinking about a new career, unclear goals, story, voice, boundaries, or what they want next | Use `prompts/coaching.md` (or https://opencareerformat.org/prompts/coaching.md). |
+| User wants a plain first session in a chat-only environment | Use `prompts/application-bootstrap.md` (or https://opencareerformat.org/prompts/application-bootstrap.md) directly. |
+| User wants language/localization guidance | Use `spec/language-and-translation.md` (or https://opencareerformat.org/spec/language-and-translation.md); keep schema keys and enum values canonical. |
 | User wants to validate or repair OCF JSON | Use the current schema and local validator when available. |
 
 ## Routing Rules

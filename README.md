@@ -38,7 +38,8 @@ spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
   schema-commentary.md # Non-normative annotated schema commentary with examples.
   implementer-quick-reference.md # Compact field tiers and tool behavior guidance.
   usage-patterns.md # File roles: candidate-owned master, curated/export-ready files, third-party working files, etc.
-  v0.3-planning.md # Non-normative planning notes for likely next schema concepts.
+  v0.3-planning.md # Decision record for the v0.3 schema.
+  v0.4-planning.md # Early, non-normative planning notes for possible future work.
   examples/       # Canonical example OCF files.
 
 schema.json       # Current schema alias, suitable for new files and tools that want "latest".
@@ -69,6 +70,8 @@ reference/        # REFERENCE IMPLEMENTATIONS — code that is NOT part of the
   curators/       # Master OCF -> proposed improvements and/or export-ready input.
   exporters/      # Export-ready input -> files (PDF, HTML, JSON Resume, LER-RS, ...).
   importers/      # other-format -> OCF converters.
+
+tools/            # REPOSITORY MAINTENANCE — schema/doc generators and consistency checks.
 ```
 
 The split is intentional. Anyone who wants to use OCF can read `spec/` and ignore the rest. Anyone building their own tool leveraging OCF can ignore as much of `reference/` as they'd like. Anyone bridging OCF to another format goes to `mappings/` for the mapping notes and `reference/exporters/` for one possible implementation.
@@ -119,7 +122,7 @@ If the schema cannot express something your tool, mapping, or workflow needs, [o
 
 ```bash
 cd reference/validator
-npm install        # one-time, installs ajv and ajv-formats
+npm ci             # one-time, installs the pinned validator dependencies
 node validate.js   # recursively validates spec/examples/ against each file's declared schema version
 ```
 

@@ -21,9 +21,9 @@ This side of the project is meant to be read, copied, quoted, adapted, and imple
 
 ## Reference Implementations
 
-Code under `reference/` is licensed under the MIT License, in [`LICENSE-code`](LICENSE-code).
+Code under `reference/` and repository maintenance code under `tools/` are licensed under the MIT License, in [`LICENSE-code`](LICENSE-code).
 
-This includes the validator, importers, curators, exporters, renderers, and CLI code. The reference implementations are examples, not the normative schema.
+This includes the validator, importers, curators, exporters, renderers, CLI code, generators, and repository checks. The reference implementations are examples, not the normative schema.
 
 ## Why Two Licenses?
 

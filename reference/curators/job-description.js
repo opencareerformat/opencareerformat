@@ -19,11 +19,11 @@ function curateForJob(doc, jobText, options = {}) {
   doc = filterByVisibility(doc, visibilityMode, { preserveFilteredReferences: true });
   const terms = importantTerms(jobText);
   const now = new Date().toISOString().slice(0, 10);
-  const selectedExperience = selectExperience(doc, terms, visibilityMode);
-  const selectedSkills = scoreItems(doc.skills || [], terms, (skill) => [skill.name, skill.category, ...(skill.audiences || [])].join(" "), visibilityMode)
+  const selectedExperience = selectExperience(doc, terms);
+  const selectedSkills = scoreItems(doc.skills || [], terms, (skill) => [skill.name, skill.category, ...(skill.audiences || [])].join(" "))
     .slice(0, 10)
     .map(({ item }) => item);
-  const selectedCertifications = scoreItems(doc.certifications || [], terms, (cert) => [cert.name, issuerName(cert.issuer)].join(" "), visibilityMode)
+  const selectedCertifications = scoreItems(doc.certifications || [], terms, (cert) => [cert.name, issuerName(cert.issuer)].join(" "))
     .slice(0, 6)
     .map(({ item }) => item);
   const visibilityNote = visibilityMode === "public" ? "removed private and shared items" : "removed private items";
@@ -86,7 +86,7 @@ function collectOrganizationRefs(value, refs) {
   Object.values(value).forEach((item) => collectOrganizationRefs(item, refs));
 }
 
-function selectExperience(doc, terms, visibilityMode) {
+function selectExperience(doc, terms) {
   return scoreItems(doc.experience || [], terms, (entry) => {
     return [
       entry.name,
@@ -99,7 +99,7 @@ function selectExperience(doc, terms, visibilityMode) {
         ...(position.achievements || []).map((achievement) => achievement.statement),
       ]),
     ].join(" ");
-  }, visibilityMode)
+  })
     .slice(0, 3)
     .map(({ item: entry }) => {
       const positions = scoreItems(entry.positions || [], terms, (position) => {
@@ -109,13 +109,13 @@ function selectExperience(doc, terms, visibilityMode) {
           ...(position.audiences || []),
           ...(position.achievements || []).map((achievement) => achievement.statement),
         ].join(" ");
-      }, visibilityMode)
+      })
         .slice(0, 2)
         .map(({ item: position }) => ({
           ...position,
           achievements: scoreItems(position.achievements || [], terms, (achievement) => {
             return [achievement.statement, achievement.longform, ...(achievement.audiences || [])].join(" ");
-          }, visibilityMode)
+          })
             .slice(0, 4)
             .map(({ item }) => item),
         }));
@@ -129,7 +129,7 @@ function selectExperience(doc, terms, visibilityMode) {
     });
 }
 
-function scoreItems(items, terms, textForItem, visibilityMode = "shared") {
+function scoreItems(items, terms, textForItem) {
   return items
     .filter(Boolean)
     .map((item) => {

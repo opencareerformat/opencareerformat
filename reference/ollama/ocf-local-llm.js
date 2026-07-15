@@ -55,7 +55,7 @@ function buildPrompt(options) {
 
 function buildImportedStarterPrompt(options) {
   const sections = [
-    section("OCF Validator Contract", importedStarterContract()),
+    section("OCF Validator Contract", importedStarterContract(options)),
   ];
 
   if (options.resume) sections.push(section("Resume or Source Material", readUserFile(options.resume)));
@@ -67,7 +67,8 @@ function buildImportedStarterPrompt(options) {
   return sections.join("\n\n");
 }
 
-function importedStarterContract() {
+function importedStarterContract(options) {
+  const imported = importContext(options);
   return [
     `Return one JSON object that passes the full current OCF validator (schemaVersion ${CURRENT_SCHEMA_VERSION}).`,
     "Top-level keys to use: $schema, schemaVersion, meta, person, sourceArtifacts, skills, experience, education, certifications, openQuestions.",
@@ -75,7 +76,7 @@ function importedStarterContract() {
     "",
     "Required top-level metadata:",
     `{ "$schema": "${CURRENT_SCHEMA_URL}", "schemaVersion": "${CURRENT_SCHEMA_VERSION}" }`,
-    'meta must include: fileRole "candidate-master", lastModified "2026-05-28", language "en-US", source {"kind":"imported"}. Do not include meta.variant or meta.canonical.',
+    `meta must include: fileRole "candidate-master", lastModified "${imported.date}", language "en-US", source {"kind":"imported"}. Do not include meta.variant or meta.canonical.`,
     "",
     "person shape:",
     'person.name must be an object like {"renderAs":"Maria E. Reyes","given":"Maria","family":"Reyes"}.',
@@ -85,7 +86,7 @@ function importedStarterContract() {
     "Do not use person.email, person.phone, person.linkedin, person.github, person.website, person.city, person.country, person.url, or string person.name.",
     "",
     "sourceArtifacts shape:",
-    'Use exactly one source artifact: {"id":"source-resume","kind":"resume","label":"source-resume.txt","capturedDate":{"year":2026,"month":5,"day":28},"fileName":"source-resume.txt","rawIncluded":false,"visibility":"private"}.',
+    `Use exactly one source artifact: {"id":"source-resume","kind":"resume","label":${JSON.stringify(imported.fileName)},"capturedDate":${JSON.stringify(imported.capturedDate)},"fileName":${JSON.stringify(imported.fileName)},"rawIncluded":false,"visibility":"private"}.`,
     "",
     "skills shape:",
     'skills must be an array of objects like [{"name":"Incident Response","visibility":"shared"}]. Do not use an object keyed by skill name.',
@@ -116,6 +117,7 @@ function importedStarterContract() {
 
 function taskForMode(options) {
   if (options.output === "provisional-master") {
+    const imported = importContext(options);
     return [
       "Convert the attached resume/source material into a validator-ready provisional OCF master with imported items marked for review.",
       "Return only one JSON object. Do not wrap it in Markdown. Do not include commentary before or after the JSON.",
@@ -123,9 +125,9 @@ function taskForMode(options) {
       "Use only fields listed in this task or in the starter/core schema. Do not nest skills, experience, education, certifications, sourceArtifacts, or openQuestions under person.",
       `Set "$schema" to "${CURRENT_SCHEMA_URL}".`,
       `Set "schemaVersion" to "${CURRENT_SCHEMA_VERSION}".`,
-      'Set "meta.fileRole" to "candidate-master", "meta.source.kind" to "imported", "meta.language" to "en-US", and "meta.lastModified" to "2026-05-28".',
+      `Set "meta.fileRole" to "candidate-master", "meta.source.kind" to "imported", "meta.language" to "en-US", and "meta.lastModified" to "${imported.date}".`,
       "Do not include meta.variant or meta.canonical.",
-      'Include sourceArtifacts as an array with one object: id "source-resume", kind "resume", label "source-resume.txt", capturedDate {"year":2026,"month":5,"day":28}, fileName "source-resume.txt", rawIncluded false, visibility "private".',
+      `Include sourceArtifacts as an array with one object: id "source-resume", kind "resume", label ${JSON.stringify(imported.fileName)}, capturedDate ${JSON.stringify(imported.capturedDate)}, fileName ${JSON.stringify(imported.fileName)}, rawIncluded false, visibility "private".`,
       "person may contain only valid person fields. Contacts must be objects with required kind and value. Contact kind must be one of email, phone, url, linkedin, github, social, other.",
       "Prefer conservative extraction over guessing. Do not invent facts. Put uncertainty in openQuestions.",
       'skills must be top-level. Each skill needs at least {"name": "..."} and may include visibility "shared".',
@@ -156,6 +158,16 @@ function taskForMode(options) {
     "Produce a concise OCF-oriented intake pass: reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates.",
     "Do not invent facts. Mark uncertainty as questions.",
   ].join("\n");
+}
+
+function importContext(options) {
+  const date = new Date().toISOString().slice(0, 10);
+  const [year, month, day] = date.split("-").map(Number);
+  return {
+    date,
+    capturedDate: { year, month, day },
+    fileName: path.basename(options.resume || "source-resume.txt"),
+  };
 }
 
 function formatOutput(options, response) {

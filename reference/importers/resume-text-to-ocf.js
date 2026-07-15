@@ -37,10 +37,10 @@ function importResumeText(text, sourceFileName = "resume.txt") {
       },
     ],
     person: parsePerson(header),
-    skills: parseSkills(sections.SKILLS || [], sourceArtifactId),
+    skills: parseSkills(sections.SKILLS || []),
     experience: parseExperience(sections.EXPERIENCE || [], sourceArtifactId),
-    education: parseEducation(sections.EDUCATION || [], sourceArtifactId),
-    certifications: parseCertifications(sections.CERTIFICATIONS || [], sourceArtifactId),
+    education: parseEducation(sections.EDUCATION || []),
+    certifications: parseCertifications(sections.CERTIFICATIONS || []),
     openQuestions: [
       {
         id: "review-imported-facts",
@@ -91,7 +91,7 @@ function parsePerson(header) {
     } else if (/github\.com/i.test(part)) {
       contacts.push({ kind: "github", value: part, visibility: "public" });
     } else if (/^https?:\/\//i.test(part)) {
-      contacts.push({ kind: "social", label: inferSocialLabel(part), value: part, visibility: "public" });
+      contacts.push({ kind: "social", label: inferSocialLabel(part), value: part, visibility: "shared" });
     } else if (/[0-9]/.test(part)) {
       contacts.push({ kind: "phone", value: part, visibility: "private" });
     }
@@ -110,7 +110,7 @@ function parseLocation(line) {
   return prune({ city: parts[0], region: parts[1], country: parts[2], visibility: "shared" });
 }
 
-function parseSkills(lines, sourceArtifactId) {
+function parseSkills(lines) {
   return lines
     .join(" ")
     .split(";")
@@ -124,13 +124,14 @@ function parseSkills(lines, sourceArtifactId) {
 
 function parseExperience(lines, sourceArtifactId) {
   const entries = [];
+  const usedIds = new Set();
   let current;
   let currentAchievementLines = [];
 
   const flushAchievementLines = () => {
     if (!current || !currentAchievementLines.length) return;
     current.positions[0].achievements = currentAchievementLines.map((statement) => ({
-      id: slug(`${current.name}-${current.positions[0].title}-${statement}`).slice(0, 80),
+      id: uniqueId(slug(`${current.name}-${current.positions[0].title}-${statement}`).slice(0, 80), usedIds),
       statement: stripBullet(statement),
       kind: "accomplishment",
       visibility: "shared",
@@ -141,16 +142,20 @@ function parseExperience(lines, sourceArtifactId) {
 
   for (const line of lines) {
     if (line.includes("|")) {
+      if (!current && currentAchievementLines.length) {
+        console.error(`Skipped ${currentAchievementLines.length} bullet(s) that appeared before the first experience role.`);
+        currentAchievementLines = [];
+      }
       flushAchievementLines();
       const [organization, title, dateText] = line.split("|").map((part) => part.trim());
       current = {
-        id: slug(`${organization}-${dateText}`),
+        id: uniqueId(slug(`${organization}-${dateText}`), usedIds),
         kind: "employment",
         name: organization,
         dateRange: parseDateRange(dateText),
         positions: [
           {
-            id: slug(`${organization}-${title}-${dateText}`),
+            id: uniqueId(slug(`${organization}-${title}-${dateText}`), usedIds),
             title,
             dateRange: parseDateRange(dateText),
             visibility: "shared",
@@ -173,7 +178,7 @@ function parseExperience(lines, sourceArtifactId) {
   return entries;
 }
 
-function parseEducation(lines, sourceArtifactId) {
+function parseEducation(lines) {
   return lines
     .filter((line) => line.includes("|"))
     .map((line) => {
@@ -188,7 +193,7 @@ function parseEducation(lines, sourceArtifactId) {
     });
 }
 
-function parseCertifications(lines, sourceArtifactId) {
+function parseCertifications(lines) {
   return lines
     .filter((line) => line.includes("|"))
     .map((line) => {
@@ -251,6 +256,18 @@ function slug(value = "") {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+}
+
+function uniqueId(base, usedIds) {
+  const seed = base || "imported-item";
+  let candidate = seed;
+  let suffix = 2;
+  while (usedIds.has(candidate)) {
+    candidate = `${seed.slice(0, Math.max(1, 80 - String(suffix).length - 1))}-${suffix}`;
+    suffix += 1;
+  }
+  usedIds.add(candidate);
+  return candidate;
 }
 
 function prune(value) {
