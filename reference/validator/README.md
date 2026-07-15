@@ -4,6 +4,13 @@ This directory contains the local OCF validator. It validates OCF JSON files
 against `spec/schema.json` using AJV and JSON Schema 2020-12, then checks local
 referential integrity using the compact index generated from the full schema.
 
+The reference validator uses the pinned `ajv` and `ajv-formats` dependencies in
+this directory, compiles with AJV strict mode disabled, and enforces the formats
+implemented by `ajv-formats`. Other JSON Schema validators may treat `format`
+keywords as annotations or report strict-mode warnings differently. Validation
+loads the repository's local versioned schema copies; it does not need to fetch
+the file's `$schema` URL from the network.
+
 Prefer local validation. OCF files often contain private career data. Do not
 upload a user's OCF file to a third-party validator unless the user explicitly
 asks and understands the privacy implications.

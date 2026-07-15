@@ -229,6 +229,8 @@
 </tbody>
 </table>
 
+<p>If <code>meta.fileRole</code> is absent or unknown, treat the file as unclassified and untrusted until the controlling user identifies its role. Do not infer <code>candidate-master</code> from a filename, location, or apparently complete contents.</p>
+
 <h2>Trust Boundaries</h2>
 
 <p>OCF files are portable. Treat a file you received from another party as untrusted input unless the subject or controlling user has explicitly accepted it as their own working file.</p>
@@ -324,6 +326,7 @@
 <h2>Compatibility Rules</h2>
 
 <ul>
+<li>The reference validator uses JSON Schema 2020-12 with pinned <code>ajv</code> and <code>ajv-formats</code> dependencies, AJV strict mode disabled, and local versioned schema copies. Other validators may treat <code>format</code> keywords differently; the <code>$schema</code> URL identifies the schema and does not require a network fetch when the validator has the matching local copy.</li>
 <li>Validate against the file's declared <code>$schema</code> or <code>schemaVersion</code> when possible, not a hardcoded older version.</li>
 <li>If a file declares a newer schema version that the tool does not understand, warn and preserve rather than silently dropping fields. Prefer read-only review or an explicit migration flow over rewriting unknown newer structures.</li>
 <li>Unknown object keys should be preserved when possible.</li>

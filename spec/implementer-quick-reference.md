@@ -43,6 +43,8 @@ Do not confuse these with provenance values such as `interview-derived`. That ph
 | `third-party-working` | A recruiter, coach, employer, agency, or tool controls an OCF-shaped file about a person. | The top-level `person` is still the subject, but the subject may not control or see the file. |
 | `other` | A workflow does not fit the named lifecycle roles. | Explain the role in `meta.lineageNotes`, provenance, or tool documentation. |
 
+If `meta.fileRole` is absent or unknown, treat the file as unclassified and untrusted until the controlling user identifies its role. Do not infer `candidate-master` from a filename, location, or apparently complete contents.
+
 ## Trust Boundaries
 
 OCF files are portable. Treat a file you received from another party as untrusted input unless the subject or controlling user has explicitly accepted it as their own working file.
@@ -143,6 +145,7 @@ Use directory structure if it helps: `imports/`, `curated/`, `exports/`, `archiv
 
 ## Compatibility Rules
 
+- The reference validator uses JSON Schema 2020-12 with pinned `ajv` and `ajv-formats` dependencies, AJV strict mode disabled, and local versioned schema copies. Other validators may treat `format` keywords differently; the `$schema` URL identifies the schema and does not require a network fetch when the validator has the matching local copy.
 - Validate against the file's declared `$schema` or `schemaVersion` when possible, not a hardcoded older version.
 - If a file declares a newer schema version that the tool does not understand, warn and preserve rather than silently dropping fields. Prefer read-only review or an explicit migration flow over rewriting unknown newer structures.
 - Unknown object keys should be preserved when possible.

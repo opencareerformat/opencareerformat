@@ -6,11 +6,19 @@
 // Use --warn-unknown to treat additionalProperties violations as warnings while
 // still failing other schema violations.
 
-const Ajv = require('ajv/dist/2020');
-const addFormats = require('ajv-formats');
 const fs = require('fs');
 const path = require('path');
 const { validateSemantic } = require('./semantic');
+
+let Ajv;
+let addFormats;
+try {
+  Ajv = require('ajv/dist/2020');
+  addFormats = require('ajv-formats');
+} catch {
+  console.error('The OCF validator requires its pinned dependencies. Run: npm --prefix reference/validator ci');
+  process.exit(1);
+}
 
 const repoRoot = path.resolve(__dirname, '..', '..');
 const examplesDir = path.join(repoRoot, 'spec', 'examples');

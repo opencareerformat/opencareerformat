@@ -34,8 +34,18 @@ while (requiredDefs.size > Object.keys(core.$defs).length) {
 }
 
 const outputPath = path.join(repoRoot, "schema-core.json");
-fs.writeFileSync(outputPath, `${JSON.stringify(core, null, 2)}\n`);
-console.log(`schema.json -> schema-core.json (${Object.keys(core.$defs).length} definitions)`);
+const output = `${JSON.stringify(core, null, 2)}\n`;
+if (process.argv.includes("--check")) {
+  const checkedIn = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, "utf8") : "";
+  if (checkedIn !== output) {
+    console.error("schema-core.json is stale; run node tools/generate-schema-core.js");
+    process.exit(1);
+  }
+  console.log(`schema-core.json projection is current (${Object.keys(core.$defs).length} definitions)`);
+} else {
+  fs.writeFileSync(outputPath, output);
+  console.log(`schema.json -> schema-core.json (${Object.keys(core.$defs).length} definitions)`);
+}
 
 function project(value, pointer) {
   if (Array.isArray(value)) return value.map((item, index) => project(item, `${pointer}/${index}`));

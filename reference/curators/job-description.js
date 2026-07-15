@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { filterByVisibility } = require("../lib/visibility");
+const { filterByVisibility, resolvedVisibility } = require("../lib/visibility");
 
 const CURRENT_SCHEMA = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../spec/schema.json"), "utf8"));
 const CURRENT_SCHEMA_VERSION = CURRENT_SCHEMA.properties?.schemaVersion?.const;
@@ -176,13 +176,16 @@ function countAchievements(doc) {
   }, 0);
 }
 
-function countVisibility(value, visibility) {
+function countVisibility(value, visibility, segments = []) {
   if (Array.isArray(value)) {
-    return value.reduce((count, item) => count + countVisibility(item, visibility), 0);
+    return value.reduce((count, item) => count + countVisibility(item, visibility, [...segments, "*"]), 0);
   }
   if (value && typeof value === "object") {
-    const own = value.visibility === visibility ? 1 : 0;
-    return own + Object.values(value).reduce((count, item) => count + countVisibility(item, visibility), 0);
+    const own = resolvedVisibility(value, segments) === visibility ? 1 : 0;
+    return own + Object.entries(value).reduce(
+      (count, [key, item]) => count + countVisibility(item, visibility, [...segments, key]),
+      0,
+    );
   }
   return 0;
 }
@@ -283,4 +286,4 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { curateForJob };
+module.exports = { curateForJob, summarizeCuration };

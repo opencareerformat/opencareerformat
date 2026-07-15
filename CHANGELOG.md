@@ -12,6 +12,8 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 - Made the application bootstrap handle missing target or career evidence conservatively, fail honestly when its canonical URL cannot be retrieved, and suggest a stable master filename when returning a complete JSON file.
 - Added non-normative v0.4 considerations for date correctness, stable file IDs, selective non-empty requirements, lightweight item identity, simpler certification issuers, and whether lightly proven grant/funding fields should return to extension incubation.
 - Corrected Maria Reyes's structured GPA and removed unnecessary fictional thesis and publication material from both frozen OCF revisions.
+- Made local core checks detect a stale generated projection, added a bounded Python CLI smoke test, counted schema-default visibility in curator summaries, and documented the reference validator's local schema and dependency assumptions.
+- Clarified that a missing or unknown `meta.fileRole` remains unclassified and untrusted until the controlling user identifies the workflow.
 - Made visibility filtering fail closed when an object carries an invalid explicit visibility value.
 - Made imported generic social links default to shared rather than public, and stopped orphan resume bullets from being assigned to the first role.
 - Made unknown employment end dates remain unknown instead of rendering them as Present.

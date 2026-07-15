@@ -11,7 +11,7 @@ const { toJsonResume } = require("../exporters/json-resume");
 const { toLinkedInBundle } = require("../exporters/linkedin");
 const { importResumeText } = require("../importers/resume-text-to-ocf");
 const { buildPrompt } = require("../ollama/ocf-local-llm");
-const { curateForJob } = require("../curators/job-description");
+const { curateForJob, summarizeCuration } = require("../curators/job-description");
 const { validateSemantic } = require("../validator/semantic");
 
 testPrivateDefaults();
@@ -23,6 +23,7 @@ testImporterSafety();
 testOllamaImportMetadata();
 testSemanticReferences();
 testValidatorCli();
+testPythonCli();
 testContextProfile();
 console.log("reference behavior tests: PASS");
 
@@ -101,7 +102,11 @@ function testReferenceToolSmoke() {
   const source = {
     schemaVersion: "0.3",
     meta: { id: "master-file", version: "one", fileRole: "candidate-master" },
-    person: { name: { renderAs: "Example Person" }, headline: "Security leader" },
+    person: {
+      name: { renderAs: "Example Person" },
+      headline: "Security leader",
+      contacts: [{ kind: "email", value: "private@example.com" }],
+    },
     skills: [{ name: "Incident Response", visibility: "shared" }],
     experience: [{
       id: "example",
@@ -116,6 +121,7 @@ function testReferenceToolSmoke() {
   const curated = curateForJob(source, "security incident response");
   assert.strictEqual(curated.meta.fileRole, "candidate-curated");
   assert.strictEqual(curated.experience[0].positions[0].achievements[0].id, "response");
+  assert.strictEqual(summarizeCuration(source, curated, "shared").privateItemsRemoved, 1);
   assert.match(toLinkedInBundle(source), /# LinkedIn Paste Bundle/);
 }
 
@@ -279,6 +285,41 @@ function testContextProfile() {
   const retrieved = JSON.parse(get.stdout);
   assert.strictEqual(retrieved.context.format, "ocf-context-item");
   assert.match(retrieved.item.text, /parking garage/);
+}
+
+function testPythonCli() {
+  const repoRoot = path.resolve(__dirname, "../..");
+  const script = path.join(repoRoot, "reference/cli/ocf.py");
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "ocf-python-cli-test-"));
+  const fixture = path.join(tempDir, "fixture.ocf.json");
+  const environment = { ...process.env, NODE: process.execPath };
+
+  try {
+    fs.writeFileSync(fixture, JSON.stringify({
+      $schema: "https://opencareerformat.org/v0.3/schema.json",
+      schemaVersion: "0.3",
+      meta: { id: "python-cli-fixture", fileRole: "candidate-master" },
+      person: {
+        name: { renderAs: "Example Person" },
+        contacts: [{ kind: "email", value: "private@example.com" }],
+      },
+    }));
+
+    const summary = spawnSync("python3", [script, fixture], { encoding: "utf8", env: environment });
+    assert.strictEqual(summary.status, 0, summary.error?.message || summary.stderr);
+    assert.match(summary.stdout, /name: Example Person/);
+
+    const validation = spawnSync("python3", [script, "validate", fixture], { encoding: "utf8", env: environment });
+    assert.strictEqual(validation.status, 0, validation.error?.message || validation.stderr);
+    assert.match(validation.stdout, /PASS/);
+
+    const filter = spawnSync("python3", [script, "--filter", "private", fixture], { encoding: "utf8", env: environment });
+    assert.strictEqual(filter.status, 0, filter.error?.message || filter.stderr);
+    const filtered = JSON.parse(filter.stdout);
+    assert.deepStrictEqual(filtered.person.contacts, []);
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
 }
 
 function findById(value, id) {

@@ -2,10 +2,20 @@
 
 const fs = require("fs");
 const path = require("path");
-const Ajv = require("../reference/validator/node_modules/ajv/dist/2020");
-const addFormats = require("../reference/validator/node_modules/ajv-formats");
+const { execFileSync } = require("child_process");
+
+let Ajv;
+let addFormats;
+try {
+  Ajv = require("../reference/validator/node_modules/ajv/dist/2020");
+  addFormats = require("../reference/validator/node_modules/ajv-formats");
+} catch {
+  console.error("Schema checks require the pinned validator dependencies. Run: npm --prefix reference/validator ci");
+  process.exit(1);
+}
 
 const repoRoot = path.resolve(__dirname, "..");
+execFileSync(process.execPath, [path.join(__dirname, "generate-schema-core.js"), "--check"], { stdio: "inherit" });
 const core = readJson(path.join(repoRoot, "schema-core.json"));
 const full = readJson(path.join(repoRoot, "schema.json"));
 const bootstrap = fs.readFileSync(path.join(repoRoot, "prompts", "application-bootstrap.md"), "utf8");
