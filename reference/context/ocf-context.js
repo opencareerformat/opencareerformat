@@ -2,8 +2,10 @@
 
 const fs = require("fs");
 const path = require("path");
+const schemaIndex = require("../schema-index.json");
 
 const DEFAULT_PROFILE_PATH = path.join(__dirname, "career-summary.profile.json");
+const idDefinitionPaths = new Set(schemaIndex.idDefinitionPaths.map((item) => item.segments.join(".")));
 
 main(process.argv.slice(2));
 
@@ -76,7 +78,7 @@ function getItem(args) {
   const [masterPath, itemId, outputPath] = args;
   const master = readJson(masterPath);
   const matches = [];
-  findById(master, "$", itemId, matches);
+  findById(master, [], "$", itemId, matches);
   if (matches.length === 0) throw new Error(`item id not found: ${itemId}`);
   if (matches.length > 1) throw new Error(`item id is not unique: ${itemId}`);
 
@@ -134,15 +136,17 @@ function describeOmission(itemPath, reason, parent, value) {
   return omission;
 }
 
-function findById(value, jsonPath, itemId, matches) {
+function findById(value, segments, jsonPath, itemId, matches) {
   if (Array.isArray(value)) {
-    value.forEach((item, index) => findById(item, `${jsonPath}[${index}]`, itemId, matches));
+    value.forEach((item, index) => findById(item, [...segments, "*"], `${jsonPath}[${index}]`, itemId, matches));
     return;
   }
   if (!isObject(value)) return;
-  if (value.id === itemId) matches.push({ path: jsonPath, item: value });
+  if (idDefinitionPaths.has(segments.join(".")) && value.id === itemId) {
+    matches.push({ path: jsonPath, item: value });
+  }
   for (const [key, child] of Object.entries(value)) {
-    findById(child, `${jsonPath}.${key}`, itemId, matches);
+    findById(child, [...segments, key], `${jsonPath}.${key}`, itemId, matches);
   }
 }
 

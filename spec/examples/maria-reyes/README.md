@@ -22,8 +22,6 @@ OCF provides the structure for what is learned; it does not prescribe a single i
 
 The full versions of Conversations One, Five, and Seven follow on this page. We haven't shared the other conversations or intermediate OCF snapshots, but their accepted results live in revisions 6 and 7.
 
-## Conversations In Full
-
 ## Conversation One: Maria Creates Her First OCF
 
 This reconstructed conversation shows one plausible first OCF session. It is not a required interview script: the assistant follows what Maria wants to accomplish and records unanswered questions for another time.
@@ -52,7 +50,7 @@ Files used in the conversation:
 
 > **Assistant:** That is fine. We can work on the application first and create a useful provisional OCF from the same material at the end. You do not need to reconstruct your entire career today.
 >
-> ## Gap read
+> **Gap read**
 >
 > This is a strong match. Your resume already supports the role's central requirements:
 >
@@ -178,7 +176,7 @@ Files used in the conversation:
 
 > **Assistant:** This is a strong match, but the resume leaves several of the role's government-program requirements under-evidenced.
 >
-> ## What the role asks for
+> **What the role asks for**
 >
 > The hiring case rests on four pillars:
 >
@@ -187,7 +185,7 @@ Files used in the conversation:
 > - Delivering security programs for federal or defense customers.
 > - Applying federal controls while explaining risk to government and company leaders.
 >
-> ## What your resume proves
+> **What your resume proves**
 >
 > Your strongest direct matches are:
 >
@@ -203,7 +201,7 @@ Files used in the conversation:
 >
 > The combined Army and Meridian roles may satisfy the five-year leadership requirement, but the resume should make that chronology unmistakable.
 >
-> ## What remains missing or under-evidenced
+> **What remains missing or under-evidenced**
 >
 > The largest issue is **government-program delivery**. Your resume says you performed DoD threat analysis, but it does not show whether you owned contract deliverables, briefed government customers, supported reviews, or coordinated across program organizations.
 >
@@ -219,7 +217,7 @@ Files used in the conversation:
 >
 > FedRAMP ownership is not strictly required here; the posting asks for working knowledge. If your experience is limited, we can say that accurately. RMF and DoD authorization experience may be more important for this position.
 >
-> ## Three questions that would resolve the major risks
+> **Three questions that would resolve the major risks**
 >
 > 1. **Clearance eligibility:** Are you a U.S. citizen, and have you previously held a clearance? If so, what level, when was it last active, and is it accurate to say you are eligible for reactivation?
 > 2. **Government-controls evidence:** In any role, what did you actually do with RMF, NIST 800-53, FedRAMP, DISA STIGs, eMASS, SSPs, POA&Ms, control assessments, or authorization decisions? It is fine if your level was contribution rather than ownership.

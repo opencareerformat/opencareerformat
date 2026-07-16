@@ -83,10 +83,11 @@ In the OCF, that becomes a richer achievement. The public claim is still there, 
 
 The same achievement also carries longer private context, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.
 
-The follow-up interview also changes the surrounding memory. Maria's explanation adds skills that were only implied by the bullet point, creates reusable wording for different audiences, and records a caution from an overreaching draft:
+The follow-up interview also changes the surrounding memory. Selected fields on the `mhs-ransomware-2024` achievement show skills that were only implied by the bullet point and reusable wording for different audiences:
 
 ```json
 {
+  "id": "mhs-ransomware-2024",
   "skills": [
     "Incident Response Leadership",
     "Ransomware Analysis",
@@ -113,7 +114,14 @@ The follow-up interview also changes the surrounding memory. Maria's explanation
       "statement": "Protected patient-care continuity during a ransomware event by leading evidence-based recovery from offline backups and restoring critical clinical systems within 41 hours.",
       "visibility": "shared"
     }
-  ],
+  ]
+}
+```
+
+Separately, the top-level `cautions` collection records a correction from an overreaching draft:
+
+```json
+{
   "cautions": [
     {
       "claim": "claimed as an AI / ML security specialist",
@@ -212,11 +220,14 @@ The confirmed through-line is stored separately, because it is not a raw story a
         "military-to-civilian-transition"
       ],
       "visibility": "private",
-      "supportingItemIds": ["mhs-soc-buildout"],
+      "supportingItemIds": [
+        "meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection",
+        "mhs-soc-buildout"
+      ],
       "supportingEvidence": [
         {
           "kind": "reflection",
-          "path": "experience[name=Meridian Health Systems].positions[title=Director of Cybersecurity].reflections[kind=never-on-resume-story]",
+          "id": "meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection",
           "summary": "First-month Meridian story about rebuilding authority after an analyst declined a weekend shift."
         },
         {
@@ -507,7 +518,7 @@ Revision 6:
 ```json
 {
   "meta": {
-    "lastModified": "2026-06-15",
+    "lastModified": "2026-06-11",
     "version": "6"
   }
 }

@@ -3,7 +3,7 @@
   "schemaVersion": "0.3",
   "meta": {
     "fileRole": "candidate-master",
-    "lastModified": "2026-06-15",
+    "lastModified": "2026-06-11",
     "language": "en-US",
     "source": {
       "kind": "authored"
@@ -1560,7 +1560,7 @@
       "visibility": "shared",
       "provenance": {
         "source": "curated",
-        "date": "2026-06-15",
+        "date": "2026-06-11",
         "operation": "assembled-target-aware-headline",
         "note": "Created as a target-aware alternative to the default person.headline for healthcare cybersecurity leadership roles."
       },
@@ -1586,7 +1586,7 @@
       "visibility": "shared",
       "provenance": {
         "source": "curated",
-        "date": "2026-06-15",
+        "date": "2026-06-11",
         "operation": "assembled-target-aware-headline",
         "note": "Created to show audience inversion: federal and defense audiences expect rank and MOS that healthcare audiences may not need."
       },
@@ -1605,12 +1605,13 @@
       ],
       "visibility": "private",
       "supportingItemIds": [
+        "meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection",
         "mhs-soc-buildout"
       ],
       "supportingEvidence": [
         {
           "kind": "reflection",
-          "path": "experience[name=Meridian Health Systems].positions[title=Director of Cybersecurity].reflections[kind=never-on-resume-story]",
+          "id": "meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection",
           "summary": "First-month Meridian story about rebuilding authority after an analyst declined a weekend shift."
         },
         {

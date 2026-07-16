@@ -8,6 +8,7 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 ### Changed
 
+- Corrected Maria example teaching details: separated composite excerpts by their real OCF locations, aligned revision 6 with Conversation Six, replaced an informal reflection path with its stable ID, and simplified transcript heading structure. Updated context retrieval to distinguish stable item IDs from ID references.
 - Refocused the Maria implementation-details page on conversation-to-JSON lessons and exact revision 6-to-7 changes, with links back to the canonical conversations and automated checks for the new excerpts.
 - Clarified user-selected LLM privacy boundaries, an optional archivist/drafter isolation pattern, OCF's lack of a current verification mechanism, and jurisdiction-dependent responsibilities for third-party working files.
 - Made the private-filter CLI warn on stderr when unknown extension namespaces survive generic visibility filtering, without exposing namespace names or payload values or corrupting JSON stdout.

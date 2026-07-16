@@ -82,8 +82,10 @@ for (const variant of fanoutSnippet.narrativeVariants) {
     assertEqual(variant[key], actual[key], `narrative variant ${variant.id}.${key} drifted`);
   }
 }
-assertEqual(fanoutSnippet.cautions[0].claim, caution.claim, "caution claim drifted");
-assertEqual(fanoutSnippet.cautions[0].reason, caution.reason, "caution reason drifted");
+const cautionSnippet = jsonBlocks.find((block) => Array.isArray(block.cautions));
+assert(cautionSnippet, "missing top-level caution snippet");
+assertEqual(cautionSnippet.cautions[0].claim, caution.claim, "caution claim drifted");
+assertEqual(cautionSnippet.cautions[0].reason, caution.reason, "caution reason drifted");
 
 const armyProgressionSnippet = jsonBlocks.find((block) => block.id === "army-rank-progression");
 assert(armyProgressionSnippet, "missing Army progression snippet");
