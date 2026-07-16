@@ -45,7 +45,7 @@ Implementers building LLM-backed OCF tools should review the [OWASP Top 10 for L
 
 OCF content is self-asserted. OCF defines no verification mechanism today. A future, separate verification mechanism may independently support particular claims, but `reviewStatus`, provenance, confidence, and supporting evidence are context, not institutional verification, and should not be presented as such.
 
-`third-party-working` files about a person may carry consent, access, retention, and data-protection responsibilities depending on the jurisdiction. OCF is not intended as a covert profiling format.
+`third-party-working` files controlled by a party other than the person they describe may carry consent, access, retention, and data-protection responsibilities depending on the jurisdiction. OCF is not intended as a covert profiling format.
 
 Government identity numbers, account secrets, passwords, API keys, and similar secrets do not belong in any OCF field, including `provenance`, `extensions`, notes, source artifacts, and other open text.
 
