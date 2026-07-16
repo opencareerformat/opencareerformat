@@ -5,6 +5,7 @@ const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..");
 const markdown = fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/implementation-details.md"), "utf8");
+const previousSample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json"), "utf8"));
 const sample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json"), "utf8"));
 
 const jsonBlocks = [...markdown.matchAll(/```json\n([\s\S]*?)\n```/g)].map((match) => JSON.parse(match[1]));
@@ -23,6 +24,42 @@ const armyCyberLead = armyCyberPosition.achievements.find((item) =>
   item.narrativeVariants?.some((variant) => variant.id === "army-cyber-lead-civilian"),
 );
 const armyRankProgression = army.spanning.find((item) => item.id === "army-rank-progression");
+
+const canonicalSnippets = jsonBlocks.filter((block) => block.person?.summary && Array.isArray(block.competencies));
+assertEqual(canonicalSnippets.length, 2, "expected revision 6 and revision 7 canonical-field snippets");
+for (const [snippet, document, version] of [
+  [canonicalSnippets[0], previousSample, "6"],
+  [canonicalSnippets[1], sample, "7"],
+]) {
+  const competency = document.competencies.find((item) => item.label === "Leadership & Cross-Functional Communication");
+  assertEqual(snippet.person.summary, document.person.summary, `revision ${version} summary drifted`);
+  assertEqual(snippet.competencies[0].label, competency.label, `revision ${version} competency label drifted`);
+  assertEqual(snippet.competencies[0].description, competency.description, `revision ${version} competency description drifted`);
+}
+
+const fedrampSnippet = jsonBlocks.find((block) => block.id === "mhs-fedramp-security-operations-workstream");
+const fedrampAchievement = position.achievements.find((item) => item.id === "mhs-fedramp-security-operations-workstream");
+assertEqual(fedrampSnippet, fedrampAchievement, "FedRAMP achievement snippet drifted");
+
+const fedrampCautionSnippet = jsonBlocks.find((block) => block.id === "caution-led-entire-fedramp-authorization");
+const fedrampCaution = sample.cautions.find((item) => item.id === "caution-led-entire-fedramp-authorization");
+assertEqual(fedrampCautionSnippet, fedrampCaution, "FedRAMP caution snippet drifted");
+
+const sourceArtifactSnippet = jsonBlocks.find((block) => Array.isArray(block.sourceArtifacts));
+assert(sourceArtifactSnippet, "missing Conversation Seven source-artifact snippet");
+for (const artifact of sourceArtifactSnippet.sourceArtifacts) {
+  const actual = sample.sourceArtifacts.find((item) => item.id === artifact.id);
+  assert(actual, `missing actual source artifact ${artifact.id}`);
+  assertEqual(artifact, actual, `source artifact ${artifact.id} drifted`);
+}
+
+for (const version of ["6", "7"]) {
+  const metaSnippet = jsonBlocks.find((block) => block.meta?.version === version);
+  const document = version === "6" ? previousSample : sample;
+  assert(metaSnippet, `missing revision ${version} metadata snippet`);
+  assertEqual(metaSnippet.meta.version, document.meta.version, `revision ${version} meta.version drifted`);
+  assertEqual(metaSnippet.meta.lastModified, document.meta.lastModified, `revision ${version} meta.lastModified drifted`);
+}
 
 const achievementSnippet = jsonBlocks.find((block) => block.id === "mhs-ransomware-2024");
 assert(achievementSnippet, "missing achievement snippet");

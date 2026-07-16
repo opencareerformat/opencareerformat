@@ -74,6 +74,7 @@ const docs = [
     source: "spec/examples/maria-reyes/implementation-details.md",
     title: "Maria Reyes Example: Implementation Details",
     description: "Implementation details behind the Maria Reyes OCF 0.3 teaching example.",
+    layout: "anchored",
   },
 ];
 
@@ -385,7 +386,7 @@ function markdownToHtml(markdown, sourceRel, layout) {
     const heading = line.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
       const level = heading[1].length;
-      const id = layout === "conversation" ? ` id="${headingId(heading[2])}"` : "";
+      const id = ["conversation", "anchored"].includes(layout) ? ` id="${headingId(heading[2])}"` : "";
       out.push(`<h${level}${id}>${inline(heading[2], sourceRel)}</h${level}>`);
       i += 1;
       continue;

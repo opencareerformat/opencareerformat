@@ -1,22 +1,25 @@
 # Maria Reyes Example: Implementation Details
 
-> Last updated: 2026-07-14.
+> Last updated: 2026-07-15.
 
-The details behind a resume bullet point fade fast — usually right when you next need them. This walkthrough takes one bullet point, a hospital ransomware response, and recovers the career memory behind it.
+This page opens the OCF files behind the [Maria Reyes conversation example](README.md) and shows how accepted conversation results become structured career memory. Read the conversations to see the workflow; use this page to inspect the resulting JSON.
 
-This page explains the OCF structures behind the [Maria Reyes conversation example](README.md). It is not a new schema requirement; it is a technical view of how the conversations become durable career memory.
+| Conversation example | Implementation lesson |
+|---|---|
+| [Maria starts with a resume and no OCF](README.md#conversation-one-maria-creates-her-first-ocf) | [Source Material Becomes Provisional Career Memory](#source-material-becomes-provisional-career-memory) |
+| [A short ransomware bullet is explored in Conversation Two](README.md#how-marias-ocf-grew) | [Short Claim Expanded Into Reusable Career Memory](#short-claim-expanded-into-reusable-career-memory) |
+| [Maria follows the question about her leadership transition](README.md#conversation-five-maria-explores-a-leadership-transition) | [User Wording And Model Interpretation Stored Separately](#user-wording-and-model-interpretation-stored-separately) |
+| [Maria recovers the path behind her final Army rank](README.md#how-marias-ocf-grew) | [Timeline Recovered Behind A Final Title](#timeline-recovered-behind-a-final-title) |
+| [Maria considers which private details fit a new audience](README.md#private-does-not-mean-never-useful) | [Stable Facts Support Different Outputs](#stable-facts-support-different-outputs) |
+| [Maria corrects her career timeline and management scope](README.md#the-conversation-improves-the-career-memory) | [Canonical Field Corrected](#canonical-field-corrected) |
+| [Maria scopes her FedRAMP responsibility](README.md#the-conversation-improves-the-career-memory) | [Achievement Added With Attribution](#achievement-added-with-attribution) |
+| [Maria rejects claims that should not return](README.md#the-conversation-improves-the-career-memory) | [Caution Added](#caution-added) |
+| [The target and review conversation become evidence](README.md#the-conversation-improves-the-career-memory) | [Provenance And Source Artifact Added](#provenance-and-source-artifact-added) |
+| [Maria accepts the complete correction set](README.md#the-conversation-improves-the-career-memory) | [Version Advanced From 6 To 7](#version-advanced-from-6-to-7) |
 
-Files:
+The complete [`revision 6`](maria-reyes-revision-6.ocf.json) and [`revision 7`](maria-reyes-revision-7.ocf.json) files are available for anyone who wants to inspect the full records or double-check the excerpts directly.
 
-| File | Website | GitHub source |
-|---|---|---|
-| Main conversation example | [`index.html`](https://opencareerformat.org/spec/examples/maria-reyes/) | [`spec/examples/maria-reyes/README.md`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/README.md) |
-| Source resume | [`source-resume.txt`](https://opencareerformat.org/spec/examples/maria-reyes/source-resume.txt) | [`spec/examples/maria-reyes/source-resume.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/source-resume.txt) |
-| Healthcare target | [`healthcare-job-description.txt`](https://opencareerformat.org/spec/examples/maria-reyes/healthcare-job-description.txt) | [`spec/examples/maria-reyes/healthcare-job-description.txt`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/healthcare-job-description.txt) |
-| Pre-Conversation-Seven OCF | [`maria-reyes-revision-6.ocf.json`](https://opencareerformat.org/spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json) | [`spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json) |
-| Post-Conversation-Seven OCF | [`maria-reyes-revision-7.ocf.json`](https://opencareerformat.org/spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json) | [`spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json`](https://github.com/opencareerformat/opencareerformat/blob/main/spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json) |
-
-## 1. Source Resume Captured
+## Source Material Becomes Provisional Career Memory
 
 The starting point is an ordinary short resume. In OCF terms, the resume is not the master truth. It is a `sourceArtifact`.
 
@@ -30,7 +33,7 @@ The importer or LLM should:
 
 At this point the file is best understood as a provisional `candidate-master`: the file can already be the person's working master, but imported items should remain visibly unreviewed until the person accepts them.
 
-## 2. Intake Turns Bullet Points Into Career Memory
+## Short Claim Expanded Into Reusable Career Memory
 
 The source resume contains one compressed public bullet point:
 
@@ -122,7 +125,7 @@ The follow-up interview also changes the surrounding memory. Maria's explanation
 
 Those are not three separate stories. They are three reusable consequences of one clarified story: what skills it demonstrates, how to tell it to different audiences, and what not to claim.
 
-### The Resume Proves The Endpoint; The Conversation Recovers The Path
+## Timeline Recovered Behind A Final Title
 
 The same intake pattern applies to timelines, not just events. Maria's resume lists her rank exactly once, the way veterans often write resumes:
 
@@ -174,41 +177,11 @@ The excerpt shows two of the six supporting facts in Maria's OCF. Note the prove
 
 Whether the steps appear in any output is a separate decision. A general civilian resume may show none of them; a government-contracting resume may list every one. The OCF stores the full path so curation can choose. Storage and display are different questions, and OCF only fixes the first.
 
-### Stories Improve Career Memory
+## User Wording And Model Interpretation Stored Separately
 
-A first-session OCF workflow should also ask for one story about the person's work that they would never put on a formal resume. The point is not to force the story into a bullet point immediately. The point is to preserve career memory in the subject's own words, then look for an earned pattern only if the evidence supports it.
+[Conversation Five](README.md#conversation-five-maria-explores-a-leadership-transition) is the canonical telling of the parking-garage story and the model's proposed through-line. This page does not retell that exchange. It shows why the accepted conversation creates two different records: the person's original words remain a private reflection, while the model's interpretation becomes a separate talking point only after the person confirms it.
 
-In the Maria example, the military-to-civilian leadership gap is a good place to do this. The general heuristic is: look for the seam the resume crosses silently. Maria's resume proves Army cyber leadership and later healthcare security leadership, but it does not explain how she translated authority across those worlds.
-
-A short version of the conversation could look like this:
-
-> **Maria:** I have this resume and a Director of Security job description. I do not have an OCF yet. Can you help me with the application?
->
-> **LLM:** Yes. First, a gap read: the job appears to want healthcare security leadership, incident response judgment, SOC maturity, compliance depth, and executive communication. Your resume already proves healthcare security leadership, SOC buildout, HITRUST/SOC 2, ransomware response, Army cyber operations, and executive-facing communication. The gaps I would probe before drafting are: what you personally owned in the SOC buildout, what judgment you exercised in the ransomware event, and how your military leadership translated into civilian teams.
->
-> *Maria answers the targeted questions; the LLM drafts the resume and cover letter; then it closes the session by saving what should improve the next one.*
->
-> **LLM:** Before I create the starter OCF, one more question: tell me one story about your work that you would never put on a formal resume. It can be something that happened at work, how you work, what you like doing at work, or an anecdote that explains a role. It does not need an outcome or metric.
-
-Maria's story, preserved verbatim:
-
-> My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard "no" to a lawful tasking. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. In the Army, my rank was the authority. Out here, working for someone meant something different. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the thing that worked.
-
-An LLM should not polish that into case-study prose. The unpolished texture teaches future tools what the transition actually felt like and how Maria explains it.
-
-Bad flattened version:
-
-> Maria adapted her military leadership style to civilian healthcare security by modeling commitment, improving team trust, and increasing shift coverage engagement.
-
-That version is shorter, but it destroys the memory. It removes the parking garage, the rank shock, the failed assumption, and the reason the later talking point is earned.
-
-After preserving the story, the tool can offer an earned through-line only if it can cite independent evidence. For example:
-
-> Does this ring true — you rebuild authority from demonstrated work rather than inherited position? It's in this story, and it's how the SOC got built: 24/7 coverage in six months, staffed by people who'd watched you take the first shifts yourself.
-
-If Maria confirms it, the raw story stays as a private reflection, and the confirmed through-line is saved as a reusable talking point for future interviews, cover letters, and coaching conversations. The existing military-to-civilian open question should also be updated: the file now has story-backed material, but it may still need additional examples about coaching, performance management, or hard staffing decisions.
-
-The resulting OCF update is concrete. The story is stored where it happened, as a role reflection:
+The story is stored where it happened, as a role reflection:
 
 ```json
 {
@@ -263,62 +236,11 @@ The confirmed through-line is stored separately, because it is not a raw story a
 }
 ```
 
-The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking point; unresolved implications become or update open questions.
+The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking point; unresolved implications become or update open questions. The source memory is not replaced by polished model prose.
 
-This is the give-back loop. The user contributes a story that was never resume-shaped; the tool returns a pattern that is useful only because it is earned from the user's own evidence. If the user rejects the pattern, the correction is useful too.
+## Stable Facts Support Different Outputs
 
-## 3. Review Adds Guardrails
-
-Early drafts often overstate something. OCF records those corrections instead of making the user repeat them in every future session.
-
-In Maria's OCF, cautions and open questions show how a reviewer or LLM can preserve:
-
-- claims not to make;
-- missing attribution details;
-- questions about how military leadership translates to civilian staffing contexts;
-- areas where a future conversation should ask for better evidence.
-
-Cautions are leading controls. A future curation pass should read them before drafting.
-
-For example, Maria's OCF records a caution against positioning her as an "AI / ML security specialist." The underlying fact is useful: she has operational exposure to ML-based detection tooling. The risky draft leap is turning that exposure into research-level AI/ML specialization. Once the caution is saved, a later tool can still use the real fact, but it should choose safer wording such as "evaluated and operationalized ML-assisted detection tooling" rather than overstating her expertise.
-
-That is the value of a caution: the user corrects the mistake once, and future curation starts with that correction already in memory.
-
-## 4. Candidate Master Accumulates Over Time
-
-After review, accepted material can become part of a candidate-owned master OCF. The master may contain more than any resume should show:
-
-- achievements that can be shared;
-- private reflections that improve future coaching or interview prep;
-- source artifacts;
-- provenance;
-- open questions;
-- cautions;
-- narrative variants;
-- skills and certifications.
-
-The master is not an output. It is the private memory layer.
-
-## 5. Curation For A Target
-
-When the user provides a target job description, a curator reads the master plus the target and decides:
-
-- what to filter because of privacy or relevance;
-- what to question because it is missing, stale, or unclear;
-- what to rank because it is strong evidence for the target.
-
-The output of this step is not necessarily a final resume. It may be:
-
-- proposed improvements to the master;
-- export-ready content for a resume or cover letter;
-- interview-prep notes;
-- a short list of questions the user should answer first.
-
-If an item is real but irrelevant to the target, it stays in the master and gets filtered from the current output.
-
-For this healthcare cybersecurity director job description, the ransomware response, SOC buildout, HITRUST/SOC 2, and executive-risk communication material are highly relevant. The `mhs-mssp-transition` achievement is still useful career memory, but it is usually curated out for this target unless the user wants to emphasize budget stewardship or security-operations efficiency.
-
-Curation can also invert by audience, and the Army material shows the cleanest case. For Maria's healthcare-sector target, her rank is correctly translated into civilian scope: "led a 6-person cyber operations team." For a federal or defense-contractor target, the calculus reverses: rank and MOS are expected, and omitting them reads as concealment, not brevity. The master holds both tellings as narrative variants on the same achievement:
+[Conversation Seven](README.md#private-does-not-mean-never-useful) shows the user deciding whether private career memory is appropriate for a particular application. The JSON also supports different truthful descriptions of the same evidence. For a general civilian audience, Maria's Army leadership can emphasize team scope. For a government-contractor audience, rank and MOS may be relevant. Both variants remain attached to the same achievement:
 
 ```json
 {
@@ -366,7 +288,7 @@ Curation can also invert by audience, and the Army material shows the cleanest c
 }
 ```
 
-The same fact is noise for one audience and mandatory for another. A resume can only hold one telling; the master holds both, and curation chooses. The file also records a caution against letting any draft imply Maria held leadership rank throughout her service: she was junior enlisted from 2010 to 2014, and anyone who served reads rank against time instantly. The progression must support the verb.
+The underlying fact does not change. Curation chooses the approved wording that fits the audience, while the stored rank progression prevents either version from implying leadership throughout Maria's entire service.
 
 The same audience inversion can apply at the person level. `person.headline` remains Maria's general-purpose headline, while `positioningVariants` records target-aware alternatives with supporting evidence:
 
@@ -415,35 +337,191 @@ The same audience inversion can apply at the person level. `person.headline` rem
 }
 ```
 
-The headline changes, but the evidence does not. A curator can choose the healthcare version for a hospital CISO role and the federal version for a defense contractor without inventing new claims.
+The headline changes, but the supporting IDs do not. The user can approve one version for a healthcare role and another for a government contractor without inventing a second career history.
 
-## 6. Export Produces Files
+## Canonical Field Corrected
 
-Once curation has selected the right material, whatever tool Maria uses can produce the files she needs, typically a resume and cover letter for the target role.
-Maria still needs to proofread and edit those documents carefully; once she sends them, she owns every word.
+In [Conversation Seven](README.md#the-conversation-improves-the-career-memory), Maria corrects two statements that had become part of her accumulated OCF. Revision 6 overstates both the length of her private-sector cybersecurity work and the size of teams she managed:
 
-## 7. Updates Flow Back
+```json
+{
+  "person": {
+    "summary": "Eight years of Army service in signal and cyber operations followed by a decade in private-sector cybersecurity. Led SOC teams, built zero-trust architectures, and earned CISSP and CISM certifications. Comfortable briefing generals and board members alike."
+  },
+  "competencies": [
+    {
+      "label": "Leadership & Cross-Functional Communication",
+      "description": "Led teams of 8-40 across military and civilian contexts. Briefed flag officers, C-suite executives, and board audit committees on risk posture and incident status. Mentored junior analysts through career transitions."
+    }
+  ]
+}
+```
 
-After the output is drafted, the useful closing question is not just "does this resume look good?" It is:
+Revision 7 replaces those statements rather than preserving two contradictory canonical versions:
 
-> What did we learn that should be saved for next time?
+```json
+{
+  "person": {
+    "summary": "Ten years in dedicated cybersecurity across Army cyber operations and civilian roles, preceded by Army signal-systems experience. Led SOC teams, built zero-trust architectures, and earned CISSP and CISM certifications. Briefs the CISO monthly and the board audit committee quarterly."
+  },
+  "competencies": [
+    {
+      "label": "Leadership & Cross-Functional Communication",
+      "description": "Led a 6-person Army cyber team and later an 18-person civilian security function with 12 direct reports. Briefs the CISO monthly and the board audit committee quarterly. Has coordinated incident groups as large as 40 people, but does not describe that as management scope."
+    }
+  ]
+}
+```
 
-Examples:
+The general lesson is that structured content is still reviewable. When the person corrects an existing claim, the canonical field should become more accurate; structure is not a reason to preserve a known error.
 
-- a correction becomes a `caution`;
-- a missing metric becomes an `openQuestions` item;
-- a new story becomes a private reflection;
-- a polished audience-specific bullet point becomes a `narrativeVariant`;
-- a confirmed claim becomes a canonical achievement update.
+## Achievement Added With Attribution
 
-That feedback loop is why OCF gets more useful after each session.
+The revision 6 competency text said Maria had "led FedRAMP authorization for a SaaS product." Conversation Seven establishes a narrower and more useful account: the product received authorization, but Maria owned the security-operations workstream rather than the whole program.
 
-## 8. Conversation Seven Reuses And Improves The Memory
+Revision 7 turns that clarification into an achievement with explicit attribution:
 
-Conversation Seven provides the real reuse example. Maria initially shares only her short resume and a government-contractor job description. The gap read finds a strong match but little evidence behind several government-program qualifications.
+```json
+{
+  "id": "mhs-fedramp-security-operations-workstream",
+  "statement": "Led the security-operations workstream supporting a successful FedRAMP Moderate authorization, accountable for logging and monitoring, incident response, vulnerability remediation, operational evidence, and assigned findings.",
+  "kind": "accomplishment",
+  "importance": 4,
+  "audiences": [
+    "government-contractor",
+    "federal",
+    "security-leadership"
+  ],
+  "skills": [
+    "FedRAMP",
+    "NIST 800-53",
+    "Incident Response",
+    "Vulnerability Management"
+  ],
+  "visibility": "shared",
+  "attribution": {
+    "role": "owned",
+    "scope": "Owned the security-operations workstream. The GRC director owned the overall authorization program and 3PAO relationship; cloud engineering owned infrastructure changes.",
+    "reportedUpward": true,
+    "notes": "The SaaS product received authorization in 2025. Do not describe Maria as having led the entire authorization."
+  },
+  "provenance": {
+    "source": "interview-derived",
+    "date": "2026-07-14",
+    "sessionTopic": "Government-contractor role review",
+    "operation": "fedramp-attribution-clarification",
+    "confidence": 0.95,
+    "sourceArtifactId": "government-contractor-review-2026-07-14"
+  },
+  "reviewStatus": "user-confirmed"
+}
+```
 
-When Maria remembers and attaches [`maria-reyes-revision-6.ocf.json`](maria-reyes-revision-6.ocf.json), the assessment changes. The OCF recovers clearance history, military progression, private leadership stories, target-aware positioning, and applied security context that the resume compressed or omitted. It also exposes claims that should not be trusted merely because they are structured: the private-sector timeline is wrong, the management range conflates coordination with direct leadership, the FedRAMP claim overstates Maria's role, and the flag-officer briefing lacks support.
+Attribution preserves the strong part of the claim while recording where Maria's responsibility ended. A later resume can use the achievement without quietly promoting workstream ownership into program ownership.
 
-Maria corrects those claims in conversation. The complete [`maria-reyes-revision-7.ocf.json`](maria-reyes-revision-7.ocf.json) preserves everything from revision 6 while carrying the accepted corrections, new attribution, cautions, provenance, and source records. This is the compounding value claim with its necessary guardrail: each reviewed session gives the next session better memory, and each later session can still question and improve that memory.
+## Caution Added
 
-The [main Maria page](README.md) shows the full Conversation Seven transcript.
+Correcting the current wording is not enough if a future model could make the same plausible mistake. Revision 7 adds a caution that tells later tools what not to reconstruct:
+
+```json
+{
+  "claim": "described as having led the entire FedRAMP authorization",
+  "reason": "Maria owned the security-operations workstream. The GRC director owned the overall authorization program and 3PAO relationship, and cloud engineering owned infrastructure changes.",
+  "visibility": "private",
+  "provenance": {
+    "source": "interview-derived",
+    "date": "2026-07-14",
+    "sourceArtifactId": "government-contractor-review-2026-07-14",
+    "operation": "fedramp-attribution-correction",
+    "confidence": 0.95
+  },
+  "addedDate": {
+    "year": 2026,
+    "month": 7,
+    "day": 14
+  },
+  "id": "caution-led-entire-fedramp-authorization"
+}
+```
+
+The same conversation adds cautions against describing a 40-person incident group as management scope and against claiming unsupported flag-officer briefings. A caution makes a correction durable without discarding the surrounding career evidence.
+
+## Provenance And Source Artifact Added
+
+Revision 7 records both the target that prompted the review and the conversation that produced the accepted changes:
+
+```json
+{
+  "sourceArtifacts": [
+    {
+      "id": "government-contractor-job-description-2026-07-14",
+      "kind": "job-description",
+      "label": "Cybersecurity operations director job description for government programs",
+      "capturedDate": {
+        "year": 2026,
+        "month": 7,
+        "day": 14
+      },
+      "audience": [
+        "government-contractor",
+        "federal",
+        "defense"
+      ],
+      "sourceTool": "manual-example",
+      "fileName": "government-contractor-job-description.txt",
+      "rawIncluded": false,
+      "notes": "Private-employer job description for a role serving U.S. government customers. Used as target evidence during Conversation Seven.",
+      "visibility": "private"
+    },
+    {
+      "id": "government-contractor-review-2026-07-14",
+      "kind": "conversation",
+      "label": "Government-contractor role review",
+      "capturedDate": {
+        "year": 2026,
+        "month": 7,
+        "day": 14
+      },
+      "audience": [
+        "government-contractor",
+        "security-leadership"
+      ],
+      "sourceTool": "Recommended OCF LLM prompt",
+      "fileName": "README.md",
+      "rawIncluded": true,
+      "notes": "Conversation preserved under Conversation Seven in README.md. It compared the target first with Maria's source resume and then with revision 6 of her OCF. Maria corrected the private-sector timeline, management scope, FedRAMP attribution, and executive-briefing evidence.",
+      "visibility": "private"
+    }
+  ]
+}
+```
+
+The job description explains why these questions were asked; it does not become career truth. Item-level provenance points back to the review conversation so later tools can distinguish imported material, prior claims, and user-confirmed corrections.
+
+## Version Advanced From 6 To 7
+
+Revision 7 is not a patch file. It is the complete OCF after the accepted changes. Its metadata advances the version and records when the file changed:
+
+Revision 6:
+
+```json
+{
+  "meta": {
+    "lastModified": "2026-06-15",
+    "version": "6"
+  }
+}
+```
+
+Revision 7:
+
+```json
+{
+  "meta": {
+    "lastModified": "2026-07-14",
+    "version": "7"
+  }
+}
+```
+
+Everything that remained valid in revision 6 stays available in revision 7, including the private reflection and talking point from Conversation Five. The accepted Conversation Seven changes add better canonical wording, attributed achievements, cautions, and source records. Readers can inspect [`revision 6`](maria-reyes-revision-6.ocf.json) and [`revision 7`](maria-reyes-revision-7.ocf.json) directly to verify the complete difference.
