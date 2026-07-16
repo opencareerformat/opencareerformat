@@ -76,7 +76,7 @@ The same file preserves the questions Maria chose not to answer. This keeps a na
 }
 ```
 
-Revision 1 is a teaching reconstruction rather than an archived original. Earlier development history was not retained, so it was rebuilt only from the source resume, healthcare job description, and Conversation One. Later discoveries were intentionally excluded.
+Revision 1 reconstructs the provisional OCF produced by Conversation One using only the source resume, healthcare job description, and that conversation.
 
 The stable `mhs-ransomware-2024` ID remains unchanged as later conversations add context, evidence, cautions, and alternate wording. The existing career memory is enriched instead of being duplicated.
 

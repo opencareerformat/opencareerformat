@@ -26,6 +26,8 @@ The full versions of Conversations One, Five, and Seven follow on this page. We 
 
 This reconstructed conversation shows one plausible first OCF session. It is not a required interview script: the assistant follows what Maria wants to accomplish and records unanswered questions for another time.
 
+**About Revision 1.** The linked [`OCF revision 1`](maria-reyes-revision-1.ocf.json) reconstructs the provisional OCF produced by Conversation One using only the source resume, healthcare job description, and that conversation.
+
 **Date:** 2026-05-20
 
 Files used in the conversation:
@@ -115,8 +117,6 @@ Files used in the conversation:
 > The job description helps choose what matters for this application, but it does not become truth about your career. The unanswered questions remain questions rather than invented accomplishments.
 >
 > Save the provisional OCF file next to your resume. Next time, attach both.
-
-The linked [`OCF revision 1`](maria-reyes-revision-1.ocf.json) is an honest teaching reconstruction, not an archived original. Earlier development history was not retained, so the file was rebuilt from the source resume, healthcare job description, and Conversation One. It deliberately excludes everything learned in later conversations.
 
 ## Conversation Five: Maria Explores A Leadership Transition
 
