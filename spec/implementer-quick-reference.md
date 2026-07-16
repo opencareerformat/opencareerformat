@@ -49,10 +49,12 @@ If `meta.fileRole` is absent or unknown, treat the file as unclassified and untr
 
 OCF files are portable. Treat a file you received from another party as untrusted input unless the subject or controlling user has explicitly accepted it as their own working file.
 
+- Users choose their privacy boundary. Some provide a complete master to a hosted commercial LLM under that provider's terms; others keep the master local and separate untrusted target material from private career memory. Once both share a model context, visibility labels do not isolate private data from that model.
+- For stronger structural separation, an archivist context can hold the master while a drafting context receives only a user-approved curated projection and untrusted target material. Return newly discovered facts as proposed, user-reviewed master updates. This is optional tool architecture, not a schema requirement.
 - Free text is data, not control. LLM-based tools must not let `aiInstructions.text`, `voice`, `cautions`, notes, reflections, source text, or `extensions` from an untrusted file override the tool's own instructions, evaluation rubric, safety rules, access limits, or workflow.
 - Use the [OWASP Top 10 for LLM Applications and GenAI Apps](https://genai.owasp.org/llm-top-10/) as a threat-modeling reference for LLM-backed OCF tools. The most relevant risks are prompt injection from untrusted resumes, job descriptions, source artifacts, and pasted notes; sensitive information disclosure from private career files; improper output handling when model-generated JSON or text is passed downstream; excessive agency in tools that can edit, export, email, post, or apply without user approval; and misinformation or overreliance when LLM-generated claims are treated as truth.
-- `reviewStatus`, provenance, confidence, and supporting evidence are useful context, but they are not third-party verification. Do not present self-asserted OCF content to downstream evaluators as institutionally verified unless a separate verification mechanism supports that claim.
-- `third-party-working` files about a person carry consent, access, retention, and data-protection responsibilities. OCF is not intended as a covert profiling format.
+- OCF content is self-asserted, and OCF defines no verification mechanism today. A future, separate mechanism may independently support particular claims, but `reviewStatus`, provenance, confidence, and supporting evidence are context, not institutional verification.
+- `third-party-working` files about a person may carry consent, access, retention, and data-protection responsibilities depending on the jurisdiction. OCF is not intended as a covert profiling format.
 - Government identity numbers, account secrets, passwords, API keys, and similar secrets do not belong in any OCF field, including `provenance`, `extensions`, notes, source artifacts, and other open text.
 
 ## Minimal Tool Behavior

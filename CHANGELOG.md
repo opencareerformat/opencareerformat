@@ -8,6 +8,7 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 ### Changed
 
+- Clarified user-selected LLM privacy boundaries, an optional archivist/drafter isolation pattern, OCF's lack of a current verification mechanism, and jurisdiction-dependent responsibilities for third-party working files.
 - Replaced synchronized Spanish documentation with static Spanish, French, German, Portuguese, and Japanese language gateways that defer to the current canonical English guidance.
 - Clarified that reference visibility filtering cannot determine whether arbitrary unknown extension payloads are safe to share; users and extension-aware curators retain that decision.
 - Made the application bootstrap handle missing target or career evidence conservatively, fail honestly when its canonical URL cannot be retrieved, and suggest a stable master filename when returning a complete JSON file.
