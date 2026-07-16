@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const { spawnSync } = require("child_process");
-const { filterByVisibility } = require("../lib/visibility");
+const { filterByVisibility, unknownExtensionWarning } = require("../lib/visibility");
 
 const inputPath = process.argv[2];
 if (!inputPath) {
@@ -22,4 +22,6 @@ if (validation.status !== 0) {
 
 const document = JSON.parse(fs.readFileSync(inputPath, "utf8"));
 const filtered = filterByVisibility(document, "shared");
+const extensionWarning = unknownExtensionWarning(filtered);
+if (extensionWarning) console.error(extensionWarning);
 process.stdout.write(`${JSON.stringify(filtered, null, 2)}\n`);

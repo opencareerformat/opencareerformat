@@ -26,6 +26,7 @@ testImporterSafety();
 testOllamaImportMetadata();
 testSemanticReferences();
 testValidatorCli();
+testFilterExtensionWarning();
 testStandaloneValidator();
 testPythonCli();
 testContextProfile();
@@ -261,6 +262,56 @@ function testValidatorCli() {
     const refused = spawnSync(process.execPath, [filter, unknownPath], { encoding: "utf8" });
     assert.strictEqual(refused.status, 1, refused.stderr);
     assert.match(refused.stderr, /Refusing to filter/);
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
+function testFilterExtensionWarning() {
+  const repoRoot = path.resolve(__dirname, "../..");
+  const filter = path.join(repoRoot, "reference/cli/filter-private.js");
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "ocf-extension-filter-test-"));
+  const mixedPath = path.join(tempDir, "mixed.ocf.json");
+  const removedPath = path.join(tempDir, "removed.ocf.json");
+  const survivingValue = "SURVIVING_EXTENSION_VALUE";
+  const privateValue = "PRIVATE_EXTENSION_VALUE";
+  const invalidValue = "INVALID_VISIBILITY_VALUE";
+
+  try {
+    const base = {
+      $schema: "https://opencareerformat.org/v0.3/schema.json",
+      schemaVersion: "0.3",
+      person: { name: { renderAs: "Example Person" } },
+    };
+    fs.writeFileSync(mixedPath, JSON.stringify({
+      ...base,
+      extensions: {
+        "one.example.com": { note: survivingValue },
+        "two.example.com": { note: "Surviving payload two" },
+        "private.example.com": { visibility: "private", secret: privateValue },
+        "invalid.example.com": { visibility: "Private", secret: invalidValue },
+      },
+    }));
+
+    const mixed = spawnSync(process.execPath, [filter, mixedPath], { encoding: "utf8" });
+    assert.strictEqual(mixed.status, 0, mixed.stderr);
+    const filtered = JSON.parse(mixed.stdout);
+    assert.deepStrictEqual(Object.keys(filtered.extensions).sort(), ["one.example.com", "two.example.com"]);
+    assert.match(mixed.stderr, /2 unknown extension namespaces were preserved/);
+    assert.doesNotMatch(mixed.stderr, /one\.example\.com|two\.example\.com/);
+    assert.doesNotMatch(mixed.stderr, new RegExp(`${survivingValue}|${privateValue}|${invalidValue}`));
+
+    fs.writeFileSync(removedPath, JSON.stringify({
+      ...base,
+      extensions: {
+        "private.example.com": { visibility: "private", secret: privateValue },
+        "invalid.example.com": { visibility: "Private", secret: invalidValue },
+      },
+    }));
+    const removed = spawnSync(process.execPath, [filter, removedPath], { encoding: "utf8" });
+    assert.strictEqual(removed.status, 0, removed.stderr);
+    assert.deepStrictEqual(JSON.parse(removed.stdout).extensions, {});
+    assert.doesNotMatch(removed.stderr, /unknown extension/);
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }

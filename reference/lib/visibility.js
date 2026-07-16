@@ -2,6 +2,7 @@ const schemaIndex = require("../schema-index.json");
 
 const OMIT = Symbol("omit");
 const VALID_VISIBILITY = new Set(["public", "shared", "private"]);
+const EXTENSION_NAMESPACE = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/;
 const defaultByPath = new Map(
   schemaIndex.visibilityPaths.map((item) => [item.segments.join("."), item.default]),
 );
@@ -24,6 +25,32 @@ function resolvedVisibility(value, segments = []) {
     return VALID_VISIBILITY.has(value.visibility) ? value.visibility : "private";
   }
   return defaultByPath.get(segments.join("."));
+}
+
+function unknownExtensionWarning(document) {
+  const namespaces = new Set();
+  collectExtensionNamespaces(document, namespaces);
+
+  if (namespaces.size === 0) return undefined;
+  const noun = namespaces.size === 1 ? "namespace was" : "namespaces were";
+  return `Warning: ${namespaces.size} unknown extension ${noun} preserved after generic visibility filtering. OCF cannot determine whether the remaining extension content is safe to share; review it before use.`;
+}
+
+function collectExtensionNamespaces(value, namespaces) {
+  if (Array.isArray(value)) {
+    value.forEach((item) => collectExtensionNamespaces(item, namespaces));
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+
+  if (value.extensions && typeof value.extensions === "object" && !Array.isArray(value.extensions)) {
+    for (const namespace of Object.keys(value.extensions)) {
+      if (EXTENSION_NAMESPACE.test(namespace)) namespaces.add(namespace);
+    }
+  }
+  for (const [key, item] of Object.entries(value)) {
+    if (key !== "extensions") collectExtensionNamespaces(item, namespaces);
+  }
 }
 
 function filterValue(value, segments, mode) {
@@ -97,4 +124,4 @@ function patternPath(segments) {
   return segments.map((part) => typeof part === "number" ? "*" : part).join(".");
 }
 
-module.exports = { filterByVisibility, resolvedVisibility };
+module.exports = { filterByVisibility, resolvedVisibility, unknownExtensionWarning };
