@@ -17,7 +17,7 @@ This page opens the OCF files behind the [Maria Reyes conversation example](READ
 | [The target and review conversation become evidence](README.md#the-conversation-improves-the-career-memory) | [Provenance And Source Artifact Added](#provenance-and-source-artifact-added) |
 | [Maria accepts the complete correction set](README.md#the-conversation-improves-the-career-memory) | [Version Advanced From 6 To 7](#version-advanced-from-6-to-7) |
 
-The complete [`revision 6`](maria-reyes-revision-6.ocf.json) and [`revision 7`](maria-reyes-revision-7.ocf.json) files are available for anyone who wants to inspect the full records or double-check the excerpts directly.
+The complete [`revision 1`](maria-reyes-revision-1.ocf.json), [`revision 6`](maria-reyes-revision-6.ocf.json), and [`revision 7`](maria-reyes-revision-7.ocf.json) files are available for anyone who wants to inspect the full records or double-check the excerpts directly.
 
 ## Source Material Becomes Provisional Career Memory
 
@@ -32,6 +32,53 @@ The importer or LLM should:
 - avoid inventing missing metrics, dates, supervisors, or outcomes.
 
 At this point the file is best understood as a provisional `candidate-master`: the file can already be the person's working master, but imported items should remain visibly unreviewed until the person accepts them.
+
+Its metadata records both ideas: this is now Maria's working master, and its starting material was imported. The modification date remains the date of Conversation One, not the later date when this teaching reconstruction was created:
+
+```json
+{
+  "meta": {
+    "fileRole": "candidate-master",
+    "lastModified": "2026-05-20",
+    "source": {
+      "kind": "imported"
+    },
+    "version": "1"
+  }
+}
+```
+
+Maria's [`revision 1`](maria-reyes-revision-1.ocf.json) shows that first result. It broadly captures the source resume without pretending that the first conversation recovered all of the underlying history. For example, the ransomware bullet initially remains close to the source wording:
+
+```json
+{
+  "id": "mhs-ransomware-2024",
+  "statement": "Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.",
+  "kind": "accomplishment",
+  "visibility": "public",
+  "provenance": {
+    "source": "imported",
+    "date": "2026-05-20",
+    "sourceArtifactId": "sample-resume-source-2026-05"
+  },
+  "reviewStatus": "unreviewed"
+}
+```
+
+The same file preserves the questions Maria chose not to answer. This keeps a named skill from quietly becoming an invented accomplishment:
+
+```json
+{
+  "id": "open-question-vulnerability-management-ownership",
+  "question": "Did Maria run a formal vulnerability-management program, own part of it through the SOC, or mainly provide oversight?",
+  "context": "The target role makes vulnerability management a core responsibility, but the source resume lists the skill without enough evidence to support a stronger claim.",
+  "visibility": "private"
+}
+```
+
+Revision 1 is a teaching reconstruction rather than an archived original. Earlier development history was not retained, so it was rebuilt only from the source resume, healthcare job description, and Conversation One. Later discoveries were intentionally excluded.
+
+The stable `mhs-ransomware-2024` ID remains unchanged as later conversations add context, evidence, cautions, and alternate wording. The existing career memory is enriched instead of being duplicated.
 
 ## Short Claim Expanded Into Reusable Career Memory
 

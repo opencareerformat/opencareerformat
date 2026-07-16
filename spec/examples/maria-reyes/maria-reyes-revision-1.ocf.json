@@ -1,0 +1,614 @@
+{
+  "$schema": "https://opencareerformat.org/v0.3/schema.json",
+  "schemaVersion": "0.3",
+  "meta": {
+    "fileRole": "candidate-master",
+    "lastModified": "2026-05-20",
+    "language": "en-US",
+    "source": {
+      "kind": "imported"
+    },
+    "id": "c94ffaa9-31fd-40d7-96cd-a66725a9784a",
+    "version": "1"
+  },
+  "person": {
+    "name": {
+      "renderAs": "Maria E. Reyes",
+      "given": "Maria",
+      "family": "Reyes"
+    },
+    "headline": "Cybersecurity leader bridging military discipline with enterprise security strategy",
+    "summary": "Cybersecurity leader with Army cyber operations experience and private-sector healthcare security leadership. Experienced in incident response, SOC leadership, zero trust architecture, compliance, and executive communication.",
+    "contacts": [
+      {
+        "kind": "email",
+        "value": "maria.reyes@example.com",
+        "primary": true,
+        "visibility": "private"
+      },
+      {
+        "kind": "phone",
+        "value": "+1-555-0142",
+        "label": "mobile",
+        "visibility": "private"
+      },
+      {
+        "kind": "linkedin",
+        "value": "https://linkedin.com/in/mariacreyes.example",
+        "visibility": "public"
+      },
+      {
+        "kind": "social",
+        "label": "Bluesky",
+        "value": "https://bsky.app/profile/mariacreyes.example",
+        "visibility": "public"
+      }
+    ],
+    "locations": [
+      {
+        "city": "San Antonio",
+        "region": "TX",
+        "country": "US",
+        "visibility": "shared"
+      }
+    ]
+  },
+  "sourceArtifacts": [
+    {
+      "id": "sample-resume-source-2026-05",
+      "kind": "resume",
+      "label": "Sample source resume for Maria E. Reyes",
+      "capturedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 20
+      },
+      "artifactDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 20
+      },
+      "audience": [
+        "cybersecurity-leadership",
+        "healthcare-security"
+      ],
+      "sourceTool": "manual-example",
+      "fileName": "source-resume.txt",
+      "rawIncluded": false,
+      "notes": "Source resume used to create the first provisional OCF in Conversation One.",
+      "visibility": "private"
+    },
+    {
+      "id": "healthcare-job-description-2026-05-20",
+      "kind": "job-description",
+      "label": "Healthcare cybersecurity director job description",
+      "capturedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 20
+      },
+      "audience": [
+        "healthcare-security",
+        "security-leadership"
+      ],
+      "sourceTool": "manual-example",
+      "fileName": "healthcare-job-description.txt",
+      "rawIncluded": false,
+      "notes": "Employer-provided target used during Conversation One. It shaped curation questions but is not treated as career truth.",
+      "visibility": "private"
+    }
+  ],
+  "experience": [
+    {
+      "kind": "employment",
+      "name": "Meridian Health Systems",
+      "positions": [
+        {
+          "title": "Director of Cybersecurity",
+          "seniority": "director",
+          "dateRange": {
+            "start": {
+              "year": 2023,
+              "month": 3
+            },
+            "end": {
+              "present": true
+            }
+          },
+          "summary": "Head of cybersecurity for a healthcare IT company handling PHI for 2M+ patients. Report to CISO. Built the security operations function and led the company through SOC 2 Type II and HITRUST certification.",
+          "achievements": [
+            {
+              "id": "mhs-soc-buildout",
+              "statement": "Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months.",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "headcountGrowth",
+                  "from": 0,
+                  "to": 12,
+                  "unit": "analysts"
+                }
+              ],
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            },
+            {
+              "statement": "Led HITRUST r2 certification, passing on first assessment with zero corrective actions.",
+              "kind": "accomplishment",
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            },
+            {
+              "statement": "Reduced mean time to detect from 72 hours to under 4 hours through SIEM tuning and automated triage.",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "duration",
+                  "from": 72,
+                  "to": 4,
+                  "unit": "hours",
+                  "note": "MTTD improvement"
+                }
+              ],
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            },
+            {
+              "id": "mhs-ransomware-2024",
+              "statement": "Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "duration",
+                  "value": 41,
+                  "unit": "hours",
+                  "note": "Time to restore critical clinical systems"
+                },
+                {
+                  "kind": "other",
+                  "value": 0,
+                  "unit": "patients",
+                  "note": "Patient-care impact"
+                }
+              ],
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "source": "imported",
+        "date": "2026-05-20",
+        "sourceArtifactId": "sample-resume-source-2026-05"
+      }
+    },
+    {
+      "kind": "employment",
+      "name": "Aegis Cyber Defense",
+      "positions": [
+        {
+          "title": "Senior Incident Response Consultant",
+          "seniority": "ic",
+          "dateRange": {
+            "start": {
+              "year": 2021,
+              "month": 1
+            },
+            "end": {
+              "year": 2023,
+              "month": 2
+            }
+          },
+          "summary": "Investigated breaches for Fortune 500 clients across healthcare, financial services, and manufacturing.",
+          "achievements": [
+            {
+              "statement": "Led incident response for 15+ engagements including nation-state intrusions and ransomware events affecting critical infrastructure.",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "count",
+                  "value": 15,
+                  "unit": "IR engagements"
+                }
+              ],
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            },
+            {
+              "statement": "Developed automated forensic triage toolkit adopted by the broader IR team, reducing initial assessment time by 40%.",
+              "kind": "project",
+              "metrics": [
+                {
+                  "kind": "percentChange",
+                  "value": -40,
+                  "unit": "%",
+                  "note": "Initial assessment time reduction"
+                }
+              ],
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "source": "imported",
+        "date": "2026-05-20",
+        "sourceArtifactId": "sample-resume-source-2026-05"
+      }
+    },
+    {
+      "kind": "employment",
+      "name": "Tidewater Federal Services",
+      "positions": [
+        {
+          "title": "Cybersecurity Analyst",
+          "seniority": "ic",
+          "dateRange": {
+            "start": {
+              "year": 2018,
+              "month": 9
+            },
+            "end": {
+              "year": 2020,
+              "month": 12
+            }
+          },
+          "summary": "DoD contract supporting cyber threat analysis. First civilian role after Army separation.",
+          "achievements": [
+            {
+              "statement": "Performed threat analysis supporting DoD network defense operations, authoring 50+ threat intelligence reports.",
+              "kind": "responsibility",
+              "metrics": [
+                {
+                  "kind": "count",
+                  "value": 50,
+                  "unit": "threat intelligence reports"
+                }
+              ],
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "source": "imported",
+        "date": "2026-05-20",
+        "sourceArtifactId": "sample-resume-source-2026-05"
+      }
+    },
+    {
+      "kind": "military",
+      "name": "United States Army",
+      "positions": [
+        {
+          "title": "Cyber Operations Specialist",
+          "seniority": "nco",
+          "grade": "Staff Sergeant (E-6)",
+          "occupationalCode": {
+            "system": "MOS",
+            "code": "17C",
+            "title": "Cyber Operations Specialist"
+          },
+          "dateRange": {
+            "start": {
+              "year": 2016,
+              "month": 1
+            },
+            "end": {
+              "year": 2018,
+              "month": 8
+            }
+          },
+          "summary": "Led a 6-person cyber operations team conducting defensive cyber operations and vulnerability assessments for Army networks. Honorably discharged August 2018.",
+          "achievements": [
+            {
+              "id": "army-cyber-leadership",
+              "statement": "Led defensive cyber operations team protecting a 15,000-node enterprise network.",
+              "kind": "responsibility",
+              "metrics": [
+                {
+                  "kind": "count",
+                  "value": 15000,
+                  "unit": "network nodes"
+                }
+              ],
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            },
+            {
+              "statement": "Trained and mentored 12 junior soldiers transitioning into the new 17C MOS career field.",
+              "kind": "accomplishment",
+              "metrics": [
+                {
+                  "kind": "count",
+                  "value": 12,
+                  "unit": "junior soldiers"
+                }
+              ],
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            }
+          ]
+        },
+        {
+          "title": "Signal Support Systems Specialist",
+          "seniority": "enlisted",
+          "occupationalCode": {
+            "system": "MOS",
+            "code": "25U",
+            "title": "Signal Support Systems Specialist"
+          },
+          "dateRange": {
+            "start": {
+              "year": 2010,
+              "month": 8
+            },
+            "end": {
+              "year": 2015,
+              "month": 12
+            }
+          },
+          "summary": "Maintained and operated signal systems supporting brigade-level communications.",
+          "achievements": [
+            {
+              "statement": "Maintained 99.7% uptime on tactical communications systems supporting a 3,500-soldier brigade.",
+              "kind": "responsibility",
+              "metrics": [
+                {
+                  "kind": "utilization",
+                  "value": 99.7,
+                  "unit": "%"
+                },
+                {
+                  "kind": "count",
+                  "value": 3500,
+                  "unit": "soldiers"
+                }
+              ],
+              "visibility": "public",
+              "provenance": {
+                "source": "imported",
+                "date": "2026-05-20",
+                "sourceArtifactId": "sample-resume-source-2026-05"
+              },
+              "reviewStatus": "unreviewed"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "source": "imported",
+        "date": "2026-05-20",
+        "sourceArtifactId": "sample-resume-source-2026-05"
+      }
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Texas at San Antonio",
+      "kind": "degree",
+      "degree": "MS",
+      "field": "Cybersecurity",
+      "dateRange": {
+        "start": {
+          "year": 2019
+        },
+        "end": {
+          "year": 2021
+        }
+      },
+      "status": "completed"
+    },
+    {
+      "institution": "University of Maryland Global Campus",
+      "kind": "degree",
+      "degree": "BS",
+      "field": "Computer Networks and Cybersecurity",
+      "dateRange": {
+        "start": {
+          "year": 2014
+        },
+        "end": {
+          "year": 2018
+        }
+      },
+      "status": "completed"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "CISSP",
+      "type": "certification",
+      "issuer": "(ISC)2"
+    },
+    {
+      "name": "CISM",
+      "type": "certification",
+      "issuer": "ISACA"
+    },
+    {
+      "name": "CompTIA Security+ CE",
+      "type": "certification",
+      "issuer": "CompTIA"
+    },
+    {
+      "name": "AWS Certified Security - Specialty",
+      "type": "certification",
+      "issuer": "Amazon Web Services"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Incident Response",
+      "category": "domain"
+    },
+    {
+      "name": "Zero Trust Architecture",
+      "category": "domain"
+    },
+    {
+      "name": "SIEM",
+      "category": "tool"
+    },
+    {
+      "name": "Network Defense",
+      "category": "domain"
+    },
+    {
+      "name": "Vulnerability Management",
+      "category": "domain"
+    },
+    {
+      "name": "Python",
+      "category": "language"
+    },
+    {
+      "name": "AWS Security",
+      "category": "platform"
+    },
+    {
+      "name": "Risk Management Framework",
+      "category": "regulatory"
+    },
+    {
+      "name": "NIST 800-53",
+      "category": "regulatory"
+    },
+    {
+      "name": "SOC 2",
+      "category": "regulatory"
+    },
+    {
+      "name": "FedRAMP",
+      "category": "regulatory"
+    },
+    {
+      "name": "Kubernetes",
+      "category": "platform"
+    },
+    {
+      "name": "Terraform",
+      "category": "tool"
+    },
+    {
+      "name": "CrowdStrike Falcon",
+      "category": "tool"
+    },
+    {
+      "name": "Palo Alto Networks",
+      "category": "tool"
+    },
+    {
+      "name": "Personnel Management",
+      "category": "soft-skill"
+    },
+    {
+      "name": "Executive Communication",
+      "category": "soft-skill"
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "open-question-vulnerability-management-ownership",
+      "question": "Did Maria run a formal vulnerability-management program, own part of it through the SOC, or mainly provide oversight?",
+      "context": "The target role makes vulnerability management a core responsibility, but the source resume lists the skill without enough evidence to support a stronger claim.",
+      "visibility": "private",
+      "addedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 20
+      },
+      "provenance": {
+        "source": "llm-suggested",
+        "date": "2026-05-20",
+        "sessionTopic": "Healthcare cybersecurity application",
+        "operation": "gap-read",
+        "sourceArtifactId": "healthcare-job-description-2026-05-20"
+      }
+    },
+    {
+      "id": "open-question-cloud-zero-trust-implementation",
+      "question": "What did Maria personally design, implement, or operate in AWS, cloud security, or zero trust, and at what scale?",
+      "context": "The source resume lists AWS Security and Zero Trust Architecture as skills but does not connect them to a supported accomplishment.",
+      "visibility": "private",
+      "addedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 20
+      },
+      "provenance": {
+        "source": "llm-suggested",
+        "date": "2026-05-20",
+        "sessionTopic": "Healthcare cybersecurity application",
+        "operation": "gap-read",
+        "sourceArtifactId": "healthcare-job-description-2026-05-20"
+      }
+    },
+    {
+      "id": "open-question-executive-reporting-impact",
+      "question": "What decisions, priorities, funding, or risk acceptance changed because of information Maria presented to senior leaders?",
+      "context": "The source resume says Maria reports to the CISO and lists Executive Communication, but it does not show the effect of her briefings.",
+      "visibility": "private",
+      "addedDate": {
+        "year": 2026,
+        "month": 5,
+        "day": 20
+      },
+      "provenance": {
+        "source": "llm-suggested",
+        "date": "2026-05-20",
+        "sessionTopic": "Healthcare cybersecurity application",
+        "operation": "gap-read",
+        "sourceArtifactId": "healthcare-job-description-2026-05-20"
+      }
+    }
+  ]
+}

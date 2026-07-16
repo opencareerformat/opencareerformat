@@ -198,7 +198,7 @@
 </tbody>
 </table>
 
-<p>The complete <a href="maria-reyes-revision-6.ocf.json"><code>revision 6</code></a> and <a href="maria-reyes-revision-7.ocf.json"><code>revision 7</code></a> files are available for anyone who wants to inspect the full records or double-check the excerpts directly.</p>
+<p>The complete <a href="maria-reyes-revision-1.ocf.json"><code>revision 1</code></a>, <a href="maria-reyes-revision-6.ocf.json"><code>revision 6</code></a>, and <a href="maria-reyes-revision-7.ocf.json"><code>revision 7</code></a> files are available for anyone who wants to inspect the full records or double-check the excerpts directly.</p>
 
 <h2 id="source-material-becomes-provisional-career-memory">Source Material Becomes Provisional Career Memory</h2>
 
@@ -215,6 +215,47 @@
 </ul>
 
 <p>At this point the file is best understood as a provisional <code>candidate-master</code>: the file can already be the person's working master, but imported items should remain visibly unreviewed until the person accepts them.</p>
+
+<p>Its metadata records both ideas: this is now Maria's working master, and its starting material was imported. The modification date remains the date of Conversation One, not the later date when this teaching reconstruction was created:</p>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;fileRole&quot;: &quot;candidate-master&quot;,
+    &quot;lastModified&quot;: &quot;2026-05-20&quot;,
+    &quot;source&quot;: {
+      &quot;kind&quot;: &quot;imported&quot;
+    },
+    &quot;version&quot;: &quot;1&quot;
+  }
+}</code></pre>
+
+<p>Maria's <a href="maria-reyes-revision-1.ocf.json"><code>revision 1</code></a> shows that first result. It broadly captures the source resume without pretending that the first conversation recovered all of the underlying history. For example, the ransomware bullet initially remains close to the source wording:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;mhs-ransomware-2024&quot;,
+  &quot;statement&quot;: &quot;Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.&quot;,
+  &quot;kind&quot;: &quot;accomplishment&quot;,
+  &quot;visibility&quot;: &quot;public&quot;,
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;imported&quot;,
+    &quot;date&quot;: &quot;2026-05-20&quot;,
+    &quot;sourceArtifactId&quot;: &quot;sample-resume-source-2026-05&quot;
+  },
+  &quot;reviewStatus&quot;: &quot;unreviewed&quot;
+}</code></pre>
+
+<p>The same file preserves the questions Maria chose not to answer. This keeps a named skill from quietly becoming an invented accomplishment:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;open-question-vulnerability-management-ownership&quot;,
+  &quot;question&quot;: &quot;Did Maria run a formal vulnerability-management program, own part of it through the SOC, or mainly provide oversight?&quot;,
+  &quot;context&quot;: &quot;The target role makes vulnerability management a core responsibility, but the source resume lists the skill without enough evidence to support a stronger claim.&quot;,
+  &quot;visibility&quot;: &quot;private&quot;
+}</code></pre>
+
+<p>Revision 1 is a teaching reconstruction rather than an archived original. Earlier development history was not retained, so it was rebuilt only from the source resume, healthcare job description, and Conversation One. Later discoveries were intentionally excluded.</p>
+
+<p>The stable <code>mhs-ransomware-2024</code> ID remains unchanged as later conversations add context, evidence, cautions, and alternate wording. The existing career memory is enriched instead of being duplicated.</p>
 
 <h2 id="short-claim-expanded-into-reusable-career-memory">Short Claim Expanded Into Reusable Career Memory</h2>
 

@@ -12,7 +12,7 @@ OCF provides the structure for what is learned; it does not prescribe a single i
 
 ## How Maria's OCF Grew
 
-1. **[Conversation One](#conversation-one-maria-creates-her-first-ocf) — 2026-05-20: create the first OCF.** Maria brings a conventional resume and a healthcare cybersecurity job description. She wants help with the application, not a long intake project. The assistant produces a gap read, works only from supported claims, saves unanswered questions, and creates a useful first OCF from the same session.
+1. **[Conversation One](#conversation-one-maria-creates-her-first-ocf) — 2026-05-20: create the first OCF.** Maria brings a conventional resume and a healthcare cybersecurity job description. She wants help with the application, not a long intake project. The assistant produces a gap read, works only from supported claims, saves unanswered questions, and creates a useful [`OCF revision 1`](maria-reyes-revision-1.ocf.json) from the same session.
 2. **Conversation Two — 2026-05-21: recover the story behind a bullet.** A CISO-track review expands Maria's short ransomware bullet into a structured achievement with context, metrics, private reflections, and language for different audiences.
 3. **Conversation Three — 2026-05-21: preserve corrections.** Maria rejects positioning that overstates Big Four consulting and AI/ML specialization. The OCF records those corrections so future drafts do not repeat them.
 4. **Conversation Four — 2026-05-24: find the next useful questions.** A coaching review notices that the file says little about Maria's military-to-civilian leadership transition and that the SOC buildout needs more precise attribution.
@@ -115,6 +115,8 @@ Files used in the conversation:
 > The job description helps choose what matters for this application, but it does not become truth about your career. The unanswered questions remain questions rather than invented accomplishments.
 >
 > Save the provisional OCF file next to your resume. Next time, attach both.
+
+The linked [`OCF revision 1`](maria-reyes-revision-1.ocf.json) is an honest teaching reconstruction, not an archived original. Earlier development history was not retained, so the file was rebuilt from the source resume, healthcare job description, and Conversation One. It deliberately excludes everything learned in later conversations.
 
 ## Conversation Five: Maria Explores A Leadership Transition
 

@@ -5,6 +5,7 @@ const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..");
 const markdown = fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/implementation-details.md"), "utf8");
+const initialSample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-1.ocf.json"), "utf8"));
 const previousSample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json"), "utf8"));
 const sample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json"), "utf8"));
 
@@ -24,6 +25,25 @@ const armyCyberLead = armyCyberPosition.achievements.find((item) =>
   item.narrativeVariants?.some((variant) => variant.id === "army-cyber-lead-civilian"),
 );
 const armyRankProgression = army.spanning.find((item) => item.id === "army-rank-progression");
+
+const initialPosition = initialSample.experience
+  .find((entry) => entry.name === "Meridian Health Systems")
+  .positions.find((item) => item.title === "Director of Cybersecurity");
+const initialAchievement = initialPosition.achievements.find((item) => item.id === "mhs-ransomware-2024");
+const initialAchievementSnippet = jsonBlocks.find((block) =>
+  block.id === "mhs-ransomware-2024" && block.reviewStatus === "unreviewed"
+);
+assert(initialAchievementSnippet, "missing revision 1 achievement snippet");
+for (const key of Object.keys(initialAchievementSnippet)) {
+  assertEqual(initialAchievementSnippet[key], initialAchievement[key], `revision 1 achievement ${key} drifted`);
+}
+
+const initialQuestion = initialSample.openQuestions.find((item) => item.id === "open-question-vulnerability-management-ownership");
+const initialQuestionSnippet = jsonBlocks.find((block) => block.id === initialQuestion.id);
+assert(initialQuestionSnippet, "missing revision 1 open-question snippet");
+for (const key of Object.keys(initialQuestionSnippet)) {
+  assertEqual(initialQuestionSnippet[key], initialQuestion[key], `revision 1 open question ${key} drifted`);
+}
 
 const canonicalSnippets = jsonBlocks.filter((block) => block.person?.summary && Array.isArray(block.competencies));
 assertEqual(canonicalSnippets.length, 2, "expected revision 6 and revision 7 canonical-field snippets");
@@ -53,15 +73,18 @@ for (const artifact of sourceArtifactSnippet.sourceArtifacts) {
   assertEqual(artifact, actual, `source artifact ${artifact.id} drifted`);
 }
 
-for (const version of ["6", "7"]) {
+for (const version of ["1", "6", "7"]) {
   const metaSnippet = jsonBlocks.find((block) => block.meta?.version === version);
-  const document = version === "6" ? previousSample : sample;
+  const document = version === "1" ? initialSample : version === "6" ? previousSample : sample;
   assert(metaSnippet, `missing revision ${version} metadata snippet`);
-  assertEqual(metaSnippet.meta.version, document.meta.version, `revision ${version} meta.version drifted`);
-  assertEqual(metaSnippet.meta.lastModified, document.meta.lastModified, `revision ${version} meta.lastModified drifted`);
+  for (const key of Object.keys(metaSnippet.meta)) {
+    assertEqual(metaSnippet.meta[key], document.meta[key], `revision ${version} meta.${key} drifted`);
+  }
 }
 
-const achievementSnippet = jsonBlocks.find((block) => block.id === "mhs-ransomware-2024");
+const achievementSnippet = jsonBlocks.find((block) =>
+  block.id === "mhs-ransomware-2024" && block.provenance?.source === "interview-derived"
+);
 assert(achievementSnippet, "missing achievement snippet");
 assertEqual(achievementSnippet.statement, achievement.statement, "achievement statement drifted");
 assertEqual(achievementSnippet.metrics, achievement.metrics, "achievement metrics drifted");
