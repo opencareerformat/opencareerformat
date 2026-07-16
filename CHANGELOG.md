@@ -4,6 +4,13 @@ All notable changes to the Open Career Format specification and reference implem
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
+## 2026-07-16
+
+### Changed
+
+- Made Maria and the assistant visually distinct in the rendered conversation example while retaining explicit speaker labels.
+- Separated provisional file creation, stable claim capture, deferred open questions, and accumulated claim enrichment into distinct Maria implementation lessons.
+
 ## 2026-07-15
 
 ### Changed

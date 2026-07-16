@@ -116,10 +116,9 @@ function renderPage(doc, outputRel, markdown) {
     max-width: 920px;
   }
   .conversation-turn {
-    border: 0;
-    border-radius: 12px;
+    border-radius: 8px;
     color: var(--fg);
-    padding: 0;
+    padding: 1rem 1.15rem;
   }
   .conversation-turn > :last-child {
     margin-bottom: 0;
@@ -132,16 +131,22 @@ function renderPage(doc, outputRel, markdown) {
     text-transform: uppercase;
   }
   .user-turn {
-    background: #f0f0ef;
+    background: #f7f3ed;
+    border-left: 4px solid #c8a46b;
     margin-left: auto;
     max-width: 88%;
-    padding: 1rem 1.15rem;
   }
   .assistant-turn {
-    background: transparent;
-    border-radius: 0;
+    background: #f0f6f9;
+    border-left: 4px solid #6f9eb7;
     margin-right: auto;
     max-width: 100%;
+  }
+  .user-turn > p:first-child strong:first-child {
+    color: #76501f;
+  }
+  .assistant-turn > p:first-child strong:first-child {
+    color: #235f7a;
   }
   .user-turn > p:last-child a {
     background: var(--card-bg);

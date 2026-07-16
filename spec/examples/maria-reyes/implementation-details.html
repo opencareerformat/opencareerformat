@@ -178,7 +178,7 @@
 <p class="doc-meta">Readable HTML version. <a href="./implementation-details.md">View the Markdown source</a>.</p>
 <h1 id="maria-reyes-example-implementation-details">Maria Reyes Example: Implementation Details</h1>
 
-<blockquote><p>Last updated: 2026-07-15.</p></blockquote>
+<blockquote><p>Last updated: 2026-07-16.</p></blockquote>
 
 <p>This page opens the OCF files behind the <a href="./index.html">Maria Reyes conversation example</a> and shows how accepted conversation results become structured career memory. Read the conversations to see the workflow; use this page to inspect the resulting JSON.</p>
 
@@ -186,7 +186,9 @@
 <thead><tr><th>Conversation example</th><th>Implementation lesson</th></tr></thead>
 <tbody>
 <tr><td><a href="./index.html#conversation-one-maria-creates-her-first-ocf">Maria starts with a resume and no OCF</a></td><td><a href="#source-material-becomes-provisional-career-memory">Source Material Becomes Provisional Career Memory</a></td></tr>
-<tr><td><a href="./index.html#how-marias-ocf-grew">A short ransomware bullet is explored in Conversation Two</a></td><td><a href="#short-claim-expanded-into-reusable-career-memory">Short Claim Expanded Into Reusable Career Memory</a></td></tr>
+<tr><td><a href="./index.html#conversation-one-maria-creates-her-first-ocf">Conversation One captures a short ransomware bullet</a></td><td><a href="#a-resume-bullet-is-captured-as-a-stable-claim">A Resume Bullet Is Captured As A Stable Claim</a></td></tr>
+<tr><td><a href="./index.html#maria-chooses-the-depth">Maria defers questions she is not ready to answer</a></td><td><a href="#unanswered-gaps-remain-open-questions">Unanswered Gaps Remain Open Questions</a></td></tr>
+<tr><td><a href="./index.html#how-marias-ocf-grew">Conversation Two explores the ransomware claim</a>; accepted updates continue to accumulate through revision 7</td><td><a href="#short-claim-expanded-into-reusable-career-memory">Short Claim Expanded Into Reusable Career Memory</a></td></tr>
 <tr><td><a href="./index.html#conversation-five-maria-explores-a-leadership-transition">Maria follows the question about her leadership transition</a></td><td><a href="#user-wording-and-model-interpretation-stored-separately">User Wording And Model Interpretation Stored Separately</a></td></tr>
 <tr><td><a href="./index.html#how-marias-ocf-grew">Maria recovers the path behind her final Army rank</a></td><td><a href="#timeline-recovered-behind-a-final-title">Timeline Recovered Behind A Final Title</a></td></tr>
 <tr><td><a href="./index.html#private-does-not-mean-never-useful">Maria considers which private details fit a new audience</a></td><td><a href="#stable-facts-support-different-outputs">Stable Facts Support Different Outputs</a></td></tr>
@@ -229,7 +231,13 @@
   }
 }</code></pre>
 
-<p>Maria's <a href="maria-reyes-revision-1.ocf.json"><code>revision 1</code></a> shows that first result. It broadly captures the source resume without pretending that the first conversation recovered all of the underlying history. For example, the ransomware bullet initially remains close to the source wording:</p>
+<p>Maria's <a href="maria-reyes-revision-1.ocf.json"><code>revision 1</code></a> shows that first result. It broadly captures the source resume without pretending that the first conversation recovered all of the underlying history.</p>
+
+<p>Revision 1 reconstructs the provisional OCF produced by Conversation One using only the source resume, healthcare job description, and that conversation.</p>
+
+<h2 id="a-resume-bullet-is-captured-as-a-stable-claim">A Resume Bullet Is Captured As A Stable Claim</h2>
+
+<p>One of the imported achievements is the source resume's compressed ransomware bullet. Revision 1 keeps its wording close to the source, records where it came from, and marks it unreviewed rather than pretending the first pass recovered the whole story:</p>
 
 <pre><code class="language-json">{
   &quot;id&quot;: &quot;mhs-ransomware-2024&quot;,
@@ -244,7 +252,11 @@
   &quot;reviewStatus&quot;: &quot;unreviewed&quot;
 }</code></pre>
 
-<p>The same file preserves the questions Maria chose not to answer. This keeps a named skill from quietly becoming an invented accomplishment:</p>
+<p>The stable <code>mhs-ransomware-2024</code> ID remains unchanged as later conversations add context, evidence, cautions, and alternate wording. The existing career memory is enriched instead of being duplicated.</p>
+
+<h2 id="unanswered-gaps-remain-open-questions">Unanswered Gaps Remain Open Questions</h2>
+
+<p>Conversation One identifies vulnerability-management ownership as relevant but under-evidenced. Maria chooses not to answer yet. Rather than infer an accomplishment from her skills list or discard the question, revision 1 preserves it for a later conversation:</p>
 
 <pre><code class="language-json">{
   &quot;id&quot;: &quot;open-question-vulnerability-management-ownership&quot;,
@@ -253,19 +265,15 @@
   &quot;visibility&quot;: &quot;private&quot;
 }</code></pre>
 
-<p>Revision 1 reconstructs the provisional OCF produced by Conversation One using only the source resume, healthcare job description, and that conversation.</p>
-
-<p>The stable <code>mhs-ransomware-2024</code> ID remains unchanged as later conversations add context, evidence, cautions, and alternate wording. The existing career memory is enriched instead of being duplicated.</p>
+<p>This keeps a named skill from quietly becoming an invented accomplishment.</p>
 
 <h2 id="short-claim-expanded-into-reusable-career-memory">Short Claim Expanded Into Reusable Career Memory</h2>
 
-<p>The source resume contains one compressed public bullet point:</p>
+<p>We know the ransomware claim was explored in Conversation Two, but it may also have been revisited and refined in later conversations. We do not retain a revision 2 snapshot. <a href="maria-reyes-revision-7.ocf.json"><code>Revision 7</code></a> shows the accumulated, accepted changes and improvements; the excerpts below isolate the resulting ransomware material.</p>
 
-<pre><code class="language-text">- Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.</code></pre>
+<p>By revision 7, follow-up conversations have recovered what Maria personally did, the evidence behind her decision, which details are safe to use, and what future tools should avoid overstating.</p>
 
-<p>Loaded into a frontier model with OCF guidance, that bullet point is first captured as source material. The model should not treat it as complete truth or rewrite it immediately. It should ask what the bullet point means: what Maria personally did, what evidence supported the decision, which metrics are safe to use, what should stay private, and what future tools should avoid overstating.</p>
-
-<p>An OCF-oriented intake pass does more than rewrite resume bullet points. It asks whether each bullet point should become:</p>
+<p>Rather than replacing the original claim with polished prose, the OCF can add:</p>
 
 <ul>
 <li>a canonical achievement;</li>
@@ -274,22 +282,12 @@
 <li>a private reflection;</li>
 <li>a caution;</li>
 <li>an open question;</li>
-<li>a narrative variant for a particular audience.</li>
-</ul>
-
-<p>The ransomware response story in <code>maria-reyes-revision-7.ocf.json</code> shows this pattern. After follow-up questions, the career event that boiled down to a short bullet point turns into structured data and reusable memory:</p>
-
-<ul>
-<li>a structured achievement;</li>
-<li>supporting facts and metrics;</li>
-<li>private reflection material;</li>
-<li>cautions about overclaiming;</li>
-<li>narrative variants for different audiences.</li>
+<li>narrative variants for particular audiences.</li>
 </ul>
 
 <p>That is the core OCF loop: preserve the facts once, then let future curation choose the right wording.</p>
 
-<p>In the OCF, that becomes a richer achievement. The public claim is still there, but the master file also keeps the judgment call, evidence, metrics, and review context that a resume cannot hold:</p>
+<p>In revision 7, the same stable ID now anchors a richer achievement. The public claim is still there, but the master file also keeps the judgment call, evidence, metrics, and review context that a resume cannot hold:</p>
 
 <pre><code class="language-json">{
   &quot;id&quot;: &quot;mhs-ransomware-2024&quot;,
