@@ -20,7 +20,7 @@ OCF provides the structure for what is learned; it does not prescribe a single i
 6. **Conversation Six — 2026-06-11: recover the path behind the endpoint.** Maria fills in how she progressed from PV2 to Staff Sergeant and clarifies when she moved into cyber operations and leadership. Her OCF can now emphasize team scope for civilian audiences or retain rank and military specialty where government contractors expect them. The accumulated career-memory file at this point is [`OCF revision 6`](maria-reyes-revision-6.ocf.json).
 7. **[Conversation Seven](#conversation-seven-maria-considers-a-government-contractor-role) — 2026-07-14: reuse and improve the memory.** A government-contractor role first receives a resume-only gap read. Maria then supplies revision 6, which reveals much more relevant evidence and several claims that need correction. She clarifies her cybersecurity timeline, management scope, FedRAMP responsibility, executive briefings, and clearance wording. The accepted result is [`OCF revision 7`](maria-reyes-revision-7.ocf.json).
 
-The full versions of Conversations One, Five, and Seven follow on this page. We haven't shared the other conversations or intermediate OCF snapshots, but their accepted results live in revisions 6 and 7.
+The full versions of Conversations One, Five, and Seven follow on this page. Revision 1 shows where Maria's OCF started; revisions 6 and 7 show the accumulated accepted results. Conversations Two, Three, Four, and Six, and revisions 2 through 5, are summarized rather than reproduced.
 
 ## Conversation One: Maria Creates Her First OCF
 
