@@ -59,7 +59,7 @@ If someone is running multiple searches, such as customer success leadership and
 
 ## Example: Maria Starts A Career-Ops Search
 
-OCF uses Maria E. Reyes as a fictional teaching example for showing how a source resume and job description can become richer career memory. Start with [`Maria Reyes: An OCF Growing Through Conversation`](../spec/examples/maria-reyes/README.md); its optional [`implementation details`](../spec/examples/maria-reyes/implementation-details.md) explain the underlying structures.
+OCF uses Maria E. Reyes as a fictional teaching example for showing how a source resume and job description can become richer career memory. Start with [`Maria Reyes: An OCF Growing Through Conversation`](../spec/examples/maria-reyes/Maria.md); its optional [`implementation details`](../spec/examples/maria-reyes/implementation-details.md) explain the underlying structures.
 
 Specifically for Career-Ops, the OCF export skill can use Maria's sample OCF as the starting point for a Career-Ops search workspace instead of asking Career-Ops to rediscover her whole career from a flat resume.
 

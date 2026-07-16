@@ -8,24 +8,20 @@
 
 A candidate-owned, portable file format for preserving career history and curating targeted resumes, cover letters, public profiles, and exports to other systems.
 
-> **Looking for a job?** You don't need this repository. Start at <https://opencareerformat.org/>. If your AI tool supports skills, use the OCF Start skill; if you are in a normal chat window, copy the bootstrap prompt, attach your resume and the job description, and go.
+## Use OCF
 
-This repository contains the schema, prompts, skills, mappings, and reference implementations behind that site. The rest of this README is for people reading the spec, building tools, or contributing.
+- **Put your career history into OCF:** start at [opencareerformat.org](https://opencareerformat.org/). Environments that support skills can use the [OCF Start skill](skills/ocf-start/SKILL.md); ordinary chat windows can use the [application bootstrap prompt](prompts/application-bootstrap.md).
+- **Integrate OCF into your product:** start with the [implementer quick reference](spec/implementer-quick-reference.md), [usage patterns](spec/usage-patterns.md), [current schema](schema.json), and [reference implementations](reference/README.md).
+
+## See OCF Used
+
+Follow [Maria Reyes through repeated conversations](spec/examples/maria-reyes/Maria.md) that create, reuse, and improve the same career-memory file. Continue into the [Implementation Details](spec/examples/maria-reyes/implementation-details.md) to inspect the resulting JSON, then the [Schema Guide](spec/guide.html) for the complete model.
+
+This repository contains the schema, prompts, skills, mappings, examples, and reference implementations behind OCF.
 
 OCF is currently at **v0.3** and should be treated as pre-1.0 beta. The current schema URL is <https://opencareerformat.org/schema.json>; this alias may change as feedback comes in. Tools that need stability should pin to a versioned schema URL such as <https://opencareerformat.org/v0.3/schema.json>. Breaking changes may occur before 1.0 and will be documented in the changelog.
 
 OCF is not hiding changes behind the website. Git history shows what changed and when. For most docs, prompts, skills, and guidance, use the latest version. For the schema, use the latest version unless you need to pin a specific schema version for validation or compatibility. Version-pinned teaching examples, such as the Maria Reyes OCF 0.3 set, remain valid against the schema they declare and are not automatically migrated to each new release.
-
-## Start Here
-
-- **If you are an individual using OCF with a resume, job description, or LLM:** start with <https://opencareerformat.org/>.
-- **If you are an LLM, or pointing one at this project:** start with <https://opencareerformat.org/llms.txt>.
-- **If you are wondering how OCF differs from resumes, LinkedIn, JSON Resume, or LLM resume chats:** read [`spec/ocf-vs-resume-linkedin.md`](spec/ocf-vs-resume-linkedin.md).
-- **If you are reading the schema:** start with [`spec/guide.html`](spec/guide.html), then [`spec/schema-commentary.md`](spec/schema-commentary.md).
-- **If you are building a tool:** start with [`spec/implementer-quick-reference.md`](spec/implementer-quick-reference.md), [`spec/usage-patterns.md`](spec/usage-patterns.md), and [`schema.json`](schema.json).
-- **If you want runnable examples:** start with [`reference/README.md`](reference/README.md).
-- **If you want to see an OCF grow through repeated conversations:** start with [`spec/examples/maria-reyes/README.md`](spec/examples/maria-reyes/README.md).
-- **If you are mapping OCF to another format:** start with [`mappings/README.md`](mappings/README.md).
 
 ## Repository Layout
 
@@ -76,35 +72,11 @@ tools/            # REPOSITORY MAINTENANCE — schema/doc generators and consist
 
 The split is intentional. Anyone who wants to use OCF can read `spec/` and ignore the rest. Anyone building their own tool leveraging OCF can ignore as much of `reference/` as they'd like. Anyone bridging OCF to another format goes to `mappings/` for the mapping notes and `reference/exporters/` for one possible implementation.
 
-## What OCF Is
+## Project Boundaries
 
-OCF is a structured, JSON-based format designed around explicit file roles and a three-stage pipeline.
+OCF is a candidate-owned career-memory format. It defines what can be preserved and exchanged while leaving interviewing, matching, rendering, and application workflow to tools built around it. The [Schema Guide](spec/guide.html) explains the design and non-goals; [usage patterns](spec/usage-patterns.md) define master, curated, export-ready, and third-party file roles.
 
-File roles matter. A **candidate-owned master** is the primary personal use case: the person's private, durable career memory. A **candidate-curated** or **export-ready** file is reduced for a specific audience or output. A first pass from resumes, LinkedIn exports, notes, or conversations can become a provisional master, but imported items should stay visibly unreviewed until accepted. A **third-party working OCF** can be created by a recruiter, coach, agency, employer, or tool about a person; it may be useful in that workflow, but it is not the candidate's private master and should not be treated as canonical for the person without review. In every case, the top-level `person` is the subject whose career is described; the controller of the file and the editor of individual items may be different. See [`spec/usage-patterns.md`](spec/usage-patterns.md).
-
-1. **Master file** — your complete career record. Everything goes in: every role, every achievement, every certification, every note. You maintain one master file over years. This can be created by hand, by a tool, or by importing an old resume.
-2. **Curation** — the judgment loop. A curator reads the master OCF, applies rules and preferences, filters what should not be used, asks questions where evidence is missing or inconsistent, and ranks what matters for the purpose. Curation can produce proposed improvements to the master, export-ready input, or both.
-3. **Export** — what someone else sees or another system consumes. Exporters turn export-ready input into files: human-readable artifacts such as PDF, DOCX, HTML, or cover-letter text, and machine-readable exports such as JSON Resume, LER-RS, Schema.org JSON-LD, or LinkedIn paste bundles.
-
-These stages are useful even when no dedicated OCF application exists. In an LLM conversation, "curation" is the instruction to filter, question, rank, and propose improvements instead of simply drafting plausible prose. "Export" is the instruction to turn the curated working set into the requested artifact, whether that is a resume draft, interview-prep notes, a profile section, or a structured file.
-
-The master OCF is a private archive for an individual, not a file to hand to an employer, colleague, recruiter, ATS, or public website. You should store it the way you store other personal files like financial documents. Curated/export-ready files and exported outputs are the shareable layer, and even those will usually contain personally identifiable information because resumes do.
-
-Important caveat: validation checks structure, not truth or shareability. A valid OCF can still contain false claims, private material, stale facts, or content that should not be sent to a particular recipient. See the guide section "Caveats and Operating Practices" before sharing a master or curated file.
-
-A small master with person information, one experience entry, one position, and a few achievements is enough to validate, prepare a first output, and improve through later conversations. Nobody needs a complete career archive before OCF becomes useful — the [application bootstrap](prompts/application-bootstrap.md) exists so a first session can help with a real application and produce a provisional master or proposed update set as a by-product.
-
-Skills and prompts use the same OCF guidance. The prompt works anywhere you can paste text. The skill adds local file management: where the master lives, where backups go, where sources are stored, and where each application's outputs belong. All still under your control, and fully open and readable. If your agent environment supports reusable skills, [`skills/ocf-start/SKILL.md`](skills/ocf-start/SKILL.md) routes the user to the right prompt or workflow, [`skills/ocf-setup/SKILL.md`](skills/ocf-setup/SKILL.md) helps organize local files, and [`skills/ocf-export-career-ops/SKILL.md`](skills/ocf-export-career-ops/SKILL.md) can seed a Career-Ops workspace from OCF.
-
-See [`spec/guide.html`](spec/guide.html) for the full design walkthrough, including the rationale behind organizations versus experience entries, visibility controls, narrative depth, vendor extensions, provenance, curation, and exports.
-
-## What OCF Is Not
-
-OCF deliberately does not specify how content is elicited (the interviewing layer), how export files are produced (the export layer), or how content is scored against opportunities (the matching layer). Those are tool concerns. By staying focused on *what gets persisted*, OCF stays small enough that an individual can understand their own file and that developers/vendors can compete on tooling without forking the format.
-
-That does not mean the project is indifferent to what good elicitation produces. We hope models, coaches, and tools recover context that conventional resumes leave behind, especially stories, explanations, and reflections preserved in the person's own words. Models can interpret that material, identify patterns in it, ask questions that uncover more gems, and propose uses for it without replacing the source memory with polished AI prose. OCF structures what is worth keeping while leaving tools free to improve how they discover it.
-
-OCF being a file format also does not prohibit small local tools or local configuration. Career-authoritative state belongs in the OCF file; optional operating preferences, such as how much of a large master to load for a particular task, may live in separate local files controlled by the user. Those files must remain readable, replaceable, and unnecessary for interpreting an ordinary OCF file. Hidden, required, hosted, or vendor-controlled state is outside the OCF model.
+Validation checks structure, not truth or shareability. A valid OCF can still contain false, stale, or private material. The person remains responsible for reviewing every word and deciding what leaves their private file; see [SECURITY.md](SECURITY.md) and the guide's caveats before sharing anything.
 
 ## Conventions for Tools
 

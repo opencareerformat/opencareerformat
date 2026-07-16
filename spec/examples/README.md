@@ -4,7 +4,7 @@ These examples show different parts of Open Career Format. Each OCF JSON file de
 
 ## Maria Reyes: A Complete Teaching Example
 
-Start with **[Maria Reyes: An OCF Growing Through Conversation](maria-reyes/README.md)**.
+Start with **[Maria Reyes: An OCF Growing Through Conversation](maria-reyes/Maria.md)**.
 
 It is the single entry point for Maria's fictional OCF 0.3 example: the source resume, two target job descriptions, Conversations One through Seven, complete OCF revisions 6 and 7, and optional implementation details. The main page shows the full text of Conversations One, Five, and Seven; supporting files appear where the conversation uses them.
 

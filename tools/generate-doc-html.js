@@ -64,7 +64,7 @@ const docs = [
     description: "Canonical example Open Career Format files used by validators and tool authors.",
   },
   {
-    source: "spec/examples/maria-reyes/README.md",
+    source: "spec/examples/maria-reyes/Maria.md",
     output: "spec/examples/maria-reyes/index.html",
     title: "Maria Reyes: An OCF Growing Through Conversation",
     description: "A complete fictional example showing an OCF grow, improve, and become more useful across repeated career conversations.",

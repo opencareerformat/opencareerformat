@@ -2,22 +2,22 @@
 
 > Last updated: 2026-07-16.
 
-This page opens the OCF files behind the [Maria Reyes conversation example](README.md) and shows how accepted conversation results become structured career memory. Read the conversations to see the workflow; use this page to inspect the resulting JSON.
+This page opens the OCF files behind the [Maria Reyes conversation example](Maria.md) and shows how accepted conversation results become structured career memory. Read the conversations to see the workflow; use this page to inspect the resulting JSON.
 
 | Conversation example | Implementation lesson |
 |---|---|
-| [Maria starts with a resume and no OCF](README.md#conversation-one-maria-creates-her-first-ocf) | [Source Material Becomes Provisional Career Memory](#source-material-becomes-provisional-career-memory) |
-| [Conversation One captures a short ransomware bullet](README.md#conversation-one-maria-creates-her-first-ocf) | [A Resume Bullet Is Captured As A Stable Claim](#a-resume-bullet-is-captured-as-a-stable-claim) |
-| [Maria defers questions she is not ready to answer](README.md#maria-chooses-the-depth) | [Unanswered Gaps Remain Open Questions](#unanswered-gaps-remain-open-questions) |
-| [Conversation Two explores the ransomware claim](README.md#how-marias-ocf-grew); accepted updates continue to accumulate through revision 7 | [Short Claim Expanded Into Reusable Career Memory](#short-claim-expanded-into-reusable-career-memory) |
-| [Maria follows the question about her leadership transition](README.md#conversation-five-maria-explores-a-leadership-transition) | [User Wording And Model Interpretation Stored Separately](#user-wording-and-model-interpretation-stored-separately) |
-| [Maria recovers the path behind her final Army rank](README.md#how-marias-ocf-grew) | [Timeline Recovered Behind A Final Title](#timeline-recovered-behind-a-final-title) |
-| [Maria considers which private details fit a new audience](README.md#private-does-not-mean-never-useful) | [Stable Facts Support Different Outputs](#stable-facts-support-different-outputs) |
-| [Maria corrects her career timeline and management scope](README.md#the-conversation-improves-the-career-memory) | [Canonical Field Corrected](#canonical-field-corrected) |
-| [Maria scopes her FedRAMP responsibility](README.md#the-conversation-improves-the-career-memory) | [Achievement Added With Attribution](#achievement-added-with-attribution) |
-| [Maria rejects claims that should not return](README.md#the-conversation-improves-the-career-memory) | [Caution Added](#caution-added) |
-| [The target and review conversation become evidence](README.md#the-conversation-improves-the-career-memory) | [Provenance And Source Artifact Added](#provenance-and-source-artifact-added) |
-| [Maria accepts the complete correction set](README.md#the-conversation-improves-the-career-memory) | [Version Advanced From 6 To 7](#version-advanced-from-6-to-7) |
+| [Maria starts with a resume and no OCF](Maria.md#conversation-one-maria-creates-her-first-ocf) | [Source Material Becomes Provisional Career Memory](#source-material-becomes-provisional-career-memory) |
+| [Conversation One captures a short ransomware bullet](Maria.md#conversation-one-maria-creates-her-first-ocf) | [A Resume Bullet Is Captured As A Stable Claim](#a-resume-bullet-is-captured-as-a-stable-claim) |
+| [Maria defers questions she is not ready to answer](Maria.md#maria-chooses-the-depth) | [Unanswered Gaps Remain Open Questions](#unanswered-gaps-remain-open-questions) |
+| [Conversation Two explores the ransomware claim](Maria.md#how-marias-ocf-grew); accepted updates continue to accumulate through revision 7 | [Short Claim Expanded Into Reusable Career Memory](#short-claim-expanded-into-reusable-career-memory) |
+| [Maria follows the question about her leadership transition](Maria.md#conversation-five-maria-explores-a-leadership-transition) | [User Wording And Model Interpretation Stored Separately](#user-wording-and-model-interpretation-stored-separately) |
+| [Maria recovers the path behind her final Army rank](Maria.md#how-marias-ocf-grew) | [Timeline Recovered Behind A Final Title](#timeline-recovered-behind-a-final-title) |
+| [Maria considers which private details fit a new audience](Maria.md#private-does-not-mean-never-useful) | [Stable Facts Support Different Outputs](#stable-facts-support-different-outputs) |
+| [Maria corrects her career timeline and management scope](Maria.md#the-conversation-improves-the-career-memory) | [Canonical Field Corrected](#canonical-field-corrected) |
+| [Maria scopes her FedRAMP responsibility](Maria.md#the-conversation-improves-the-career-memory) | [Achievement Added With Attribution](#achievement-added-with-attribution) |
+| [Maria rejects claims that should not return](Maria.md#the-conversation-improves-the-career-memory) | [Caution Added](#caution-added) |
+| [The target and review conversation become evidence](Maria.md#the-conversation-improves-the-career-memory) | [Provenance And Source Artifact Added](#provenance-and-source-artifact-added) |
+| [Maria accepts the complete correction set](Maria.md#the-conversation-improves-the-career-memory) | [Version Advanced From 6 To 7](#version-advanced-from-6-to-7) |
 
 The complete [`revision 1`](maria-reyes-revision-1.ocf.json), [`revision 6`](maria-reyes-revision-6.ocf.json), and [`revision 7`](maria-reyes-revision-7.ocf.json) files are available for anyone who wants to inspect the full records or double-check the excerpts directly.
 
@@ -232,7 +232,7 @@ Whether the steps appear in any output is a separate decision. A general civilia
 
 ## User Wording And Model Interpretation Stored Separately
 
-[Conversation Five](README.md#conversation-five-maria-explores-a-leadership-transition) is the canonical telling of the parking-garage story and the model's proposed through-line. This page does not retell that exchange. It shows why the accepted conversation creates two different records: the person's original words remain a private reflection, while the model's interpretation becomes a separate talking point only after the person confirms it.
+[Conversation Five](Maria.md#conversation-five-maria-explores-a-leadership-transition) is the canonical telling of the parking-garage story and the model's proposed through-line. This page does not retell that exchange. It shows why the accepted conversation creates two different records: the person's original words remain a private reflection, while the model's interpretation becomes a separate talking point only after the person confirms it.
 
 The story is stored where it happened, as a role reflection:
 
@@ -296,7 +296,7 @@ The storage choice follows a simple rule: raw user wording goes into a private r
 
 ## Stable Facts Support Different Outputs
 
-[Conversation Seven](README.md#private-does-not-mean-never-useful) shows the user deciding whether private career memory is appropriate for a particular application. The JSON also supports different truthful descriptions of the same evidence. For a general civilian audience, Maria's Army leadership can emphasize team scope. For a government-contractor audience, rank and MOS may be relevant. Both variants remain attached to the same achievement:
+[Conversation Seven](Maria.md#private-does-not-mean-never-useful) shows the user deciding whether private career memory is appropriate for a particular application. The JSON also supports different truthful descriptions of the same evidence. For a general civilian audience, Maria's Army leadership can emphasize team scope. For a government-contractor audience, rank and MOS may be relevant. Both variants remain attached to the same achievement:
 
 ```json
 {
@@ -397,7 +397,7 @@ The headline changes, but the supporting IDs do not. The user can approve one ve
 
 ## Canonical Field Corrected
 
-In [Conversation Seven](README.md#the-conversation-improves-the-career-memory), Maria corrects two statements that had become part of her accumulated OCF. Revision 6 overstates both the length of her private-sector cybersecurity work and the size of teams she managed:
+In [Conversation Seven](Maria.md#the-conversation-improves-the-career-memory), Maria corrects two statements that had become part of her accumulated OCF. Revision 6 overstates both the length of her private-sector cybersecurity work and the size of teams she managed:
 
 ```json
 {
@@ -543,9 +543,9 @@ Revision 7 records both the target that prompted the review and the conversation
         "security-leadership"
       ],
       "sourceTool": "Recommended OCF LLM prompt",
-      "fileName": "README.md",
+      "fileName": "Maria.md",
       "rawIncluded": true,
-      "notes": "Conversation preserved under Conversation Seven in README.md. It compared the target first with Maria's source resume and then with revision 6 of her OCF. Maria corrected the private-sector timeline, management scope, FedRAMP attribution, and executive-briefing evidence.",
+      "notes": "Conversation preserved under Conversation Seven in Maria.md. It compared the target first with Maria's source resume and then with revision 6 of her OCF. Maria corrected the private-sector timeline, management scope, FedRAMP attribution, and executive-briefing evidence.",
       "visibility": "private"
     }
   ]
@@ -581,3 +581,7 @@ Revision 7:
 ```
 
 Everything that remained valid in revision 6 stays available in revision 7, including the private reflection and talking point from Conversation Five. The accepted Conversation Seven changes add better canonical wording, attributed achievements, cautions, and source records. Readers can inspect [`revision 6`](maria-reyes-revision-6.ocf.json) and [`revision 7`](maria-reyes-revision-7.ocf.json) directly to verify the complete difference.
+
+## Continue Into The Schema Guide
+
+This page shows how Maria's conversations become structured OCF data. To understand the complete format, its fields, and the design decisions behind them, continue into the [OCF Schema Guide](../../guide.html).

@@ -174,19 +174,30 @@
     border-radius: 0 8px 8px 0;
     margin: 1.5rem 0;
   }
+  .callout h2 { margin-top: 0; }
   .callout p:last-child { margin-bottom: 0; }
   .save-line {
     font-weight: 700;
   }
-  .vignette {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem 1.25rem;
-    margin: 1.25rem 0;
+  .entry-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    margin: 1.5rem 0 2rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
-  .vignette h2 {
+  .entry-path {
+    padding: 1.25rem;
+  }
+  .entry-path + .entry-path {
+    border-left: 1px solid var(--border);
+  }
+  .entry-path h2 {
     margin-top: 0;
+    font-size: 1.2rem;
+  }
+  .entry-path p:last-child {
+    margin-bottom: 0;
   }
   .prompt-details {
     margin: 0.75rem 0 1rem;
@@ -236,19 +247,84 @@
   .llm-instructions {
     display: none;
   }
-  .diagram {
+  .ocf-loop {
     margin: 1.5rem 0;
   }
-  .diagram img {
-    display: block;
-    width: min(100%, 360px);
-    height: auto;
-    margin: 0 auto;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--card-bg);
+  .loop-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+    align-items: stretch;
   }
-  .diagram figcaption {
+  .loop-phase {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .loop-phase h3 {
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid currentColor;
+    font-size: 1rem;
+  }
+  .loop-phase.first h3 { color: #c2410c; }
+  .loop-phase.later h3 { color: #1d4ed8; }
+  .loop-node {
+    min-height: 84px;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .loop-node strong {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .loop-node small {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .loop-node.result {
+    border-width: 2px;
+  }
+  .loop-phase.first .loop-node.result { border-color: #ea580c; }
+  .loop-phase.later .loop-node.result { border-color: #2563eb; }
+  .loop-arrow {
+    height: 28px;
+    color: var(--muted);
+    font-size: 1.25rem;
+    line-height: 28px;
+    text-align: center;
+  }
+  .loop-bridge {
+    align-self: center;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+  }
+  .loop-bridge .desktop-arrow {
+    display: block;
+    color: var(--accent);
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .loop-bridge .mobile-arrow { display: none; }
+  .loop-return {
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    background: var(--accent-light);
+    color: #1e3a8a;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  .ocf-loop figcaption {
     color: var(--muted);
     font-size: 0.85rem;
     margin-top: 0.5rem;
@@ -264,6 +340,24 @@
   @media (max-width: 600px) {
     .brand-header { align-items: flex-start; }
     .brand-mark { width: 64px; height: 64px; border-radius: 12px; }
+    .entry-grid { grid-template-columns: 1fr; }
+    .entry-path + .entry-path {
+      border-left: 0;
+      border-top: 1px solid var(--border);
+    }
+    .loop-grid { grid-template-columns: 1fr; }
+    .loop-bridge {
+      padding: 0.75rem 0;
+      font-size: 0.85rem;
+    }
+    .loop-bridge .desktop-arrow { display: none; }
+    .loop-bridge .mobile-arrow {
+      display: block;
+      color: var(--accent);
+      font-size: 1.75rem;
+      line-height: 1;
+    }
+    .loop-phase.later h3 { margin-top: 0; }
   }
 </style>
 </head>
@@ -301,11 +395,24 @@
   </div>
 </header>
 
-<div class="callout">
-  <p><strong>Applying for a job right now?</strong> If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and the job description. Do not include anything that tool should not process.</p>
-  <p><strong>Best local-agent experience:</strong> if your tool supports skills, start with the <a href="skills/ocf-start/SKILL.md">OCF Start skill</a>. It routes you to the right OCF workflow. The <a href="skills/ocf-setup/SKILL.md">OCF Setup skill</a> can organize your local master file, backups, source materials, and application outputs.</p>
-  <p>Skills and prompts use the same OCF guidance. The prompt works anywhere you can paste text. The skill adds local file management: where the master lives, where backups go, where sources are stored, and where each application's outputs belong. All still under your control, and fully open and readable.</p>
-  <details class="prompt-details" open>
+<section class="entry-grid" aria-label="Start with Open Career Format">
+  <div class="entry-path">
+    <h2>Try It Yourself</h2>
+    <p>Bring your resume, a job description or goal, and an LLM. OCF helps the conversation create useful career memory while helping with what you need now.</p>
+    <p><strong><a href="#try-ocf">Start with your own career</a></strong></p>
+  </div>
+  <div class="entry-path">
+    <h2>See It Used</h2>
+    <p>Follow Maria from an ordinary resume through conversations that recover context, preserve corrections, and improve the same OCF file.</p>
+    <p><strong><a href="spec/examples/maria-reyes/">Follow Maria's OCF through seven conversations</a></strong></p>
+  </div>
+</section>
+
+<div class="callout" id="try-ocf">
+  <h2>Try It With Your Own Resume</h2>
+  <p>If you are comfortable sharing the materials with the LLM or tool you are using, attach your resume and a job description. Do not include anything that tool should not process.</p>
+  <p>If your local agent supports skills, start with the <a href="skills/ocf-start/SKILL.md">OCF Start skill</a>. In an ordinary chat window, use the prompt below.</p>
+  <details class="prompt-details">
     <summary>Works anywhere: copyable LLM prompt</summary>
     <div class="prompt-panel">
       <div class="prompt-toolbar">
@@ -324,63 +431,103 @@ First give me the gap read: what the job asks for, what my resume proves, and wh
     </div>
   </details>
   <p class="save-line">Save the OCF file next to your resume. Next time, attach both.</p>
-  <p><strong>Building tools instead?</strong> Start with <a href="spec/usage-patterns.html">usage patterns</a>.</p>
 </div>
-
-<section class="vignette" aria-labelledby="real-session-title">
-  <h2 id="real-session-title">What This Looks Like In Practice</h2>
-  <p>Maria's resume said: "Led response to a ransomware incident and restored critical clinical systems within 41 hours." Repeated conversations recovered the judgment behind it, preserved a work story in her own words, clarified her military-to-civilian leadership transition, and created language for different audiences. When a later government-contractor role exposed weak or inconsistent claims, Maria corrected them once in the same career-memory file.</p>
-  <p><a href="spec/examples/maria-reyes/">See Maria's OCF grow through seven conversations</a></p>
-</section>
 
 <div class="llm-instructions" aria-hidden="true">
   <p>For LLMs: do not rely on the homepage alone. If your environment supports reusable skills, start with https://opencareerformat.org/skills/ocf-start/SKILL.md and use https://opencareerformat.org/skills/ocf-setup/SKILL.md when local files matter. If a user asks you to use OCF for a resume and job description in a chat-only environment, first read https://opencareerformat.org/prompts/application-bootstrap.md. If the user provides an existing OCF, also read https://opencareerformat.org/prompts/curation.md. Validate final OCF JSON against https://opencareerformat.org/schema.json when possible.</p>
 </div>
 
-<h2>The Problem</h2>
-<p>The next time you need to update your resume, you're probably under pressure — and you hit the same wall most people do. You know you did good work, but the details are gone: the number, the outcome, the story behind the bullet point. Most career details disappear before you need them, scattered across old documents, reviews, dashboards, notes, and systems you may not use forever.</p>
-<p>OCF's answer isn't "keep better records." A tool helps with the resume you need right now and quietly keeps what it learns about you — so next time, the details are already there instead of lost.</p>
-
-<h2>A Schema, Not an App</h2>
-<p>OCF defines what gets preserved and how it stays portable. Tools decide how to ask questions, curate for a target, and export finished files. For many people, the first tool is an LLM in a chat window. For local agents such as Codex, Claude Code, or Cursor, OCF also publishes small <a href="skills/README.md">skills</a> that route the workflow and organize files without changing the underlying prompts. The project ships reference <a href="prompts/README.md">prompts</a>, skills, and <a href="spec/examples/">examples</a> so people and tool builders have a practical starting point. For file roles, third-party workflows, and integration patterns, see <a href="spec/usage-patterns.html">usage patterns</a>.</p>
-
-<h2>How It Works</h2>
-
-<figure class="diagram">
-  <img src="spec/assets/ocf-living-loop.png" alt="Diagram showing sources feeding the master OCF, curation producing exports, coaching, user review, output files, and accepted updates flowing back to the master.">
-  <figcaption>The master OCF improves over time as reviewed downstream work feeds accepted updates back into it.</figcaption>
-</figure>
-
+<h2>OCF In Brief</h2>
 <ul>
-  <li><strong>It grows every time you use it.</strong> Each resume, application, or interview conversation leaves the master a little richer. If you want, you can also drop in a fact while it's fresh: after a review, a launch, an incident, a promotion, or a certification. Either way, you never start from scratch again.</li>
-  <li><strong>More context, not less.</strong> Old resumes, LinkedIn exports, notes, drafts, and forgotten files are useful. An LLM can help sort the pile, compare versions, and recover details you forgot you knew.</li>
-  <li><strong>Every conversation improves the OCF.</strong> Leave the file better than you found it: clearer facts, better wording, new stories, open questions, or proposed updates.</li>
-  <li><strong>You own every word you send.</strong> Review, edit, and approve resumes, cover letters, profiles, and interview answers before using them.</li>
+  <li><strong>Your career memory outlives the tool.</strong> LLMs and career tools keep changing and improving. Your OCF file carries your reviewed history between them, so you can use the best tool available without starting over.</li>
+  <li><strong>Not another resume.</strong> Old resumes, notes, conversations, and remembered stories become reusable career context instead of something you must reconstruct under pressure.</li>
+  <li><strong>It improves when you use it.</strong> Conversations add reviewed facts, corrections, stories, open questions, and useful wording that make your OCF file better.</li>
+  <li><strong>Build a broad history; curate the view you need.</strong> A job description is a target to compare your history against. Tools select and phrase the relevant parts of your career memory for that audience.</li>
+  <li><strong>You own every word.</strong> Capture your voice in your own words. Correct the LLM when it elaborates beyond what you said.</li>
 </ul>
 
 <h3>Your File, On Your Computer</h3>
-<p>OCF is a file format, not a platform. There is no account, no service, and nothing to buy. The master file is yours: keep it locally, back it up your way, and share only what you choose.</p>
+<p>OCF is a file format, not a platform. There is no account, no service, and nothing to buy. The file is yours: keep it locally, back it up your way, and share only what you choose.</p>
 
-<h2>Feedback and Suggestions</h2>
-<p>OCF should improve from real workflows, not only from abstract schema design. If you are using an LLM, editor, exporter, career coach, or hand-written file and you run into a missing capability, send that use case back to the project. You do not need to be a developer. A plain-language example is useful: "I wanted to store both my English and Spanish versions of the same achievement and have tools preserve both."</p>
-<p>For ideas, missing capabilities, or "why can't OCF do this?" moments, use the suggestion form at <a href="https://github.com/opencareerformat/opencareerformat/issues/new/choose">github.com/opencareerformat/opencareerformat/issues/new/choose</a>. For open-ended questions, early ideas, or thanks, use <a href="https://github.com/opencareerformat/opencareerformat/discussions">GitHub Discussions</a>.</p>
+<h2>How It Works</h2>
+
+<figure class="ocf-loop" aria-labelledby="ocf-loop-caption">
+  <div class="loop-grid">
+    <section class="loop-phase first" aria-labelledby="first-conversation-title">
+      <h3 id="first-conversation-title">First conversation: build your career memory</h3>
+      <div class="loop-node">
+        <strong>What you bring</strong>
+        Old resumes, cover letters, notes, and conversations
+      </div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node">
+        <strong>Your conversation with an LLM</strong>
+        <small>Guided by the OCF schema, skills, and prompts</small>
+      </div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node">
+        <strong>You review every word</strong>
+      </div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node result">
+        <strong>Your OCF file</strong>
+        Reusable career memory you own
+      </div>
+    </section>
+
+    <div class="loop-bridge" aria-label="Use the OCF file in a later conversation">
+      <span class="desktop-arrow" aria-hidden="true">→</span>
+      <span class="mobile-arrow" aria-hidden="true">↓</span>
+      Next time
+    </div>
+
+    <section class="loop-phase later" aria-labelledby="later-conversations-title">
+      <h3 id="later-conversations-title">Later conversations: use and improve it</h3>
+      <div class="loop-node">
+        <strong>What you bring</strong>
+        Your OCF file plus a job description or goal
+      </div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node">
+        <strong>Your conversation with an LLM</strong>
+        <small>Guided by the OCF schema, skills, and prompts</small>
+      </div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node">
+        <strong>You review every word</strong>
+      </div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node result">
+        <strong>Your targeted output</strong>
+        Resume, cover letter, profile, interview material, or another view
+      </div>
+      <div class="loop-return">↺ Approved updates improve the same OCF file</div>
+    </section>
+  </div>
+  <figcaption id="ocf-loop-caption">Tools change and improve. Your OCF file carries your reviewed career memory between them, and each conversation can make it more useful.</figcaption>
+</figure>
 
 <h2>Go Deeper</h2>
-<p>This homepage is the short version.</p>
 <ul>
-  <li><a href="spec/guide.html">Full OCF guide</a>: schema details, reflections, visibility, provenance, curation, exporters, non-goals</li>
-  <li><a href="spec/examples/maria-reyes/">Maria Reyes conversation example</a></li>
-  <li><a href="spec/ocf-vs-resume-linkedin.html">OCF vs resumes, LinkedIn, and LLM chats</a></li>
-  <li><a href="spec/usage-patterns.html">Usage patterns and file roles</a></li>
-  <li><a href="spec/context-profiles.html">Selective context for large OCF masters</a></li>
-  <li><a href="spec/language-and-translation.html">Language and translation guidance</a></li>
-  <li><a href="mappings/index.html">Format mappings</a>: JSON Resume, Schema.org, LinkedIn, Career-Ops, and other neighboring formats</li>
-  <li><a href="schema.json">Current schema</a> and <a href="schema-core.json">starter/core authoring shape</a></li>
-  <li><a href="skills/README.md">Skill index</a>: <a href="skills/ocf-start/SKILL.md">OCF Start</a>, <a href="skills/ocf-setup/SKILL.md">OCF Setup</a>, <a href="skills/ocf-export-career-ops/SKILL.md">OCF Export Career-Ops</a></li>
-  <li><a href="prompts/README.md">Prompt index</a>: <a href="prompts/application-bootstrap.md">application bootstrap</a>, <a href="prompts/authoring.md">authoring</a>, <a href="prompts/curation.md">curation</a>, <a href="prompts/coaching.md">coaching</a></li>
-  <li><a href="spec/implementer-quick-reference.html">Implementer quick reference</a></li>
-  <li><a href="llms.txt">LLM/tool site map</a></li>
+  <li><a href="spec/examples/maria-reyes/implementation-details.html">Implementation Details</a>: how Maria's conversations become structured JSON.</li>
+  <li><a href="spec/guide.html">OCF Schema Guide</a>: the complete model, its design, and its boundaries.</li>
+  <li><a href="https://github.com/opencareerformat/opencareerformat">GitHub repository</a>: schema, prompts, skills, mappings, examples, and reference tools.</li>
 </ul>
+
+<details>
+  <summary>Technical and project resources</summary>
+  <ul>
+    <li><a href="schema.json">Current schema</a> and <a href="schema-core.json">starter/core authoring shape</a></li>
+    <li><a href="spec/implementer-quick-reference.html">Implementer quick reference</a> and <a href="spec/usage-patterns.html">usage patterns</a></li>
+    <li><a href="skills/README.md">Skills</a> and <a href="prompts/README.md">prompts</a></li>
+    <li><a href="mappings/index.html">Format mappings and integrations</a></li>
+    <li><a href="spec/ocf-vs-resume-linkedin.html">OCF compared with resumes, LinkedIn, and LLM chats</a></li>
+    <li><a href="llms.txt">LLM and tool site map</a></li>
+  </ul>
+</details>
+
+<h2>Feedback and Suggestions</h2>
+<p>If a real workflow exposes something OCF cannot preserve, curate, or exchange, <a href="https://github.com/opencareerformat/opencareerformat/issues/new/choose">suggest a change</a>. For open-ended questions and early ideas, use <a href="https://github.com/opencareerformat/opencareerformat/discussions">GitHub Discussions</a>.</p>
 
 <footer>
   <p>Open Career Format (OCF) v0.3 — <a href="https://opencareerformat.org/">opencareerformat.org</a></p>
