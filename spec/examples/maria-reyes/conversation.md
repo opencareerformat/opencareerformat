@@ -79,9 +79,18 @@ Files used in the conversation:
 
 > **Maria:** I would need to think about those. For now, use only what the resume already supports. The SOC buildout, ransomware response, detection improvement, and HITRUST work are the parts I most want to emphasize. Keep the other questions for later.
 
-> **Assistant:** I will. I will not turn skills into accomplishments you have not confirmed.
+> **Assistant:** I will. Before drafting, here is the evidence boundary I will use:
 >
-> For this application, I would lead with healthcare security operations and use your military and consulting background as supporting depth. A targeted opening could read:
+> - **Strongest supported points:** SOC buildout, detection improvement, ransomware response, HITRUST work, and earlier incident-response experience.
+> - **Needs more support:** vulnerability-management ownership, cloud and zero-trust implementation, and executive reporting.
+> - **Confirmed gaps:** none. The current files do not establish that you lack those capabilities; they only leave them under-evidenced.
+> - **Export decisions:** lead with healthcare security operations, keep the Army and consulting work as supporting depth, and use no private material beyond the contact information you choose to place on the application.
+>
+> I will not turn skills into accomplishments you have not confirmed. Does that match what you want this application to say?
+
+> **Maria:** Yes. Use that boundary and draft from the supported points.
+
+> **Assistant:** A targeted opening could read:
 >
 > **Cybersecurity leader with Army cyber operations, incident-response consulting, and healthcare security leadership experience. Built a 24/7 SOC, reduced detection time from 72 hours to under four, led first-assessment HITRUST certification, and restored critical clinical systems after ransomware with no patient-care impact.**
 >
