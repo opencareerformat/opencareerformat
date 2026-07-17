@@ -1,7 +1,7 @@
 ---
 ocfPrompt: curation
 status: current
-lastUpdated: 2026-06-29
+lastUpdated: 2026-07-17
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -39,15 +39,15 @@ For each relevant item in the OCF, make three decisions:
 
 **Filter.** Should this be excluded because of rules, privacy, user preferences, relevance, audience, target, or recency? Filtering determines what may be used for this purpose or exposed to the next tool.
 
-**Question.** Should this trigger a question because it is inconsistent, stale, underspecified, surprisingly relevant, or potentially important? Questions can become user prompts, `openQuestions`, cautions, or review notes.
+**Question.** Should this trigger a question because it is inconsistent, stale, underspecified, surprisingly relevant, or potentially important? Questions can become user prompts, `openQuestions`, cautions, or review notes. When an under-evidenced area may be better explored through concrete experience than a credential question, ask whether the user has a story they could tell about working with that topic. Preserve the answer in the person's own words before interpreting what it supports, and accept that no story may exist.
 
 **Rank.** How important is this item for the current purpose based on relevance, impact, evidence strength, specificity, freshness, and fit? Ranking determines ordering, emphasis, and whether an item belongs in export-ready input.
 
-**Respect attribution.** When an achievement has `attribution`, use it to choose defensible verbs. Owned, led, drove, contributed to, supported, advised, and observed are different claims. If attribution is missing and the current output depends on the distinction, ask what the subject personally owned: budget, headcount, workstream, technical design, customer relationship, delivery plan, executive reporting, or another scope.
+**Respect attribution and formal status.** When an achievement has `attribution`, use it to choose defensible verbs. Owned, led, drove, contributed to, supported, advised, and observed are different claims. If attribution is missing and the current output depends on the distinction, ask what the subject personally owned: budget, headcount, workstream, technical design, customer relationship, delivery plan, executive reporting, or another scope. Use extra precision and care with named legal or regulatory scope, compliance responsibility, licensure, clearance, and certification status because those terms can imply formal status, authority, or accountability. Do not infer them from adjacent facts: a story may support relevant experience without proving formal responsibility, handling PHI does not by itself establish HIPAA responsibility, and owning a FedRAMP workstream is not ownership of the authorization program.
 
-**Apply leading controls.** Before drafting any external-facing content, read relevant `cautions`, `openQuestions`, `goals`, `aiInstructions.text`, reflections, source artifacts, and narrative variants for the target audience, role, organization, or achievement. Use them to prevent predictable mistakes in the first draft. Do not wait for the user to correct the same overclaim again.
+**Apply leading controls.** Before drafting any external-facing content, read relevant `cautions`, `openQuestions`, `goals`, `aiInstructions.text`, reflections, source artifacts, and narrative variants for the target audience, role, organization, or achievement. Include gaps identified in this session's own analysis; do not wait for the user to correct the same overclaim again. Update the gap read into a short pre-export evidence summary for the user: strongest supported points, areas needing more support, confirmed gaps, and export decisions requiring permission or confirmation. This summary is for the user, not content for the artifact. Do not turn anything listed as needing more support or as a confirmed gap into a positive qualification, including through softened wording such as "familiar with", "exposure to", or "supported", unless later user input or direct evidence resolves it. Do not mention a gap externally unless the user explicitly decides that addressing it is useful.
 
-After asking the user any necessary questions, produce one or both of these outputs:
+After asking the user any necessary questions and obtaining permission for private items or confirmation for unresolved framing choices, produce one or both of these outputs:
 
 - **Proposed OCF improvements**: facts, achievements, cautions, goals, open questions, narrative variants, provenance updates, or other changes for the user to approve before they are written to the master.
 - **Export-ready input**: selected, ranked, reviewed content prepared for an exporter. The exporter's job is to produce files, not make career judgment.
@@ -70,13 +70,13 @@ After asking the user any necessary questions, produce one or both of these outp
 
 **Ground curation in OCF evidence.** Cite specific roles, achievements, reflections, metrics, source artifacts, goals, and cautions when making a point. If the file does not contain enough evidence, say so and ask targeted questions. Do not invent confidence.
 
-**Choose the presentation lens, not just the fact.** Authoring should gather broadly: stories, metrics, scale clues, before/after context, attribution, and downstream impact. Curation decides what belongs in this output. For the target audience, choose the lens that makes the evidence legible without distorting it: metric-backed, story-backed, scope-backed, recognition-backed, judgment-backed, or operating-pattern wording. A hiring manager, recruiter, grant reviewer, federal HR reader, and public-profile visitor may need different versions of the same underlying truth.
+**Choose the presentation lens, not just the fact.** Authoring should gather broadly: stories, metrics, scale clues, before/after context, attribution, and downstream impact. Curation decides what belongs in this output. For the target audience, choose the lens that makes the evidence legible without distorting it: metric-backed, story-backed, scope-backed, recognition-backed, judgment-backed, or operating-pattern wording. A hiring manager, recruiter, grant reviewer, federal HR reader, and public-profile visitor may need different versions of the same underlying truth. When a reviewed narrative or positioning variant matches the target audience and permitted visibility, prefer it over newly reconstructed wording; do not silently use a variant intended for another audience.
 
 **Use metrics with rhythm.** Metrics are powerful when they clarify scope, impact, risk, speed, or scale, but a metric-heavy output can become formulaic or suspicious. One strong anchor metric per role is often enough; two can work when they prove genuinely different things. Do not make every bullet follow the same shape, and do not weaken a strong story by forcing a number into it. If the target audience expects a kind of proof the file does not contain, ask for it or create an `openQuestions` item instead of inventing it.
 
 **Preserve ambition while improving clarity.** Do not discourage ambition. The useful move is to identify the bridge: what evidence already exists, what story needs sharpening, what gaps can be closed, and what target roles are plausible now versus later.
 
-**Respect privacy.** The master OCF is a sensitive private archive. Do not suggest sharing the master broadly. For a recruiter, hiring manager, public profile, coach, or LLM session, prepare a curated/export-ready file with private content withheld unless the user explicitly includes it.
+**Respect privacy.** The master OCF is a sensitive private archive. Do not suggest sharing the master broadly. For a recruiter, hiring manager, public profile, coach, or LLM session, prepare a curated/export-ready file with private content withheld unless the user explicitly includes it. When a private group, type, or specific item would materially help, name it and ask permission in the context of this export. Permission to disclose private information does not turn an unsupported claim into a supported one, and approval for one export does not change the item's visibility in the master.
 
 **Respect file roles.** If `meta.fileRole` is present, read it before curation. The top-level `person` is the subject whose career is described; the controller of the file may be someone else. A `candidate-master` is the person's private source memory, though individual items may still be unreviewed. A `candidate-curated` or `export-ready` file is already reduced for a purpose. A `third-party-working` file belongs to a recruiter, coach, agency, employer, or tool workflow and is not the person's private master. Do not silently merge third-party or provisional content into a candidate-owned master; propose updates for user review.
 

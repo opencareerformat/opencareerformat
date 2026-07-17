@@ -4,6 +4,15 @@ All notable changes to the Open Career Format specification and reference implem
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
+## 2026-07-17
+
+### Changed
+
+- Added a visible pre-export evidence summary to application and curation guidance so models carry supported points, under-evidenced areas, confirmed gaps, privacy decisions, and target-aware variants from analysis into outward-facing drafts.
+- Made named legal, regulatory, licensure, clearance, and certification claims require direct support rather than inference from adjacent facts, and clarified that permission to disclose private information does not make an unsupported claim supported.
+- Made story elicitation prefer concrete gaps and conversation seams, with the broad never-on-a-resume question retained as a first-session fallback when no useful first-person memory emerged naturally.
+- Added a non-normative v0.4 question-lifecycle direction so future OCF files can distinguish open, deferred, declined, answered, confirmed-gap, and no-longer-relevant questions without depending on prior chat context.
+
 ## 2026-07-16
 
 ### Changed

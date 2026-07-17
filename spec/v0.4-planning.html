@@ -345,6 +345,55 @@
 
 <p>The non-normative <a href="./context-profiles.html">context-profile design note</a> and dependency-free reference script document the first conservative experiment. The initial goal is to prove explicit omission and selective retrieval, not to maximize size reduction.</p>
 
+<h2>Candidate Direction: Durable Question Lifecycle</h2>
+
+<p>OCF cannot assume a future LLM or tool will have access to prior chat history. The file should preserve enough durable question state for a new conversation to continue responsibly without storing complete transcripts.</p>
+
+<p>The v0.3 <code>openQuestions</code> array is intentionally minimal. It records what should be revisited, but cannot distinguish a question that has never been asked from one the user deferred, declined, answered, or resolved as a confirmed gap. That ambiguity can make a new model repeat a question the user already answered or chose not to answer.</p>
+
+<p>v0.4 should consider renaming <code>openQuestions</code> to <code>questions</code> and adding a small lifecycle model. A possible shape is:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;hipaa-responsibility&quot;,
+  &quot;question&quot;: &quot;What direct HIPAA Security Rule responsibility did Maria own?&quot;,
+  &quot;status&quot;: &quot;confirmed-gap&quot;,
+  &quot;lastAskedDate&quot;: {
+    &quot;year&quot;: 2026,
+    &quot;month&quot;: 7,
+    &quot;day&quot;: 17
+  },
+  &quot;answerSummary&quot;: &quot;Maria confirmed that she supported healthcare security but did not own HIPAA compliance.&quot;,
+  &quot;resultingItemIds&quot;: [
+    &quot;caution-no-hipaa-ownership&quot;
+  ],
+  &quot;visibility&quot;: &quot;private&quot;
+}</code></pre>
+
+<p>Candidate statuses:</p>
+
+<ul>
+<li><code>open</code>: worth asking when relevant; a <code>lastAskedDate</code> may show that it was asked but unanswered or only partially answered;</li>
+<li><code>deferred</code>: the user wants to revisit it later;</li>
+<li><code>declined</code>: the user does not want to answer it, so tools should respect the boundary;</li>
+<li><code>answered</code>: the response produced durable facts, stories, cautions, or other items, preferably linked through <code>resultingItemIds</code>;</li>
+<li><code>confirmed-gap</code>: the user confirmed that the experience, credential, responsibility, or evidence is not present;</li>
+<li><code>no-longer-relevant</code>: the target or concern changed and the question should not be resurrected casually.</li>
+</ul>
+
+<p>Working principles:</p>
+
+<ul>
+<li>Do not use <code>reviewStatus</code> as question lifecycle. Review state, evidence strength, and conversational disposition are different concepts.</li>
+<li>Preserve durable state, not a complete interaction log.</li>
+<li>A partial answer should normally narrow the question and leave it <code>open</code>, with <code>lastAskedDate</code> and <code>answerSummary</code> recording what is already known.</li>
+<li>A positive answer should become canonical or reviewable OCF content; the question may remain as a resolved pointer to the resulting items.</li>
+<li>A negative answer may need to remain in the question record because there may be no positive career item to preserve it elsewhere.</li>
+<li>A declined answer records a user boundary, not a confirmed career gap.</li>
+<li>Future prompts and tools should inspect question status before asking. They should respect declined and deferred questions, use answered evidence, and treat confirmed gaps as gaps unless the user reopens them.</li>
+</ul>
+
+<p>Until a future schema standardizes this lifecycle, v0.3 tools may summarize a deferral, decline, partial answer, or resolution in <code>reviewNote</code> or provenance. That prose is a compatibility workaround, not a machine-readable lifecycle contract.</p>
+
 <h2>Candidate Corrections From v0.3 Use</h2>
 
 <p>These are considerations for a future schema design pass, not approved v0.4 fields and not changes to the frozen v0.3 schema.</p>
