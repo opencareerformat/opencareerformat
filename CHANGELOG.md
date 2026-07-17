@@ -8,6 +8,7 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 ### Changed
 
+- Reorganized the documentation path into Maria Reyes in practice, the JSON behind Maria's conversations, an OCF Design Guide, and a detailed OCF Schema Field Guide. The Design Guide is now generated from Markdown, and old public guide URLs redirect to their replacements.
 - Made Maria and the assistant visually distinct in the rendered conversation example while retaining explicit speaker labels.
 - Separated provisional file creation, stable claim capture, deferred open questions, and accumulated claim enrichment into distinct Maria implementation lessons.
 

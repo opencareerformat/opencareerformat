@@ -7,6 +7,12 @@ const root = path.resolve(__dirname, "..");
 
 const docs = [
   {
+    source: "spec/design-guide.md",
+    title: "OCF Design Guide",
+    description: "The concepts, structure, boundaries, and design rationale behind Open Career Format.",
+    layout: "design-guide",
+  },
+  {
     source: "spec/context-profiles.md",
     title: "Selective Context Without Splitting the Master",
     description: "How local OCF context profiles can reduce model context while preserving one complete authoritative master.",
@@ -32,9 +38,10 @@ const docs = [
     description: "How Open Career Format relates to resumes, LinkedIn profiles, JSON Resume, and LLM resume workflows.",
   },
   {
-    source: "spec/schema-commentary.md",
-    title: "OCF Schema Commentary",
-    description: "Annotated Open Career Format schema commentary with examples and common pitfalls.",
+    source: "spec/schema-field-guide.md",
+    title: "OCF Schema Field Guide",
+    description: "Detailed Open Career Format field guidance with conventions, examples, and common implementation pitfalls.",
+    layout: "anchored",
   },
   {
     source: "spec/v0.3-planning.md",
@@ -64,17 +71,27 @@ const docs = [
     description: "Canonical example Open Career Format files used by validators and tool authors.",
   },
   {
-    source: "spec/examples/maria-reyes/Maria.md",
+    source: "spec/examples/maria-reyes/conversation.md",
     output: "spec/examples/maria-reyes/index.html",
-    title: "Maria Reyes: An OCF Growing Through Conversation",
+    title: "Maria Reyes: OCF in Practice",
     description: "A complete fictional example showing an OCF grow, improve, and become more useful across repeated career conversations.",
     layout: "conversation",
   },
   {
-    source: "spec/examples/maria-reyes/implementation-details.md",
-    title: "Maria Reyes Example: Implementation Details",
-    description: "Implementation details behind the Maria Reyes OCF 0.3 teaching example.",
+    source: "spec/examples/maria-reyes/inside-the-ocf.md",
+    title: "Inside Maria's OCF: From Conversation to JSON",
+    description: "How the Maria Reyes conversations become structured, reusable Open Career Format career memory.",
     layout: "anchored",
+  },
+];
+
+const redirects = [
+  { output: "spec/guide.html", target: "spec/design-guide.html", title: "OCF Design Guide" },
+  { output: "spec/schema-commentary.html", target: "spec/schema-field-guide.html", title: "OCF Schema Field Guide" },
+  {
+    output: "spec/examples/maria-reyes/implementation-details.html",
+    target: "spec/examples/maria-reyes/inside-the-ocf.html",
+    title: "Inside Maria's OCF",
   },
 ];
 
@@ -96,6 +113,12 @@ for (const doc of docs) {
   console.log(`${doc.source} -> ${outputRel}`);
 }
 
+for (const redirect of redirects) {
+  const outputPath = path.join(root, redirect.output);
+  fs.writeFileSync(outputPath, renderRedirect(redirect));
+  console.log(`${redirect.output} -> ${redirect.target} (redirect)`);
+}
+
 function renderPage(doc, outputRel, markdown) {
   const outputDir = path.dirname(outputRel);
   const toRoot = relativeHref(outputDir, ".");
@@ -110,7 +133,8 @@ function renderPage(doc, outputRel, markdown) {
     /<!-- markdown-only:start -->[\s\S]*?<!-- markdown-only:end -->\s*/g,
     "",
   );
-  const content = markdownToHtml(renderedMarkdown, doc.source, doc.layout);
+  const content = markdownToHtml(renderedMarkdown, doc.source, doc.layout)
+    .replace("<p>{{OCF_LOOP}}</p>", doc.layout === "design-guide" ? renderOcfLoop() : "");
   const conversationStyles = doc.layout === "conversation" ? `  .layout-conversation {
     background: #ffffff;
     max-width: 920px;
@@ -166,6 +190,104 @@ function renderPage(doc, outputRel, markdown) {
   .assistant-turn h2:first-child,
   .assistant-turn h3:first-child {
     margin-top: 0;
+  }
+` : "";
+  const designGuideStyles = doc.layout === "design-guide" ? `  .ocf-loop {
+    margin: 1.5rem 0;
+  }
+  .loop-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .loop-phase {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .loop-phase h3 {
+    border-top: 0;
+    margin: 0 0 0.75rem;
+    padding: 0 0 0.5rem;
+    border-bottom: 3px solid currentColor;
+    font-size: 1rem;
+  }
+  .loop-phase.first h3 { color: #c2410c; }
+  .loop-phase.later h3 { color: #1d4ed8; }
+  .loop-node {
+    min-height: 84px;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .loop-node strong {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .loop-node small {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .loop-node.result { border-width: 2px; }
+  .loop-phase.first .loop-node.result { border-color: #ea580c; }
+  .loop-phase.later .loop-node.result { border-color: #2563eb; }
+  .loop-arrow {
+    height: 28px;
+    color: var(--muted);
+    font-size: 1.25rem;
+    line-height: 28px;
+    text-align: center;
+  }
+  .loop-bridge {
+    align-self: center;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+  }
+  .loop-bridge .desktop-arrow {
+    display: block;
+    color: var(--accent);
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .loop-bridge .mobile-arrow { display: none; }
+  .loop-return {
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    background: var(--accent-light);
+    color: #1e3a8a;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  .ocf-loop figcaption {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    .loop-grid { grid-template-columns: 1fr; }
+    .loop-bridge {
+      padding: 0.75rem 0;
+      font-size: 0.85rem;
+    }
+    .loop-bridge .desktop-arrow { display: none; }
+    .loop-bridge .mobile-arrow {
+      display: block;
+      color: var(--accent);
+      font-size: 1.75rem;
+      line-height: 1;
+    }
+    .loop-phase.later h3 { margin-top: 0; }
   }
 ` : "";
 
@@ -315,7 +437,7 @@ ${JSON.stringify(
     color: var(--muted);
     padding-left: 1rem;
   }
-${conversationStyles}  table {
+${conversationStyles}${designGuideStyles}  table {
     width: 100%;
     border-collapse: collapse;
     display: block;
@@ -361,9 +483,64 @@ ${content}
 `;
 }
 
+function renderRedirect({ output, target, title }) {
+  const href = relativeHref(path.dirname(output), target);
+  const canonical = `https://opencareerformat.org/${target}`;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="0; url=${escapeHtml(href)}">
+<link rel="canonical" href="${escapeHtml(canonical)}">
+<title>${escapeHtml(title)} — Open Career Format</title>
+</head>
+<body>
+<p>This page has moved to <a href="${escapeHtml(href)}">${escapeHtml(title)}</a>.</p>
+</body>
+</html>
+`;
+}
+
+function renderOcfLoop() {
+  return `<figure class="ocf-loop" aria-labelledby="ocf-loop-caption">
+  <div class="loop-grid">
+    <section class="loop-phase first" aria-labelledby="first-conversation-title">
+      <h3 id="first-conversation-title">First conversation: build your career memory</h3>
+      <div class="loop-node"><strong>What you bring</strong>Old resumes, cover letters, notes, and conversations</div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node"><strong>Your conversation with an LLM</strong><small>Guided by the OCF schema, skills, and prompts</small></div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node"><strong>You review every word</strong></div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node result"><strong>Your OCF file</strong>Reusable career memory you own</div>
+    </section>
+    <div class="loop-bridge" aria-label="Use the OCF file in a later conversation">
+      <span class="desktop-arrow" aria-hidden="true">→</span>
+      <span class="mobile-arrow" aria-hidden="true">↓</span>
+      Next time
+    </div>
+    <section class="loop-phase later" aria-labelledby="later-conversations-title">
+      <h3 id="later-conversations-title">Later conversations: use and improve it</h3>
+      <div class="loop-node"><strong>What you bring</strong>Your OCF file plus a job description or goal</div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node"><strong>Your conversation with an LLM</strong><small>Guided by the OCF schema, skills, and prompts</small></div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node"><strong>You review every word</strong></div>
+      <div class="loop-arrow" aria-hidden="true">↓</div>
+      <div class="loop-node result"><strong>Your targeted output</strong>Resume, cover letter, profile, interview material, or another view</div>
+      <div class="loop-return">↺ Approved updates improve the same OCF file</div>
+    </section>
+  </div>
+  <figcaption id="ocf-loop-caption">Tools change and improve. Your OCF file carries your reviewed career memory between them, and each conversation can make it more useful.</figcaption>
+</figure>`;
+}
+
 function markdownToHtml(markdown, sourceRel, layout) {
   const lines = markdown.replace(/\r\n/g, "\n").split("\n");
   const out = [];
+  const headingIds = new Map();
+  const hasHeadingAnchors = ["conversation", "anchored", "design-guide"].includes(layout);
   let i = 0;
 
   while (i < lines.length) {
@@ -391,8 +568,12 @@ function markdownToHtml(markdown, sourceRel, layout) {
     const heading = line.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
       const level = heading[1].length;
-      const id = ["conversation", "anchored"].includes(layout) ? ` id="${headingId(heading[2])}"` : "";
-      out.push(`<h${level}${id}>${inline(heading[2], sourceRel)}</h${level}>`);
+      const baseId = headingId(heading[2]);
+      const seen = headingIds.get(baseId) || 0;
+      const id = seen === 0 ? baseId : `${baseId}-${seen + 1}`;
+      headingIds.set(baseId, seen + 1);
+      const idAttribute = hasHeadingAnchors ? ` id="${id}"` : "";
+      out.push(`<h${level}${idAttribute}>${inline(heading[2], sourceRel)}</h${level}>`);
       i += 1;
       continue;
     }

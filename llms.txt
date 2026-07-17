@@ -30,10 +30,10 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 
 - Homepage: https://opencareerformat.org/
 - Language gateways: https://opencareerformat.org/index.es.html, https://opencareerformat.org/index.fr.html, https://opencareerformat.org/index.de.html, https://opencareerformat.org/index.pt.html, https://opencareerformat.org/index.ja.html
-- Full guide: https://opencareerformat.org/spec/guide.html
+- OCF Design Guide: https://opencareerformat.org/spec/design-guide.md
 - Current schema: https://opencareerformat.org/schema.json
 - Starter/core authoring shape: https://opencareerformat.org/schema-core.json
-- Annotated schema commentary: https://opencareerformat.org/spec/schema-commentary.md
+- OCF Schema Field Guide: https://opencareerformat.org/spec/schema-field-guide.md
 - Implementer quick reference: https://opencareerformat.org/spec/implementer-quick-reference.md
 - Prompts index: https://opencareerformat.org/prompts/README.md
 - OCF start/router skill package: https://opencareerformat.org/skills/ocf-start/SKILL.md
@@ -51,7 +51,7 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - Language and translation guidance: https://opencareerformat.org/spec/language-and-translation.md
 - OCF and Career-Ops integration framing: https://opencareerformat.org/mappings/career-ops-integration.html
 - Maria Reyes conversation example: https://opencareerformat.org/spec/examples/maria-reyes/
-- Maria example implementation details: https://opencareerformat.org/spec/examples/maria-reyes/implementation-details.md
+- Inside Maria's OCF: https://opencareerformat.org/spec/examples/maria-reyes/inside-the-ocf.md
 - v0.3 decision record: https://opencareerformat.org/spec/v0.3-planning.md
 - v0.4 early planning notes: https://opencareerformat.org/spec/v0.4-planning.md
 - Local validator: https://github.com/opencareerformat/opencareerformat/tree/main/reference/validator

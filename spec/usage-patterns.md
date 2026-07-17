@@ -2,7 +2,7 @@
 
 OCF is a schema. A candidate-owned master is one important usage pattern, not the only one.
 
-Use this file when deciding what kind of OCF file you are creating, who controls it, and how it should move through a workflow. Use `schema-commentary.md` when you need field-level guidance and JSON examples.
+Use this file when deciding what kind of OCF file you are creating, who controls it, and how it should move through a workflow. Use `schema-field-guide.md` when you need field-level guidance and JSON examples.
 
 The top-level `person` is always the **subject** of the career record: the person whose career the file describes. The subject is not always the person or organization that controls this particular file, and is not necessarily the actor that created or edited each item.
 

@@ -11,11 +11,11 @@ A candidate-owned, portable file format for preserving career history and curati
 ## Use OCF
 
 - **Put your career history into OCF:** start at [opencareerformat.org](https://opencareerformat.org/). Environments that support skills can use the [OCF Start skill](skills/ocf-start/SKILL.md); ordinary chat windows can use the [application bootstrap prompt](prompts/application-bootstrap.md).
-- **Integrate OCF into your product:** start with the [implementer quick reference](spec/implementer-quick-reference.md), [usage patterns](spec/usage-patterns.md), [current schema](schema.json), and [reference implementations](reference/README.md).
+- **Integrate OCF into your product:** start with the [current schema](schema.json), [OCF Schema Field Guide](spec/schema-field-guide.md), [implementer quick reference](spec/implementer-quick-reference.md), and [reference implementations](reference/README.md).
 
 ## See OCF Used
 
-Follow [Maria Reyes through repeated conversations](spec/examples/maria-reyes/Maria.md) that create, reuse, and improve the same career-memory file. Continue into the [Implementation Details](spec/examples/maria-reyes/implementation-details.md) to inspect the resulting JSON, then the [Schema Guide](spec/guide.html) for the complete model.
+Follow [Maria Reyes through repeated conversations](spec/examples/maria-reyes/conversation.md) that create, reuse, and improve the same career-memory file. Continue [Inside Maria's OCF](spec/examples/maria-reyes/inside-the-ocf.md) to inspect the resulting JSON, then read the [OCF Design Guide](spec/design-guide.md) and [OCF Schema Field Guide](spec/schema-field-guide.md).
 
 This repository contains the schema, prompts, skills, mappings, examples, and reference implementations behind OCF.
 
@@ -30,8 +30,8 @@ This repository deliberately separates three different kinds of artifact:
 ```
 spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
   schema.json     # The JSON Schema definition for OCF files.
-  guide.html      # The human-readable specification, written for the curious reader.
-  schema-commentary.md # Non-normative annotated schema commentary with examples.
+  design-guide.md # Concepts, structure, boundaries, and design rationale.
+  schema-field-guide.md # Detailed field conventions, examples, and pitfalls.
   implementer-quick-reference.md # Compact field tiers and tool behavior guidance.
   usage-patterns.md # File roles: candidate-owned master, curated/export-ready files, third-party working files, etc.
   v0.3-planning.md # Decision record for the v0.3 schema.
@@ -74,7 +74,7 @@ The split is intentional. Anyone who wants to use OCF can read `spec/` and ignor
 
 ## Project Boundaries
 
-OCF is a candidate-owned career-memory format. It defines what can be preserved and exchanged while leaving interviewing, matching, rendering, and application workflow to tools built around it. The [Schema Guide](spec/guide.html) explains the design and non-goals; [usage patterns](spec/usage-patterns.md) define master, curated, export-ready, and third-party file roles.
+OCF is a candidate-owned career-memory format. It defines what can be preserved and exchanged while leaving interviewing, matching, rendering, and application workflow to tools built around it. The [OCF Design Guide](spec/design-guide.md) explains the design and non-goals; [usage patterns](spec/usage-patterns.md) define master, curated, export-ready, and third-party file roles.
 
 Validation checks structure, not truth or shareability. A valid OCF can still contain false, stale, or private material. The person remains responsible for reviewing every word and deciding what leaves their private file; see [SECURITY.md](SECURITY.md) and the guide's caveats before sharing anything.
 

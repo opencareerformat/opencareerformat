@@ -1,6 +1,6 @@
 # OCF Implementer Quick Reference
 
-This is the compact tool-builder view of Open Career Format. Read `guide.html` for intent, `schema-commentary.md` for field-level examples, and `usage-patterns.md` for file roles and workflow patterns.
+This is the compact tool-builder view of Open Career Format. Read `design-guide.md` for intent, `schema-field-guide.md` for field-level examples, and `usage-patterns.md` for file roles and workflow patterns.
 
 OCF is an open schema for preserving career memory, curating it for a purpose, and exporting it into other formats. A partial, honest OCF is better than a complete-looking file full of invented certainty.
 

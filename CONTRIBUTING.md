@@ -6,7 +6,7 @@ Thank you for considering a contribution. OCF is a small, opinionated spec maint
 
 A few things are worth checking before opening anything:
 
-1. **Read the [Non-Goals](https://opencareerformat.org/spec/guide.html#non-goals) section of the spec.** OCF deliberately doesn't specify how content is elicited, how it's rendered, how it's scored against job descriptions, or how institutional truth is verified and adjudicated. Proposals that try to extend the spec into those areas will generally be declined with a pointer back to this section.
+1. **Read the [What OCF Does Not Do](https://opencareerformat.org/spec/design-guide.html#what-ocf-does-not-do) section of the Design Guide.** OCF deliberately doesn't specify how content is elicited, how it's rendered, how it's scored against job descriptions, or how institutional truth is verified and adjudicated. Proposals that try to extend the spec into those areas will generally be declined with a pointer back to this section.
 
 2. **Check the [CHANGELOG](CHANGELOG.md).** A surprising number of "this should be added" ideas have already been considered. If something is marked as deferred to a future version, the issue or discussion that led to that decision is usually linked.
 
@@ -84,8 +84,8 @@ node tools/check-worked-example-snippets.js
 git diff --exit-code
 ```
 
-The generators update checked-in files. Review those changes before committing. `index.html`,
-the static `index.{language}.html` gateways, and `spec/guide.html` are hand-authored; the other checked-in HTML counterparts
+The generators update checked-in files. Review those changes before committing. `index.html` and
+the static `index.{language}.html` gateways are hand-authored; the other checked-in HTML counterparts
 produced by `tools/generate-doc-html.js` are generated from Markdown.
 
 ## Editor's Preferences (Informal)

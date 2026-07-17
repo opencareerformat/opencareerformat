@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside Maria's OCF: From Conversation to JSON — Open Career Format</title>
+<meta name="description" content="How the Maria Reyes conversations become structured, reusable Open Career Format career memory.">
+<link rel="canonical" href="https://opencareerformat.org/spec/examples/maria-reyes/inside-the-ocf.html">
+<link rel="icon" type="image/png" href="../../assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Inside Maria's OCF: From Conversation to JSON">
+<meta property="og:description" content="How the Maria Reyes conversations become structured, reusable Open Career Format career memory.">
+<meta property="og:url" content="https://opencareerformat.org/spec/examples/maria-reyes/inside-the-ocf.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Inside Maria's OCF: From Conversation to JSON">
+<meta name="twitter:description" content="How the Maria Reyes conversations become structured, reusable Open Career Format career memory.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Inside Maria's OCF: From Conversation to JSON",
+  "name": "Inside Maria's OCF: From Conversation to JSON",
+  "url": "https://opencareerformat.org/spec/examples/maria-reyes/inside-the-ocf.html",
+  "description": "How the Maria Reyes conversations become structured, reusable Open Career Format career memory.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="../../.."><img src="../../assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="../../..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./inside-the-ocf.md">View the Markdown source</a>.</p>
+<h1 id="inside-maria-s-ocf-from-conversation-to-json">Inside Maria's OCF: From Conversation to JSON</h1>
+
+<blockquote><p>Last updated: 2026-07-16.</p></blockquote>
+
+<p>This page opens the OCF files behind <a href="./index.html">Maria Reyes: OCF in Practice</a> and shows how accepted conversation results become structured career memory. Read the conversations to see the workflow; use this page to inspect the resulting JSON.</p>
+
+<table>
+<thead><tr><th>Conversation example</th><th>Implementation lesson</th></tr></thead>
+<tbody>
+<tr><td><a href="./index.html#conversation-one-maria-creates-her-first-ocf">Maria starts with a resume and no OCF</a></td><td><a href="#source-material-becomes-provisional-career-memory">Source Material Becomes Provisional Career Memory</a></td></tr>
+<tr><td><a href="./index.html#conversation-one-maria-creates-her-first-ocf">Conversation One captures a short ransomware bullet</a></td><td><a href="#a-resume-bullet-is-captured-as-a-stable-claim">A Resume Bullet Is Captured As A Stable Claim</a></td></tr>
+<tr><td><a href="./index.html#maria-chooses-the-depth">Maria defers questions she is not ready to answer</a></td><td><a href="#unanswered-gaps-remain-open-questions">Unanswered Gaps Remain Open Questions</a></td></tr>
+<tr><td><a href="./index.html#how-marias-ocf-grew">Conversation Two explores the ransomware claim</a>; accepted updates continue to accumulate through revision 7</td><td><a href="#short-claim-expanded-into-reusable-career-memory">Short Claim Expanded Into Reusable Career Memory</a></td></tr>
+<tr><td><a href="./index.html#conversation-five-maria-explores-a-leadership-transition">Maria follows the question about her leadership transition</a></td><td><a href="#user-wording-and-model-interpretation-stored-separately">User Wording And Model Interpretation Stored Separately</a></td></tr>
+<tr><td><a href="./index.html#how-marias-ocf-grew">Maria recovers the path behind her final Army rank</a></td><td><a href="#timeline-recovered-behind-a-final-title">Timeline Recovered Behind A Final Title</a></td></tr>
+<tr><td><a href="./index.html#private-does-not-mean-never-useful">Maria considers which private details fit a new audience</a></td><td><a href="#stable-facts-support-different-outputs">Stable Facts Support Different Outputs</a></td></tr>
+<tr><td><a href="./index.html#the-conversation-improves-the-career-memory">Maria corrects her career timeline and management scope</a></td><td><a href="#canonical-field-corrected">Canonical Field Corrected</a></td></tr>
+<tr><td><a href="./index.html#the-conversation-improves-the-career-memory">Maria scopes her FedRAMP responsibility</a></td><td><a href="#achievement-added-with-attribution">Achievement Added With Attribution</a></td></tr>
+<tr><td><a href="./index.html#the-conversation-improves-the-career-memory">Maria rejects claims that should not return</a></td><td><a href="#caution-added">Caution Added</a></td></tr>
+<tr><td><a href="./index.html#the-conversation-improves-the-career-memory">The target and review conversation become evidence</a></td><td><a href="#provenance-and-source-artifact-added">Provenance And Source Artifact Added</a></td></tr>
+<tr><td><a href="./index.html#the-conversation-improves-the-career-memory">Maria accepts the complete correction set</a></td><td><a href="#version-advanced-from-6-to-7">Version Advanced From 6 To 7</a></td></tr>
+</tbody>
+</table>
+
+<p>The complete <a href="maria-reyes-revision-1.ocf.json"><code>revision 1</code></a>, <a href="maria-reyes-revision-6.ocf.json"><code>revision 6</code></a>, and <a href="maria-reyes-revision-7.ocf.json"><code>revision 7</code></a> files are available for anyone who wants to inspect the full records or double-check the excerpts directly.</p>
+
+<h2 id="source-material-becomes-provisional-career-memory">Source Material Becomes Provisional Career Memory</h2>
+
+<p>The starting point is an ordinary short resume. In OCF terms, the resume is not the master truth. It is a <code>sourceArtifact</code>.</p>
+
+<p>The importer or LLM should:</p>
+
+<ul>
+<li>record the resume as a <code>sourceArtifacts</code> entry;</li>
+<li>extract person, education, certifications, skills, experience, positions, and achievements;</li>
+<li>preserve useful wording from the resume;</li>
+<li>assign provenance to imported items;</li>
+<li>avoid inventing missing metrics, dates, supervisors, or outcomes.</li>
+</ul>
+
+<p>At this point the file is best understood as a provisional <code>candidate-master</code>: the file can already be the person's working master, but imported items should remain visibly unreviewed until the person accepts them.</p>
+
+<p>Its metadata records both ideas: this is now Maria's working master, and its starting material was imported. The modification date remains the date of Conversation One, not the later date when this teaching reconstruction was created:</p>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;fileRole&quot;: &quot;candidate-master&quot;,
+    &quot;lastModified&quot;: &quot;2026-05-20&quot;,
+    &quot;source&quot;: {
+      &quot;kind&quot;: &quot;imported&quot;
+    },
+    &quot;version&quot;: &quot;1&quot;
+  }
+}</code></pre>
+
+<p>Maria's <a href="maria-reyes-revision-1.ocf.json"><code>revision 1</code></a> shows that first result. It broadly captures the source resume without pretending that the first conversation recovered all of the underlying history.</p>
+
+<p>Revision 1 reconstructs the provisional OCF produced by Conversation One using only the source resume, healthcare job description, and that conversation.</p>
+
+<h2 id="a-resume-bullet-is-captured-as-a-stable-claim">A Resume Bullet Is Captured As A Stable Claim</h2>
+
+<p>One of the imported achievements is the source resume's compressed ransomware bullet. Revision 1 keeps its wording close to the source, records where it came from, and marks it unreviewed rather than pretending the first pass recovered the whole story:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;mhs-ransomware-2024&quot;,
+  &quot;statement&quot;: &quot;Led response to a ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.&quot;,
+  &quot;kind&quot;: &quot;accomplishment&quot;,
+  &quot;visibility&quot;: &quot;public&quot;,
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;imported&quot;,
+    &quot;date&quot;: &quot;2026-05-20&quot;,
+    &quot;sourceArtifactId&quot;: &quot;sample-resume-source-2026-05&quot;
+  },
+  &quot;reviewStatus&quot;: &quot;unreviewed&quot;
+}</code></pre>
+
+<p>The stable <code>mhs-ransomware-2024</code> ID remains unchanged as later conversations add context, evidence, cautions, and alternate wording. The existing career memory is enriched instead of being duplicated.</p>
+
+<h2 id="unanswered-gaps-remain-open-questions">Unanswered Gaps Remain Open Questions</h2>
+
+<p>Conversation One identifies vulnerability-management ownership as relevant but under-evidenced. Maria chooses not to answer yet. Rather than infer an accomplishment from her skills list or discard the question, revision 1 preserves it for a later conversation:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;open-question-vulnerability-management-ownership&quot;,
+  &quot;question&quot;: &quot;Did Maria run a formal vulnerability-management program, own part of it through the SOC, or mainly provide oversight?&quot;,
+  &quot;context&quot;: &quot;The target role makes vulnerability management a core responsibility, but the source resume lists the skill without enough evidence to support a stronger claim.&quot;,
+  &quot;visibility&quot;: &quot;private&quot;
+}</code></pre>
+
+<p>This keeps a named skill from quietly becoming an invented accomplishment.</p>
+
+<h2 id="short-claim-expanded-into-reusable-career-memory">Short Claim Expanded Into Reusable Career Memory</h2>
+
+<p>We know the ransomware claim was explored in Conversation Two, but it may also have been revisited and refined in later conversations. We do not retain a revision 2 snapshot. <a href="maria-reyes-revision-7.ocf.json"><code>Revision 7</code></a> shows the accumulated, accepted changes and improvements; the excerpts below isolate the resulting ransomware material.</p>
+
+<p>By revision 7, follow-up conversations have recovered what Maria personally did, the evidence behind her decision, which details are safe to use, and what future tools should avoid overstating.</p>
+
+<p>Rather than replacing the original claim with polished prose, the OCF can add:</p>
+
+<ul>
+<li>a canonical achievement;</li>
+<li>structured metrics;</li>
+<li>supporting facts;</li>
+<li>a private reflection;</li>
+<li>a caution;</li>
+<li>an open question;</li>
+<li>narrative variants for particular audiences.</li>
+</ul>
+
+<p>That is the core OCF loop: preserve the facts once, then let future curation choose the right wording.</p>
+
+<p>In revision 7, the same stable ID now anchors a richer achievement. The public claim is still there, but the master file also keeps the judgment call, evidence, metrics, and review context that a resume cannot hold:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;mhs-ransomware-2024&quot;,
+  &quot;statement&quot;: &quot;Led response to a hospital-wide ransomware incident — performed forensic analysis on the attacker tooling, advised leadership against paying the ransom based on observed decryption failures in adjacent engagements, and executed an alternate recovery path from offline backups; restored critical clinical systems within 41 hours with zero patient-care impact.&quot;,
+  &quot;metrics&quot;: [
+    { &quot;kind&quot;: &quot;duration&quot;, &quot;value&quot;: 41, &quot;unit&quot;: &quot;hours&quot;, &quot;note&quot;: &quot;time-to-restore: critical clinical systems back online from offline backups&quot; },
+    { &quot;kind&quot;: &quot;other&quot;, &quot;value&quot;: 0, &quot;unit&quot;: &quot;patients&quot;, &quot;note&quot;: &quot;patient_care_impact: zero patient-care incidents attributed to the outage&quot; },
+    { &quot;kind&quot;: &quot;other&quot;, &quot;value&quot;: 0, &quot;unit&quot;: &quot;USD&quot;, &quot;note&quot;: &quot;ransom_paid: no ransom was paid; recommendation against payment was accepted by leadership&quot; }
+  ],
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;sessionTopic&quot;: &quot;Tailoring resume for CISO-track role&quot;
+  }
+}</code></pre>
+
+<p>The same achievement also carries longer private context, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.</p>
+
+<p>The follow-up interview also changes the surrounding memory. Selected fields on the <code>mhs-ransomware-2024</code> achievement show skills that were only implied by the bullet point and reusable wording for different audiences:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;mhs-ransomware-2024&quot;,
+  &quot;skills&quot;: [
+    &quot;Incident Response Leadership&quot;,
+    &quot;Ransomware Analysis&quot;,
+    &quot;Executive Risk Communication&quot;,
+    &quot;Backup Recovery Operations&quot;,
+    &quot;Forensic Tooling Triage&quot;
+  ],
+  &quot;narrativeVariants&quot;: [
+    {
+      &quot;id&quot;: &quot;mhs-ransomware-public-resume&quot;,
+      &quot;label&quot;: &quot;Public resume bullet point&quot;,
+      &quot;statement&quot;: &quot;Led ransomware response that restored critical clinical systems from offline backups within 41 hours with no patient-care impact.&quot;,
+      &quot;visibility&quot;: &quot;public&quot;
+    },
+    {
+      &quot;id&quot;: &quot;mhs-ransomware-security-leadership&quot;,
+      &quot;label&quot;: &quot;Security leadership framing&quot;,
+      &quot;statement&quot;: &quot;Led evidence-based ransomware recovery by analyzing attacker tooling, advising executives against payment, and restoring critical systems from backups within 41 hours.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;
+    },
+    {
+      &quot;id&quot;: &quot;mhs-ransomware-healthcare-security&quot;,
+      &quot;label&quot;: &quot;Healthcare security framing&quot;,
+      &quot;statement&quot;: &quot;Protected patient-care continuity during a ransomware event by leading evidence-based recovery from offline backups and restoring critical clinical systems within 41 hours.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;
+    }
+  ]
+}</code></pre>
+
+<p>Separately, the top-level <code>cautions</code> collection records a correction from an overreaching draft:</p>
+
+<pre><code class="language-json">{
+  &quot;cautions&quot;: [
+    {
+      &quot;claim&quot;: &quot;claimed as an AI / ML security specialist&quot;,
+      &quot;reason&quot;: &quot;Has good operational exposure to ML-based detection tooling but does not have research-level expertise. Past LLM draft positioned this too strongly; corrected here.&quot;
+    }
+  ]
+}</code></pre>
+
+<p>Those are not three separate stories. They are three reusable consequences of one clarified story: what skills it demonstrates, how to tell it to different audiences, and what not to claim.</p>
+
+<h2 id="timeline-recovered-behind-a-final-title">Timeline Recovered Behind A Final Title</h2>
+
+<p>The same intake pattern applies to timelines, not just events. Maria's resume lists her rank exactly once, the way veterans often write resumes:</p>
+
+<pre><code class="language-text">United States Army | Cyber Operations Specialist (17C), Staff Sergeant (E-6) | 2016-01 - 2018-08</code></pre>
+
+<p>That single line is enough for a civilian reader. It is not enough for career memory, because anyone who served can read rank against years of service in seconds: the progression behind a final rank is a story military readers reconstruct whether or not the file tells it. A short intake exchange recovers the path:</p>
+
+<blockquote><p><strong>LLM:</strong> Your resume shows you separated as a Staff Sergeant after eight years. What was the progression behind that?</p>
+
+<p><strong>Maria:</strong> Came in as a PV2 in 2010. PFC in '11, Specialist in '12, made Sergeant in 2014, and pinned Staff Sergeant in March 2017 after I reclassed to 17C.</p></blockquote>
+
+<p>The master stores each step as a dated supporting fact on a spanning achievement: the same pattern the schema documents for &quot;top 5 seller 2010-2015&quot; backed by annual records. The <code>progression</code> block remains the narrative summary; this spanning achievement holds the checkable steps:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;army-rank-progression&quot;,
+  &quot;kind&quot;: &quot;recognition&quot;,
+  &quot;statement&quot;: &quot;Progressed from Private (E-2) to Staff Sergeant (E-6) across eight years of service, with four promotions.&quot;,
+  &quot;supportingFacts&quot;: [
+    {
+      &quot;id&quot;: &quot;army-promo-e5&quot;,
+      &quot;statement&quot;: &quot;Promoted to Sergeant (E-5)&quot;,
+      &quot;date&quot;: { &quot;year&quot;: 2014 },
+      &quot;visibility&quot;: &quot;shared&quot;
+    },
+    {
+      &quot;id&quot;: &quot;army-promo-e6&quot;,
+      &quot;statement&quot;: &quot;Promoted to Staff Sergeant (E-6)&quot;,
+      &quot;date&quot;: { &quot;year&quot;: 2017, &quot;month&quot;: 3 },
+      &quot;visibility&quot;: &quot;shared&quot;
+    }
+  ],
+  &quot;visibility&quot;: &quot;shared&quot;,
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;date&quot;: &quot;2026-06-11&quot;,
+    &quot;sessionTopic&quot;: &quot;Military record pass&quot;,
+    &quot;operation&quot;: &quot;recovered-promotion-dates-behind-final-rank&quot;,
+    &quot;confidence&quot;: 0.9,
+    &quot;sourceArtifactId&quot;: &quot;sample-resume-source-2026-05&quot;,
+    &quot;note&quot;: &quot;Final rank and MOS appear on the source resume; the dated steps were established during Conversation Six.&quot;
+  }
+}</code></pre>
+
+<p>The excerpt shows two of the six supporting facts in Maria's OCF. Note the provenance split: the final rank is supported by the resume itself; the dated steps are interview-derived. The resume proves the endpoint; the conversation recovers the path.</p>
+
+<p>Whether the steps appear in any output is a separate decision. A general civilian resume may show none of them; a government-contracting resume may list every one. The OCF stores the full path so curation can choose. Storage and display are different questions, and OCF only fixes the first.</p>
+
+<h2 id="user-wording-and-model-interpretation-stored-separately">User Wording And Model Interpretation Stored Separately</h2>
+
+<p><a href="./index.html#conversation-five-maria-explores-a-leadership-transition">Conversation Five</a> is the canonical telling of the parking-garage story and the model's proposed through-line. This page does not retell that exchange. It shows why the accepted conversation creates two different records: the person's original words remain a private reflection, while the model's interpretation becomes a separate talking point only after the person confirms it.</p>
+
+<p>The story is stored where it happened, as a role reflection:</p>
+
+<pre><code class="language-json">{
+  &quot;kind&quot;: &quot;never-on-resume-story&quot;,
+  &quot;text&quot;: &quot;My first month at Meridian, I asked an analyst to cover a weekend shift and he just said no. In the Army I never heard 'no' to a lawful tasking. I'd been a civilian five years by then — but as an analyst, then a consultant. Meridian was the first time since the Army I had people to task. I sat in my car in the parking garage for a while after that one. What I eventually understood is that nobody in that building had ever watched me earn anything. In the Army, my rank was the authority. Out here, working for someone meant something different. So I stopped asking for anything I hadn't done first. I took the worst on-call rotations for two months and wrote up every handoff like it mattered, because it did. By the time we staffed the overnight shift, I had a waiting list to get on my team. The Army would have called that bad delegation. I call it the thing that worked.&quot;,
+  &quot;visibility&quot;: &quot;private&quot;,
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;date&quot;: &quot;2026-05-24&quot;,
+    &quot;sessionTopic&quot;: &quot;Story-ask pass (per the first-session script)&quot;,
+    &quot;operation&quot;: &quot;never-on-resume-story&quot;
+  }
+}</code></pre>
+
+<p>The confirmed through-line is stored separately, because it is not a raw story and not a single achievement:</p>
+
+<pre><code class="language-json">{
+  &quot;talkingPoints&quot;: [
+    {
+      &quot;id&quot;: &quot;authority-from-demonstrated-work&quot;,
+      &quot;label&quot;: &quot;Authority from demonstrated work&quot;,
+      &quot;statement&quot;: &quot;I rebuild authority from demonstrated work rather than inherited position.&quot;,
+      &quot;uses&quot;: [
+        &quot;interview-prep&quot;,
+        &quot;leadership-screen&quot;,
+        &quot;military-to-civilian-transition&quot;
+      ],
+      &quot;visibility&quot;: &quot;private&quot;,
+      &quot;supportingItemIds&quot;: [
+        &quot;meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection&quot;,
+        &quot;mhs-soc-buildout&quot;
+      ],
+      &quot;supportingEvidence&quot;: [
+        {
+          &quot;kind&quot;: &quot;reflection&quot;,
+          &quot;id&quot;: &quot;meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection&quot;,
+          &quot;summary&quot;: &quot;First-month Meridian story about rebuilding authority after an analyst declined a weekend shift.&quot;
+        },
+        {
+          &quot;kind&quot;: &quot;achievement&quot;,
+          &quot;id&quot;: &quot;mhs-soc-buildout&quot;,
+          &quot;summary&quot;: &quot;Built SOC from 0 to 12 analysts and reached 24/7 coverage within six months.&quot;
+        }
+      ],
+      &quot;evidenceSummary&quot;: &quot;Supported by Maria's first-month Meridian story and by the SOC buildout that reached 24/7 coverage in six months.&quot;,
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;,
+      &quot;provenance&quot;: {
+        &quot;source&quot;: &quot;llm-suggested&quot;,
+        &quot;operation&quot;: &quot;earned-through-line-reflection&quot;
+      }
+    }
+  ]
+}</code></pre>
+
+<p>The storage choice follows a simple rule: raw user wording goes into a private reflection; a confirmed synthesized pattern goes into a talking point; unresolved implications become or update open questions. The source memory is not replaced by polished model prose.</p>
+
+<h2 id="stable-facts-support-different-outputs">Stable Facts Support Different Outputs</h2>
+
+<p><a href="./index.html#private-does-not-mean-never-useful">Conversation Seven</a> shows the user deciding whether private career memory is appropriate for a particular application. The JSON also supports different truthful descriptions of the same evidence. For a general civilian audience, Maria's Army leadership can emphasize team scope. For a government-contractor audience, rank and MOS may be relevant. Both variants remain attached to the same achievement:</p>
+
+<pre><code class="language-json">{
+  &quot;narrativeVariants&quot;: [
+    {
+      &quot;id&quot;: &quot;army-cyber-lead-civilian&quot;,
+      &quot;label&quot;: &quot;Civilian resume framing&quot;,
+      &quot;audiences&quot;: [
+        &quot;civilian&quot;,
+        &quot;healthcare&quot;,
+        &quot;private-sector&quot;
+      ],
+      &quot;statement&quot;: &quot;Led a 6-person cyber operations team protecting a 15,000-node enterprise network.&quot;,
+      &quot;visibility&quot;: &quot;public&quot;,
+      &quot;provenance&quot;: {
+        &quot;source&quot;: &quot;curated&quot;,
+        &quot;date&quot;: &quot;2026-06-11&quot;,
+        &quot;sourceArtifactId&quot;: &quot;sample-resume-source-2026-05&quot;,
+        &quot;operation&quot;: &quot;military-to-civilian-framing&quot;,
+        &quot;confidence&quot;: 0.9
+      },
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
+    },
+    {
+      &quot;id&quot;: &quot;army-cyber-lead-federal&quot;,
+      &quot;label&quot;: &quot;Federal / defense framing&quot;,
+      &quot;audiences&quot;: [
+        &quot;federal&quot;,
+        &quot;defense-contractor&quot;,
+        &quot;cleared&quot;
+      ],
+      &quot;statement&quot;: &quot;As a Staff Sergeant (17C), led a 6-person defensive cyber operations team protecting a 15,000-node Army enterprise network.&quot;,
+      &quot;notes&quot;: &quot;Federal and defense audiences expect rank and MOS; omitting them can read as concealment, not brevity.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;,
+      &quot;provenance&quot;: {
+        &quot;source&quot;: &quot;curated&quot;,
+        &quot;date&quot;: &quot;2026-06-11&quot;,
+        &quot;sourceArtifactId&quot;: &quot;sample-resume-source-2026-05&quot;,
+        &quot;operation&quot;: &quot;federal-defense-framing&quot;,
+        &quot;confidence&quot;: 0.9
+      },
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
+    }
+  ]
+}</code></pre>
+
+<p>The underlying fact does not change. Curation chooses the approved wording that fits the audience, while the stored rank progression prevents either version from implying leadership throughout Maria's entire service.</p>
+
+<p>The same audience inversion can apply at the person level. <code>person.headline</code> remains Maria's general-purpose headline, while <code>positioningVariants</code> records target-aware alternatives with supporting evidence:</p>
+
+<pre><code class="language-json">{
+  &quot;positioningVariants&quot;: [
+    {
+      &quot;id&quot;: &quot;maria-healthcare-security-headline&quot;,
+      &quot;kind&quot;: &quot;headline&quot;,
+      &quot;label&quot;: &quot;Healthcare security leadership headline&quot;,
+      &quot;headline&quot;: &quot;Healthcare cybersecurity leader protecting clinical continuity through incident response, compliance, and SOC maturity&quot;,
+      &quot;audiences&quot;: [
+        &quot;healthcare-security&quot;,
+        &quot;ciso-track&quot;,
+        &quot;security-leadership&quot;
+      ],
+      &quot;supportingItemIds&quot;: [
+        &quot;mhs-ransomware-2024&quot;,
+        &quot;mhs-soc-buildout&quot;
+      ],
+      &quot;evidenceSummary&quot;: &quot;Supported by Maria's ransomware recovery leadership and the Meridian SOC buildout.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;,
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
+    },
+    {
+      &quot;id&quot;: &quot;maria-federal-cyber-headline&quot;,
+      &quot;kind&quot;: &quot;headline&quot;,
+      &quot;label&quot;: &quot;Federal / defense cyber headline&quot;,
+      &quot;headline&quot;: &quot;Former Army Staff Sergeant (17C) and cybersecurity leader with enterprise incident response and SOC buildout experience&quot;,
+      &quot;audiences&quot;: [
+        &quot;federal&quot;,
+        &quot;defense&quot;,
+        &quot;cleared-cyber&quot;,
+        &quot;military-transition&quot;
+      ],
+      &quot;supportingItemIds&quot;: [
+        &quot;army-rank-progression&quot;,
+        &quot;army-cyber-leadership&quot;,
+        &quot;mhs-ransomware-2024&quot;
+      ],
+      &quot;evidenceSummary&quot;: &quot;Supported by Maria's Army rank/MOS progression, Army cyber leadership, and later healthcare incident-response leadership.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;,
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
+    }
+  ]
+}</code></pre>
+
+<p>The headline changes, but the supporting IDs do not. The user can approve one version for a healthcare role and another for a government contractor without inventing a second career history.</p>
+
+<h2 id="canonical-field-corrected">Canonical Field Corrected</h2>
+
+<p>In <a href="./index.html#the-conversation-improves-the-career-memory">Conversation Seven</a>, Maria corrects two statements that had become part of her accumulated OCF. Revision 6 overstates both the length of her private-sector cybersecurity work and the size of teams she managed:</p>
+
+<pre><code class="language-json">{
+  &quot;person&quot;: {
+    &quot;summary&quot;: &quot;Eight years of Army service in signal and cyber operations followed by a decade in private-sector cybersecurity. Led SOC teams, built zero-trust architectures, and earned CISSP and CISM certifications. Comfortable briefing generals and board members alike.&quot;
+  },
+  &quot;competencies&quot;: [
+    {
+      &quot;label&quot;: &quot;Leadership &amp; Cross-Functional Communication&quot;,
+      &quot;description&quot;: &quot;Led teams of 8-40 across military and civilian contexts. Briefed flag officers, C-suite executives, and board audit committees on risk posture and incident status. Mentored junior analysts through career transitions.&quot;
+    }
+  ]
+}</code></pre>
+
+<p>Revision 7 replaces those statements rather than preserving two contradictory canonical versions:</p>
+
+<pre><code class="language-json">{
+  &quot;person&quot;: {
+    &quot;summary&quot;: &quot;Ten years in dedicated cybersecurity across Army cyber operations and civilian roles, preceded by Army signal-systems experience. Led SOC teams, built zero-trust architectures, and earned CISSP and CISM certifications. Briefs the CISO monthly and the board audit committee quarterly.&quot;
+  },
+  &quot;competencies&quot;: [
+    {
+      &quot;label&quot;: &quot;Leadership &amp; Cross-Functional Communication&quot;,
+      &quot;description&quot;: &quot;Led a 6-person Army cyber team and later an 18-person civilian security function with 12 direct reports. Briefs the CISO monthly and the board audit committee quarterly. Has coordinated incident groups as large as 40 people, but does not describe that as management scope.&quot;
+    }
+  ]
+}</code></pre>
+
+<p>The general lesson is that structured content is still reviewable. When the person corrects an existing claim, the canonical field should become more accurate; structure is not a reason to preserve a known error.</p>
+
+<h2 id="achievement-added-with-attribution">Achievement Added With Attribution</h2>
+
+<p>The revision 6 competency text said Maria had &quot;led FedRAMP authorization for a SaaS product.&quot; Conversation Seven establishes a narrower and more useful account: the product received authorization, but Maria owned the security-operations workstream rather than the whole program.</p>
+
+<p>Revision 7 turns that clarification into an achievement with explicit attribution:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;mhs-fedramp-security-operations-workstream&quot;,
+  &quot;statement&quot;: &quot;Led the security-operations workstream supporting a successful FedRAMP Moderate authorization, accountable for logging and monitoring, incident response, vulnerability remediation, operational evidence, and assigned findings.&quot;,
+  &quot;kind&quot;: &quot;accomplishment&quot;,
+  &quot;importance&quot;: 4,
+  &quot;audiences&quot;: [
+    &quot;government-contractor&quot;,
+    &quot;federal&quot;,
+    &quot;security-leadership&quot;
+  ],
+  &quot;skills&quot;: [
+    &quot;FedRAMP&quot;,
+    &quot;NIST 800-53&quot;,
+    &quot;Incident Response&quot;,
+    &quot;Vulnerability Management&quot;
+  ],
+  &quot;visibility&quot;: &quot;shared&quot;,
+  &quot;attribution&quot;: {
+    &quot;role&quot;: &quot;owned&quot;,
+    &quot;scope&quot;: &quot;Owned the security-operations workstream. The GRC director owned the overall authorization program and 3PAO relationship; cloud engineering owned infrastructure changes.&quot;,
+    &quot;reportedUpward&quot;: true,
+    &quot;notes&quot;: &quot;The SaaS product received authorization in 2025. Do not describe Maria as having led the entire authorization.&quot;
+  },
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;date&quot;: &quot;2026-07-14&quot;,
+    &quot;sessionTopic&quot;: &quot;Government-contractor role review&quot;,
+    &quot;operation&quot;: &quot;fedramp-attribution-clarification&quot;,
+    &quot;confidence&quot;: 0.95,
+    &quot;sourceArtifactId&quot;: &quot;government-contractor-review-2026-07-14&quot;
+  },
+  &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
+}</code></pre>
+
+<p>Attribution preserves the strong part of the claim while recording where Maria's responsibility ended. A later resume can use the achievement without quietly promoting workstream ownership into program ownership.</p>
+
+<h2 id="caution-added">Caution Added</h2>
+
+<p>Correcting the current wording is not enough if a future model could make the same plausible mistake. Revision 7 adds a caution that tells later tools what not to reconstruct:</p>
+
+<pre><code class="language-json">{
+  &quot;claim&quot;: &quot;described as having led the entire FedRAMP authorization&quot;,
+  &quot;reason&quot;: &quot;Maria owned the security-operations workstream. The GRC director owned the overall authorization program and 3PAO relationship, and cloud engineering owned infrastructure changes.&quot;,
+  &quot;visibility&quot;: &quot;private&quot;,
+  &quot;provenance&quot;: {
+    &quot;source&quot;: &quot;interview-derived&quot;,
+    &quot;date&quot;: &quot;2026-07-14&quot;,
+    &quot;sourceArtifactId&quot;: &quot;government-contractor-review-2026-07-14&quot;,
+    &quot;operation&quot;: &quot;fedramp-attribution-correction&quot;,
+    &quot;confidence&quot;: 0.95
+  },
+  &quot;addedDate&quot;: {
+    &quot;year&quot;: 2026,
+    &quot;month&quot;: 7,
+    &quot;day&quot;: 14
+  },
+  &quot;id&quot;: &quot;caution-led-entire-fedramp-authorization&quot;
+}</code></pre>
+
+<p>The same conversation adds cautions against describing a 40-person incident group as management scope and against claiming unsupported flag-officer briefings. A caution makes a correction durable without discarding the surrounding career evidence.</p>
+
+<h2 id="provenance-and-source-artifact-added">Provenance And Source Artifact Added</h2>
+
+<p>Revision 7 records both the target that prompted the review and the conversation that produced the accepted changes:</p>
+
+<pre><code class="language-json">{
+  &quot;sourceArtifacts&quot;: [
+    {
+      &quot;id&quot;: &quot;government-contractor-job-description-2026-07-14&quot;,
+      &quot;kind&quot;: &quot;job-description&quot;,
+      &quot;label&quot;: &quot;Cybersecurity operations director job description for government programs&quot;,
+      &quot;capturedDate&quot;: {
+        &quot;year&quot;: 2026,
+        &quot;month&quot;: 7,
+        &quot;day&quot;: 14
+      },
+      &quot;audience&quot;: [
+        &quot;government-contractor&quot;,
+        &quot;federal&quot;,
+        &quot;defense&quot;
+      ],
+      &quot;sourceTool&quot;: &quot;manual-example&quot;,
+      &quot;fileName&quot;: &quot;government-contractor-job-description.txt&quot;,
+      &quot;rawIncluded&quot;: false,
+      &quot;notes&quot;: &quot;Private-employer job description for a role serving U.S. government customers. Used as target evidence during Conversation Seven.&quot;,
+      &quot;visibility&quot;: &quot;private&quot;
+    },
+    {
+      &quot;id&quot;: &quot;government-contractor-review-2026-07-14&quot;,
+      &quot;kind&quot;: &quot;conversation&quot;,
+      &quot;label&quot;: &quot;Government-contractor role review&quot;,
+      &quot;capturedDate&quot;: {
+        &quot;year&quot;: 2026,
+        &quot;month&quot;: 7,
+        &quot;day&quot;: 14
+      },
+      &quot;audience&quot;: [
+        &quot;government-contractor&quot;,
+        &quot;security-leadership&quot;
+      ],
+      &quot;sourceTool&quot;: &quot;Recommended OCF LLM prompt&quot;,
+      &quot;fileName&quot;: &quot;conversation.md&quot;,
+      &quot;rawIncluded&quot;: true,
+      &quot;notes&quot;: &quot;Conversation preserved under Conversation Seven in conversation.md. It compared the target first with Maria's source resume and then with revision 6 of her OCF. Maria corrected the private-sector timeline, management scope, FedRAMP attribution, and executive-briefing evidence.&quot;,
+      &quot;visibility&quot;: &quot;private&quot;
+    }
+  ]
+}</code></pre>
+
+<p>The job description explains why these questions were asked; it does not become career truth. Item-level provenance points back to the review conversation so later tools can distinguish imported material, prior claims, and user-confirmed corrections.</p>
+
+<h2 id="version-advanced-from-6-to-7">Version Advanced From 6 To 7</h2>
+
+<p>Revision 7 is not a patch file. It is the complete OCF after the accepted changes. Its metadata advances the version and records when the file changed:</p>
+
+<p>Revision 6:</p>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;lastModified&quot;: &quot;2026-06-11&quot;,
+    &quot;version&quot;: &quot;6&quot;
+  }
+}</code></pre>
+
+<p>Revision 7:</p>
+
+<pre><code class="language-json">{
+  &quot;meta&quot;: {
+    &quot;lastModified&quot;: &quot;2026-07-14&quot;,
+    &quot;version&quot;: &quot;7&quot;
+  }
+}</code></pre>
+
+<p>Everything that remained valid in revision 6 stays available in revision 7, including the private reflection and talking point from Conversation Five. The accepted Conversation Seven changes add better canonical wording, attributed achievements, cautions, and source records. Readers can inspect <a href="maria-reyes-revision-6.ocf.json"><code>revision 6</code></a> and <a href="maria-reyes-revision-7.ocf.json"><code>revision 7</code></a> directly to verify the complete difference.</p>
+
+<h2 id="continue-into-the-ocf-design-guide">Continue Into The OCF Design Guide</h2>
+
+<p>This page shows how Maria's conversations become structured OCF data. To understand the format's concepts, structure, and boundaries, continue into the <a href="../../design-guide.html">OCF Design Guide</a>.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./inside-the-ocf.md"><code>spec/examples/maria-reyes/inside-the-ocf.md</code></a>.</p>
+</footer>
+</body>
+</html>

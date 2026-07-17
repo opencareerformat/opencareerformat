@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..");
-const markdown = fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/implementation-details.md"), "utf8");
+const markdown = fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/inside-the-ocf.md"), "utf8");
 const initialSample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-1.ocf.json"), "utf8"));
 const previousSample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json"), "utf8"));
 const sample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json"), "utf8"));

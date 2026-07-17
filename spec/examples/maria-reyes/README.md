@@ -2,9 +2,9 @@
 
 This directory contains a complete teaching example showing how an Open Career Format file can be created from ordinary source material and grow through repeated conversations. Maria E. Reyes, most of her employers, and the specific events are fictional, but the conversations are based on credible interactions with modern LLMs.
 
-Start with **[Maria Reyes: An OCF Growing Through Conversation](Maria.md)**. It follows Maria from a conventional resume and first job application through later conversations that recover more context, preserve corrections, and improve the same career-memory file.
+Start with **[Maria Reyes: OCF in Practice](conversation.md)**. It follows Maria from a conventional resume and first job application through later conversations that recover more context, preserve corrections, and improve the same career-memory file.
 
-The conversation is easier to read in the [rendered web version](https://opencareerformat.org/spec/examples/maria-reyes/). Readers who want to see how the conversations become structured JSON can continue into the [Implementation Details](implementation-details.md).
+The conversation is easier to read in the [rendered web version](https://opencareerformat.org/spec/examples/maria-reyes/). Readers who want to see how the conversations become structured JSON can continue [Inside Maria's OCF](inside-the-ocf.md).
 
 ## Files In This Example
 
@@ -12,10 +12,10 @@ The conversation is easier to read in the [rendered web version](https://opencar
 
 | File | Purpose |
 |---|---|
-| [`Maria.md`](Maria.md) | The primary conversation-based walkthrough. |
-| [`index.html`](index.html) | The rendered web version of `Maria.md`. |
-| [`implementation-details.md`](implementation-details.md) | The OCF structures and JSON changes behind the conversations. |
-| [`implementation-details.html`](implementation-details.html) | The rendered web version of the implementation details. |
+| [`conversation.md`](conversation.md) | The primary conversation-based walkthrough. |
+| [`index.html`](index.html) | The rendered web version of `conversation.md`. |
+| [`inside-the-ocf.md`](inside-the-ocf.md) | The OCF structures and JSON changes behind the conversations. |
+| [`inside-the-ocf.html`](inside-the-ocf.html) | The rendered web version of the JSON details. |
 
 ### Source Material
 
