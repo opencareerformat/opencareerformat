@@ -260,6 +260,93 @@
 <li>Should tracks be ordered by importance, recency, audience, or not ordered at all?</li>
 </ul>
 
+<h2>Candidate Direction: Occupational Classifications And Alignments</h2>
+
+<p>OCF v0.3 has two partial mechanisms for external classifications:</p>
+
+<ul>
+<li><code>position.occupationalCode</code> stores one formal code associated with a role, such as a military MOS or federal GS series;</li>
+<li><code>skills[].taxonomies</code> stores optional links from a human-readable skill to external skill frameworks.</li>
+</ul>
+
+<p>O<em>NET-SOC and ESCO occupation mappings expose a different need. A role may align with several external occupation concepts even when none of those concepts was an official title or classification assigned by the employer. The distinction matters: an MOS, GS series, or employer classification may be a source-supported fact, while an O</em>NET or ESCO match is often a reviewed interpretation used for matching, portability, or export.</p>
+
+<p>v0.4 should consider keeping <code>position.occupationalCode</code> for formal classifications while incubating a separate collection of occupation alignments. Likely incubating namespace: <code>extensions.user.local.occupationAlignments</code>.</p>
+
+<p>Possible experimental shape:</p>
+
+<pre><code class="language-json">{
+  &quot;extensions&quot;: {
+    &quot;user.local&quot;: {
+      &quot;occupationAlignments&quot;: [
+        {
+          &quot;id&quot;: &quot;customer-success-role-onet-alignment&quot;,
+          &quot;positionId&quot;: &quot;customer-success-role&quot;,
+          &quot;system&quot;: &quot;onet-soc&quot;,
+          &quot;code&quot;: &quot;framework-specific-code&quot;,
+          &quot;title&quot;: &quot;Framework occupation title&quot;,
+          &quot;relationship&quot;: &quot;primary-role&quot;,
+          &quot;version&quot;: &quot;framework version&quot;,
+          &quot;supportingItemIds&quot;: [&quot;customer-success-role&quot;],
+          &quot;reviewStatus&quot;: &quot;user-confirmed&quot;,
+          &quot;provenance&quot;: {
+            &quot;source&quot;: &quot;llm-suggested&quot;,
+            &quot;date&quot;: &quot;2026-07-17&quot;
+          }
+        },
+        {
+          &quot;id&quot;: &quot;customer-success-role-esco-alignment&quot;,
+          &quot;positionId&quot;: &quot;customer-success-role&quot;,
+          &quot;system&quot;: &quot;esco&quot;,
+          &quot;uri&quot;: &quot;http://data.europa.eu/esco/occupation/example&quot;,
+          &quot;title&quot;: &quot;Framework occupation title&quot;,
+          &quot;relationship&quot;: &quot;primary-role&quot;,
+          &quot;version&quot;: &quot;framework version&quot;,
+          &quot;supportingItemIds&quot;: [&quot;customer-success-role&quot;],
+          &quot;reviewStatus&quot;: &quot;user-confirmed&quot;,
+          &quot;provenance&quot;: {
+            &quot;source&quot;: &quot;llm-suggested&quot;,
+            &quot;date&quot;: &quot;2026-07-17&quot;
+          }
+        }
+      ]
+    }
+  }
+}</code></pre>
+
+<p>Working rules for experiments:</p>
+
+<ul>
+<li>Keep the person's literal title, role description, and source-supported formal code intact; an alignment does not replace them.</li>
+<li>Allow several alignments because one hybrid role may reasonably map to multiple concepts or frameworks.</li>
+<li>Treat tool-suggested alignments as reviewable interpretations, not verified career facts.</li>
+<li>Carry the framework version and stable URI when the framework provides them.</li>
+<li>Do not require people to find or enter taxonomy codes by hand. Importers, matching tools, and exporters may suggest them.</li>
+<li>Keep target-role alignments attached to the target or curation workflow; do not silently turn a job description's classification into a fact about the person's career.</li>
+</ul>
+
+<p>Even several codes may be insufficient without describing how the person engaged with the classified work. A person may have performed the work directly, owned or led the function, managed people doing it, advised practitioners, partnered with the function, regulated it, supported it, sold to it, or built products for it. These relationships are different, but they do not form a simple seniority or exposure ladder. <code>relationship</code> describes the nature of the engagement; <code>confidence</code>, if retained, would instead describe certainty that the mapping is appropriate. Supporting item IDs should point back to the positions, achievements, projects, or other evidence that makes the relationship defensible.</p>
+
+<p>For example, a compliance professional may cover a foreign-exchange desk, focus on several kinds of transactions, and ensure that restricted countries are avoided. Mapping only to &quot;Compliance Officer&quot; loses the market and transaction context. Adding &quot;Foreign Exchange Dealer&quot; without qualification falsely implies that the person traded FX. Treating sanctions controls or transaction monitoring as occupations confuses regulatory responsibilities and competencies with occupations. A reviewed alignment might say that the person regulated or oversaw work associated with an FX occupation while the underlying OCF positions, achievements, skills, and regulatory context preserve what they actually did.</p>
+
+<p>This complexity is evidence against rushing occupation alignments into the core schema. Occupational classifications are useful indexes into someone else's labor-market taxonomy; they are not complete descriptions of a person's work. If a useful alignment model requires an exhaustive relationship vocabulary or duplicates attribution already present in the underlying evidence, OCF may be better served by keeping the detailed career memory and allowing matching or export tools to construct the classification view they need.</p>
+
+<p>The planned junior Customer Success / first-manager example is a useful stress test. Customer Success roles often combine account management, service, adoption, commercial influence, and informal leadership. If one taxonomy code flattens that work, the example should demonstrate why alignments are optional, multiple, and reviewable.</p>
+
+<p>One v0.3 description also needs correction during the v0.4 pass: the <code>skills[].taxonomies</code> guidance uses O<em>NET-SOC code <code>15-1252.00</code> as though it identifies the skill &quot;Python.&quot; It is an occupation code. O</em>NET technology-skill data associates named technologies with O*NET-SOC occupations; it does not make the occupation code a stable identifier for the technology itself. The future field guide should use a valid framework-specific skill identifier or explain the association without presenting an occupation code as a skill code.</p>
+
+<p>Open design questions:</p>
+
+<ul>
+<li>Is a top-level alignment collection keyed by <code>positionId</code> preferable to an array directly on each position?</li>
+<li>Should occupation alignments use the existing review and provenance fields without modification?</li>
+<li>Do alignments need <code>confidence</code>, or are provenance plus <code>reviewStatus</code> sufficient?</li>
+<li>Does <code>relationship</code> belong in a small controlled vocabulary, remain freeform, or derive from attribution on supporting items?</li>
+<li>Should a formal role be allowed to carry more than one source-supported <code>occupationalCode</code>, or should additional systems always be represented as alignments?</li>
+<li>How should OCF distinguish an exact framework match from a broader or adjacent occupation concept?</li>
+<li>Does the complexity of these relationships justify a first-class OCF structure, or should occupation alignment remain an external mapping concern?</li>
+</ul>
+
 <h2>Candidate Direction: Location Modeling</h2>
 
 <p>Location remains important but easy to overbuild. The next version should collect examples before standardizing a broad location model.</p>
