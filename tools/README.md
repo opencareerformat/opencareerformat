@@ -7,6 +7,7 @@ These scripts keep generated OCF artifacts synchronized with the canonical full 
 - `schema-semantics.json` classifies local reference fields and the few ID-shaped fields that are not local item definitions.
 - `generate-schema-index.js` walks `schema.json` as an AST and writes the compact visibility/reference index used by reference tools.
 - `check-schema-core.js` verifies that `schema-core.json` matches a fresh projection and that the canonical application-bootstrap starter validates against both the generated core and the full schema.
+- `generate-skill-manifest.js` hashes every published `skills/*/SKILL.md` file into `skills/manifest.json` so installed skills can detect newer canonical guidance without silently updating themselves.
 - `check-schema-copies.js` verifies that the current root, spec, and version-pinned schema copies are byte-identical.
 
 Run the generators after changing `schema.json` or either configuration file:

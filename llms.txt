@@ -4,7 +4,7 @@ OCF is an open schema for preserving private career history and using it for cur
 
 Humans: Start at https://opencareerformat.org/ instead.
 
-Current schema version: 0.3. This file last updated: 2026-07-15.
+Current schema version: 0.3. This file last updated: 2026-07-18.
 
 If documents conflict: the JSON Schema wins for file structure; the most specific prompt wins for behavior. See https://opencareerformat.org/prompts/README.md for the schema-vs-advice boundary.
 
@@ -23,8 +23,9 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 4. Read the full current schema at https://opencareerformat.org/schema.json when you need fields not covered by the starter schema, and before returning final OCF JSON.
 5. If the user provides an existing OCF file, read the curation guidance at https://opencareerformat.org/prompts/curation.md before drafting outputs.
 6. If the user's main need is to discover their story, voice, goals, boundaries, or career direction, read the coaching prompt at https://opencareerformat.org/prompts/coaching.md
-7. If an existing OCF master is too large for the current task, use the local context reference at `reference/context/ocf-context.js` to build a disposable view and retrieve complete items by ID. Treat omitted content as not loaded, never as nonexistent, and apply accepted updates to the complete master.
-8. If you create or modify OCF JSON and the repository is available locally, run the local validator before returning the file: install once with `npm --prefix reference/validator ci`, then `node reference/validator/validate.js path/to/file.ocf.json`. If you cannot validate, say that clearly.
+7. If the user wants to summarize their career for LinkedIn, a website About page, a professional bio, a speaker bio, or a similar public profile, read https://opencareerformat.org/prompts/profile-and-bio.md
+8. If an existing OCF master is too large for the current task, use the local context reference at `reference/context/ocf-context.js` to build a disposable view and retrieve complete items by ID. Treat omitted content as not loaded, never as nonexistent, and apply accepted updates to the complete master.
+9. If you create or modify OCF JSON and the repository is available locally, run the local validator before returning the file: install once with `npm --prefix reference/validator ci`, then `node reference/validator/validate.js path/to/file.ocf.json`. If you cannot validate, say that clearly.
 
 ## Site map
 
@@ -43,6 +44,7 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - Language bootstrap gateways: https://opencareerformat.org/prompts/application-bootstrap.es.md, https://opencareerformat.org/prompts/application-bootstrap.fr.md, https://opencareerformat.org/prompts/application-bootstrap.de.md, https://opencareerformat.org/prompts/application-bootstrap.pt.md, https://opencareerformat.org/prompts/application-bootstrap.ja.md
 - Authoring prompt: https://opencareerformat.org/prompts/authoring.md
 - Coaching prompt: https://opencareerformat.org/prompts/coaching.md
+- Profile and bio prompt: https://opencareerformat.org/prompts/profile-and-bio.md
 - Recommended LLM guidance: https://opencareerformat.org/prompts/llm-operating.md
 - Curation guidance: https://opencareerformat.org/prompts/curation.md
 - Interview-prep questions: https://opencareerformat.org/prompts/interview-prep-questions.md

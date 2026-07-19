@@ -37,6 +37,7 @@ jobs:
         run: |
           node tools/generate-schema-core.js
           node tools/generate-schema-index.js
+          node tools/generate-skill-manifest.js
 
       - name: Validate example OCF JSON files
         run: node reference/validator/validate.js

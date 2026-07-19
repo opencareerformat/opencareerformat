@@ -2,6 +2,8 @@
 
 LinkedIn is both a public profile and a platform with its own editing UI. OCF should remain the source of truth; LinkedIn should be treated as an output target or source artifact, not the master.
 
+For the conversation that develops a LinkedIn headline, About section, and related public self-description from an existing OCF, use the [profile and bio prompt](../prompts/profile-and-bio.md). This mapping describes the field-level handoff after that work.
+
 ## Direction
 
 Primary direction: `public-profile or audience-specific export-ready OCF file -> LinkedIn paste/update bundle`.

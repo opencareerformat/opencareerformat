@@ -473,6 +473,7 @@ The guide explains the tradeoffs, but the repository also includes concrete star
 - [prompts/README.md](../prompts/README.md): index of optional LLM, coaching, curation, and authoring prompts, including the boundary between schema facts, conventions, and advice.
 - [prompts/authoring.md](../prompts/authoring.md): a longer prompt for building or improving a master OCF.
 - [prompts/curation.md](../prompts/curation.md): guidance for filtering, questioning, ranking, improving, and preparing export-ready content.
+- [prompts/profile-and-bio.md](../prompts/profile-and-bio.md): guidance for using reviewed career memory in LinkedIn profiles, website About pages, professional bios, speaker bios, and similar public self-description.
 - [prompts/coaching.md](../prompts/coaching.md): guidance for helping users discover story, voice, goals, boundaries, and reflection from their OCF.
 - [prompts/llm-operating.md](../prompts/llm-operating.md): recommended operating instructions for LLM-assisted OCF conversations.
 - [spec/usage-patterns.html](usage-patterns.html): file-role and workflow patterns beyond the candidate-owned master.

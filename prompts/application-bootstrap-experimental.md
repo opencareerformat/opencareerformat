@@ -1,7 +1,7 @@
 ---
 ocfPrompt: application-bootstrap-experimental
 status: experimental
-lastUpdated: 2026-07-17
+lastUpdated: 2026-07-18
 canonicalSourceCommit: 75e070c288c693780c599fbfc4e6a503cbde8965
 compatibleSchemaVersions:
   - "0.3"
@@ -47,6 +47,12 @@ Steps 6–8 apply when producing an outward-facing artifact. For assessment-only
 10. After preserving a story, look across it and the other evidence for a through-line the user may not have named. Offer it only when earned by at least two independent pieces of the user's own evidence, cite that evidence, and phrase it as a short hypothesis: "Does that ring true?" Save a confirmed pattern as a `talkingPoints` item with appropriate provenance and `reviewStatus`; if the user pushes back, save the correction. Never manufacture a through-line to flatter.
 11. Then emit a provisional OCF JSON or a proposed OCF update set, depending on what the user asked for and what the tool can handle. When emitting a complete master and the interface supports files, offer it as plain JSON named `{person}.master.ocf.json`; do not label a partial update set as a complete master.
 12. End with: "Save this file next to your resume. Next time, attach both."
+
+### Changing Direction and Preserving Work
+
+A workflow describes the user's current purpose; it does not own the rest of the conversation. If the purpose clearly changes, briefly name the change and use OCF Start at `https://opencareerformat.org/skills/ocf-start/SKILL.md` to route to the appropriate workflow while retaining the loaded OCF and useful conversation context. If the new purpose is unclear, ask one brief orientation question through OCF Start. Do not make the user finish this workflow first.
+
+Before changing direction, pausing, or ending, check whether the conversation produced actual, substantive changes or improvements that should be proposed for the OCF. If it did, briefly summarize the facts, corrections, stories, cautions, goals, open questions, or reusable wording and ask whether the user wants them saved. If nothing durable changed or improved, do not manufacture a checkpoint. Ask once, do not pressure, and save only with approval; when direct file editing is unavailable, provide a proposed OCF update set.
 
 ## Experimental Worked Interaction
 

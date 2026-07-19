@@ -4,6 +4,13 @@ All notable changes to the Open Career Format specification and reference implem
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
+## 2026-07-18
+
+### Changed
+
+- Added a profile-and-bio workflow for LinkedIn, website About pages, professional bios, speaker bios, and similar public self-description using an existing OCF without defaulting to resume-style evidence gathering.
+- Made OCF Start a continuing router across workflow changes, added conditional continuity checkpoints, and published a generated SHA-256 manifest so installed skills can notice newer canonical copies without silently updating themselves.
+
 ## 2026-07-17
 
 ### Changed

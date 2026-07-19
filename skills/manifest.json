@@ -1,0 +1,23 @@
+{
+  "manifestVersion": 1,
+  "skills": {
+    "ocf-export-career-ops": {
+      "path": "skills/ocf-export-career-ops/SKILL.md",
+      "url": "https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md",
+      "lastUpdated": "2026-07-13",
+      "sha256": "3d7157f7391405a98deeae3c9fab8a663204733e49d6640950dec0aefa1fd7b9"
+    },
+    "ocf-setup": {
+      "path": "skills/ocf-setup/SKILL.md",
+      "url": "https://opencareerformat.org/skills/ocf-setup/SKILL.md",
+      "lastUpdated": "2026-06-21",
+      "sha256": "89010a4bc8925908479a887eb067aae5e5c3197144b95f10487fd14fd9f35a32"
+    },
+    "ocf-start": {
+      "path": "skills/ocf-start/SKILL.md",
+      "url": "https://opencareerformat.org/skills/ocf-start/SKILL.md",
+      "lastUpdated": "2026-07-18",
+      "sha256": "83f4de7716592873952a011e613ec6a1794670b0e713f7a86ee09cee2e170833"
+    }
+  }
+}

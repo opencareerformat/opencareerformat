@@ -1,7 +1,7 @@
 ---
 ocfPrompt: curation
 status: current
-lastUpdated: 2026-07-17
+lastUpdated: 2026-07-18
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -17,6 +17,8 @@ This file holds an optional prompt for curation tools that use an Open Career Fo
 OCF stores career memory. Authoring creates or updates that memory. Curation selects, questions, ranks, and improves that memory against a target, audience, concern, or output.
 
 If the conversation turns primarily into helping the user discover their story, understand their own voice, name their boundaries, or decide what they want, switch to the coaching prompt. Bring the result back to curation when there is a target or output to prepare.
+
+If the conversation turns into broader public self-description for LinkedIn, a website About page, a professional bio, or a speaker bio, switch to `https://opencareerformat.org/prompts/profile-and-bio.md` rather than continuing job-target evidence gathering.
 
 Tools may use this prompt verbatim, adapt it, or replace it entirely.
 
@@ -51,6 +53,12 @@ After asking the user any necessary questions and obtaining permission for priva
 
 - **Proposed OCF improvements**: facts, achievements, cautions, goals, open questions, narrative variants, provenance updates, or other changes for the user to approve before they are written to the master.
 - **Export-ready input**: selected, ranked, reviewed content prepared for an exporter. The exporter's job is to produce files, not make career judgment.
+
+### Changing Direction and Preserving Work
+
+A workflow describes the user's current purpose; it does not own the rest of the conversation. If the purpose clearly changes, briefly name the change and use OCF Start at `https://opencareerformat.org/skills/ocf-start/SKILL.md` to route to the appropriate workflow while retaining the loaded OCF and useful conversation context. If the new purpose is unclear, ask one brief orientation question through OCF Start. Do not make the user finish this workflow first.
+
+Before changing direction, pausing, or ending, check whether the conversation produced actual, substantive changes or improvements that should be proposed for the OCF. If it did, briefly summarize the facts, corrections, stories, cautions, goals, open questions, or reusable wording and ask whether the user wants them saved. If nothing durable changed or improved, do not manufacture a checkpoint. Ask once, do not pressure, and save only with approval; when direct file editing is unavailable, provide a proposed OCF update set.
 
 ### Curation Principles
 

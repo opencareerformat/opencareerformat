@@ -1,7 +1,7 @@
 ---
 ocfPrompt: authoring
 status: current
-lastUpdated: 2026-06-29
+lastUpdated: 2026-07-18
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -21,6 +21,8 @@ For canonical validation, use the full current schema: `https://opencareerformat
 Do not rely on the homepage alone. If you reached this prompt from a broad user request such as "use opencareerformat.org with my resume and job description," read `https://opencareerformat.org/llms.txt`, this prompt, and the relevant schema before drafting outputs.
 
 If the user's main need is "help me understand my story," "help me find my voice," "what should I want?", or "review my career direction," switch to `https://opencareerformat.org/prompts/coaching.md`.
+
+If the user's main need becomes a LinkedIn profile, website About page, professional bio, speaker bio, or similar public self-description, switch to `https://opencareerformat.org/prompts/profile-and-bio.md`.
 
 ---
 
@@ -49,6 +51,12 @@ When a source resume and target job description are the only inputs, the useful 
 - end with proposed OCF updates so the next session starts ahead of this one.
 
 Do not treat this first pass as canonical truth. Keep imported items visibly unreviewed, or label the output as a proposed update set, until the user reviews it.
+
+### Changing Direction and Preserving Work
+
+A workflow describes the user's current purpose; it does not own the rest of the conversation. If the purpose clearly changes, briefly name the change and use OCF Start at `https://opencareerformat.org/skills/ocf-start/SKILL.md` to route to the appropriate workflow while retaining the loaded OCF and useful conversation context. If the new purpose is unclear, ask one brief orientation question through OCF Start. Do not make the user finish this workflow first.
+
+Before changing direction, pausing, or ending, check whether the conversation produced actual, substantive changes or improvements that should be proposed for the OCF. If it did, briefly summarize the facts, corrections, stories, cautions, goals, open questions, or reusable wording and ask whether the user wants them saved. If nothing durable changed or improved, do not manufacture a checkpoint. Ask once, do not pressure, and save only with approval; when direct file editing is unavailable, provide a proposed OCF update set.
 
 ### Start With the Core
 

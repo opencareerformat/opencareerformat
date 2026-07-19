@@ -26,6 +26,7 @@ The prompts are examples of useful approaches, not a prescribed elicitation meth
 - Language gateways for the application bootstrap: [`Español`](application-bootstrap.es.md), [`Français`](application-bootstrap.fr.md), [`Deutsch`](application-bootstrap.de.md), [`Português`](application-bootstrap.pt.md), and [`日本語`](application-bootstrap.ja.md). Each wrapper asks the model to use the current canonical English bootstrap while conversing in the selected language.
 - [`authoring.md`](authoring.md): create or update an OCF from resumes, notes, conversations, or other source artifacts.
 - [`curation.md`](curation.md): select, question, rank, improve, and prepare content for a target or export.
+- [`profile-and-bio.md`](profile-and-bio.md): use existing OCF career memory to create LinkedIn, website About, professional bio, speaker bio, and similar public self-description while preserving durable discoveries.
 - [`coaching.md`](coaching.md): help a user discover story, voice, goals, boundaries, and reflection from their OCF.
 - [`llm-operating.md`](llm-operating.md): baseline behavior for conversational LLM use of OCF.
 - [`interview-prep-questions.md`](interview-prep-questions.md): recommended reflection questions and portable `kind` strings.
@@ -34,7 +35,9 @@ The prompts are examples of useful approaches, not a prescribed elicitation meth
 
 Skills and prompts use the same OCF guidance. The prompt works anywhere you can paste text. The skill adds local file management: where the master lives, where backups go, where sources are stored, and where each application's outputs belong. All still under your control, and fully open and readable.
 
-If an agent environment supports reusable skills, use [`../skills/ocf-start/SKILL.md`](../skills/ocf-start/SKILL.md) as the front-door router. It may route to [`../skills/ocf-setup/SKILL.md`](../skills/ocf-setup/SKILL.md) for local workspace organization, then to the appropriate prompt for the user's goal.
+If an agent environment supports reusable skills, use [`../skills/ocf-start/SKILL.md`](../skills/ocf-start/SKILL.md) as the shared router. It may route to [`../skills/ocf-setup/SKILL.md`](../skills/ocf-setup/SKILL.md) for local workspace organization, then to the appropriate prompt for the user's goal.
+
+OCF Start remains the shared router after the initial handoff. When the user's purpose changes, each mode should checkpoint actual unsaved OCF improvements when they exist, then return to OCF Start for the next route without discarding the loaded OCF or useful conversation context.
 
 ## Metadata
 

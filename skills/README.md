@@ -8,6 +8,10 @@ Skills and prompts use the same OCF guidance. The prompt works anywhere you can 
 
 OCF is not hiding changes behind the website. Git history shows what changed and when. Use the latest skills unless you intentionally need historical behavior from Git history. Schema versions are separate: use the latest schema unless you need to pin a specific version.
 
+[`manifest.json`](manifest.json) records the canonical path, update date, and SHA-256 hash for each published skill. OCF Start may use it to notice that an installed copy is behind, but updates remain user-approved and never happen silently.
+
+The hash detects whether an installed copy differs from the canonical published file. It does not independently authenticate the OCF website or repository.
+
 ## Current Skills
 
 - [`ocf-start`](ocf-start/SKILL.md): front-door router for deciding what the user has, what they are trying to do, and which OCF workflow to use next.
