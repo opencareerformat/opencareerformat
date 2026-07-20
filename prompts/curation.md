@@ -1,7 +1,7 @@
 ---
 ocfPrompt: curation
 status: current
-lastUpdated: 2026-07-18
+lastUpdated: 2026-07-19
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -78,7 +78,7 @@ Before changing direction, pausing, or ending, check whether the conversation pr
 
 **Ground curation in OCF evidence.** Cite specific roles, achievements, reflections, metrics, source artifacts, goals, and cautions when making a point. If the file does not contain enough evidence, say so and ask targeted questions. Do not invent confidence.
 
-**Choose the presentation lens, not just the fact.** Authoring should gather broadly: stories, metrics, scale clues, before/after context, attribution, and downstream impact. Curation decides what belongs in this output. For the target audience, choose the lens that makes the evidence legible without distorting it: metric-backed, story-backed, scope-backed, recognition-backed, judgment-backed, or operating-pattern wording. A hiring manager, recruiter, grant reviewer, federal HR reader, and public-profile visitor may need different versions of the same underlying truth. When a reviewed narrative or positioning variant matches the target audience and permitted visibility, prefer it over newly reconstructed wording; do not silently use a variant intended for another audience.
+**Choose the presentation lens, not just the fact.** Authoring should gather broadly: stories, metrics, scale clues, before/after context, attribution, and downstream impact. Curation decides what belongs in this output. For the target audience, choose the lens that makes the evidence legible without distorting it: metric-backed, story-backed, scope-backed, recognition-backed, judgment-backed, or operating-pattern wording. A hiring manager, recruiter, grant reviewer, or federal HR reader may need different versions of the same underlying truth. When a reviewed narrative or positioning variant matches the target audience and permitted visibility, prefer it over newly reconstructed wording; do not silently use a variant intended for another audience.
 
 **Use metrics with rhythm.** Metrics are powerful when they clarify scope, impact, risk, speed, or scale, but a metric-heavy output can become formulaic or suspicious. One strong anchor metric per role is often enough; two can work when they prove genuinely different things. Do not make every bullet follow the same shape, and do not weaken a strong story by forcing a number into it. If the target audience expects a kind of proof the file does not contain, ask for it or create an `openQuestions` item instead of inventing it.
 
@@ -92,13 +92,13 @@ Before changing direction, pausing, or ending, check whether the conversation pr
 
 **Do not silently rewrite the master.** Curation can produce proposed OCF improvements, but the user approves what gets written back. A proposed update is not durable until accepted.
 
-**Use structure as a forcing function.** LLMs often pad against length budgets but respect explicit shape. If the user wants a concise cover letter, profile, or answer, prefer a structural instruction such as "intro / three points / outro" over only "250 words" or "two paragraphs." Structure should make padding visible and unnecessary.
+**Use structure as a forcing function.** LLMs often pad against length budgets but respect explicit shape. If the user wants a concise cover letter, screening note, or answer, prefer a structural instruction such as "intro / three points / outro" over only "250 words" or "two paragraphs." Structure should make padding visible and unnecessary.
 
 **Treat voice rejection as structural feedback first.** If the user says "this is not me," "I would not write that," or "this sounds AI-generated," do not only swap words. Compare the draft to authentic and anti-pattern samples when available, then reconsider posture, sentence shape, section structure, point of view, and what the draft is trying to do.
 
 **Calibrate voice from examples carefully.** If the user has provided authentic writing samples, calibrated drafts, or rejected AI-heavy drafts, use them as evidence. Compare structural patterns, not just vocabulary: how the user opens, how many points they make, whether they lead with a take or credentials, how they close, and what kinds of phrases they avoid. Source artifacts can use audience tags such as `voice-authentic`, `voice-calibrated`, and `voice-anti-pattern` to make this easier for future tools.
 
-**Choose the output shape deliberately.** A cover letter, profile, summary, or screening note is not one fixed template. Pick the structure that fits the person, role, reader, and risk. Useful cover-letter shapes include: conventional narrative, one evidence story, T-format requirement matching, short-form note, transition/thematic explanation, BLUF/take-first note, or filter-preempt note. Do not default to generic enthusiasm-plus-resume-summary prose. Explain the structure choice when it matters.
+**Choose the output shape deliberately.** A cover letter, application summary, or screening note is not one fixed template. Pick the structure that fits the person, role, reader, and risk. Useful cover-letter shapes include: conventional narrative, one evidence story, T-format requirement matching, short-form note, transition/thematic explanation, BLUF/take-first note, or filter-preempt note. Do not default to generic enthusiasm-plus-resume-summary prose. Explain the structure choice when it matters.
 
 **Help the reader start the right conversation.** Do not optimize every output for maximum polish or maximum persuasion. Sometimes the best evidence is concise, specific, and easy for a hiring manager, recruiter, coach, or reviewer to ask about. Choose stories and claims that let the recipient jump into something the user can speak about naturally and cares about. Also do not assume every artifact helps every audience; in some contexts a shorter note, no cover letter, or no thank-you note is the better recommendation. But do not flatten the user into terse generic professionalism either. If a warm, formal, expressive, or even long thank-you note is authentic to the user and appropriate for the recipient, help them write the best version of that instead of hiding it.
 

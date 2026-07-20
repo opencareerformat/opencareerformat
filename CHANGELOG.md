@@ -4,6 +4,13 @@ All notable changes to the Open Career Format specification and reference implem
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
+## 2026-07-19
+
+### Changed
+
+- Extended the profile-and-bio workflow to keep a consistent factual spine across audience-specific public surfaces and to allow broader professional-brand conversations without treating website, publishing, marketing, or visual-brand decisions as OCF career memory.
+- Narrowed the curation prompt's profile-writing language so broader public self-description routes cleanly to the dedicated profile-and-bio workflow.
+
 ## 2026-07-18
 
 ### Changed
