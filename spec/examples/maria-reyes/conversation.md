@@ -299,6 +299,8 @@ Files used in the conversation:
 > - **Executive judgment under pressure:** The full ransomware story, including the forensic work, recommendation against payment, and commitment to a recovery timeline.
 > - **Failure and learning:** Underinvesting in security awareness while prioritizing the SOC, then recognizing that technical controls and human-risk programs have different time-to-impact curves.
 
+**Privacy note:** Permission to include private information in a particular application is not automatically permission to send it to the model drafting that application. Clearance history is a useful example: Maria might approve a precise statement for this government-contractor resume while choosing not to share the underlying private information with an externally hosted LLM. Depending on her privacy concerns, she could use a local model, provide only a minimal curated statement, or add the approved wording herself after the rest of the document is drafted.
+
 ### The Conversation Improves The Career Memory
 
 > **Maria:** The private-sector summary is wrong. What I meant was that I have about 10 years in dedicated cybersecurity beginning when I reclassified to 17C in January 2016. My civilian employment began in 2018.
