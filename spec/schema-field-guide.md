@@ -242,6 +242,23 @@ Good importer behavior:
 
 Use `job-description` for employer-provided role descriptions and `application-draft` for material the candidate or tool created for an application.
 
+Use `conversation` for a retained exchange or verbatim answer from an OCF session, even when only one answer becomes the durable artifact. Use `manual-note` for a standalone note authored outside a conversation. A session answer may initially look like informal notes and later become the most valuable source captured that day. If material from another chat is pasted into the current workflow as input, use `chat-paste` for the artifact as received.
+
+```json
+{
+  "id": "leadership-story-conversation-2026-07-21",
+  "kind": "conversation",
+  "label": "Verbatim answer about the first management transition",
+  "capturedDate": {
+    "year": 2026,
+    "month": 7,
+    "day": 21
+  },
+  "rawIncluded": true,
+  "visibility": "private"
+}
+```
+
 `sourceArtifacts.audience` is free-form and can also support voice calibration. Useful tags include `voice-authentic` for writing that sounds like the person, `voice-calibrated` for assisted writing the person has accepted as representative, and `voice-anti-pattern` for AI-heavy or rejected drafts that future tools should not imitate.
 
 ## `provenance`
