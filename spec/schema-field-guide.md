@@ -259,6 +259,8 @@ Use `conversation` for a retained exchange or verbatim answer from an OCF sessio
 }
 ```
 
+Raw conversation artifacts often remain private even when user-approved facts, achievements, talking points, or wording derived from them are shared. Give each derived item its own visibility and retain provenance back to the private source.
+
 `sourceArtifacts.audience` is free-form and can also support voice calibration. Useful tags include `voice-authentic` for writing that sounds like the person, `voice-calibrated` for assisted writing the person has accepted as representative, and `voice-anti-pattern` for AI-heavy or rejected drafts that future tools should not imitate.
 
 ## `provenance`
@@ -600,6 +602,8 @@ Use variants for:
 
 If a variant introduces a new fact, promote that fact into canonical structured fields or create an `openQuestions` item.
 
+When the user confirms a new target industry, missing industry-specific variant coverage is an opportunity to ask, not permission to invent a new framing. Show the current default and relevant variants, then ask what that audience should understand differently. Create a new variant only from the user's confirmed context and wording, and keep an existing version when nothing materially changes.
+
 ## Reflections
 
 Reflections are private review and conversation material. They are not resume bullets.
@@ -721,7 +725,9 @@ Do not treat a positioning variant as a new canonical fact. A curator chooses it
 
 These fields guide future conversations.
 
-`goals` describes where the person is trying to go.
+`goals` describes reusable career direction: role shapes, locations, motivations, preferences, and constraints that should guide future conversations.
+
+An application can prompt a goal-discovery question, but it is not itself a goal. Ask whether the role represents a broader direction. If the user confirms that it does, store the reusable role shape and preferences in `goals`; keep the employer-specific pipeline stage, follow-up dates, outcome, and other application state in an external workflow or producer-owned extension. Do not turn one application into a persistent objective that future tools repeatedly ask the user to resolve.
 
 `voice` describes how drafts should sound.
 

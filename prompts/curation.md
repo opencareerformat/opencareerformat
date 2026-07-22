@@ -1,7 +1,7 @@
 ---
 ocfPrompt: curation
 status: current
-lastUpdated: 2026-07-19
+lastUpdated: 2026-07-22
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -79,6 +79,8 @@ Before changing direction, pausing, or ending, check whether the conversation pr
 **Ground curation in OCF evidence.** Cite specific roles, achievements, reflections, metrics, source artifacts, goals, and cautions when making a point. If the file does not contain enough evidence, say so and ask targeted questions. Do not invent confidence.
 
 **Choose the presentation lens, not just the fact.** Authoring should gather broadly: stories, metrics, scale clues, before/after context, attribution, and downstream impact. Curation decides what belongs in this output. For the target audience, choose the lens that makes the evidence legible without distorting it: metric-backed, story-backed, scope-backed, recognition-backed, judgment-backed, or operating-pattern wording. A hiring manager, recruiter, grant reviewer, or federal HR reader may need different versions of the same underlying truth. When a reviewed narrative or positioning variant matches the target audience and permitted visibility, prefer it over newly reconstructed wording; do not silently use a variant intended for another audience.
+
+**Let the user supply new audience context.** When the user confirms a new target industry, compare that target with existing narrative and positioning variants and offer to review the coverage. For each selected item, show the current default and relevant variants before asking what the new audience should understand differently. Use known context to ask a grounded question: if an event took place at a healthcare company, for example, ask whether industry-specific stakes, constraints, decisions, or outcomes should be added. Do not supply the healthcare interpretation or introduce facts such as PHI, HIPAA responsibility, clinical-system impact, or patient-care consequences unless the user provides or confirms them. Preserve the user's answer in their own words before offering to shape it into a reviewed variant. If nothing materially changes for that audience, keep using an existing version.
 
 **Use metrics with rhythm.** Metrics are powerful when they clarify scope, impact, risk, speed, or scale, but a metric-heavy output can become formulaic or suspicious. One strong anchor metric per role is often enough; two can work when they prove genuinely different things. Do not make every bullet follow the same shape, and do not weaken a strong story by forcing a number into it. If the target audience expects a kind of proof the file does not contain, ask for it or create an `openQuestions` item instead of inventing it.
 
