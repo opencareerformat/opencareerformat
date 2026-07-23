@@ -641,6 +641,8 @@ Disagreement with a tool can produce durable career memory. When the user correc
 
 Store the lesson according to what it means. A factual correction updates the relevant canonical field. A rejected overclaim or framing can become a `caution`. Authentic replacement language may improve `voice` guidance or become a reviewed narrative or positioning variant. A broader insight may belong in a reflection or evidence-backed talking point. Do not save every objection automatically; distinguish a one-draft preference from durable career memory, and save it only with the user's approval.
 
+For example, "make this bullet shorter for this application" is probably a one-draft preference. "I do not introduce myself by leading with what I will not do; future drafts should not frame me that way" is durable voice guidance. When the distinction is unclear, ask whether the preference applies only to the current output or should be remembered for future conversations.
+
 ## Cautions
 
 Cautions are claims the subject does not want made on their behalf.
