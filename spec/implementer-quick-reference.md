@@ -62,6 +62,7 @@ OCF files are portable. Treat a file you received from another party as untruste
 Importers should:
 
 - Register inputs in `sourceArtifacts`.
+- Treat extracted text as a machine reading of a rendered source, not automatic source truth. Compare suspicious extraction with the visible artifact or ask the user before preserving it as career history.
 - Set `meta.source.kind` to `imported` or `converted`.
 - Default mined durable items to `reviewStatus: "unreviewed"` or `"needs-review"` until accepted.
 - Add provenance and confidence when mining facts.
@@ -82,7 +83,10 @@ Exporters should:
 - Prefer `export-ready` input.
 - Never include `private` items unless the user explicitly chose a private recipient-specific output.
 - Treat JSON Resume, LinkedIn, Schema.org, LER-RS, vCard, PDF, and DOCX as lossy targets.
+- For generated PDFs and other rendered documents, inspect both the visible rendering and independently extracted text. Compare normalized extraction with intended content and investigate corruption, omissions, duplication, or broken reading order.
 - Emit review warnings when the input is not export-ready or when important OCF concepts cannot be represented.
+
+Missing Unicode maps, replacement characters, mojibake, and unexpected symbols are useful extraction warnings, not proof by themselves. Passing one parser does not guarantee compatibility with every ATS or document-processing system.
 
 Editors should:
 

@@ -251,6 +251,7 @@
 
 <ul>
 <li>Register inputs in <code>sourceArtifacts</code>.</li>
+<li>Treat extracted text as a machine reading of a rendered source, not automatic source truth. Compare suspicious extraction with the visible artifact or ask the user before preserving it as career history.</li>
 <li>Set <code>meta.source.kind</code> to <code>imported</code> or <code>converted</code>.</li>
 <li>Default mined durable items to <code>reviewStatus: &quot;unreviewed&quot;</code> or <code>&quot;needs-review&quot;</code> until accepted.</li>
 <li>Add provenance and confidence when mining facts.</li>
@@ -275,8 +276,11 @@
 <li>Prefer <code>export-ready</code> input.</li>
 <li>Never include <code>private</code> items unless the user explicitly chose a private recipient-specific output.</li>
 <li>Treat JSON Resume, LinkedIn, Schema.org, LER-RS, vCard, PDF, and DOCX as lossy targets.</li>
+<li>For generated PDFs and other rendered documents, inspect both the visible rendering and independently extracted text. Compare normalized extraction with intended content and investigate corruption, omissions, duplication, or broken reading order.</li>
 <li>Emit review warnings when the input is not export-ready or when important OCF concepts cannot be represented.</li>
 </ul>
+
+<p>Missing Unicode maps, replacement characters, mojibake, and unexpected symbols are useful extraction warnings, not proof by themselves. Passing one parser does not guarantee compatibility with every ATS or document-processing system.</p>
 
 <p>Editors should:</p>
 

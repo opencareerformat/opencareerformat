@@ -239,6 +239,8 @@ Good importer behavior:
 - create `openQuestions` for uncertainty
 - avoid treating imported material as intentionally shareable just because normal authored items default to `shared`
 
+Treat extracted text as a machine reading of the source artifact, not as the artifact itself. PDF font encoding, reading order, ligatures, OCR, and parser behavior can corrupt text that renders correctly. For example, a PDF may visibly say "Staff engineer" while mechanical extraction returns "Sta% engineer" because the font lacks a usable Unicode map. Compare suspicious extraction with the rendered source and ask the user when necessary. Preserve the confirmed intended wording in OCF, not the extraction defect.
+
 `sourceArtifact.kind` and `provenance.source` are deliberately different vocabularies. `sourceArtifact.kind` describes the artifact itself (`resume`, `linkedin-export`, `job-description`, `photo`, `video`, `conversation`, `chat-paste`, `interview-transcript`). `provenance.source` describes how the OCF item came into the file (`authored`, `imported`, `interview-derived`, `llm-suggested`, `curated`, `translated`, `merged`). For example, wording pasted into chat should usually have a `sourceArtifact.kind` of `chat-paste` and a `provenance.source` of `imported` or `llm-suggested`, with `sourceArtifactId` linking the two.
 
 Use `job-description` for employer-provided role descriptions and `application-draft` for material the candidate or tool created for an application.
@@ -263,6 +265,8 @@ Use `conversation` for a retained exchange or verbatim answer from an OCF sessio
 Raw conversation artifacts often remain private even when user-approved facts, achievements, talking points, or wording derived from them are shared. Give each derived item its own visibility and retain provenance back to the private source.
 
 `sourceArtifacts.audience` is free-form and can also support voice calibration. Useful tags include `voice-authentic` for writing that sounds like the person, `voice-calibrated` for assisted writing the person has accepted as representative, and `voice-anti-pattern` for AI-heavy or rejected drafts that future tools should not imitate.
+
+Keep a rejected draft only when it demonstrates a durable caution, voice rule, or structural lesson. For example, retain one rejected cover-letter opening when the user's explanation produced the rule "do not introduce me by leading with what I will not do." Do not retain every shorter rewrite that was discarded while editing that letter. Keep representative examples and remove redundant ones over time.
 
 ## `provenance`
 
@@ -601,6 +605,8 @@ Use variants for:
 - interview-prep framing
 - translated or localized wording
 
+Variants should represent reusable audience or purpose distinctions, not one-off wording for a named recipient. The healthcare-security variant above is reusable because patient-care continuity may matter across healthcare audiences. Changing its greeting or selecting one sentence for a particular hiring manager belongs in the current output unless the conversation reveals a framing worth reusing.
+
 If a variant introduces a new fact, promote that fact into canonical structured fields or create an `openQuestions` item.
 
 When the user confirms a new target industry, missing industry-specific variant coverage is an opportunity to ask, not permission to invent a new framing. Show the current default and relevant variants, then ask what that audience should understand differently. Create a new variant only from the user's confirmed context and wording, and keep an existing version when nothing materially changes.
@@ -635,6 +641,14 @@ Use reflections for material that helps a person prepare, improve, or remember:
 
 Reflections can seed achievements. Keep both when useful: the reflection preserves raw memory and voice; the achievement stores the distilled shareable claim.
 
+When a fact, opinion, correction, or aside hints at a useful story, offer one natural probe. For example:
+
+> **User:** I never liked calling that project a digital transformation.
+>
+> **Tool:** What did you call the change when you explained it to the people doing the work?
+
+If the user engages, follow their energy with one question at a time. If they answer briefly, deflect, or move on, stop without pressure. Preserve what surfaces in their own words and propose the appropriate OCF update before saving it.
+
 ## Corrections And Pushback
 
 Disagreement with a tool can produce durable career memory. When the user corrects, rejects, narrows, or reframes a suggestion, listen to the explanation rather than treating it as a request for another rewrite. Preserve the user's wording and ask whether future tools should remember what the conversation revealed.
@@ -667,6 +681,18 @@ Write `claim` as the claim or framing a tool might make, such as "claimed as..."
 Use cautions when a tool, coach, recruiter, or draft overstates something and the user corrects it. Cautions are not weaknesses; they are positioning constraints.
 
 Cautions can also capture writing anti-patterns, not only factual overclaims. A useful caution might be "do not describe this as a transformational journey" or "do not use the phrase uniquely positioned" when the user has rejected that voice. These are still guardrails for future curation: things the tool should not claim, imply, or sound like on the person's behalf.
+
+A weak caution records only the correction: "The Atlas migration was co-led, not led." A stronger caution also records the failure signature and standing rule:
+
+```json
+{
+  "claim": "Sole-leadership framing for the Atlas migration, including 'led', 'my team', or 'I built'",
+  "reason": "The work had two program leads. Future summaries must preserve shared attribution even when compressing the story.",
+  "visibility": "private"
+}
+```
+
+The stronger form helps future tools recognize the same overclaim when it returns through paraphrasing or compression. A caution can prevent the first drift; it does not require a documented history of prior mistakes.
 
 ## Open Questions
 
@@ -1016,6 +1042,10 @@ An exporter turns export-ready input into files:
 - interview-prep packet
 
 Exporters should not decide which private career facts belong. That is curation.
+
+Review rendered documents twice: once as a person sees them and once as a machine reads them. Before sharing a generated PDF, visually inspect the rendering and extract its text with an independent parser. Compare the normalized extraction with the intended content and investigate missing, corrupted, duplicated, or badly reordered text.
+
+For example, a PDF that visibly renders "Staff engineer" but extracts as "Sta% engineer" has failed output review even though the page looks correct. Missing Unicode maps, replacement characters, mojibake, and unexpected symbols are useful warnings, not conclusive tests. Passing one extraction tool does not guarantee compatibility with every ATS or document parser.
 
 ## Common Pitfalls
 

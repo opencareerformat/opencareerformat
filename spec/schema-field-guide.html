@@ -417,6 +417,8 @@
 <li>avoid treating imported material as intentionally shareable just because normal authored items default to <code>shared</code></li>
 </ul>
 
+<p>Treat extracted text as a machine reading of the source artifact, not as the artifact itself. PDF font encoding, reading order, ligatures, OCR, and parser behavior can corrupt text that renders correctly. For example, a PDF may visibly say &quot;Staff engineer&quot; while mechanical extraction returns &quot;Sta% engineer&quot; because the font lacks a usable Unicode map. Compare suspicious extraction with the rendered source and ask the user when necessary. Preserve the confirmed intended wording in OCF, not the extraction defect.</p>
+
 <p><code>sourceArtifact.kind</code> and <code>provenance.source</code> are deliberately different vocabularies. <code>sourceArtifact.kind</code> describes the artifact itself (<code>resume</code>, <code>linkedin-export</code>, <code>job-description</code>, <code>photo</code>, <code>video</code>, <code>conversation</code>, <code>chat-paste</code>, <code>interview-transcript</code>). <code>provenance.source</code> describes how the OCF item came into the file (<code>authored</code>, <code>imported</code>, <code>interview-derived</code>, <code>llm-suggested</code>, <code>curated</code>, <code>translated</code>, <code>merged</code>). For example, wording pasted into chat should usually have a <code>sourceArtifact.kind</code> of <code>chat-paste</code> and a <code>provenance.source</code> of <code>imported</code> or <code>llm-suggested</code>, with <code>sourceArtifactId</code> linking the two.</p>
 
 <p>Use <code>job-description</code> for employer-provided role descriptions and <code>application-draft</code> for material the candidate or tool created for an application.</p>
@@ -439,6 +441,8 @@
 <p>Raw conversation artifacts often remain private even when user-approved facts, achievements, talking points, or wording derived from them are shared. Give each derived item its own visibility and retain provenance back to the private source.</p>
 
 <p><code>sourceArtifacts.audience</code> is free-form and can also support voice calibration. Useful tags include <code>voice-authentic</code> for writing that sounds like the person, <code>voice-calibrated</code> for assisted writing the person has accepted as representative, and <code>voice-anti-pattern</code> for AI-heavy or rejected drafts that future tools should not imitate.</p>
+
+<p>Keep a rejected draft only when it demonstrates a durable caution, voice rule, or structural lesson. For example, retain one rejected cover-letter opening when the user's explanation produced the rule &quot;do not introduce me by leading with what I will not do.&quot; Do not retain every shorter rewrite that was discarded while editing that letter. Keep representative examples and remove redundant ones over time.</p>
 
 <h2 id="provenance"><code>provenance</code></h2>
 
@@ -757,6 +761,8 @@
 <li>translated or localized wording</li>
 </ul>
 
+<p>Variants should represent reusable audience or purpose distinctions, not one-off wording for a named recipient. The healthcare-security variant above is reusable because patient-care continuity may matter across healthcare audiences. Changing its greeting or selecting one sentence for a particular hiring manager belongs in the current output unless the conversation reveals a framing worth reusing.</p>
+
 <p>If a variant introduces a new fact, promote that fact into canonical structured fields or create an <code>openQuestions</code> item.</p>
 
 <p>When the user confirms a new target industry, missing industry-specific variant coverage is an opportunity to ask, not permission to invent a new framing. Show the current default and relevant variants, then ask what that audience should understand differently. Create a new variant only from the user's confirmed context and wording, and keep an existing version when nothing materially changes.</p>
@@ -791,6 +797,14 @@
 
 <p>Reflections can seed achievements. Keep both when useful: the reflection preserves raw memory and voice; the achievement stores the distilled shareable claim.</p>
 
+<p>When a fact, opinion, correction, or aside hints at a useful story, offer one natural probe. For example:</p>
+
+<blockquote><p><strong>User:</strong> I never liked calling that project a digital transformation.</p>
+
+<p><strong>Tool:</strong> What did you call the change when you explained it to the people doing the work?</p></blockquote>
+
+<p>If the user engages, follow their energy with one question at a time. If they answer briefly, deflect, or move on, stop without pressure. Preserve what surfaces in their own words and propose the appropriate OCF update before saving it.</p>
+
 <h2 id="corrections-and-pushback">Corrections And Pushback</h2>
 
 <p>Disagreement with a tool can produce durable career memory. When the user corrects, rejects, narrows, or reframes a suggestion, listen to the explanation rather than treating it as a request for another rewrite. Preserve the user's wording and ask whether future tools should remember what the conversation revealed.</p>
@@ -821,6 +835,16 @@
 <p>Use cautions when a tool, coach, recruiter, or draft overstates something and the user corrects it. Cautions are not weaknesses; they are positioning constraints.</p>
 
 <p>Cautions can also capture writing anti-patterns, not only factual overclaims. A useful caution might be &quot;do not describe this as a transformational journey&quot; or &quot;do not use the phrase uniquely positioned&quot; when the user has rejected that voice. These are still guardrails for future curation: things the tool should not claim, imply, or sound like on the person's behalf.</p>
+
+<p>A weak caution records only the correction: &quot;The Atlas migration was co-led, not led.&quot; A stronger caution also records the failure signature and standing rule:</p>
+
+<pre><code class="language-json">{
+  &quot;claim&quot;: &quot;Sole-leadership framing for the Atlas migration, including 'led', 'my team', or 'I built'&quot;,
+  &quot;reason&quot;: &quot;The work had two program leads. Future summaries must preserve shared attribution even when compressing the story.&quot;,
+  &quot;visibility&quot;: &quot;private&quot;
+}</code></pre>
+
+<p>The stronger form helps future tools recognize the same overclaim when it returns through paraphrasing or compression. A caution can prevent the first drift; it does not require a documented history of prior mistakes.</p>
 
 <h2 id="open-questions">Open Questions</h2>
 
@@ -1152,6 +1176,10 @@ Cybersecurity leader bridging military discipline with enterprise security strat
 </ul>
 
 <p>Exporters should not decide which private career facts belong. That is curation.</p>
+
+<p>Review rendered documents twice: once as a person sees them and once as a machine reads them. Before sharing a generated PDF, visually inspect the rendering and extract its text with an independent parser. Compare the normalized extraction with the intended content and investigate missing, corrupted, duplicated, or badly reordered text.</p>
+
+<p>For example, a PDF that visibly renders &quot;Staff engineer&quot; but extracts as &quot;Sta% engineer&quot; has failed output review even though the page looks correct. Missing Unicode maps, replacement characters, mojibake, and unexpected symbols are useful warnings, not conclusive tests. Passing one extraction tool does not guarantee compatibility with every ATS or document parser.</p>
 
 <h2 id="common-pitfalls">Common Pitfalls</h2>
 

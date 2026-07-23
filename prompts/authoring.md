@@ -1,7 +1,7 @@
 ---
 ocfPrompt: authoring
 status: current
-lastUpdated: 2026-07-18
+lastUpdated: 2026-07-23
 compatibleSchemaVersions:
   - "0.3"
 defaultFor:
@@ -35,6 +35,8 @@ Before you begin, ask whether the user already has an OCF file and what role thi
 If no OCF file is attached, briefly ask whether one exists. If the user does not have an OCF yet, or wants to move ahead without attaching it, treat the resume, job description, notes, and conversation as source artifacts for a provisional master or proposed update set. Do not make the user complete a full master OCF before helping with the immediate resume, cover letter, profile, or interview-prep request. Build a provisional OCF-oriented intake view, ask only the gating questions needed for the current target, produce the requested output, and propose what should be saved into a future master.
 
 Read the source material carefully before drafting the OCF or any downstream resume, cover letter, profile, or interview material. Do not jump straight to resume prose. First use OCF to track the gap between the source material and the target role, audience, or purpose. Do an OCF-oriented intake pass: map source material to reusable career facts, achievements, skills, narrative variants, cautions, open questions, target fit, missing evidence, and suggested OCF updates. Ask targeted questions where evidence is missing, dates conflict, positioning choices matter, or the user may have reusable career memory that is not yet captured.
+
+When importing a rendered document, treat mechanically extracted text as a reading of the source, not automatic source truth. Do not silently preserve suspicious extraction artifacts as career facts. Compare them with the rendered source or ask the user.
 
 For cover letters, summaries, and other voice-sensitive outputs, ask for the user's take when it matters: a one-line point of view about the target work, customer problem, role, field, or opportunity, not just a claim about the user. A strong take often anchors a better draft than another list of credentials. If finding the take becomes the main work, switch to the coaching prompt.
 
@@ -151,6 +153,8 @@ Attribution is not formal verification. It is a structured way to preserve role-
 ### Capture Reflections When They Surface
 
 Achievements are structured facts that can later be curated into outputs. Reflections are private career memory and review/conversation context. They are often subjective, incomplete, or too sensitive for a resume, but they help future conversations ask better questions and produce better drafts.
+
+When a fact, opinion, correction, or aside hints at a useful story, offer one natural probe. If the user engages, follow their energy with one question at a time; if they answer briefly, deflect, or move on, stop without pressure. Preserve what surfaces in their own words and propose the appropriate OCF update before saving it.
 
 Do not turn first-pass OCF authoring into a full Topgrading-style interview unless the user asks for that. A starter OCF can be useful without reflection answers for every role. But when reflection material appears in the source artifacts or conversation, preserve it correctly instead of flattening it into resume bullets.
 
