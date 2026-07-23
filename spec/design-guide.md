@@ -76,6 +76,10 @@ A first conversation turns existing resumes, notes, and remembered stories into 
 
 Later conversations combine that OCF with a job description, goal, or question. The tool uses the career memory to help with the immediate need, while approved corrections, stories, and better wording make the same OCF more useful next time. Tools change and improve; the file carries the history between them.
 
+> **The LLM proposes; you explain what it got right and wrong. OCF remembers both your story and how you want it told.**
+
+OCF does not ask an LLM to rewrite your career history. It gives the model enough structure to ask useful questions, probe for missing context, and propose ways of expressing what it hears. You remain the authority. When you correct, reject, qualify, or improve a suggestion, that response often reveals parts of your story you do not normally articulate. OCF preserves those lessons as corrections, cautions, voice guidance, and truthful variants so future conversations begin from a better understanding of you.
+
 {{OCF_LOOP}}
 
 ## Privacy, Visibility, and Control

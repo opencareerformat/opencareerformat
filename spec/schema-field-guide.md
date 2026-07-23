@@ -35,6 +35,7 @@ OCF is deliberately a file format, not a platform. The schema defines what can b
 - [Metrics](#metrics)
 - [Narrative Variants](#narrative-variants)
 - [Reflections](#reflections)
+- [Corrections And Pushback](#corrections-and-pushback)
 - [Cautions](#cautions)
 - [Open Questions](#open-questions)
 - [Talking Points](#talking-points)
@@ -633,6 +634,12 @@ Use reflections for material that helps a person prepare, improve, or remember:
 - transition stories
 
 Reflections can seed achievements. Keep both when useful: the reflection preserves raw memory and voice; the achievement stores the distilled shareable claim.
+
+## Corrections And Pushback
+
+Disagreement with a tool can produce durable career memory. When the user corrects, rejects, narrows, or reframes a suggestion, listen to the explanation rather than treating it as a request for another rewrite. Preserve the user's wording and ask whether future tools should remember what the conversation revealed.
+
+Store the lesson according to what it means. A factual correction updates the relevant canonical field. A rejected overclaim or framing can become a `caution`. Authentic replacement language may improve `voice` guidance or become a reviewed narrative or positioning variant. A broader insight may belong in a reflection or evidence-backed talking point. Do not save every objection automatically; distinguish a one-draft preference from durable career memory, and save it only with the user's approval.
 
 ## Cautions
 
