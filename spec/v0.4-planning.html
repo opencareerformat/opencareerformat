@@ -523,6 +523,14 @@
 <li>Consider requiring one minimal identifying field on lightly used objects that currently allow <code>{}</code>: <code>title</code> for awards and patents, and <code>name</code> for interests. Keep the rule lightweight and confirm it against real examples before approval.</li>
 </ul>
 
+<h3>Human-Readable Achievement IDs</h3>
+
+<p>Native editors need compact and useful names for achievements because the canonical achievement text may be a full resume bullet point. In a candidate-owned workflow, the editor is usually the subject and already recognizes an internal handle such as <code>mhs-ransomware-2024</code>; the full <code>statement</code> remains available when more context is needed.</p>
+
+<p>An optional achievement <code>label</code> and reuse of <code>shortStatement</code> were considered for this purpose. Do not add either convention now. <code>shortStatement</code> is outward-facing alternate wording, not identity, and a separate <code>label</code> would duplicate information that a well-chosen ID already supplies. Prefer meaningful human-readable IDs, allow editors to humanize them for display, and keep references bound to the unchanged ID. UUIDs remain valid when collision safety matters more than readability, and the schema should not impose a restrictive slug pattern.</p>
+
+<p>Reconsider a separate label only if repeated real workflows show that subjects need a renameable display name distinct from stable identity.</p>
+
 <h3>Certification Issuers</h3>
 
 <p>The v0.3 certification issuer accepts either a display string or a structured object. The structured form is more elaborate than most OCF use requires and accidentally remains open to unknown properties. A future pass should consider a smaller closed object centered on <code>name</code> and optional <code>url</code>. More specialized issuer identifiers or verification metadata should earn first-class space through real interoperability use rather than anticipation.</p>

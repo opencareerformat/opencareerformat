@@ -488,6 +488,10 @@
 
 <p>Slug-style IDs are easier for humans to review and diff. UUIDs are acceptable when collision safety matters more than readability. Do not put a tool name or model name in the item ID; put that in <code>provenance.tool</code>.</p>
 
+<p>Choose a slug that is compact, recognizable to the subject, and durable across ordinary rewriting. It does not need to explain the item to a stranger. For example, <code>mhs-ransomware-2024</code> can be a useful internal name for an achievement even when its canonical <code>statement</code> is a full resume bullet point. In a candidate-owned workflow, the editor is usually the subject and already knows the underlying story.</p>
+
+<p>Editors may humanize a readable ID for navigation, show the full <code>statement</code> when more context is needed, and fall back to a shortened display of <code>statement</code> when no ID exists. They must not change the stored ID merely to improve its display. Do not use <code>shortStatement</code> as the internal name: it is optional, may evolve, and represents tighter outward-facing wording of the same achievement. OCF does not add a separate achievement label for this purpose unless future real-world use shows that subjects need a renameable display name distinct from stable identity.</p>
+
 <p>When <code>reviewStatus</code> is <code>superseded</code>, use <code>supersededById</code> when the replacement item is known. It is a local OCF item ID, not an embedded object and not a global identifier. Tools should verify that the referenced replacement exists before relying on it.</p>
 
 <h2 id="visibility">Visibility</h2>
