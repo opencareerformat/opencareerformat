@@ -10,13 +10,13 @@ If documents conflict: the JSON Schema wins for file structure; the most specifi
 
 Skills and prompts use the same OCF guidance. The prompt works anywhere a user can paste text. The skill adds local file management: where the master lives, where backups go, where sources are stored, and where each application's outputs belong. All still under the user's control, and fully open and readable.
 
-OCF is not hiding changes behind the website. Git history shows what changed and when. For docs, prompts, skills, examples, and guidance, use the latest version. For schema validation, use the latest schema unless the user or tool needs a pinned versioned schema.
+Published documentation, prompts, skills, examples, and guidance use the latest version. Earlier versions and changes remain available in Git history. For schema validation, use the latest schema unless the user or tool needs a pinned versioned schema.
 
 ## What to read, in what order
 
 1. Do not rely on the homepage alone. It is a short pitch and pointer page.
    If your environment supports reusable skills and the user's path is unclear, start with: https://opencareerformat.org/skills/ocf-start/SKILL.md
-   If your environment supports reusable skills and local files, start local setup with: https://opencareerformat.org/skills/ocf-setup/SKILL.md
+   OCF Start includes local setup guidance for environments that support reusable skills and local files.
    If the user wants to create or update a Career-Ops workspace from OCF, use: https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md
 2. If the user has a resume and job description and wants help with an application now, read the single-fetch bootstrap first: https://opencareerformat.org/prompts/application-bootstrap.md
 3. For broader authoring, read the starter/core schema at https://opencareerformat.org/schema-core.json first. It is a smaller authoring aid for first-pass files; canonical validation is against the full schema. Then read the authoring prompt at https://opencareerformat.org/prompts/authoring.md
@@ -38,7 +38,6 @@ OCF is not hiding changes behind the website. Git history shows what changed and
 - Implementer quick reference: https://opencareerformat.org/spec/implementer-quick-reference.md
 - Prompts index: https://opencareerformat.org/prompts/README.md
 - OCF start/router skill package: https://opencareerformat.org/skills/ocf-start/SKILL.md
-- OCF setup skill package: https://opencareerformat.org/skills/ocf-setup/SKILL.md
 - OCF Career-Ops export skill package: https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md
 - Application bootstrap prompt: https://opencareerformat.org/prompts/application-bootstrap.md
 - Language bootstrap gateways: https://opencareerformat.org/prompts/application-bootstrap.es.md, https://opencareerformat.org/prompts/application-bootstrap.fr.md, https://opencareerformat.org/prompts/application-bootstrap.de.md, https://opencareerformat.org/prompts/application-bootstrap.pt.md, https://opencareerformat.org/prompts/application-bootstrap.ja.md

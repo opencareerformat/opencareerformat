@@ -1,13 +1,19 @@
----
-name: ocf-setup
-description: Use when a user wants to start using Open Career Format locally, organize resume/job-search files, create or locate an OCF master, establish backups, or prepare a folder structure before running OCF application, curation, import, or export workflows.
----
+# Local OCF Setup
 
-# OCF Setup
+Use this reference when the user needs to create, locate, change, or reorganize a local OCF workspace.
 
-Status: current  
-Last updated: 2026-06-21  
-Compatible schema versions: OCF 0.3
+## Contents
+
+- [First Question](#first-question)
+- [Default Structure](#default-structure)
+- [Setup Workflow](#setup-workflow)
+- [Remembering The OCF Home](#remembering-the-ocf-home)
+- [Backup Rules](#backup-rules)
+- [Application Output Folders](#application-output-folders)
+- [Source Files](#source-files)
+- [Privacy Defaults](#privacy-defaults)
+- [Integration With Other OCF Workflows](#integration-with-other-ocf-workflows)
+- [Final Response Checklist](#final-response-checklist)
 
 Create a simple local home for Open Career Format work. Do not start by editing the user's career content. First make the workspace understandable, private by default, and hard to confuse with files that get sent out.
 
@@ -132,9 +138,9 @@ Do not suggest syncing or publishing these folders unless the user explicitly as
 
 If the setup lives inside a Git repository, verify that private career folders are ignored before writing private files. If they are not ignored, propose adding an ignore rule before creating private content.
 
-## Integration With Other OCF Skills
+## Integration With Other OCF Workflows
 
-Other OCF skills should reuse this folder structure when available.
+Other OCF workflows should reuse this folder structure when available.
 
 For application bootstrap workflows:
 

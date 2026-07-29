@@ -8,6 +8,17 @@ const root = path.resolve(__dirname, "..");
 const skillsDir = path.join(root, "skills");
 const outputPath = path.join(skillsDir, "manifest.json");
 
+function listFiles(directory, prefix = "") {
+  return fs
+    .readdirSync(directory, { withFileTypes: true })
+    .flatMap((entry) => {
+      const relativePath = path.posix.join(prefix, entry.name);
+      const absolutePath = path.join(directory, entry.name);
+      return entry.isDirectory() ? listFiles(absolutePath, relativePath) : [relativePath];
+    })
+    .sort();
+}
+
 const skills = fs
   .readdirSync(skillsDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
@@ -25,9 +36,19 @@ for (const name of skills) {
   const contents = fs.readFileSync(path.join(root, relativePath));
   const text = contents.toString("utf8");
   const updatedMatch = text.match(/^Last updated:\s*(\d{4}-\d{2}-\d{2})/m);
+  const skillDirectory = path.join(skillsDir, name);
+  const files = {};
 
   if (!updatedMatch) {
     throw new Error(`${relativePath} is missing a YYYY-MM-DD Last updated value`);
+  }
+
+  for (const file of listFiles(skillDirectory)) {
+    const fileContents = fs.readFileSync(path.join(skillDirectory, file));
+    files[file] = {
+      url: `https://opencareerformat.org/skills/${name}/${file}`,
+      sha256: crypto.createHash("sha256").update(fileContents).digest("hex"),
+    };
   }
 
   manifest.skills[name] = {
@@ -35,6 +56,7 @@ for (const name of skills) {
     url: `https://opencareerformat.org/${relativePath}`,
     lastUpdated: updatedMatch[1],
     sha256: crypto.createHash("sha256").update(contents).digest("hex"),
+    files,
   };
 }
 

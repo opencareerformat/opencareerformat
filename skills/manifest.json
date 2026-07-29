@@ -4,20 +4,30 @@
     "ocf-export-career-ops": {
       "path": "skills/ocf-export-career-ops/SKILL.md",
       "url": "https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md",
-      "lastUpdated": "2026-07-13",
-      "sha256": "3d7157f7391405a98deeae3c9fab8a663204733e49d6640950dec0aefa1fd7b9"
-    },
-    "ocf-setup": {
-      "path": "skills/ocf-setup/SKILL.md",
-      "url": "https://opencareerformat.org/skills/ocf-setup/SKILL.md",
-      "lastUpdated": "2026-06-21",
-      "sha256": "89010a4bc8925908479a887eb067aae5e5c3197144b95f10487fd14fd9f35a32"
+      "lastUpdated": "2026-07-29",
+      "sha256": "20c44f8fc528a49ff1b8e4c4262e13ff9b5df8c6e4eed107ba312ae22d95aa08",
+      "files": {
+        "SKILL.md": {
+          "url": "https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md",
+          "sha256": "20c44f8fc528a49ff1b8e4c4262e13ff9b5df8c6e4eed107ba312ae22d95aa08"
+        }
+      }
     },
     "ocf-start": {
       "path": "skills/ocf-start/SKILL.md",
       "url": "https://opencareerformat.org/skills/ocf-start/SKILL.md",
-      "lastUpdated": "2026-07-18",
-      "sha256": "83f4de7716592873952a011e613ec6a1794670b0e713f7a86ee09cee2e170833"
+      "lastUpdated": "2026-07-29",
+      "sha256": "8cb91178fd78732f0a1c6e9168aeebe4dd7c18c361cda5d8f51d674864fb054e",
+      "files": {
+        "SKILL.md": {
+          "url": "https://opencareerformat.org/skills/ocf-start/SKILL.md",
+          "sha256": "8cb91178fd78732f0a1c6e9168aeebe4dd7c18c361cda5d8f51d674864fb054e"
+        },
+        "references/local-setup.md": {
+          "url": "https://opencareerformat.org/skills/ocf-start/references/local-setup.md",
+          "sha256": "0ad372972452e487e4de4b2e44ad8b910952e13bb9b8893e0e5d477ed21b269b"
+        }
+      }
     }
   }
 }

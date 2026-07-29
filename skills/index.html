@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCF Skills — Open Career Format</title>
+<meta name="description" content="Install Open Career Format skills in supported agent environments.">
+<link rel="canonical" href="https://opencareerformat.org/skills/index.html">
+<link rel="icon" type="image/png" href="../spec/assets/ocf-logo.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCF Skills">
+<meta property="og:description" content="Install Open Career Format skills in supported agent environments.">
+<meta property="og:url" content="https://opencareerformat.org/skills/index.html">
+<meta property="og:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCF Skills">
+<meta name="twitter:description" content="Install Open Career Format skills in supported agent environments.">
+<meta name="twitter:image" content="https://opencareerformat.org/spec/assets/ocf-logo.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "OCF Skills",
+  "name": "OCF Skills",
+  "url": "https://opencareerformat.org/skills/index.html",
+  "description": "Install Open Career Format skills in supported agent environments.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://opencareerformat.org/#website",
+    "name": "Open Career Format",
+    "url": "https://opencareerformat.org/"
+  },
+  "about": {
+    "@type": "CreativeWork",
+    "@id": "https://opencareerformat.org/#spec",
+    "name": "Open Career Format",
+    "alternateName": "OCF",
+    "url": "https://opencareerformat.org/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #57534e;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --border: #d6d3d1;
+    --code-bg: #f5f5f4;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .site-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .site-header a {
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .doc-meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin: 2.25rem 0 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  h4 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  p, ul, ol, table, pre, blockquote {
+    margin: 0 0 1rem;
+  }
+  ul, ol {
+    padding-left: 1.4rem;
+  }
+  li + li {
+    margin-top: 0.25rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    font-size: 0.92em;
+  }
+  pre {
+    overflow-x: auto;
+    background: #1c1917;
+    color: #fafaf9;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  blockquote {
+    border-left: 4px solid var(--accent-light);
+    color: var(--muted);
+    padding-left: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.7rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--card-bg);
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .source-link {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href=".."><img src="../spec/assets/ocf-logo.png" alt="Open Career Format logo"></a>
+  <a href="..">Open Career Format</a>
+</header>
+<main>
+<p class="doc-meta">Readable HTML version. <a href="./README.md">View the Markdown source</a>.</p>
+<h1>OCF Skills</h1>
+
+<p>This page focuses on using reusable skills in an agent environment rather than copying prompts into a plain chat window. Skills are packaged agent workflows for Open Career Format. They sit beside the schema and prompts; they are not part of the schema. Skills and prompts use the same underlying OCF guidance.</p>
+
+<p>Skills add local file management: where the master lives, where backups go, where sources are stored, and where each application's outputs belong. All still under your control, and fully open and readable.</p>
+
+<p>Published skills use the latest guidance. Earlier versions and changes remain available in Git history. Schema versions are separate: use the latest schema unless you need to pin a specific version.</p>
+
+<h2>Install OCF Skills</h2>
+
+<p>For ordinary local OCF use, install the complete OCF Start folder—<a href="ocf-start/SKILL.md"><code>SKILL.md</code></a> together with its bundled <a href="ocf-start/references/local-setup.md"><code>references/local-setup.md</code></a>—then begin with OCF Start.</p>
+
+<p>OCF Start works out what you have and what you are trying to do, then routes the agent to the appropriate OCF workflow. Its package includes local setup guidance for creating or reusing a private home for the OCF master, source material, backups, and outputs. The agent loads that guidance only when setup is needed. You normally reuse the workspace afterward, returning to setup only when you want to choose a different workspace, repair its organization, or change where OCF files live.</p>
+
+<p>Skill installation differs by agent environment and may change as those products evolve. Follow the current official instructions for your environment:</p>
+
+<ul>
+<li><a href="https://developers.openai.com/codex/skills">ChatGPT and Codex skills</a></li>
+<li><a href="https://docs.anthropic.com/en/docs/claude-code/skills">Claude Code skills</a></li>
+</ul>
+
+<p>If your environment does not support reusable skills, use the <a href="../prompts/application-bootstrap.md">application bootstrap prompt</a> directly. It requires no skill installation.</p>
+
+<h2>Core Skill</h2>
+
+<p><a href="ocf-start/SKILL.md"><code>ocf-start</code></a> is the skill to install and invoke. It decides which OCF workflow is needed and includes <a href="ocf-start/references/local-setup.md">local setup</a> as bundled guidance.</p>
+
+<p>The core skill intentionally stays dependency-free. It tells the agent what to read, ask, produce, validate, and save, but it does not require a local app.</p>
+
+<h2>Optional Integration</h2>
+
+<p><a href="ocf-export-career-ops/SKILL.md"><code>ocf-export-career-ops</code></a> is only for people who use Career-Ops, a separate local job-search workspace for evaluating opportunities, producing application materials, and managing the operational side of a search. It exports reviewed OCF career information into the files Career-Ops expects. You do not need this skill for ordinary OCF use.</p>
+
+<h2>Version Control</h2>
+
+<p><a href="manifest.json"><code>manifest.json</code></a> records the canonical paths, update date, and SHA-256 hashes for each published skill package. OCF Start may use it to notice that an installed package is behind or incomplete, but updates remain user-approved and never happen silently.</p>
+
+<p>The hashes detect whether installed package files differ from the canonical published files. They do not independently authenticate the OCF website or repository.</p>
+</main>
+<footer class="source-link">
+  <p>This page is generated from <a href="./README.md"><code>skills/README.md</code></a>.</p>
+</footer>
+</body>
+</html>

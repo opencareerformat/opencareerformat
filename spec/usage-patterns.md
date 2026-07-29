@@ -148,7 +148,7 @@ The principle is simple: OCF files can move through many workflows, but the cand
 
 ## Local File Convention
 
-OCF does not require a particular folder layout, but local-agent workflows benefit from a boring convention. The optional [`ocf-setup`](../skills/ocf-setup/SKILL.md) skill recommends:
+OCF does not require a particular folder layout, but local-agent workflows benefit from a boring convention. The local setup guidance bundled with [`ocf-start`](../skills/ocf-start/SKILL.md) recommends:
 
 ```text
 career/

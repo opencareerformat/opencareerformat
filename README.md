@@ -21,7 +21,7 @@ This repository contains the schema, prompts, skills, mappings, examples, and re
 
 OCF is currently at **v0.3** and should be treated as pre-1.0 beta. The current schema URL is <https://opencareerformat.org/schema.json>; this alias may change as feedback comes in. Tools that need stability should pin to a versioned schema URL such as <https://opencareerformat.org/v0.3/schema.json>. Breaking changes may occur before 1.0 and will be documented in the changelog.
 
-OCF is not hiding changes behind the website. Git history shows what changed and when. For most docs, prompts, skills, and guidance, use the latest version. For the schema, use the latest version unless you need to pin a specific schema version for validation or compatibility. Version-pinned teaching examples, such as the Maria Reyes OCF 0.3 set, remain valid against the schema they declare and are not automatically migrated to each new release.
+Published documentation, prompts, skills, and guidance use the latest version. Earlier versions and changes remain available in Git history. For the schema, use the latest version unless you need to pin a specific schema version for validation or compatibility. Version-pinned teaching examples, such as the Maria Reyes OCF 0.3 set, remain valid against the schema they declare and are not automatically migrated to each new release.
 
 ## Repository Layout
 
@@ -52,7 +52,7 @@ prompts/          # OPTIONAL OPERATING GUIDANCE — LLM/coach/curator prompts th
 skills/           # OPTIONAL AGENT WORKFLOWS — packaged skills for Codex,
                   # Claude Code, Cursor, and similar tools.
   ocf-start/      # Front-door router: what do you have, and what are you trying to do?
-  ocf-setup/      # Local career folder setup for the master file, backups, sources, and outputs.
+    references/   # Bundled local setup guidance loaded only when needed.
   ocf-export-career-ops/ # Export OCF career memory into a Career-Ops workspace.
 
 mappings/         # CROSS-FORMAT DOCS — prose-only specifications for how OCF

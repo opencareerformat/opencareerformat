@@ -60,6 +60,12 @@ const docs = [
     description: "Mappings between Open Career Format and related career, resume, and profile formats.",
   },
   {
+    source: "skills/README.md",
+    output: "skills/index.html",
+    title: "OCF Skills",
+    description: "Install Open Career Format skills in supported agent environments.",
+  },
+  {
     source: "mappings/career-ops-integration.md",
     title: "OCF And Career-Ops",
     description: "How Open Career Format and Career-Ops can work together while keeping career memory separate from job-search workflow state.",

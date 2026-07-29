@@ -4,7 +4,7 @@ These prompts are operational guidance for LLMs, coaches, curators, importers, a
 
 The current prompt URLs are intentionally not version-pinned. If you need an older prompt, use Git history. Versioned schema URLs remain available separately under paths such as `https://opencareerformat.org/v0.2/schema.json`.
 
-OCF is not hiding changes behind the website. Git history shows what changed and when. For prompts and other operating guidance, use the latest version unless you intentionally need historical behavior from Git history. For the schema, use the latest version unless you need to pin a specific schema version.
+Published prompts use the latest guidance. Earlier versions and changes remain available in Git history. For the schema, use the latest version unless you need to pin a specific schema version.
 
 ## Schema vs Advice
 
@@ -35,7 +35,7 @@ The prompts are examples of useful approaches, not a prescribed elicitation meth
 
 Skills and prompts use the same OCF guidance. The prompt works anywhere you can paste text. The skill adds local file management: where the master lives, where backups go, where sources are stored, and where each application's outputs belong. All still under your control, and fully open and readable.
 
-If an agent environment supports reusable skills, use [`../skills/ocf-start/SKILL.md`](../skills/ocf-start/SKILL.md) as the shared router. It may route to [`../skills/ocf-setup/SKILL.md`](../skills/ocf-setup/SKILL.md) for local workspace organization, then to the appropriate prompt for the user's goal.
+If an agent environment supports reusable skills, use the complete [`../skills/ocf-start/`](../skills/ocf-start/) package as the shared router. It includes local workspace setup guidance and routes to the appropriate prompt for the user's goal.
 
 OCF Start remains the shared router after the initial handoff. When the user's purpose changes, each mode should checkpoint actual unsaved OCF improvements when they exist, then return to OCF Start for the next route without discarding the loaded OCF or useful conversation context.
 

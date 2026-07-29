@@ -1,12 +1,12 @@
 ---
 name: ocf-start
-description: Use as the shared router for Open Career Format when the user is not sure where to begin, has mixed career materials, asks how to use OCF, changes direction during a conversation, or needs routing between setup, resume import, first application, curation, profile and bio, coaching, export, or translation workflows.
+description: Use as the shared router and local-workspace entry point for Open Career Format when the user is not sure where to begin, has mixed career materials, asks how to use OCF, needs to create or locate a local OCF workspace, changes direction during a conversation, or needs routing between resume import, first application, curation, profile and bio, coaching, export, or translation workflows.
 ---
 
 # OCF Start
 
 Status: current  
-Last updated: 2026-07-18
+Last updated: 2026-07-29
 
 Compatible schema versions: OCF 0.3
 
@@ -23,9 +23,9 @@ Do not infer file names, file types, company names, target employers, or role de
 
 ## Skill Currency
 
-Near the beginning of a new local-agent session, when network access is available, check once whether this installed skill is behind the canonical skill manifest at `https://opencareerformat.org/skills/manifest.json`. Find the `ocf-start` entry and compare its SHA-256 value with the SHA-256 of this installed `SKILL.md`. When routing to another installed OCF skill, use that skill's manifest entry the same way.
+Near the beginning of a new local-agent session, when network access is available, check once whether this installed skill is behind the canonical skill manifest at `https://opencareerformat.org/skills/manifest.json`. Find the `ocf-start` entry and compare every file listed in its `files` object with the corresponding installed file. When routing to another installed OCF skill, use that skill's manifest entry the same way.
 
-If the hashes differ, use the manifest's `lastUpdated` value and the installed skill's value to explain that the installed copy may be behind, then ask whether the user wants to update before continuing. Never replace local skill files, mix newer instructions into the installed skill, or change behavior silently. Before installing an approved update, retrieve the canonical file named by the manifest and verify that its SHA-256 matches the manifest. If the user declines, continue with the installed skill. If the manifest cannot be reached, a hash cannot be calculated, or the canonical file does not match its manifest hash, continue without blocking the workflow and do not repeatedly warn the user.
+If a listed file is missing or its hash differs, use the manifest's `lastUpdated` value and the installed skill's value to explain that the installed package may be behind, then ask whether the user wants to update before continuing. Never replace local skill files, mix newer instructions into the installed skill, or change behavior silently. Before installing an approved update, retrieve every canonical file listed by the manifest and verify its SHA-256. If the user declines, continue with the installed skill. If the manifest cannot be reached, a hash cannot be calculated, or a canonical file does not match its manifest hash, continue without blocking the workflow and do not repeatedly warn the user.
 
 ## First Questions
 
@@ -37,7 +37,7 @@ Then ask:
 
 > What are you trying to do right now: apply to a specific job, organize your career history, update an existing OCF, create a targeted resume or cover letter, summarize your career for a profile or bio, prepare for an interview, think through a career change, translate/localize materials, or something else?
 
-If working in a local agent environment, always establish the workspace before any file-writing workflow unless it is already known. Ask whether the user already has a resume, career, or job-search folder. Use `ocf-setup` when folders or local files matter. If `~/.ocf-home` exists, read it as a pointer to the user's preferred OCF workspace, but confirm before using it.
+If working in a local agent environment, always establish the workspace before any file-writing workflow unless it is already known. Ask whether the user already has a resume, career, or job-search folder. When a workspace needs to be created, located, changed, or reorganized, read [`references/local-setup.md`](references/local-setup.md) completely and follow it. If `~/.ocf-home` exists, read it as a pointer to the user's preferred OCF workspace, but confirm before using it.
 
 ## Routing
 
@@ -45,8 +45,8 @@ Use this routing table:
 
 | Situation | Route |
 | --- | --- |
-| User wants local folder organization, does not know where files should live, or is starting a job-search folder | Use `ocf-setup`. |
-| User has resume/profile material plus a job description and wants help applying now | Use `prompts/application-bootstrap.md` (or https://opencareerformat.org/prompts/application-bootstrap.md); use `ocf-setup` first when local files or outputs matter. |
+| User wants local folder organization, does not know where files should live, or is starting a job-search folder | Read and follow `references/local-setup.md`. |
+| User has resume/profile material plus a job description and wants help applying now | Use `prompts/application-bootstrap.md` (or https://opencareerformat.org/prompts/application-bootstrap.md); follow the bundled local setup reference first when local files or outputs matter. |
 | User has old resumes, LinkedIn exports, notes, or pasted history and wants to build a master | Use `prompts/authoring.md` (or https://opencareerformat.org/prompts/authoring.md). |
 | User has an existing OCF and a target job, target role, application audience, or application output | Use `prompts/curation.md` (or https://opencareerformat.org/prompts/curation.md). |
 | User has an existing OCF and wants a resume, cover letter, or interview-prep packet | Use `prompts/curation.md` (or https://opencareerformat.org/prompts/curation.md); treat export formatting as downstream of curation. |
@@ -84,24 +84,9 @@ Before changing direction, pausing, or ending, check whether the conversation pr
 
 If nothing durable changed or improved, or the user wants to continue immediately, route without manufacturing a checkpoint ritual.
 
-## Local Setup Default
+## Local Setup
 
-When local files matter, prefer this structure from `ocf-setup`:
-
-```text
-career/
-  ocf/
-    {person}.master.ocf.json
-    backups/
-  sources/
-    resumes/
-    job-descriptions/
-    notes/
-  outputs/
-    {company}-{role}-{date}/
-```
-
-Ask before creating folders or copying files.
+When local files matter and the workspace is not already established, read [`references/local-setup.md`](references/local-setup.md) completely and follow its setup workflow. Do not recreate only part of the workflow from memory. Ask before creating folders, copying files, or writing the optional local workspace pointer.
 
 Optional local pointer:
 

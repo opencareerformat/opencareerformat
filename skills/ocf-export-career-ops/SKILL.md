@@ -6,7 +6,7 @@ description: Use when a user wants to create or update a Career-Ops workspace fr
 # OCF Export Career-Ops
 
 Status: current<br>
-Last updated: 2026-07-13<br>
+Last updated: 2026-07-29<br>
 Compatible schema versions: OCF 0.3
 
 Create or update a local Career-Ops workspace from an OCF file. This is a filesystem workflow, not a schema change.
@@ -46,7 +46,7 @@ Examples: customer success leadership, cybersecurity director, solutions consult
 
 Use the role track when choosing OCF variants. Prefer `positioningVariants`, `narrativeVariants`, `titleVariants`, and `talkingPoints` whose audience, target role, use, or notes fit the track. Do not collapse competing variants into one generic wording. If two variants both fit different plausible tracks, ask which one this Career-Ops workspace should optimize for.
 
-If the OCF workspace is known from `ocf-setup`, suggest a sibling folder:
+If the OCF workspace is known from OCF Start's local setup workflow, suggest a sibling folder:
 
 ```text
 career/
