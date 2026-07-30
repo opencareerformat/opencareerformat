@@ -434,9 +434,12 @@
     &quot;month&quot;: 7,
     &quot;day&quot;: 21
   },
+  &quot;fileName&quot;: &quot;leadership-story-conversation-2026-07-21.txt&quot;,
   &quot;rawIncluded&quot;: true,
   &quot;visibility&quot;: &quot;private&quot;
 }</code></pre>
+
+<p><code>rawIncluded</code> does not mean the raw content is embedded in the <code>sourceArtifact</code> object. It indicates that the workflow retained the raw artifact, normally through <code>fileName</code>, <code>uri</code>, or an accompanying file. Source-artifact metadata may travel without the referenced artifact.</p>
 
 <p>Raw conversation artifacts often remain private even when user-approved facts, achievements, talking points, or wording derived from them are shared. Give each derived item its own visibility and retain provenance back to the private source.</p>
 
@@ -801,6 +804,8 @@
 
 <p>Reflections can seed achievements. Keep both when useful: the reflection preserves raw memory and voice; the achievement stores the distilled shareable claim.</p>
 
+<p>“Raw memory” means material preserved in the subject’s own words rather than rewritten into polished language by a tool. It may contain selected portions of a longer answer rather than a complete transcript. Tools may remove repetition or retain only the most useful passages, but they should not paraphrase the subject or combine excerpts in a way that changes the meaning. Provenance may note whether the reflection is a complete answer, a selected excerpt, or a lightly edited version the subject approved.</p>
+
 <p>When a fact, opinion, correction, or aside hints at a useful story, offer one natural probe. For example:</p>
 
 <blockquote><p><strong>User:</strong> I never liked calling that project a digital transformation.</p>
@@ -1133,6 +1138,8 @@ Cybersecurity leader bridging military discipline with enterprise security strat
 <li>preserve lineage for selected material</li>
 <li>keep proposed improvements separate from export-ready content</li>
 </ul>
+
+<p>Visibility governs selection and disclosure, not whether a trusted curator operating on the private master may inspect an item. Before asking the user for more information, check relevant canonical fields, <code>longform</code>, variants, reflections, and available source material; ask only for what remains missing or ambiguous.</p>
 
 <p>For selected material, preserve lineage in <code>provenance</code> with the source file and item IDs when the tool has them:</p>
 

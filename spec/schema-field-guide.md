@@ -257,10 +257,13 @@ Use `conversation` for a retained exchange or verbatim answer from an OCF sessio
     "month": 7,
     "day": 21
   },
+  "fileName": "leadership-story-conversation-2026-07-21.txt",
   "rawIncluded": true,
   "visibility": "private"
 }
 ```
+
+`rawIncluded` does not mean the raw content is embedded in the `sourceArtifact` object. It indicates that the workflow retained the raw artifact, normally through `fileName`, `uri`, or an accompanying file. Source-artifact metadata may travel without the referenced artifact.
 
 Raw conversation artifacts often remain private even when user-approved facts, achievements, talking points, or wording derived from them are shared. Give each derived item its own visibility and retain provenance back to the private source.
 
@@ -645,6 +648,8 @@ Use reflections for material that helps a person prepare, improve, or remember:
 
 Reflections can seed achievements. Keep both when useful: the reflection preserves raw memory and voice; the achievement stores the distilled shareable claim.
 
+“Raw memory” means material preserved in the subject’s own words rather than rewritten into polished language by a tool. It may contain selected portions of a longer answer rather than a complete transcript. Tools may remove repetition or retain only the most useful passages, but they should not paraphrase the subject or combine excerpts in a way that changes the meaning. Provenance may note whether the reflection is a complete answer, a selected excerpt, or a lightly edited version the subject approved.
+
 When a fact, opinion, correction, or aside hints at a useful story, offer one natural probe. For example:
 
 > **User:** I never liked calling that project a digital transformation.
@@ -997,6 +1002,8 @@ A curator reads an OCF plus a target, audience, purpose, review question, or sou
 - filter based on visibility, rules, relevance, and recency
 - preserve lineage for selected material
 - keep proposed improvements separate from export-ready content
+
+Visibility governs selection and disclosure, not whether a trusted curator operating on the private master may inspect an item. Before asking the user for more information, check relevant canonical fields, `longform`, variants, reflections, and available source material; ask only for what remains missing or ambiguous.
 
 For selected material, preserve lineage in `provenance` with the source file and item IDs when the tool has them:
 
