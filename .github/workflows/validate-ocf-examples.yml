@@ -54,5 +54,8 @@ jobs:
       - name: Check worked example snippets
         run: node tools/check-worked-example-snippets.js
 
+      - name: Validate documentation JSON examples
+        run: node tools/check-documentation-json.js
+
       - name: Check generated files are current
         run: git diff --exit-code

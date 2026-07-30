@@ -414,7 +414,6 @@ Travel is related to location but usually does not need its own first-class v0.3
 
 ```json
 {
-  "label": "Travel pattern",
   "statement": "Role required roughly 50% travel across regional hospital sites.",
   "dateRange": {
     "start": { "year": 2022 },

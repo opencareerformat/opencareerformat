@@ -179,15 +179,17 @@ Reflections default to `visibility: private` because they are sensitive personal
 
 ```json
 {
-  "id": "meridian-proudest-of-2024",
   "kind": "proudest-of",
-  "prompt": "What are you proudest of from this role?",
-  "response": "Leading the hospital ransomware recovery without losing patient-care continuity.",
+  "text": "The ransomware response. Most of my proudest moments in this role were team accomplishments, but the moment that taught me the most about leadership was sitting in the executive conference room on a Friday night, walking the CEO and CFO through why I thought paying the ransom would fail. I had to make the technical case in language they could verify, commit to a timeline, and own the outcome. The team did the recovery work; my contribution was the analysis and the commitment. Looking back, I'm proudest that I did the forensic work myself instead of delegating it — leadership wouldn't have accepted a derivative argument.",
   "visibility": "private",
   "provenance": {
     "source": "interview-derived",
-    "date": "2026-05-21"
-  }
+    "date": "2026-05-21",
+    "sessionTopic": "Topgrading-style reflection elicitation",
+    "note": "This reflection seeded the mhs-ransomware-2024 achievement entry. The raw voice is preserved here; the structured achievement is in achievements. Future conversations can probe further (e.g. 'what would you have done if backups had failed') without re-eliciting the core memory.",
+    "seededAchievement": "mhs-ransomware-2024"
+  },
+  "id": "meridian-health-systems-director-of-cybersecurity-proudest-of-reflection"
 }
 ```
 

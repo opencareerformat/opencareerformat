@@ -81,6 +81,7 @@ node tools/check-schema-core.js
 node reference/test/run.js
 node tools/generate-doc-html.js
 node tools/check-worked-example-snippets.js
+node tools/check-documentation-json.js
 git diff --exit-code
 ```
 

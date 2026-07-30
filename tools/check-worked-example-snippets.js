@@ -5,17 +5,20 @@ const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..");
 const markdown = fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/inside-the-ocf.md"), "utf8");
+const designGuide = fs.readFileSync(path.join(repoRoot, "spec/design-guide.md"), "utf8");
 const initialSample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-1.ocf.json"), "utf8"));
 const previousSample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-6.ocf.json"), "utf8"));
 const sample = JSON.parse(fs.readFileSync(path.join(repoRoot, "spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json"), "utf8"));
 
 const jsonBlocks = [...markdown.matchAll(/```json\n([\s\S]*?)\n```/g)].map((match) => JSON.parse(match[1]));
+const designGuideJsonBlocks = [...designGuide.matchAll(/```json\n([\s\S]*?)\n```/g)].map((match) => JSON.parse(match[1]));
 
 const position = sample.experience
   .find((entry) => entry.name === "Meridian Health Systems")
   .positions.find((item) => item.title === "Director of Cybersecurity");
 const achievement = position.achievements.find((item) => item.id === "mhs-ransomware-2024");
 const story = position.reflections.find((item) => item.kind === "never-on-resume-story");
+const proudestReflection = position.reflections.find((item) => item.kind === "proudest-of");
 const talkingPoint = sample.talkingPoints.find((item) => item.id === "authority-from-demonstrated-work");
 const positioningVariants = sample.positioningVariants;
 const caution = sample.cautions.find((item) => item.claim === "claimed as an AI / ML security specialist");
@@ -140,6 +143,10 @@ for (const key of ["kind", "text", "visibility"]) {
 for (const key of ["source", "date", "sessionTopic", "operation"]) {
   assertEqual(storySnippet.provenance[key], story.provenance[key], `story provenance ${key} drifted`);
 }
+
+const designGuideReflection = designGuideJsonBlocks.find((block) => block.kind === "proudest-of");
+assert(designGuideReflection, "missing Design Guide proudest-of reflection");
+assertEqual(designGuideReflection, proudestReflection, "Design Guide proudest-of reflection drifted");
 
 const talkingPointSnippet = jsonBlocks.find((block) => Array.isArray(block.talkingPoints));
 assert(talkingPointSnippet, "missing talking point snippet");
