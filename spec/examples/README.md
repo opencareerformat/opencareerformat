@@ -14,6 +14,7 @@ The Maria set is intentionally frozen to OCF 0.3. Revision 6 contains unresolved
 
 | File | Description |
 |---|---|
+| [`minimal-useful.ocf.json`](minimal-useful.ocf.json) | Small complete OCF used as the checked minimal example in the Schema Field Guide. |
 | [`repeated-organization-variants.json`](repeated-organization-variants.json) | Two tenures at one organization, reusable organization records, source artifacts, narrative variants, and title variants. |
 | [`sales-compensation-private.json`](sales-compensation-private.json) | Private compensation and quota history alongside shareable sales achievements. |
 | [`open-source-project.json`](open-source-project.json) | Independent open-source work represented as a top-level project with public achievements and skills. |

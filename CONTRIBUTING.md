@@ -89,6 +89,13 @@ The generators update checked-in files. Review those changes before committing. 
 the static `index.{language}.html` gateways are hand-authored; the other checked-in HTML counterparts
 produced by `tools/generate-doc-html.js` are generated from Markdown.
 
+Documentation JSON fences are syntax-checked, and current guidance fragments are checked against
+compatible OCF object shapes. When a snippet is a partial copy of a canonical example, place a
+`<!-- canonical-subset: path/to/example.json#/json/pointer -->` comment immediately before the
+JSON fence. The snippet may omit fields and object-valued array entries, but every included value
+must match the canonical object. Use complete fictional wording instead when an example intentionally
+differs from canonical content.
+
 ## Editor's Preferences (Informal)
 
 These aren't binding rules, but they describe what kinds of proposals tend to land vs. get declined. Sharing them upfront saves everyone time.

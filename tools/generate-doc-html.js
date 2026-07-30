@@ -138,7 +138,7 @@ function renderPage(doc, outputRel, markdown) {
   const renderedMarkdown = markdown.replace(
     /<!-- markdown-only:start -->[\s\S]*?<!-- markdown-only:end -->\s*/g,
     "",
-  );
+  ).replace(/^<!--\s*canonical-subset:.*?-->\s*$/gm, "");
   const content = markdownToHtml(renderedMarkdown, doc.source, doc.layout)
     .replace("<p>{{OCF_LOOP}}</p>", doc.layout === "design-guide" ? renderOcfLoop() : "");
   const conversationStyles = doc.layout === "conversation" ? `  .layout-conversation {

@@ -175,8 +175,7 @@ Reflections default to `visibility: private` because they are sensitive personal
 
 **Reflection shape**
 
-
-
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/experience/0/positions/0/reflections/1 -->
 ```json
 {
   "kind": "proudest-of",

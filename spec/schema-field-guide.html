@@ -342,7 +342,7 @@
 
 <p><code>person</code> identifies the subject of the OCF. It should not be confused with the controller of the file.</p>
 
-<p>Minimum useful shape:</p>
+<p>Partial canonical example from Maria Reyes:</p>
 
 <pre><code class="language-json">{
   &quot;person&quot;: {
@@ -386,7 +386,7 @@
 
 <p>Use <code>sourceArtifacts</code> for old resumes, cover letters, LinkedIn exports, pasted chat text, uploaded notes, interview transcripts, portfolio bios, comp-plan photos, job descriptions, and other material used to build or improve the OCF.</p>
 
-<p>Example:</p>
+<p>Partial canonical example from Maria Reyes:</p>
 
 <pre><code class="language-json">{
   &quot;sourceArtifacts&quot;: [
@@ -522,7 +522,7 @@
 
 <pre><code class="language-json">{
   &quot;kind&quot;: &quot;biggest-mistake&quot;,
-  &quot;text&quot;: &quot;Underinvesting in the security awareness program in the first nine months...&quot;,
+  &quot;text&quot;: &quot;I should have involved the support teams before finalizing the rollout plan.&quot;,
   &quot;visibility&quot;: &quot;private&quot;
 }</code></pre>
 
@@ -634,25 +634,12 @@
 
 <p>Achievements are canonical claims. They store what happened, not just how it should be worded in a resume.</p>
 
-<p>Good achievement:</p>
+<p>Partial canonical example from Maria Reyes:</p>
 
 <pre><code class="language-json">{
   &quot;id&quot;: &quot;mhs-ransomware-2024&quot;,
   &quot;kind&quot;: &quot;accomplishment&quot;,
-  &quot;statement&quot;: &quot;Led response to a hospital-wide ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.&quot;,
-  &quot;metrics&quot;: [
-    {
-      &quot;kind&quot;: &quot;duration&quot;,
-      &quot;value&quot;: 41,
-      &quot;unit&quot;: &quot;hours&quot;
-    },
-    {
-      &quot;kind&quot;: &quot;other&quot;,
-      &quot;value&quot;: 0,
-      &quot;unit&quot;: &quot;patients&quot;,
-      &quot;note&quot;: &quot;zero patient-care incidents attributed to the outage&quot;
-    }
-  ],
+  &quot;statement&quot;: &quot;Led response to a hospital-wide ransomware incident — performed forensic analysis on the attacker tooling, advised leadership against paying the ransom based on observed decryption failures in adjacent engagements, and executed an alternate recovery path from offline backups; restored critical clinical systems within 41 hours with zero patient-care impact.&quot;,
   &quot;visibility&quot;: &quot;shared&quot;
 }</code></pre>
 
@@ -664,16 +651,18 @@
 
 <p>Attribution keeps verbs honest.</p>
 
-<p>Example:</p>
+<p>Partial canonical example from Maria Reyes:</p>
 
 <pre><code class="language-json">{
+  &quot;id&quot;: &quot;mhs-soc-buildout&quot;,
   &quot;statement&quot;: &quot;Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months&quot;,
   &quot;attribution&quot;: {
     &quot;role&quot;: &quot;owned&quot;,
-    &quot;scope&quot;: &quot;Owned SOC buildout plan, hiring model, coverage target, and operating cadence.&quot;,
+    &quot;scope&quot;: &quot;Owned SOC buildout plan, hiring model, coverage target, and operating cadence; direct managers and team leads handled some day-to-day execution as the team scaled.&quot;,
     &quot;ownedBudget&quot;: true,
     &quot;ownedHeadcount&quot;: true,
-    &quot;reportedUpward&quot;: true
+    &quot;reportedUpward&quot;: true,
+    &quot;notes&quot;: &quot;A future review should clarify which parts Maria personally managed versus delegated through leads once the team reached 12 analysts.&quot;
   }
 }</code></pre>
 
@@ -727,30 +716,30 @@
 
 <p>They are not competing facts and not separate achievements.</p>
 
-<p>Example:</p>
+<p>Partial canonical examples from Maria Reyes:</p>
 
 <pre><code class="language-json">{
   &quot;narrativeVariants&quot;: [
     {
       &quot;id&quot;: &quot;mhs-ransomware-public-resume&quot;,
-      &quot;label&quot;: &quot;Public resume bullet&quot;,
-      &quot;audiences&quot;: [&quot;resume&quot;, &quot;public-profile&quot;],
+      &quot;label&quot;: &quot;Public resume bullet point&quot;,
+      &quot;audiences&quot;: [&quot;resume&quot;, &quot;public-profile&quot;, &quot;incident-response&quot;],
       &quot;statement&quot;: &quot;Led ransomware response that restored critical clinical systems from offline backups within 41 hours with no patient-care impact.&quot;,
       &quot;visibility&quot;: &quot;public&quot;
     },
     {
-      &quot;id&quot;: &quot;mhs-ransomware-healthcare-security&quot;,
-      &quot;label&quot;: &quot;Healthcare security framing&quot;,
-      &quot;audiences&quot;: [&quot;healthcare&quot;, &quot;patient-safety&quot;],
-      &quot;statement&quot;: &quot;Protected patient-care continuity during a ransomware event by leading evidence-based recovery from offline backups.&quot;,
-      &quot;visibility&quot;: &quot;shared&quot;
-    },
-    {
       &quot;id&quot;: &quot;mhs-ransomware-interview-prep&quot;,
       &quot;label&quot;: &quot;Interview-prep framing&quot;,
-      &quot;audiences&quot;: [&quot;interview-prep&quot;, &quot;executive-judgment&quot;],
-      &quot;longform&quot;: &quot;Use this story to show executive judgment under pressure...&quot;,
+      &quot;audiences&quot;: [&quot;interview-prep&quot;, &quot;executive-judgment&quot;, &quot;ciso-track&quot;],
+      &quot;longform&quot;: &quot;Use this story to show executive judgment under pressure: Maria did the forensic analysis herself, explained the risk of paying in business terms, committed to a 48-hour recovery path, and owned the recommendation when the outcome was uncertain.&quot;,
       &quot;visibility&quot;: &quot;private&quot;
+    },
+    {
+      &quot;id&quot;: &quot;mhs-ransomware-healthcare-security&quot;,
+      &quot;label&quot;: &quot;Healthcare security framing&quot;,
+      &quot;audiences&quot;: [&quot;healthcare&quot;, &quot;patient-safety&quot;, &quot;security-leadership&quot;],
+      &quot;statement&quot;: &quot;Protected patient-care continuity during a ransomware event by leading evidence-based recovery from offline backups and restoring critical clinical systems within 41 hours.&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;
     }
   ]
 }</code></pre>
@@ -777,11 +766,12 @@
 
 <p>Reflections are private review and conversation material. They are not resume bullets.</p>
 
-<p>Example:</p>
+<p>Partial canonical example from Maria Reyes:</p>
 
 <pre><code class="language-json">{
-  &quot;kind&quot;: &quot;proudest-of&quot;,
-  &quot;text&quot;: &quot;The ransomware response. Most of my proudest moments in this role were team accomplishments...&quot;,
+  &quot;id&quot;: &quot;meridian-health-systems-director-of-cybersecurity-biggest-mistake-reflection&quot;,
+  &quot;kind&quot;: &quot;biggest-mistake&quot;,
+  &quot;text&quot;: &quot;Underinvesting in the security awareness program in the first nine months. I prioritized technical controls because the SOC was being built, but the phishing click-through rate stayed stubbornly above 20% well into year two. I should have run a parallel awareness track from the start — it took us 18 months to get below 8%, and the early window was wasted. The lesson is that technical controls and human factors have different time-to-impact curves, and the right move with a fresh budget is to fund both early rather than sequentially.&quot;,
   &quot;visibility&quot;: &quot;private&quot;,
   &quot;provenance&quot;: {
     &quot;source&quot;: &quot;interview-derived&quot;,
@@ -825,11 +815,12 @@
 
 <p>Cautions are claims the subject does not want made on their behalf.</p>
 
-<p>Example:</p>
+<p>Partial canonical example from Maria Reyes:</p>
 
 <pre><code class="language-json">{
+  &quot;id&quot;: &quot;caution-claimed-as-an-ai-ml-security-specialist&quot;,
   &quot;claim&quot;: &quot;claimed as an AI / ML security specialist&quot;,
-  &quot;reason&quot;: &quot;Has operational exposure to ML-based detection tooling but not research-level expertise.&quot;,
+  &quot;reason&quot;: &quot;Has good operational exposure to ML-based detection tooling but does not have research-level expertise. Past LLM draft positioned this too strongly; corrected here.&quot;,
   &quot;addedDate&quot;: {
     &quot;year&quot;: 2026,
     &quot;month&quot;: 5,
@@ -858,11 +849,12 @@
 
 <p>Open questions are a working queue.</p>
 
-<p>Examples:</p>
+<p>Partial canonical examples from Maria Reyes:</p>
 
 <pre><code class="language-json">{
+  &quot;id&quot;: &quot;open-question-clarify-whether-the-ransomware-response-ac&quot;,
   &quot;question&quot;: &quot;Clarify whether the ransomware-response achievement should name the affected clinical system or keep the description generic.&quot;,
-  &quot;context&quot;: &quot;More specificity may improve interview storytelling while also increasing sensitivity.&quot;,
+  &quot;context&quot;: &quot;The current achievement is strong, but more specificity may improve interview storytelling while also increasing sensitivity. Decide during review before using it in external materials.&quot;,
   &quot;addedDate&quot;: {
     &quot;year&quot;: 2026,
     &quot;month&quot;: 5,
@@ -872,8 +864,9 @@
 }</code></pre>
 
 <pre><code class="language-json">{
-  &quot;question&quot;: &quot;For the SOC buildout, clarify what Maria directly owned versus what managers or team leads owned.&quot;,
-  &quot;context&quot;: &quot;Attribution precision will help curators choose honest verbs.&quot;,
+  &quot;id&quot;: &quot;open-question-for-the-soc-buildout-clarify-what-maria-di&quot;,
+  &quot;question&quot;: &quot;For the SOC buildout, clarify what Maria directly owned versus what her managers or team leads owned as the team scaled from 0 to 12 analysts.&quot;,
+  &quot;context&quot;: &quot;The achievement is strong, but attribution precision will help curators choose honest verbs. Explore budget ownership, hiring authority, headcount responsibility, and who reported progress upward.&quot;,
   &quot;visibility&quot;: &quot;private&quot;
 }</code></pre>
 
@@ -891,13 +884,16 @@
 
 <p>For <code>talkingPoints</code> and <code>positioningVariants</code>, <code>supportingItemIds</code> is the preferred evidence link. Use <code>supportingEvidence</code> only when the evidence cannot yet be expressed as an item ID, such as an external source, a source artifact path, or a temporary descriptive pointer that a future editor may turn into a stable reference.</p>
 
-<p>Example:</p>
+<p>Partial canonical example from Maria Reyes:</p>
 
 <pre><code class="language-json">{
   &quot;id&quot;: &quot;authority-from-demonstrated-work&quot;,
-  &quot;label&quot;: &quot;Authority through demonstrated work&quot;,
-  &quot;statement&quot;: &quot;Rebuilds authority by doing the hard work first, then asking others to join.&quot;,
-  &quot;supportingItemIds&quot;: [&quot;mhs-soc-buildout&quot;, &quot;army-cyber-leadership-progression&quot;],
+  &quot;label&quot;: &quot;Authority from demonstrated work&quot;,
+  &quot;statement&quot;: &quot;I rebuild authority from demonstrated work rather than inherited position.&quot;,
+  &quot;supportingItemIds&quot;: [
+    &quot;meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection&quot;,
+    &quot;mhs-soc-buildout&quot;
+  ],
   &quot;reviewStatus&quot;: &quot;user-confirmed&quot;,
   &quot;visibility&quot;: &quot;private&quot;
 }</code></pre>

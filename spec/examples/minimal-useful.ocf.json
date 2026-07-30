@@ -1,0 +1,39 @@
+{
+  "$schema": "https://opencareerformat.org/v0.3/schema.json",
+  "schemaVersion": "0.3",
+  "meta": {
+    "fileRole": "candidate-master",
+    "lastModified": "2026-05-24"
+  },
+  "person": {
+    "name": {
+      "renderAs": "Maria E. Reyes"
+    }
+  },
+  "experience": [
+    {
+      "kind": "employment",
+      "name": "Meridian Health Systems",
+      "positions": [
+        {
+          "title": "Director of Cybersecurity",
+          "dateRange": {
+            "start": {
+              "year": 2023,
+              "month": 3
+            },
+            "end": {
+              "present": true
+            }
+          },
+          "achievements": [
+            {
+              "statement": "Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months",
+              "visibility": "public"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

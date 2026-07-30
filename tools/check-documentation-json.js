@@ -49,9 +49,11 @@ const provenanceKeys = new Set([
 ]);
 
 const failures = [];
+const canonicalDocuments = new Map();
 let jsonBlockCount = 0;
 let schemaCheckedCount = 0;
 let syntaxOnlyCount = 0;
+let canonicalSubsetCount = 0;
 
 for (const file of markdownFiles) {
   const relativePath = path.relative(repoRoot, file).split(path.sep).join("/");
@@ -66,6 +68,15 @@ for (const file of markdownFiles) {
     } catch (error) {
       failures.push(`${relativePath}:${block.line}: invalid JSON: ${error.message}`);
       continue;
+    }
+
+    if (block.canonicalSource) {
+      const canonicalFailure = validateCanonicalSubset(value, block.canonicalSource);
+      if (canonicalFailure) {
+        failures.push(`${relativePath}:${block.line}: ${canonicalFailure}`);
+        continue;
+      }
+      canonicalSubsetCount += 1;
     }
 
     if (syntaxOnlyPaths.some((pattern) => pattern.test(relativePath))) {
@@ -96,8 +107,117 @@ if (failures.length) {
 
 console.log(
   `documentation JSON validation: PASS ` +
-  `(${jsonBlockCount} blocks: ${schemaCheckedCount} schema-checked, ${syntaxOnlyCount} syntax-only)`,
+  `(${jsonBlockCount} blocks: ${schemaCheckedCount} schema-checked, ` +
+  `${canonicalSubsetCount} canonical subsets, ${syntaxOnlyCount} syntax-only)`,
 );
+
+function validateCanonicalSubset(value, source) {
+  const separator = source.indexOf("#");
+  const filePart = separator === -1 ? source : source.slice(0, separator);
+  const pointer = separator === -1 ? "" : source.slice(separator + 1);
+  const canonicalPath = path.resolve(repoRoot, filePart);
+
+  if (!canonicalPath.startsWith(`${repoRoot}${path.sep}`)) {
+    return `canonical subset path leaves the repository: ${source}`;
+  }
+  if (!fs.existsSync(canonicalPath)) {
+    return `canonical subset source does not exist: ${filePart}`;
+  }
+
+  let canonicalDocument = canonicalDocuments.get(canonicalPath);
+  if (!canonicalDocument) {
+    try {
+      canonicalDocument = JSON.parse(fs.readFileSync(canonicalPath, "utf8"));
+    } catch (error) {
+      return `could not read canonical subset source ${filePart}: ${error.message}`;
+    }
+    canonicalDocuments.set(canonicalPath, canonicalDocument);
+  }
+
+  const target = resolveJsonPointer(canonicalDocument, pointer);
+  if (!target.found) {
+    return `canonical subset pointer not found: ${source}`;
+  }
+
+  const mismatch = compareSubset(value, target.value, "$");
+  return mismatch ? `canonical subset drifted from ${source}\n  ${mismatch}` : null;
+}
+
+function compareSubset(subset, canonical, location) {
+  if (Array.isArray(subset)) {
+    if (!Array.isArray(canonical)) return `${location} is an array only in the documentation`;
+
+    const objectsWithIds = subset.every(
+      (item) => isPlainObject(item) && typeof item.id === "string",
+    );
+    if (objectsWithIds) {
+      for (const item of subset) {
+        const canonicalItem = canonical.find(
+          (candidate) => isPlainObject(candidate) && candidate.id === item.id,
+        );
+        if (!canonicalItem) return `${location} has no canonical item with id ${JSON.stringify(item.id)}`;
+        const mismatch = compareSubset(item, canonicalItem, `${location}[id=${JSON.stringify(item.id)}]`);
+        if (mismatch) return mismatch;
+      }
+      return null;
+    }
+
+    const objectsWithoutIds = subset.every(isPlainObject);
+    if (objectsWithoutIds) {
+      const remaining = canonical.map((item, index) => ({ item, index }));
+      for (const item of subset) {
+        const matchIndex = remaining.findIndex(
+          (candidate) => compareSubset(item, candidate.item, `${location}[${candidate.index}]`) === null,
+        );
+        if (matchIndex === -1) {
+          return `${location} has no canonical object matching ${JSON.stringify(item)}`;
+        }
+        remaining.splice(matchIndex, 1);
+      }
+      return null;
+    }
+
+    if (JSON.stringify(subset) !== JSON.stringify(canonical)) {
+      return `${location} array differs; arrays without item IDs must be included in full`;
+    }
+    return null;
+  }
+
+  if (isPlainObject(subset)) {
+    if (!isPlainObject(canonical)) return `${location} is an object only in the documentation`;
+    for (const [key, child] of Object.entries(subset)) {
+      if (!(key in canonical)) return `${location}.${key} does not exist in the canonical object`;
+      const mismatch = compareSubset(child, canonical[key], `${location}.${key}`);
+      if (mismatch) return mismatch;
+    }
+    return null;
+  }
+
+  if (JSON.stringify(subset) !== JSON.stringify(canonical)) {
+    return `${location} differs: documentation has ${JSON.stringify(subset)}, ` +
+      `canonical has ${JSON.stringify(canonical)}`;
+  }
+  return null;
+}
+
+function resolveJsonPointer(document, pointer) {
+  if (pointer === "") return { found: true, value: document };
+  if (!pointer.startsWith("/")) return { found: false };
+
+  let value = document;
+  for (const encodedPart of pointer.slice(1).split("/")) {
+    const part = encodedPart.replace(/~1/g, "/").replace(/~0/g, "~");
+    if (Array.isArray(value)) {
+      if (!/^(0|[1-9]\d*)$/.test(part) || Number(part) >= value.length) return { found: false };
+      value = value[Number(part)];
+    } else if (isPlainObject(value) && part in value) {
+      value = value[part];
+    } else {
+      return { found: false };
+    }
+  }
+  return { found: true, value };
+}
 
 function validateDocumentationFragment(value) {
   if (!isPlainObject(value)) {
@@ -198,9 +318,17 @@ function extractJsonBlocks(markdown) {
   const blocks = [];
   const pattern = /^```json\s*\n([\s\S]*?)^```\s*$/gm;
   for (const match of markdown.matchAll(pattern)) {
+    const before = markdown.slice(0, match.index);
+    const precedingLines = before.split("\n");
+    let previousLine = precedingLines.length - 1;
+    while (previousLine >= 0 && !precedingLines[previousLine].trim()) previousLine -= 1;
+    const annotation = precedingLines[previousLine]?.match(
+      /^<!--\s*canonical-subset:\s*(.+?)\s*-->$/,
+    );
     blocks.push({
       source: match[1].replace(/\n$/, ""),
       line: markdown.slice(0, match.index).split("\n").length,
+      canonicalSource: annotation?.[1],
     });
   }
   return blocks;

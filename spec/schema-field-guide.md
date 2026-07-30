@@ -162,8 +162,9 @@ Use this when a recruiter, coach, agency, employer, or tool controls a working f
 
 `person` identifies the subject of the OCF. It should not be confused with the controller of the file.
 
-Minimum useful shape:
+Partial canonical example from Maria Reyes:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json# -->
 ```json
 {
   "person": {
@@ -208,8 +209,9 @@ Source artifacts are inputs, not truth.
 
 Use `sourceArtifacts` for old resumes, cover letters, LinkedIn exports, pasted chat text, uploaded notes, interview transcripts, portfolio bios, comp-plan photos, job descriptions, and other material used to build or improve the OCF.
 
-Example:
+Partial canonical example from Maria Reyes:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json# -->
 ```json
 {
   "sourceArtifacts": [
@@ -309,6 +311,7 @@ Any item referenced by `supportingItemIds` must have a stable local `id`. Editor
 
 Recommended:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/experience/0/positions/0/achievements/5 -->
 ```json
 {
   "id": "mhs-ransomware-2024"
@@ -335,6 +338,7 @@ Values:
 
 Candidate-owned master example:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/experience/0/positions/0/achievements/0 -->
 ```json
 {
   "statement": "Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months",
@@ -349,7 +353,7 @@ Private coaching example:
 ```json
 {
   "kind": "biggest-mistake",
-  "text": "Underinvesting in the security awareness program in the first nine months...",
+  "text": "I should have involved the support teams before finalizing the rollout plan.",
   "visibility": "private"
 }
 ```
@@ -470,26 +474,14 @@ See `spec/examples/open-source-project.json` for a compact example using Open Ca
 
 Achievements are canonical claims. They store what happened, not just how it should be worded in a resume.
 
-Good achievement:
+Partial canonical example from Maria Reyes:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/experience/0/positions/0/achievements/5 -->
 ```json
 {
   "id": "mhs-ransomware-2024",
   "kind": "accomplishment",
-  "statement": "Led response to a hospital-wide ransomware incident and restored critical clinical systems within 41 hours with zero patient-care impact.",
-  "metrics": [
-    {
-      "kind": "duration",
-      "value": 41,
-      "unit": "hours"
-    },
-    {
-      "kind": "other",
-      "value": 0,
-      "unit": "patients",
-      "note": "zero patient-care incidents attributed to the outage"
-    }
-  ],
+  "statement": "Led response to a hospital-wide ransomware incident — performed forensic analysis on the attacker tooling, advised leadership against paying the ransom based on observed decryption failures in adjacent engagements, and executed an alternate recovery path from offline backups; restored critical clinical systems within 41 hours with zero patient-care impact.",
   "visibility": "shared"
 }
 ```
@@ -502,17 +494,20 @@ Use `importance` and `audiences` to help curators choose among many valid achiev
 
 Attribution keeps verbs honest.
 
-Example:
+Partial canonical example from Maria Reyes:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/experience/0/positions/0/achievements/0 -->
 ```json
 {
+  "id": "mhs-soc-buildout",
   "statement": "Built SOC team from 0 to 12 analysts, achieving 24/7 coverage within 6 months",
   "attribution": {
     "role": "owned",
-    "scope": "Owned SOC buildout plan, hiring model, coverage target, and operating cadence.",
+    "scope": "Owned SOC buildout plan, hiring model, coverage target, and operating cadence; direct managers and team leads handled some day-to-day execution as the team scaled.",
     "ownedBudget": true,
     "ownedHeadcount": true,
-    "reportedUpward": true
+    "reportedUpward": true,
+    "notes": "A future review should clarify which parts Maria personally managed versus delegated through leads once the team reached 12 analysts."
   }
 }
 ```
@@ -571,31 +566,32 @@ Narrative variants are alternate wording for the same underlying facts.
 
 They are not competing facts and not separate achievements.
 
-Example:
+Partial canonical examples from Maria Reyes:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/experience/0/positions/0/achievements/5 -->
 ```json
 {
   "narrativeVariants": [
     {
       "id": "mhs-ransomware-public-resume",
-      "label": "Public resume bullet",
-      "audiences": ["resume", "public-profile"],
+      "label": "Public resume bullet point",
+      "audiences": ["resume", "public-profile", "incident-response"],
       "statement": "Led ransomware response that restored critical clinical systems from offline backups within 41 hours with no patient-care impact.",
       "visibility": "public"
     },
     {
-      "id": "mhs-ransomware-healthcare-security",
-      "label": "Healthcare security framing",
-      "audiences": ["healthcare", "patient-safety"],
-      "statement": "Protected patient-care continuity during a ransomware event by leading evidence-based recovery from offline backups.",
-      "visibility": "shared"
-    },
-    {
       "id": "mhs-ransomware-interview-prep",
       "label": "Interview-prep framing",
-      "audiences": ["interview-prep", "executive-judgment"],
-      "longform": "Use this story to show executive judgment under pressure...",
+      "audiences": ["interview-prep", "executive-judgment", "ciso-track"],
+      "longform": "Use this story to show executive judgment under pressure: Maria did the forensic analysis herself, explained the risk of paying in business terms, committed to a 48-hour recovery path, and owned the recommendation when the outcome was uncertain.",
       "visibility": "private"
+    },
+    {
+      "id": "mhs-ransomware-healthcare-security",
+      "label": "Healthcare security framing",
+      "audiences": ["healthcare", "patient-safety", "security-leadership"],
+      "statement": "Protected patient-care continuity during a ransomware event by leading evidence-based recovery from offline backups and restoring critical clinical systems within 41 hours.",
+      "visibility": "shared"
     }
   ]
 }
@@ -621,12 +617,14 @@ When the user confirms a new target industry, missing industry-specific variant 
 
 Reflections are private review and conversation material. They are not resume bullets.
 
-Example:
+Partial canonical example from Maria Reyes:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/experience/0/positions/0/reflections/2 -->
 ```json
 {
-  "kind": "proudest-of",
-  "text": "The ransomware response. Most of my proudest moments in this role were team accomplishments...",
+  "id": "meridian-health-systems-director-of-cybersecurity-biggest-mistake-reflection",
+  "kind": "biggest-mistake",
+  "text": "Underinvesting in the security awareness program in the first nine months. I prioritized technical controls because the SOC was being built, but the phishing click-through rate stayed stubbornly above 20% well into year two. I should have run a parallel awareness track from the start — it took us 18 months to get below 8%, and the early window was wasted. The lesson is that technical controls and human factors have different time-to-impact curves, and the right move with a fresh budget is to fund both early rather than sequentially.",
   "visibility": "private",
   "provenance": {
     "source": "interview-derived",
@@ -669,12 +667,14 @@ For example, "make this bullet shorter for this application" is probably a one-d
 
 Cautions are claims the subject does not want made on their behalf.
 
-Example:
+Partial canonical example from Maria Reyes:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/cautions/1 -->
 ```json
 {
+  "id": "caution-claimed-as-an-ai-ml-security-specialist",
   "claim": "claimed as an AI / ML security specialist",
-  "reason": "Has operational exposure to ML-based detection tooling but not research-level expertise.",
+  "reason": "Has good operational exposure to ML-based detection tooling but does not have research-level expertise. Past LLM draft positioned this too strongly; corrected here.",
   "addedDate": {
     "year": 2026,
     "month": 5,
@@ -706,12 +706,14 @@ The stronger form helps future tools recognize the same overclaim when it return
 
 Open questions are a working queue.
 
-Examples:
+Partial canonical examples from Maria Reyes:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/openQuestions/1 -->
 ```json
 {
+  "id": "open-question-clarify-whether-the-ransomware-response-ac",
   "question": "Clarify whether the ransomware-response achievement should name the affected clinical system or keep the description generic.",
-  "context": "More specificity may improve interview storytelling while also increasing sensitivity.",
+  "context": "The current achievement is strong, but more specificity may improve interview storytelling while also increasing sensitivity. Decide during review before using it in external materials.",
   "addedDate": {
     "year": 2026,
     "month": 5,
@@ -721,10 +723,12 @@ Examples:
 }
 ```
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/openQuestions/3 -->
 ```json
 {
-  "question": "For the SOC buildout, clarify what Maria directly owned versus what managers or team leads owned.",
-  "context": "Attribution precision will help curators choose honest verbs.",
+  "id": "open-question-for-the-soc-buildout-clarify-what-maria-di",
+  "question": "For the SOC buildout, clarify what Maria directly owned versus what her managers or team leads owned as the team scaled from 0 to 12 analysts.",
+  "context": "The achievement is strong, but attribution precision will help curators choose honest verbs. Explore budget ownership, hiring authority, headcount responsibility, and who reported progress upward.",
   "visibility": "private"
 }
 ```
@@ -743,14 +747,18 @@ Talking points should cite evidence. Prefer `supportingItemIds` when the support
 
 For `talkingPoints` and `positioningVariants`, `supportingItemIds` is the preferred evidence link. Use `supportingEvidence` only when the evidence cannot yet be expressed as an item ID, such as an external source, a source artifact path, or a temporary descriptive pointer that a future editor may turn into a stable reference.
 
-Example:
+Partial canonical example from Maria Reyes:
 
+<!-- canonical-subset: spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json#/talkingPoints/0 -->
 ```json
 {
   "id": "authority-from-demonstrated-work",
-  "label": "Authority through demonstrated work",
-  "statement": "Rebuilds authority by doing the hard work first, then asking others to join.",
-  "supportingItemIds": ["mhs-soc-buildout", "army-cyber-leadership-progression"],
+  "label": "Authority from demonstrated work",
+  "statement": "I rebuild authority from demonstrated work rather than inherited position.",
+  "supportingItemIds": [
+    "meridian-health-systems-director-of-cybersecurity-never-on-resume-story-reflection",
+    "mhs-soc-buildout"
+  ],
   "reviewStatus": "user-confirmed",
   "visibility": "private"
 }
@@ -1074,6 +1082,7 @@ For example, a PDF that visibly renders "Staff engineer" but extracts as "Sta% e
 
 A useful OCF can be tiny:
 
+<!-- canonical-subset: spec/examples/minimal-useful.ocf.json# -->
 ```json
 {
   "$schema": "https://opencareerformat.org/v0.3/schema.json",
