@@ -270,6 +270,8 @@ OCF is a schema, not a security product. The format can make career data portabl
 
 **Updating tools must preserve what they do not own.** A tool that writes back to the master OCF should preserve IDs, provenance, extensions, source artifact references, and fields it does not understand. It should validate against the file's declared `$schema` version, not blindly against whatever schema version the tool happens to prefer. If the tool cannot understand a newer schema version, the safe behavior is read-only review or an explicit migration flow, not silently dropping fields. Curators and exporters are allowed to strip content when producing a labeled curated file or export output; that artifact must not later be treated as the master or used to overwrite the master by accident.
 
+**Update a reviewed master from the complete current object; do not reconstruct it from partial context.** Ordinary write-back should identify targeted changes, use stable item IDs when possible, and apply only user-accepted changes to a freshly read complete master. Preserve unmentioned and unknown fields, validate the resulting file, and show the user what changed. If the current master no longer matches the assumptions behind a proposal, preserve unrelated changes and stop for review when a targeted value changed or a safe merge cannot be established. A JSON serializer may physically rewrite the file, but the saved object must come from the complete current master plus the accepted changes, never from a curated file, export, partial model context, or regenerated approximation.
+
 ## Targeting with Importance and Audiences
 
 Your master file will contain far more than fits on any single resume. Two fields help the curator decide what's relevant:

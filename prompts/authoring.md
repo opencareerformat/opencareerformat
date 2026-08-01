@@ -229,6 +229,8 @@ When you create or update an OCF, show the user:
 - Which `cautions` should steer future tools.
 - What should be saved back to the master OCF.
 
+When updating an existing master, propose targeted changes against the complete file rather than drafting a replacement from scratch. Reference stable item IDs when available, show the current and proposed values, and separate additions, edits, deletions, and migrations. Before applying accepted changes, re-read the complete source and confirm that each proposal still applies. Preserve unrelated concurrent changes; stop for review if a targeted value changed or a safe merge cannot be established. Apply only the accepted changes, preserve all other fields including unknown fields and extensions, validate the complete result, and show the diff. If the environment can only output a full JSON document, derive it from the complete current master plus the accepted changes and label it as a proposed review copy; do not reconstruct it from partial context or a curated/export-ready file.
+
 If you output JSON, make it valid JSON. Use `https://opencareerformat.org/schema.json` as `$schema` for canonical files. Use the current `schemaVersion`. Preserve IDs, provenance, unknown fields, and user-authored wording when updating an existing OCF.
 
 The goal is not to produce the flashiest resume. The goal is to preserve an accurate, useful career memory that can make every future resume, cover letter, interview, profile, or career conversation better.

@@ -506,7 +506,13 @@
 
 <p>Consider defining a non-normative, provider-neutral format for proposing changes to an OCF document without directly modifying the canonical file. Patch sets could be produced by editors, reusable skills, agents, and other tools, then reviewed and applied by the user.</p>
 
-<p>Explore stable target identification, operation semantics, provenance, explanatory context, conflict detection, validation, and human-readable review. Begin with tool guidance or a reference contract, informed by multiple implementations, before considering whether any portion belongs in the normative OCF specification.</p>
+<p>Implementation experience suggests several questions worth testing: how a proposal identifies its source and revision; how it targets stable item IDs and field paths; how it represents additions, edits, and deletions with prior and proposed values; how people review meaningful changes independently; how tools preserve unrelated concurrent edits while detecting actual conflicts; and how the complete result is validated, explained, and recoverable. A future contract should also distinguish permission to use wording in one output, permission to create a proposal, and acceptance of a master-file update.</p>
+
+<p>The logical change set and the physical file write are different. A JSON implementation may serialize the entire document after applying accepted changes, but it must not reconstruct the master from partial context, a curated file, or a generated subset. No particular patch syntax is defined for v0.3.</p>
+
+<p>Plugins and connectors often need to make more specific choices to reconcile the guarantees and limitations of two systems. Stricter revision checks, conflict rules, or approval mechanics may be sound integration compromises without becoming requirements of OCF or of other implementations.</p>
+
+<p>Begin with tool guidance or a reference contract informed by multiple implementations before considering whether any portion belongs in the normative OCF specification.</p>
 
 <p>This is a consideration for possible exploration, not a commitment to add patch sets to OCF or undertake the work.</p>
 
