@@ -516,7 +516,9 @@
   &quot;visibility&quot;: &quot;public&quot;
 }</code></pre>
 
-<p>This is an explicit opt-up to <code>public</code>. Ordinary hand-authored material defaults to <code>shared</code> unless a field or tool sets a narrower or broader visibility.</p>
+<p>This is an explicit opt-up to <code>public</code>. Most ordinary hand-authored career items default to <code>shared</code>, but this is not a universal or inherited default. OCF assigns defaults by schema location. For example, an achievement normally defaults to <code>shared</code>, a caution defaults to <code>private</code>, and a certification can default to <code>shared</code> while its credential identifier defaults to <code>private</code>.</p>
+
+<p>An omitted <code>visibility</code> means &quot;use the default defined for this exact schema location.&quot; It does not mean &quot;inherit the parent's visibility.&quot; Explicit visibility on an item overrides its default.</p>
 
 <p>Private coaching example:</p>
 

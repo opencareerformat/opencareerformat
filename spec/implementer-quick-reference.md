@@ -149,6 +149,16 @@ Examples:
 
 Use directory structure if it helps: `imports/`, `curated/`, `exports/`, `archive/`.
 
+## Resolving Visibility Defaults
+
+OCF does not have one universal default for omitted `visibility`. Defaults are defined at the item's exact schema location. Most ordinary career material defaults to `shared`, while sensitive material such as cautions, reflections, credential identifiers, metrics, and supporting evidence may default to `private`.
+
+JSON Schema `default` is an annotation; validators do not necessarily insert it into the document. When a visibility-bearing item omits `visibility`, resolve the default from its precise schema path, including array items and referenced definitions. Do not infer the default from the parent object or assign one fallback to the entire file.
+
+OCF publishes [`reference/schema-index.json`](../reference/schema-index.json) as a generated, version-specific lookup and [`reference/lib/visibility.js`](../reference/lib/visibility.js) as a reference implementation. A tool may perform equivalent schema traversal, but the result must match the file's declared schema version. The schema remains authoritative if a generated artifact disagrees with it.
+
+Explicit valid `visibility` always wins. Validate before filtering. If a tool cannot resolve the default for a visibility-bearing item, it should exclude that item or request review rather than guessing that it is shareable.
+
 ## Compatibility Rules
 
 - The reference validator uses JSON Schema 2020-12 with pinned `ajv` and `ajv-formats` dependencies, AJV strict mode disabled, and local versioned schema copies. Other validators may treat `format` keywords differently; the `$schema` URL identifies the schema and does not require a network fetch when the validator has the matching local copy.
@@ -158,5 +168,5 @@ Use directory structure if it helps: `imports/`, `curated/`, `exports/`, `archiv
 - Unknown `extensions` namespaces must not be deleted on round-trip.
 - Generic visibility filters cannot determine whether arbitrary content inside an unknown extension namespace is safe for a particular recipient. Preserve unknown extensions, honor explicit visibility when present, and describe filtering truthfully: the user or an extension-aware curator controls whether that content belongs in an output.
 - Stable item IDs should survive edits.
-- `visibility` defaults should be conservative when the author is a tool rather than the person.
+- Tools creating content from imports, inference, or unreviewed source material should assign an explicit conservative `visibility` rather than relying on the schema default for ordinary reviewed material.
 - The master is the source of truth for career memory; exported files are outputs.

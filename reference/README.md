@@ -9,6 +9,8 @@ This directory contains small proof-of-concept tools around OCF:
 - `cli/` provides a minimal Python helper for summary output, validation delegation, and private-item filtering.
 - `context/` builds disposable context views from local profiles and retrieves full items by stable ID.
 - `ollama/` demonstrates a local-only LLM workflow using Ollama.
+- `schema-index.json` is a generated, version-specific lookup used by reference visibility filtering and semantic checks.
+- `lib/visibility.js` demonstrates schema-aware visibility resolution and filtering.
 
 These tools are examples. They demonstrate the data flow, not a production hiring product.
 
@@ -17,6 +19,14 @@ The validator is different from the other reference scripts: it checks OCF files
 The importer and curator are deliberately deterministic and shallow so the pipeline can run without API keys, network access, or model behavior. They could be substantially improved by using an LLM for extraction, follow-up questions, conflict detection, audience-specific wording, and job-description matching. That would improve the tool, not change the OCF schema.
 
 OCF is tool- and model-neutral. The Ollama example is included because local LLMs are one practical way to reduce oversharing with hosted services while still using OCF prompts and structured career memory. It is an example workflow, not a requirement or endorsement of one model provider.
+
+## Generated Schema Index
+
+`reference/schema-index.json` is a generated, version-specific implementer aid. It contains no candidate data. It records schema paths and defaults needed by reference behavior, including path-sensitive visibility defaults and ID/reference information used for semantic checks.
+
+The index is generated from the current schema and `tools/schema-semantics.json`; it is not an independent OCF specification. Consumers should pin it with the matching schema version or perform equivalent traversal themselves. If it conflicts with the schema, the schema wins.
+
+`reference/lib/visibility.js` demonstrates how to resolve omitted visibility, filter a document, and remove references to items excluded by filtering.
 
 ## Reference Tool Maturity
 

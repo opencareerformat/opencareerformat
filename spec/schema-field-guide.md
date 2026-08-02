@@ -346,7 +346,9 @@ Candidate-owned master example:
 }
 ```
 
-This is an explicit opt-up to `public`. Ordinary hand-authored material defaults to `shared` unless a field or tool sets a narrower or broader visibility.
+This is an explicit opt-up to `public`. Most ordinary hand-authored career items default to `shared`, but this is not a universal or inherited default. OCF assigns defaults by schema location. For example, an achievement normally defaults to `shared`, a caution defaults to `private`, and a certification can default to `shared` while its credential identifier defaults to `private`.
+
+An omitted `visibility` means "use the default defined for this exact schema location." It does not mean "inherit the parent's visibility." Explicit visibility on an item overrides its default.
 
 Private coaching example:
 

@@ -89,6 +89,8 @@ The generators update checked-in files. Review those changes before committing. 
 the static `index.{language}.html` gateways are hand-authored; the other checked-in HTML counterparts
 produced by `tools/generate-doc-html.js` are generated from Markdown.
 
+Changes to visibility definitions can alter disclosure behavior even when every example still validates. Review changes to `reference/schema-index.json`, especially `visibilityPaths`, as privacy-sensitive behavior changes. The generated index and reference visibility tests must remain synchronized with the schema.
+
 Documentation JSON fences are syntax-checked, and current guidance fragments are checked against
 compatible OCF object shapes. When a snippet is a partial copy of a canonical example, place a
 `<!-- canonical-subset: path/to/example.json#/json/pointer -->` comment immediately before the
