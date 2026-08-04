@@ -46,10 +46,13 @@ llms.txt          # LLM/tool site map pointing to the guide, schemas, skills, an
 
 prompts/          # OPTIONAL OPERATING GUIDANCE — LLM/coach/curator prompts that can evolve separately.
   application-bootstrap.md # Single-fetch first-session prompt for resume + job-description help.
+  application-bootstrap-experimental.md # Incubating application workflow changes, not canonical guidance.
   authoring.md    # Prompt for creating or updating a master OCF or proposed update set.
   coaching.md     # Prompt for discovering story, voice, goals, boundaries, and reflection.
   curation.md     # Prompt for target-specific filtering, questioning, ranking, and improvement.
+  interview-prep-questions.md # Reusable questions and canonical reflection kinds.
   llm-operating.md # Baseline instruction set for conversational OCF use.
+  profile-and-bio.md # Guidance for LinkedIn, About pages, and professional bios.
 
 skills/           # OPTIONAL AGENT WORKFLOWS — packaged skills for Codex,
                   # Claude Code, Cursor, and similar tools.
