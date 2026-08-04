@@ -68,6 +68,10 @@ OCF is currently pre-1.0 and in beta. The current schema alias (`https://opencar
 
 The schema's `$id` URL includes the version (e.g. `https://opencareerformat.org/v0.3/schema.json`). Older versions remain accessible at their URLs after newer versions ship; nothing breaks just because a new version is released.
 
+## npm Supply-Chain Guardrails
+
+The validator package's `reference/validator/.npmrc` requires npm 11 to exclude package versions published within the last seven days and to reject Git-sourced dependencies. The file lives beside `reference/validator/package.json` so npm applies it when commands run in that package. Do not bypass `min-release-age=7` merely to make a fresh dependency update available; let the cooldown expire unless a reviewed, time-sensitive security exception justifies an explicit one-time decision. Keep dependency lifecycle scripts disabled when they are not required, and review lockfile changes before committing them.
+
 ## Before You Push
 
 Run the repository's generated-artifact and behavior checks from the repository root:
