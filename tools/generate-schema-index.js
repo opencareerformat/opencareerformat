@@ -5,7 +5,7 @@ const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..");
 const schema = readJson(path.join(repoRoot, "schema.json"));
-const semantics = readJson(path.join(__dirname, "schema-semantics.json"));
+const semantics = readJson(path.join(repoRoot, "spec", "semantic-integrity.json"));
 const visibilityPaths = new Map();
 const idDefinitionPaths = new Map();
 const referenceLikeFields = new Set();
@@ -85,7 +85,7 @@ function checkReferenceCoverage() {
   ]);
   const missing = [...referenceLikeFields].filter((name) => !covered.has(name)).sort();
   if (missing.length) {
-    throw new Error(`Reference-like schema fields need classification in tools/schema-semantics.json: ${missing.join(", ")}`);
+    throw new Error(`Reference-like schema fields need classification in spec/semantic-integrity.json: ${missing.join(", ")}`);
   }
 }
 

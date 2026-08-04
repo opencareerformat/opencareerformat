@@ -16,6 +16,10 @@ function filterByVisibility(value, mode = "shared", options = {}) {
   if (!options.preserveFilteredReferences) {
     pruneFilteredReferences(filtered, collectTargets(value), collectTargets(filtered));
   }
+  pruneUnreferencedOrganizations(filtered);
+  if (!options.preserveMetadata && filtered && typeof filtered === "object") {
+    delete filtered.meta;
+  }
   return filtered;
 }
 
@@ -108,6 +112,30 @@ function pruneFilteredReferences(document, originalTargets, filteredTargets) {
       }
     }
   });
+}
+
+function pruneUnreferencedOrganizations(document) {
+  if (!document?.organizations || typeof document.organizations !== "object" || Array.isArray(document.organizations)) {
+    return;
+  }
+
+  const referenced = new Set();
+  walk(document, [], (value, segments) => {
+    if (segments[0] === "organizations") return;
+    for (const [field, rule] of Object.entries(schemaIndex.referenceFields)) {
+      if (rule.target !== "organization-key" || !Object.prototype.hasOwnProperty.call(value, field)) continue;
+      if (rule.many && Array.isArray(value[field])) {
+        value[field].forEach((target) => typeof target === "string" && referenced.add(target));
+      } else if (!rule.many && typeof value[field] === "string") {
+        referenced.add(value[field]);
+      }
+    }
+  });
+
+  for (const key of Object.keys(document.organizations)) {
+    if (!referenced.has(key)) delete document.organizations[key];
+  }
+  if (Object.keys(document.organizations).length === 0) delete document.organizations;
 }
 
 function walk(value, segments, visit) {

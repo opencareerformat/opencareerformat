@@ -28,6 +28,11 @@ const docs = [
     description: "A compact tool-builder view of Open Career Format.",
   },
   {
+    source: "spec/semantic-integrity.md",
+    title: "OCF Semantic Integrity Contract",
+    description: "Whole-document ID and reference rules that complement the OCF JSON Schema.",
+  },
+  {
     source: "spec/language-and-translation.md",
     title: "OCF Language And Translation",
     description: "Guidance for translated OCF documentation and translated career-content sidecars.",

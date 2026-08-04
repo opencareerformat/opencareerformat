@@ -360,7 +360,9 @@ Private coaching example:
 }
 ```
 
-Public-only export paths should include only `public` material. The reference curator demonstrates this with `--public-only`, which strips both `private` and `shared` content.
+Public-only export paths should include only `public` visibility-bearing material. The reference curator demonstrates this with `--public-only`, which strips both `private` and `shared` items. Required structure and fields without item-level visibility still need purpose-specific curation; the visibility filter alone does not decide whether a rendered name, headline, date, or other retained context belongs in a publication.
+
+Visibility-bearing items and structural containers are different. Do not assign an implicit public default to objects such as `meta`, `person`, or the top-level `organizations` registry merely because they have no `visibility` field. A derived projection should create its own metadata and retain only organization records still referenced by retained content. This prevents a removed private role from leaving its organization name behind through the registry.
 
 Private-by-default means "do not include automatically," not "never ask." A curator may ask the user whether a private group, type, or specific item should be shared in the export being prepared. Frame it as an output-specific curation checkpoint, not an abstract permission request: "We have the right choices to create this targeted resume; I want to make sure you are okay using these private-by-default fields for this version." The question should name what would be shared and the recipient or context, and the answer should apply to that output unless the user also asks to update the master visibility.
 

@@ -18,7 +18,7 @@ const {
 } = require("./lib/ocf");
 
 function toLinkedInBundle(doc) {
-  doc = filterByVisibility(doc, "shared");
+  doc = filterByVisibility(doc, "public");
   const person = doc.person || {};
   const lines = [];
 

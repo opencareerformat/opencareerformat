@@ -24,9 +24,9 @@ OCF is tool- and model-neutral. The Ollama example is included because local LLM
 
 `reference/schema-index.json` is a generated, version-specific implementer aid. It contains no candidate data. It records schema paths and defaults needed by reference behavior, including path-sensitive visibility defaults and ID/reference information used for semantic checks.
 
-The index is generated from the current schema and `tools/schema-semantics.json`; it is not an independent OCF specification. Consumers should pin it with the matching schema version or perform equivalent traversal themselves. If it conflicts with the schema, the schema wins.
+The index is generated from the current schema and `spec/semantic-integrity.json`; it is not an independent OCF specification. Consumers should pin it with the matching schema version or perform equivalent traversal themselves. If it conflicts with the schema, the schema wins.
 
-`reference/lib/visibility.js` demonstrates how to resolve omitted visibility, filter a document, and remove references to items excluded by filtering.
+`reference/lib/visibility.js` demonstrates how to resolve omitted visibility, filter a document, remove references to excluded items, and prune organization registry entries that are no longer referenced. It omits source-file `meta` by default because derived output needs fresh metadata; trusted internal callers that are not producing a derived artifact may request `preserveMetadata` explicitly.
 
 ## Reference Tool Maturity
 
@@ -40,7 +40,7 @@ These tools are intentionally bare bones. They prove the concept and make the da
 | `importers/resume-text-to-ocf.js` | Skeleton proof of concept | Turns a very regular plain-text resume into a current-schema provisional OCF master with provenance and a review question. | Not a robust resume parser; does not handle PDFs, tables, complex layouts, conflict detection, or follow-up questions. |
 | `curators/job-description.js` | Skeleton proof of concept | Scores a master OCF against target text, filters visibility, and writes a curated working file; currently smoke-tested against the current examples. | Keyword scoring only; no real judgment, no user interview, no nuanced fit analysis. |
 | `exporters/json-resume.js` | Minimal mapper | Converts visible canonical OCF content into JSON Resume shape. | Does not choose among unresolved variants; loses OCF-only concepts such as cautions, open questions, provenance detail, and private memory. |
-| `exporters/linkedin.js` | Minimal paste-bundle mapper | Produces Markdown from visible canonical OCF content, organized around LinkedIn editing areas. | Does not choose among unresolved variants or call LinkedIn APIs; users must review and paste manually. |
+| `exporters/linkedin.js` | Minimal paste-bundle mapper | Produces Markdown from public visibility-bearing canonical OCF content, organized around LinkedIn editing areas. | Fields without item-level visibility still depend on curated input; does not choose among unresolved variants or call LinkedIn APIs; users must review and paste manually. |
 | `ollama/ocf-local-llm.js` | Local LLM proof of concept | Sends OCF prompts, schema-core, and user-provided files to a local Ollama model; can write either a transcript or a provisional-master JSON draft. | Requires local Ollama and a model; model-authored JSON still needs validator checks and human review. |
 
 ## End-to-End Demo

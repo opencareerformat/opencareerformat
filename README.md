@@ -11,7 +11,7 @@ A candidate-owned, portable file format for preserving career history and curati
 ## Use OCF
 
 - **Put your career history into OCF:** start at [opencareerformat.org](https://opencareerformat.org/). Environments that support skills can use the [OCF Start skill](skills/ocf-start/SKILL.md); ordinary chat windows can use the [application bootstrap prompt](prompts/application-bootstrap.md).
-- **Integrate OCF into your product:** start with the [current schema](schema.json), [OCF Schema Field Guide](spec/schema-field-guide.md), [implementer quick reference](spec/implementer-quick-reference.md), and [reference implementations](reference/README.md).
+- **Integrate OCF into your product:** start with the [current schema](schema.json), [semantic integrity contract](spec/semantic-integrity.md), [OCF Schema Field Guide](spec/schema-field-guide.md), [implementer quick reference](spec/implementer-quick-reference.md), and [reference implementations](reference/README.md).
 
 ## See OCF Used
 
@@ -53,7 +53,7 @@ skills/           # OPTIONAL AGENT WORKFLOWS — packaged skills for Codex,
                   # Claude Code, Cursor, and similar tools.
   ocf-start/      # Front-door router: what do you have, and what are you trying to do?
     references/   # Bundled local setup guidance loaded only when needed.
-  ocf-export-career-ops/ # Export OCF career memory into a Career-Ops workspace.
+  ocf-export-career-ops/ # Bootstrap new Career-Ops files when its OCF connector is unavailable.
 
 mappings/         # CROSS-FORMAT DOCS — prose-only specifications for how OCF
                   # maps to / from neighbouring formats (JSON Resume, LER-RS,

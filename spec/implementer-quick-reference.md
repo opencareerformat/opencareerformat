@@ -159,6 +159,10 @@ OCF publishes [`reference/schema-index.json`](../reference/schema-index.json) as
 
 Explicit valid `visibility` always wins. Validate before filtering. If a tool cannot resolve the default for a visibility-bearing item, it should exclude that item or request review rather than guessing that it is shareable.
 
+Visibility defaults apply only at schema locations that define `visibility`; they are not a universal rule for every object. Structural containers such as `person`, `meta`, and the top-level `organizations` registry do not become public merely because they lack a visibility field. A filtered projection should omit or regenerate source-file metadata and retain only organization registry entries referenced by retained content. Derived metadata describes the new artifact, not permission inherited from the source file.
+
+After visibility filtering, prune references and registries that no longer have a retained source or target. In particular, an organization entry referenced only by a removed experience must not survive in the output. Public-facing exporters must request `public` for visibility-bearing content; `shared` is appropriate for controlled recipients, not public publication. Required structure and fields with no item-level visibility, such as the rendered name or headline, still require purpose-specific curation and user review.
+
 ## Compatibility Rules
 
 - The reference validator uses JSON Schema 2020-12 with pinned `ajv` and `ajv-formats` dependencies, AJV strict mode disabled, and local versioned schema copies. Other validators may treat `format` keywords differently; the `$schema` URL identifies the schema and does not require a network fetch when the validator has the matching local copy.

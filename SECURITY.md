@@ -29,6 +29,8 @@ The presence of personal information in an OCF file is not, by itself, a securit
 
 The schema includes visibility fields, provenance, cautions, and curation guidance to help users and tools decide what should stay in a private master file and what can be shared downstream. These are curation signals, not encryption or access control. Protect OCF files using the same care you would use for resumes, tax records, compensation documents, reference lists, and private career notes.
 
+Filtering must account for indirect disclosure. Removing a private experience while retaining an organization registry entry that only it referenced still reveals information. Derived projections should prune unreachable registry records and write fresh output metadata instead of copying source-file metadata automatically. Public publication must limit visibility-bearing content to items resolved as `public`; `shared` content is for controlled recipients. Fields without item-level visibility still require purpose-specific curation and user review.
+
 For more detail, see the privacy, visibility, source artifact, and operating-practice sections in the guide.
 
 ## Trust Boundaries

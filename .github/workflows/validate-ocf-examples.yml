@@ -38,6 +38,7 @@ jobs:
           node tools/generate-schema-core.js
           node tools/generate-schema-index.js
           node tools/generate-skill-manifest.js
+          node reference/validator/generate-standalone.js
 
       - name: Validate example OCF JSON files
         run: node reference/validator/validate.js
@@ -56,6 +57,9 @@ jobs:
 
       - name: Validate documentation JSON examples
         run: node tools/check-documentation-json.js
+
+      - name: Check shared prompt rules
+        run: node tools/check-shared-prompt-rules.js
 
       - name: Check generated files are current
         run: git diff --exit-code

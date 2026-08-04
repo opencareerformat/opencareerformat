@@ -75,6 +75,7 @@ Run the repository's generated-artifact and behavior checks from the repository 
 ```bash
 node tools/generate-schema-core.js
 node tools/generate-schema-index.js
+node reference/validator/generate-standalone.js
 node tools/check-schema-copies.js
 node reference/validator/validate.js
 node tools/check-schema-core.js
@@ -82,6 +83,7 @@ node reference/test/run.js
 node tools/generate-doc-html.js
 node tools/check-worked-example-snippets.js
 node tools/check-documentation-json.js
+node tools/check-shared-prompt-rules.js
 git diff --exit-code
 ```
 
@@ -90,6 +92,8 @@ the static `index.{language}.html` gateways are hand-authored; the other checked
 produced by `tools/generate-doc-html.js` are generated from Markdown.
 
 Changes to visibility definitions can alter disclosure behavior even when every example still validates. Review changes to `reference/schema-index.json`, especially `visibilityPaths`, as privacy-sensitive behavior changes. The generated index and reference visibility tests must remain synchronized with the schema.
+
+Whole-document reference semantics are defined in `spec/semantic-integrity.json`, not in an implementation-private sidecar. Changes to that contract require regeneration and behavior tests alongside schema changes.
 
 Documentation JSON fences are syntax-checked, and current guidance fragments are checked against
 compatible OCF object shapes. When a snippet is a partial copy of a canonical example, place a

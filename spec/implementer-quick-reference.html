@@ -339,6 +339,10 @@
 
 <p>Explicit valid <code>visibility</code> always wins. Validate before filtering. If a tool cannot resolve the default for a visibility-bearing item, it should exclude that item or request review rather than guessing that it is shareable.</p>
 
+<p>Visibility defaults apply only at schema locations that define <code>visibility</code>; they are not a universal rule for every object. Structural containers such as <code>person</code>, <code>meta</code>, and the top-level <code>organizations</code> registry do not become public merely because they lack a visibility field. A filtered projection should omit or regenerate source-file metadata and retain only organization registry entries referenced by retained content. Derived metadata describes the new artifact, not permission inherited from the source file.</p>
+
+<p>After visibility filtering, prune references and registries that no longer have a retained source or target. In particular, an organization entry referenced only by a removed experience must not survive in the output. Public-facing exporters must request <code>public</code> for visibility-bearing content; <code>shared</code> is appropriate for controlled recipients, not public publication. Required structure and fields with no item-level visibility, such as the rendered name or headline, still require purpose-specific curation and user review.</p>
+
 <h2>Compatibility Rules</h2>
 
 <ul>

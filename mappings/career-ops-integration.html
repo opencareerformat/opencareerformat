@@ -193,7 +193,7 @@
 
 <h2>First Step: OCF Export To Career-Ops Files</h2>
 
-<p>As a first step, OCF includes a simple OCF-side skill that helps curate and export files into the format and directory structure Career-Ops expects. The goal is modest: let someone with an OCF file seed a Career-Ops workspace, which can then operate without caring where the data came from.</p>
+<p>OCF includes a simple OCF-side fallback skill that can seed new files in an already installed Career-Ops workspace. The installed OCF plugin is the tested path for ongoing projection, review, and refresh.</p>
 
 <p>The skill is:</p>
 
@@ -214,11 +214,11 @@
 <p>OCF documents two complementary paths:</p>
 
 <ol>
-<li><strong>Standalone OCF-side export (one-way).</strong> The OCF export skill curates a reviewed OCF file into the user-layer files a Career-Ops workspace expects. Career-Ops can then operate without caring where those files came from. This path does not require Career-Ops or a plugin to change.</li>
-<li><strong>Installed Career-Ops plugin integration (planned, bidirectional).</strong> A planned <code>career-ops-plugin-ocf</code> can use OCF as the local, durable career-memory backend beneath Career-Ops. The plugin can curate OCF for one or more search tracks, populate or refresh Career-Ops inputs, and propose user-approved career-memory improvements back to the candidate's OCF file in addition to Career-Ops' normal file updates.</li>
+<li><strong>Installed Career-Ops plugin integration.</strong> <code>career-ops-plugin-ocf</code> is the versioned connector path. Its pinned mapping is authoritative for plugin behavior: it can project reviewed OCF for search tracks, compare the projection with the five managed Career-Ops files, apply only explicitly approved final contents through guarded file operations, and propose reviewed career-memory improvements back toward OCF.</li>
+<li><strong>Standalone OCF-side bootstrap (one-way fallback).</strong> The OCF export skill can create new user-layer files when the plugin is unavailable or the user explicitly requests a direct bootstrap. It does not refresh or merge a populated workspace.</li>
 </ol>
 
-<p>The plugin path augments rather than replaces Career-Ops' native files, search workflow, scoring, reports, pipeline, or runtime state. Until the plugin is published and registered, the standalone export skill remains the public integration path.</p>
+<p>The plugin path augments rather than replaces Career-Ops' native files, search workflow, scoring, reports, pipeline, or runtime state. Connector versions pin one OCF schema version and should identify the exact OCF and Career-Ops revisions used for compatibility testing.</p>
 
 <h2>What The Skill Exports</h2>
 
@@ -229,9 +229,10 @@
 <li><code>config/profile.yml</code>;</li>
 <li><code>modes/_profile.md</code>;</li>
 <li><code>interview-prep/story-bank.md</code>;</li>
-<li><code>article-digest.md</code>;</li>
-<li>selected <code>jds/*</code> files when relevant.</li>
+<li><code>article-digest.md</code>.</li>
 </ul>
+
+<p>Job-description collections, application artifacts, and writing samples remain Career-Ops state and are outside automatic OCF projection.</p>
 
 <p>For Career-Ops, <code>cv.md</code> should be treated as a broad candidate source, not a two-page human resume. A normal resume export should curate hard. A Career-Ops source file may include more visible roles, achievements, skills, stories, and proof points so Career-Ops has enough context to score, tailor, and generate narrower outputs.</p>
 
@@ -245,7 +246,7 @@
 <li>cautions, goals, and provenance relevant to the track.</li>
 </ul>
 
-<p>If someone is running multiple searches, such as customer success leadership and solutions consulting, the skill should avoid blending them into one ambiguous candidate profile. The standalone export path should use separate Career-Ops workspaces or clearly separated output folders. The planned plugin path can instead let Career-Ops curate distinct track-specific inputs from the same OCF master.</p>
+<p>If someone is running multiple searches, such as customer success leadership and solutions consulting, the skill should avoid blending them into one ambiguous candidate profile. The standalone export path should use separate Career-Ops workspaces or clearly separated output folders. The plugin path can instead let Career-Ops curate distinct track-specific inputs from the same OCF master.</p>
 
 <h2>Example: Maria Starts A Career-Ops Search</h2>
 
@@ -274,7 +275,6 @@
 <li><code>config/profile.yml</code>: identity plus current search overlay values Maria chooses to provide;</li>
 <li><code>modes/_profile.md</code>: healthcare-security positioning, cautions, and target-specific framing;</li>
 <li><code>interview-prep/story-bank.md</code>: only visible or explicitly approved story material, because some OCF talking points and reflections are private by default;</li>
-<li><code>jds/healthcare-cybersecurity-director.md</code>: the sample healthcare cybersecurity JD.</li>
 </ul>
 
 <p>This is the useful handoff: OCF provides durable career memory and target-aware variants; Career-Ops can then run the search, scoring, reporting, and application workflow from those starting files.</p>
@@ -294,9 +294,9 @@
 
 <p>An OCF skill may ask for those values and write them to Career-Ops configuration files for the current workspace. It should not save them back to the OCF master unless the user explicitly asks to preserve them as reviewed goals or preferences with visibility and provenance.</p>
 
-<h2>Planned Plugin Integration: Career-Ops As Curator And Exporter</h2>
+<h2>Plugin Integration: Career-Ops As Curator And Exporter</h2>
 
-<p>The planned installed plugin is the deeper, bidirectional integration path. OCF remains the candidate-controlled career-memory backend; the plugin is the versioned adapter that lets Career-Ops curate from it and propose reviewed improvements back to it.</p>
+<p>The installed plugin is the deeper, bidirectional integration path. OCF remains the candidate-controlled career-memory backend; the plugin is the versioned adapter that lets Career-Ops curate from it and propose reviewed improvements back to it.</p>
 
 <p>OCF already stores stable career facts separately from target/audience-specific variants: positioning, narrative variants, talking points, cautions, goals, and provenance. Through the plugin, Career-Ops can use OCF as the candidate's career substrate, curate and export what it needs for a given search track, run its job-search workflow, and then propose user-approved career-history improvements back to the OCF file.</p>
 
@@ -323,6 +323,8 @@
 <li>transient ranking metadata;</li>
 <li>generated files that are not user-reviewed career memory.</li>
 </ul>
+
+<p>A plugin-generated initial OCF file begins as <code>third-party-working</code>, even when it validates against the plugin's pinned OCF schema. It can become a candidate-owned master only after OCF-native validation and person acceptance. A plugin write-back proposal for an existing master is likewise untrusted review input: it should identify the source OCF ID, schema version and hash, plus the plugin version or immutable build hash. OCF-native tooling re-evaluates it against the current complete master and applies only the accepted subset. Neither connector artifact is a new OCF schema type.</p>
 
 <h2>Shared Values</h2>
 

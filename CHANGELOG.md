@@ -4,6 +4,16 @@ All notable changes to the Open Career Format specification and reference implem
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
+## 2026-08-04
+
+### Changed
+
+- Hardened reference visibility projections by pruning unreferenced organizations, omitting source metadata from derived output by default, and limiting the LinkedIn paste bundle to public visibility-bearing items.
+- Synchronized evidence-gap, formal-status, disclosure, and untrusted-source rules across the application, curation, and operating prompts, with a CI regression check for the shared clauses.
+- Clarified the Career-Ops boundary: the installed connector owns its pinned five-file projection and reviewed refresh behavior, while the OCF-side skill is a one-way bootstrap fallback and does not project `aiInstructions`, JD collections, application artifacts, or writing samples.
+- Promoted whole-document ID and reference classifications into the specification as a machine-readable semantic integrity contract and added standalone-validator regeneration to CI.
+- Added non-normative v0.4 considerations for organization visibility and stable identity for position-nested projects.
+
 ## 2026-07-19
 
 ### Changed

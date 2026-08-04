@@ -13,6 +13,7 @@ function curateForJob(doc, jobText, options = {}) {
     throw new Error("Cannot curate OCF: input master is missing meta.id.");
   }
 
+  const sourceMeta = doc.meta;
   const visibilityMode = options.visibilityMode || "shared";
   // The curated child carries parent lineage, so opaque references may still
   // resolve in the parent even when the referenced private item is not copied.
@@ -38,12 +39,12 @@ function curateForJob(doc, jobText, options = {}) {
       targetRole: options.targetRole,
       targetCompany: options.targetCompany,
       lastModified: now,
-      language: doc.meta?.language,
+      language: sourceMeta.language,
       source: {
         kind: "authored",
       },
-      parentFileId: doc.meta.id,
-      parentVersion: doc.meta?.version,
+      parentFileId: sourceMeta.id,
+      parentVersion: sourceMeta.version,
       lineageNotes: `Proof-of-concept curator: keyword scored the target context, ${visibilityNote}, and kept a small subset of matching experience, skills, and certifications. This curated OCF is intentionally incomplete and should not overwrite the master.`,
     },
     person: doc.person,

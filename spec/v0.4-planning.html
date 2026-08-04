@@ -537,6 +537,14 @@
 <li>Consider requiring one minimal identifying field on lightly used objects that currently allow <code>{}</code>: <code>title</code> for awards and patents, and <code>name</code> for interests. Keep the rule lightweight and confirm it against real examples before approval.</li>
 </ul>
 
+<h3>Organization Visibility</h3>
+
+<p>Top-level <code>organizations</code> is a reusable registry, not an independently publishable list. v0.3 filtering should retain only organization entries referenced by retained content. A future schema pass should evaluate whether organizations also need explicit visibility for cases where the registry entry itself contains details that are more sensitive than the referencing item. Do not add a blanket default now; first test how organization-level visibility should interact with several references carrying different visibility values.</p>
+
+<h3>Position Projects</h3>
+
+<p>Top-level projects have stable IDs, while projects nested under positions currently do not. Test whether nested projects need IDs for targeted updates, references, and proposal workflows, or whether implementations should promote any independently addressable project to the top-level collection. Avoid adding IDs solely for structural symmetry without real update and reference cases.</p>
+
 <h3>Human-Readable Achievement IDs</h3>
 
 <p>Native editors need compact and useful names for achievements because the canonical achievement text may be a full resume bullet point. In a candidate-owned workflow, the editor is usually the subject and already recognizes an internal handle such as <code>mhs-ransomware-2024</code>; the full <code>statement</code> remains available when more context is needed.</p>

@@ -27,7 +27,7 @@ The core skill intentionally stays dependency-free. It tells the agent what to r
 
 ## Optional Integration
 
-[`ocf-export-career-ops`](ocf-export-career-ops/SKILL.md) is only for people who use Career-Ops, a separate local job-search workspace for evaluating opportunities, producing application materials, and managing the operational side of a search. It exports reviewed OCF career information into the files Career-Ops expects. You do not need this skill for ordinary OCF use.
+[`ocf-export-career-ops`](ocf-export-career-ops/SKILL.md) is only for people who use Career-Ops, a separate local job-search workspace for evaluating opportunities, producing application materials, and managing the operational side of a search. Prefer the installed OCF connector for ongoing projection and refresh. This OCF-side skill is a one-way bootstrap fallback that exports reviewed OCF career information into new Career-Ops files. You do not need it for ordinary OCF use.
 
 ## Version Control
 

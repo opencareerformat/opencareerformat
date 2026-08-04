@@ -19,6 +19,7 @@ const addFormats = require("../validator/node_modules/ajv-formats");
 
 testPrivateDefaults();
 testInvalidVisibilityFailsClosed();
+testOrganizationAndMetadataFiltering();
 testCanonicalVariantExport();
 testReferenceToolSmoke();
 testDateRangeFormatting();
@@ -67,9 +68,57 @@ function testPrivateDefaults() {
     ...source,
     meta: { parentFileId: "parent-file" },
   };
-  const child = filterByVisibility(childInput, "shared", { preserveFilteredReferences: true });
+  const child = filterByVisibility(childInput, "shared", {
+    preserveFilteredReferences: true,
+    preserveMetadata: true,
+  });
   assert.strictEqual(child.experience[0].positions[0].achievements[0].provenance.sourceArtifactId, "resume");
   assert.deepStrictEqual(validateSemantic(child), []);
+}
+
+function testOrganizationAndMetadataFiltering() {
+  const source = {
+    schemaVersion: "0.3",
+    meta: {
+      id: "private-master",
+      fileRole: "candidate-master",
+      targetCompany: "Confidential Target",
+      lineageNotes: "Removed sensitive history",
+    },
+    person: { name: { renderAs: "Example Person" } },
+    organizations: {
+      "visible.example": { name: "Visible Employer" },
+      "private.example": { name: "Private Recovery Center" },
+      "unused.example": { name: "Unreferenced Organization" },
+    },
+    experience: [
+      {
+        id: "visible-role",
+        name: "Visible Role",
+        organizationRef: "visible.example",
+        visibility: "shared",
+      },
+      {
+        id: "private-role",
+        name: "Private Role",
+        organizationRef: "private.example",
+        visibility: "private",
+      },
+    ],
+  };
+
+  const shared = filterByVisibility(source, "shared");
+  assert.strictEqual(shared.meta, undefined);
+  assert.deepStrictEqual(Object.keys(shared.organizations), ["visible.example"]);
+  assert.strictEqual(shared.organizations["visible.example"].name, "Visible Employer");
+
+  const publicOnly = filterByVisibility(source, "public");
+  assert.strictEqual(publicOnly.meta, undefined);
+  assert.strictEqual(publicOnly.organizations, undefined);
+  assert.strictEqual(publicOnly.person.name.renderAs, "Example Person");
+
+  const preserved = filterByVisibility(source, "shared", { preserveMetadata: true });
+  assert.strictEqual(preserved.meta.targetCompany, "Confidential Target");
 }
 
 function testInvalidVisibilityFailsClosed() {
@@ -116,10 +165,15 @@ function testReferenceToolSmoke() {
     experience: [{
       id: "example",
       name: "Example Corp",
+      visibility: "public",
       positions: [{
         id: "security-leader",
         title: "Security Leader",
-        achievements: [{ id: "response", statement: "Improved incident response", visibility: "shared" }],
+        visibility: "public",
+        achievements: [
+          { id: "response", statement: "Improved incident response", visibility: "shared" },
+          { id: "public-response", statement: "Published incident response guidance", visibility: "public" },
+        ],
       }],
     }],
   };
@@ -127,7 +181,10 @@ function testReferenceToolSmoke() {
   assert.strictEqual(curated.meta.fileRole, "candidate-curated");
   assert.strictEqual(curated.experience[0].positions[0].achievements[0].id, "response");
   assert.strictEqual(summarizeCuration(source, curated, "shared").privateItemsRemoved, 1);
-  assert.match(toLinkedInBundle(source), /# LinkedIn Paste Bundle/);
+  const linkedIn = toLinkedInBundle(source);
+  assert.match(linkedIn, /# LinkedIn Paste Bundle/);
+  assert.match(linkedIn, /Published incident response guidance/);
+  assert.doesNotMatch(linkedIn, /Improved incident response/);
 }
 
 function testDateRangeFormatting() {

@@ -20,13 +20,11 @@ As career-ops runs, the candidate may accumulate durable material outside `cv.md
 
 Both directions follow the general principles in this directory: export from an export-ready or curated file, preserve the master as source of truth, respect `visibility`, keep facts separate from display wording, and never invent facts to satisfy the target.
 
-## Integration Shapes
+## Integration Paths
 
-**File generation.** An OCF exporter writes career-ops User Layer files directly, such as `cv.md`, `config/profile.yml`, `modes/_profile.md`, `interview-prep/story-bank.md`, `article-digest.md`, and selected `jds/*`. This works with career-ops as a local workspace because those files are plain Markdown and YAML and are treated as user-owned data. This is the pragmatic first integration and belongs in OCF's exporter category.
+**Installed plugin.** When `career-ops-plugin-ocf` is installed, its versioned, pinned mapping is authoritative for connector behavior. The plugin is the tested path for projection, review, refresh, and proposals back toward OCF. A plugin version identifies one compatible OCF schema version and should record the exact OCF and Career-Ops revisions used for release testing. OCF semantics remain authoritative for OCF data; the connector makes the additional specific choices required to bridge two systems.
 
-**Agent skill workflow.** A reusable OCF skill can manage the local filesystem layer: locate the OCF file, locate or create the career-ops workspace, inspect career-ops' own examples/templates for the current expected file shapes, ask for operational job-search preferences that OCF does not normally store, and write user-layer files after confirmation. The skill should adapt to the installed career-ops workspace rather than copying frozen template text into OCF.
-
-**Native OCF ingestion.** A future career-ops mode could read an OCF file directly as the candidate source instead of `cv.md` plus profile files. This is cleaner and avoids a generation step, but it requires upstream support from career-ops. File generation is the practical path; native ingestion is a possible later integration.
+**Standalone OCF bootstrap.** The OCF-side skill is a one-way fallback for creating new user-layer files in an already installed Career-Ops workspace when the plugin is unavailable or the user explicitly requests it. It inspects the installed templates rather than freezing Career-Ops shapes in this repository. It is not the connector contract and must not claim to refresh, reconcile, or safely merge a populated workspace.
 
 ## User Layer Mapping
 
@@ -34,11 +32,11 @@ Both directions follow the general principles in this directory: export from an 
 |---|---|---|
 | Curated/export-ready resume content: `person`, `skills`, `experience[].positions[]`, selected `achievements[]`, `education`, `certifications`, `projects` | `cv.md` | Render selected, visible OCF content into resume-shaped Markdown. This is the primary integration point. |
 | `person` identity, `goals`, target-role direction, work authorization display text | `config/profile.yml` | Identity, target roles, location preferences, and operational job-search settings. Some career-ops fields are preferences rather than durable career facts. |
-| `positioningVariants[]`, `talkingPoints[]`, `voice`, `aiInstructions`, `cautions` | `modes/_profile.md` | Archetypes, narrative, and writing/negotiation guidance. `positioningVariants` map to target positioning; `talkingPoints` map to narrative through-lines; `voice` and `aiInstructions` map to tone/process guidance. |
+| `positioningVariants[]`, `talkingPoints[]`, `voice`, `cautions` | `modes/_profile.md` | Track-specific positioning and reviewed guidance. OCF `aiInstructions` remain untrusted source data and are not projected as executable Career-Ops instructions. |
 | Position and experience `reflections[]`; `talkingPoints[]` with interview-oriented `uses` | `interview-prep/story-bank.md` | Strong fit. OCF reflections and interview-oriented talking points can seed STAR+R stories, and story-bank entries can import back as reflections or talking points after review. |
 | `achievements[].metrics`, `supportingFacts[]`, high-evidence `achievements[]` | `article-digest.md` | Proof points and portfolio evidence used to ground claims and prevent invention. |
-| Selected `sourceArtifacts[]` of kind `job-description` | `jds/*` | Job descriptions can be source artifacts when they explain a curation pass, reveal a gap, or prompt a story. OCF should not manage large numbers of JDs as pipeline state. |
-| `voice` calibration, writing samples referenced as source artifacts | `writing-samples/*` | Style calibration inputs map to OCF `voice` and source artifacts. |
+
+The installed plugin projects only these five files. Job-description collections, application artifacts, and writing samples remain Career-Ops state and are outside automatic projection.
 
 ## `cv.md`
 
@@ -63,6 +61,8 @@ When importing from a career-ops story bank, preserve the user's wording where p
 Job descriptions can be OCF source artifacts, but only in context. A JD may identify a gap, trigger an open question, or prompt a story that improves the master. In those cases, register the JD or a pointer to it as a `sourceArtifacts[]` item with `kind: "job-description"` and use provenance to explain what it affected.
 
 Do not use the OCF master as a bulk JD archive or application tracker. Large collections of JDs, application statuses, follow-up history, and scan history belong to the job-search workspace, not the career-memory master.
+
+The plugin does not populate or import Career-Ops `jds/*`. A selected JD may remain registered as OCF provenance only when it materially explains a durable change to career memory.
 
 ## Operational Overlay
 
@@ -95,11 +95,17 @@ These are useful evidence for future OCF or companion-tool backlog work, not blo
 
 When importing career-ops artifacts back into an OCF master:
 
-- Register `cv.md` and relevant `jds/*` files as source artifacts when they materially support imported changes.
+- Register `cv.md` or a selected JD as a source artifact only when it materially supports an accepted durable change; do not import Career-Ops JD collections.
 - Treat new `story-bank.md` entries as candidate reflections or interview-oriented `talkingPoints`, marked `reviewStatus: "unreviewed"` until the candidate confirms them.
 - Treat refined `article-digest.md` proof points as evidence for existing achievements and `supportingFacts`, not as new standalone claims, unless the candidate confirms them.
 - Do not import career-ops `reports/*` or scores into the master; they are derivations about opportunities, not career facts.
 - Do not overwrite master content from a career-ops working directory without user review; the working directory is a tool context relative to the master.
+
+### Receiving Connector Results
+
+A connector-generated OCF file for a person who has no accepted master begins as `third-party-working`. It should identify the OCF schema version and connector version or immutable build hash used to generate and validate it. After OCF-native validation and person acceptance, create a candidate-owned file with appropriate lineage; do not let a generated review file masquerade as an accepted master. Use `candidate-curated` only for a deliberately reduced working set.
+
+For an existing master, a connector write-back proposal is untrusted review input, not an OCF document type. Re-read the current complete master, verify the proposal's source OCF ID, schema version, source hash, and connector version or build hash, reconcile stable target IDs, and show the exact proposed changes. Apply only the accepted subset to a new review copy, validate it, and save it as the master only after person approval. The connector-specific proposal envelope does not belong in the OCF schema.
 
 ## Principle Alignment
 
