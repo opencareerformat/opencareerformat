@@ -12,6 +12,7 @@ const {
   organizationUrl,
   readOcf,
   selectedTitle,
+  serviceForVolunteerSection,
   visibleItems,
   writeOutput,
   filterByVisibility,
@@ -106,7 +107,7 @@ function toLinkedInBundle(doc) {
   });
   addSection(lines, "Languages", languageLines);
 
-  const serviceLines = visibleItems(doc.service).map((item) => {
+  const serviceLines = serviceForVolunteerSection(doc).volunteer.map((item) => {
     return [item.organization, item.role, formatDateRange(item.dateRange)].filter(Boolean).join(" | ");
   });
   addSection(lines, "Volunteer Experience", serviceLines);
@@ -146,6 +147,11 @@ function printExportSummary(doc, bundle, outputPath) {
   console.error(`Wrote LinkedIn paste bundle: ${outputPath}`);
   console.error(`Sections exported: ${sectionCount}`);
   console.error(`Bullets exported: ${bulletCount}`);
+  const visible = filterByVisibility(doc, "public");
+  const omittedService = serviceForVolunteerSection(visible).omitted.length;
+  if (omittedService) {
+    console.error(`Warning: skipped ${omittedService} visible service ${omittedService === 1 ? "entry" : "entries"}; only service.kind \"volunteer\" maps automatically to LinkedIn Volunteer Experience.`);
+  }
   console.error(`Private OCF items are not exported by this reference tool.`);
   if (doc.meta?.fileRole !== "export-ready") {
     console.error(`Input fileRole is ${doc.meta?.fileRole || "unspecified"}; review curation before treating this as final output.`);

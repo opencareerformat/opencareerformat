@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Open Career Format specification and reference implementations will be documented here. Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
+Notable changes to the Open Career Format specification, guidance, and reference implementations are summarized here by outcome. This is not an exhaustive record of every documentation, prompt, or editorial revision. Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 OCF follows relaxed semver in the 0.x series — small breaking changes are documented here but possible between minor versions. From v1.0 onward, minor versions are additive only.
 
@@ -10,9 +10,18 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 
 - Hardened reference visibility projections by pruning unreferenced organizations, omitting source metadata from derived output by default, and limiting the LinkedIn paste bundle to public visibility-bearing items.
 - Synchronized evidence-gap, formal-status, disclosure, and untrusted-source rules across the application, curation, and operating prompts, with a CI regression check for the shared clauses.
+- Updated reusable-skill guidance for installation, local setup, targeted master updates, and preservation of useful first-person source material.
+- Clarified how conversation artifacts, corrections, productive disagreement, and human-readable IDs support durable career memory; recorded provider-neutral patch sets as a non-normative v0.4 consideration.
+- Strengthened documentation examples and checks so canonical JSON excerpts remain valid and synchronized, and improved generated-document navigation and rendering.
 - Clarified the Career-Ops boundary: the installed connector owns its pinned five-file projection and reviewed refresh behavior, while the OCF-side skill is a one-way bootstrap fallback and does not project `aiInstructions`, JD collections, application artifacts, or writing samples.
-- Promoted whole-document ID and reference classifications into the specification as a machine-readable semantic integrity contract and added standalone-validator regeneration to CI.
-- Added non-normative v0.4 considerations for organization visibility and stable identity for position-nested projects.
+- Defined and enforced the semantic-integrity contract for document-wide IDs, typed references, lineage, and supersession cycles, with generated-validator checks in CI.
+- Made reference curators reject unknown command-line flags instead of silently ignoring them.
+- Improved reference CLI input errors, visibility-exclusion summaries, dependency loading, and conservative service-export warnings.
+- Hardened the local Ollama reference workflow by streaming prompts through standard input instead of process-visible command arguments.
+- Added standalone-validator regeneration and freshness verification to CI.
+- Added non-normative v0.4 considerations for organization visibility, stable identity for position-nested projects, compensation cadence, versioned starter schemas, contact validation, and `aiInstructions` trust semantics.
+- Made generic visibility filtering fail closed for opaque object paths, including extension namespaces without explicit valid visibility, while retaining schema-indexed structural paths.
+- Made the private-filter CLI create fresh `candidate-curated` metadata instead of copying source metadata.
 
 ## 2026-07-19
 

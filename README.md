@@ -33,6 +33,8 @@ spec/             # THE OPEN SCHEMA — what gets versioned, cited, and adopted.
   design-guide.md # Concepts, structure, boundaries, and design rationale.
   schema-field-guide.md # Detailed field conventions, examples, and pitfalls.
   implementer-quick-reference.md # Compact field tiers and tool behavior guidance.
+  semantic-integrity.json # Machine-readable whole-document ID/reference classifications.
+  semantic-integrity.md # Implementer rules for IDs, references, lineage, and cycles.
   usage-patterns.md # File roles: candidate-owned master, curated/export-ready files, third-party working files, etc.
   v0.3-planning.md # Decision record for the v0.3 schema.
   v0.4-planning.md # Early, non-normative planning notes for possible future work.

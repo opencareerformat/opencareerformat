@@ -29,7 +29,10 @@ Reverse import from JSON Resume is possible, but should be treated as importing 
 | `awards` | `awards` | Map title, awarder, date, summary. |
 | `languages` | `languages` | Map language and fluency. |
 | `interests` | `interests` | Export only when intentionally included. |
+| `service[]` with `kind: "volunteer"` | `volunteer` | Map organization, role, dates, description, and achievements. Other service kinds are not automatically relabeled as volunteer work. |
 | `references` | `references` | Usually omit unless the user explicitly chose to include references. |
+
+The reference exporter deliberately omits `person.photo`. JSON Resume files are commonly rendered into HTML or other broadly viewable artifacts, and JSON Resume has no OCF visibility semantics or private-output mode. A purpose-specific exporter may include a photo after an explicit user decision for that output.
 
 ## Work Entries
 
@@ -68,6 +71,7 @@ JSON Resume does not have first-class homes for many OCF concepts:
 - top-level organizations registry
 - detailed visibility and curation metadata
 - structured metrics beyond prose highlights
+- service entries whose kind is not `volunteer`
 
 An exporter should not force these into JSON Resume unless using a clearly namespaced extension supported by the target tool.
 

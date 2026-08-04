@@ -7,8 +7,7 @@ const { execFileSync } = require("child_process");
 let Ajv;
 let addFormats;
 try {
-  Ajv = require("../reference/validator/node_modules/ajv/dist/2020");
-  addFormats = require("../reference/validator/node_modules/ajv-formats");
+  ({ Ajv2020: Ajv, addFormats } = require("../reference/validator/dependencies"));
 } catch {
   console.error("Schema checks require the pinned validator dependencies. Run: npm --prefix reference/validator ci");
   process.exit(1);

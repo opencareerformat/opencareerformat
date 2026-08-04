@@ -177,27 +177,45 @@ function countAchievements(doc) {
   }, 0);
 }
 
-function countVisibility(value, visibility, segments = []) {
+function countExcludedVisibilityBranches(value, mode, segments = []) {
   if (Array.isArray(value)) {
-    return value.reduce((count, item) => count + countVisibility(item, visibility, [...segments, "*"]), 0);
+    return value.reduce((counts, item) => addBranchCounts(
+      counts,
+      countExcludedVisibilityBranches(item, mode, [...segments, "*"]),
+    ), emptyBranchCounts());
   }
   if (value && typeof value === "object") {
-    const own = resolvedVisibility(value, segments) === visibility ? 1 : 0;
-    return own + Object.entries(value).reduce(
-      (count, [key, item]) => count + countVisibility(item, visibility, [...segments, key]),
-      0,
+    const visibility = resolvedVisibility(value, segments);
+    if (visibility === "private") return { private: 1, shared: 0 };
+    if (mode === "public" && visibility === "shared") return { private: 0, shared: 1 };
+    return Object.entries(value).reduce(
+      (counts, [key, item]) => addBranchCounts(
+        counts,
+        countExcludedVisibilityBranches(item, mode, [...segments, key]),
+      ),
+      emptyBranchCounts(),
     );
   }
-  return 0;
+  return emptyBranchCounts();
+}
+
+function emptyBranchCounts() {
+  return { private: 0, shared: 0 };
+}
+
+function addBranchCounts(left, right) {
+  return {
+    private: left.private + right.private,
+    shared: left.shared + right.shared,
+  };
 }
 
 function summarizeCuration(source, curated, visibilityMode) {
-  const privateItems = countVisibility(source, "private");
-  const sharedItems = countVisibility(source, "shared");
+  const excluded = countExcludedVisibilityBranches(source, visibilityMode);
   return {
     visibilityMode,
-    privateItemsRemoved: privateItems,
-    sharedItemsRemoved: visibilityMode === "public" ? sharedItems : 0,
+    privateBranchesExcluded: excluded.private,
+    sharedBranchesExcluded: excluded.shared,
     sourceExperienceEntries: countCollection(source, "experience"),
     keptExperienceEntries: countCollection(curated, "experience"),
     sourcePositions: countPositions(source),
@@ -215,8 +233,8 @@ function printCurationSummary(summary, outputPath) {
   console.error(`Tested against the current OCF examples (schemaVersion ${CURRENT_SCHEMA_VERSION}); output preserves the input schemaVersion.`);
   console.error(`Wrote curated OCF: ${outputPath}`);
   console.error(`Visibility mode: ${summary.visibilityMode}`);
-  console.error(`Removed private items: ${summary.privateItemsRemoved}`);
-  if (summary.visibilityMode === "public") console.error(`Removed shared items: ${summary.sharedItemsRemoved}`);
+  console.error(`Private branches excluded: ${summary.privateBranchesExcluded}`);
+  if (summary.visibilityMode === "public") console.error(`Shared branches excluded: ${summary.sharedBranchesExcluded}`);
   console.error(`Experience entries kept: ${summary.keptExperienceEntries}/${summary.sourceExperienceEntries}`);
   console.error(`Positions kept: ${summary.keptPositions}/${summary.sourcePositions}`);
   console.error(`Achievements kept: ${summary.keptAchievements}/${summary.sourceAchievements}`);
@@ -252,7 +270,15 @@ function prune(value) {
 }
 
 function main() {
-  const { inputPath, jobPath, outputPath, visibilityMode } = parseArgs(process.argv.slice(2));
+  let parsed;
+  try {
+    parsed = parseArgs(process.argv.slice(2));
+  } catch (error) {
+    console.error(error.message);
+    console.error("Usage: node reference/curators/job-description.js [--public-only] <master.ocf.json> <job-description.txt> <curated.ocf.json>");
+    process.exit(2);
+  }
+  const { inputPath, jobPath, outputPath, visibilityMode } = parsed;
   if (!inputPath || !jobPath || !outputPath) {
     console.error("Usage: node reference/curators/job-description.js [--public-only] <master.ocf.json> <job-description.txt> <curated.ocf.json>");
     process.exit(2);
@@ -274,6 +300,8 @@ function parseArgs(args) {
   for (const arg of args) {
     if (arg === "--public-only") {
       visibilityMode = "public";
+    } else if (arg.startsWith("-")) {
+      throw new Error(`Unknown option: ${arg}`);
     } else {
       paths.push(arg);
     }
@@ -287,4 +315,4 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { curateForJob, summarizeCuration };
+module.exports = { curateForJob, summarizeCuration, parseArgs };

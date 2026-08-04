@@ -13,6 +13,7 @@ const {
   personLocation,
   readOcf,
   selectedTitle,
+  serviceForVolunteerSection,
   visibleItems,
   writeOutput,
   filterByVisibility,
@@ -24,7 +25,6 @@ function toJsonResume(doc) {
   const basics = {
     name: person.name?.renderAs,
     label: person.headline,
-    image: person.photo?.visibility === "public" ? person.photo.uri : undefined,
     email: firstPrimaryOrVisible(person.contacts, "email"),
     phone: firstPrimaryOrVisible(person.contacts, "phone"),
     url: firstPrimaryOrVisible(person.contacts, "url"),
@@ -110,6 +110,16 @@ function toJsonResume(doc) {
     name: item.name,
   }));
 
+  const volunteer = serviceForVolunteerSection(doc).volunteer.map((item) => ({
+    organization: item.organization,
+    position: item.role,
+    url: organizationUrl(doc, item),
+    startDate: dateRangeStart(item.dateRange),
+    endDate: dateRangeEnd(item.dateRange),
+    summary: item.description,
+    highlights: collectAchievements(item),
+  }));
+
   return prune({
     basics,
     work,
@@ -121,6 +131,7 @@ function toJsonResume(doc) {
     awards,
     languages,
     interests,
+    volunteer,
   });
 }
 
@@ -170,6 +181,12 @@ function printExportSummary(doc, exported, outputPath) {
   console.error(`Work highlights exported: ${workHighlights}`);
   console.error(`Skills exported: ${(exported.skills || []).length}`);
   console.error(`Projects exported: ${(exported.projects || []).length}`);
+  console.error(`Volunteer entries exported: ${(exported.volunteer || []).length}`);
+  const visible = filterByVisibility(doc, "shared");
+  const omittedService = serviceForVolunteerSection(visible).omitted.length;
+  if (omittedService) {
+    console.error(`Warning: skipped ${omittedService} visible service ${omittedService === 1 ? "entry" : "entries"}; only service.kind \"volunteer\" maps automatically to JSON Resume volunteer.`);
+  }
   console.error(`Private OCF items are not exported by this reference tool.`);
   if (doc.meta?.fileRole !== "export-ready") {
     console.error(`Input fileRole is ${doc.meta?.fileRole || "unspecified"}; review curation before treating this as final output.`);

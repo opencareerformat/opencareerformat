@@ -11,7 +11,7 @@ node reference/exporters/json-resume.js spec/examples/maria-reyes/maria-reyes-re
 node reference/exporters/json-resume.js spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json /tmp/sample-resume.resume.json
 ```
 
-The exporter maps visible OCF content into the established JSON Resume shape: `basics`, `work`, `education`, `certificates`, `skills`, `projects`, `publications`, `awards`, `languages`, and `interests`.
+The exporter maps visible OCF content into the established JSON Resume shape: `basics`, `work`, `education`, `certificates`, `skills`, `projects`, `publications`, `awards`, `languages`, `interests`, and explicitly classified volunteer service. It omits photos because JSON Resume has no OCF visibility semantics and is commonly rendered into broadly viewable HTML. It warns when visible non-volunteer service has no faithful automatic destination.
 
 ## LinkedIn Paste Bundle
 
@@ -20,7 +20,7 @@ node reference/exporters/linkedin.js spec/examples/maria-reyes/maria-reyes-revis
 node reference/exporters/linkedin.js spec/examples/maria-reyes/maria-reyes-revision-7.ocf.json /tmp/sample-linkedin.md
 ```
 
-The exporter produces a Markdown paste bundle organized around LinkedIn editing areas: headline, about, contact info, experience, education, licenses and certifications, skills, projects, publications, awards, languages, and volunteer experience.
+The exporter produces a Markdown paste bundle organized around LinkedIn editing areas: headline, about, contact info, experience, education, licenses and certifications, skills, projects, publications, awards, languages, and explicitly classified volunteer experience. It warns rather than automatically relabeling other visible service as volunteer work.
 
 ## Boundaries
 

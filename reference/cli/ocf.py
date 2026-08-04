@@ -15,6 +15,14 @@ from pathlib import Path
 
 
 def main(argv):
+    try:
+        return dispatch(argv)
+    except InputFileError as error:
+        print(f"Error: {error}", file=sys.stderr)
+        return 1
+
+
+def dispatch(argv):
     if len(argv) == 2:
         return print_summary(Path(argv[1]))
 
@@ -29,6 +37,10 @@ def main(argv):
 
     print_usage()
     return 2
+
+
+class InputFileError(Exception):
+    """Expected problem reading user-supplied input."""
 
 
 def print_usage():
@@ -47,8 +59,21 @@ def print_usage():
 
 
 def load_json(path):
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            return json.load(handle)
+    except FileNotFoundError:
+        raise InputFileError(f"{path}: file not found") from None
+    except PermissionError:
+        raise InputFileError(f"{path}: permission denied") from None
+    except IsADirectoryError:
+        raise InputFileError(f"{path}: expected a file, found a directory") from None
+    except json.JSONDecodeError as error:
+        raise InputFileError(
+            f"{path}: invalid JSON at line {error.lineno}, column {error.colno}: {error.msg}"
+        ) from None
+    except OSError as error:
+        raise InputFileError(f"{path}: {error.strerror or error}") from None
 
 
 def print_summary(path):

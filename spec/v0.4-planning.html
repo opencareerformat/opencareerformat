@@ -518,7 +518,9 @@
 
 <h2>Candidate Corrections From v0.3 Use</h2>
 
-<p>These are considerations for a future schema design pass, not approved v0.4 fields and not changes to the frozen v0.3 schema.</p>
+<p>These are considerations for a future schema design pass, not approved v0.4 fields or approved changes to v0.3.</p>
+
+<p>Review findings that imply schema changes should normally be evaluated here rather than immediately retrofitted into v0.3. The bar for changing a published schema version or its supported artifact surface is high, including for apparently additive enum values, stronger validation, and new versioned artifacts. A change needs a clear interoperability or user benefit and an explicit compatibility decision; being additive is not sufficient by itself.</p>
 
 <h3>Dates</h3>
 
@@ -528,6 +530,22 @@
 <li>Separate calendar dates from the ongoing-range marker: point dates and range starts should use a calendar <code>partialDate</code>; only a range end should also permit <code>{ &quot;present&quot;: true }</code>.</li>
 <li>Extend semantic validation to reject impossible calendar dates, <code>present</code> as a range start, and an end that is provably earlier than its start. Partial dates whose ordering cannot be known should remain valid.</li>
 </ul>
+
+<h3>Compensation Periods</h3>
+
+<p>Compensation history accepts <code>quarterly</code>, while the headline <code>position.compensation.period</code> enum does not. A future schema pass should decide whether both locations should share one cadence definition and whether <code>quarterly</code> belongs in the headline field. Adding it to v0.3 would require a deliberate compatibility decision; the fact that it is additive is not enough by itself.</p>
+
+<h3>Versioned Starter Schema</h3>
+
+<p>The generated <code>schema-core.json</code> starter projection currently has a current, unversioned URL, while the full schema also has version-pinned copies. A future release should consider publishing a matching <code>v{schemaVersion}/schema-core.json</code> for tools that need stable starter guidance. Before doing so, define its generation, <code>$id</code>, consistency checks, compatibility expectations, and retention across later releases. Adding a v0.3-pinned artifact should require demonstrated consumer need and an explicit decision to expand the published v0.3 surface.</p>
+
+<h3>Contact Value Validation</h3>
+
+<p><code>contact.value</code> is currently an unconstrained string regardless of <code>kind</code>. A future pass should evaluate whether email and URL-like kinds need conditional format validation while preserving international phone numbers, usernames, custom protocols, and intentionally rendered contact text. Stronger validation should reject clear mistakes without forcing every contact system into one syntax.</p>
+
+<h3><code>aiInstructions</code> Trust Semantics</h3>
+
+<p>The v0.3 description explains <code>aiInstructions</code> partly by pointing to evolvable prompt guidance. A future schema description should be self-contained about the trust boundary: the field is user-controlled workflow preference data, not privileged instruction from an arbitrary OCF file, and a tool should apply it only in a session where the controlling user has chosen to trust it. Prompt documentation may elaborate on that rule but should not be the only place that defines it.</p>
 
 <h3>Identity And Required Content</h3>
 

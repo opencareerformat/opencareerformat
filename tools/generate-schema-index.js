@@ -7,6 +7,7 @@ const repoRoot = path.resolve(__dirname, "..");
 const schema = readJson(path.join(repoRoot, "schema.json"));
 const semantics = readJson(path.join(repoRoot, "spec", "semantic-integrity.json"));
 const visibilityPaths = new Map();
+const structuralPaths = new Map();
 const idDefinitionPaths = new Map();
 const referenceLikeFields = new Set();
 const visited = new Set();
@@ -17,13 +18,14 @@ checkReferenceCoverage();
 const index = {
   schemaVersion: schema.properties?.schemaVersion?.const,
   visibilityPaths: [...visibilityPaths.values()].sort((a, b) => pathKey(a.segments).localeCompare(pathKey(b.segments))),
+  structuralPaths: [...structuralPaths.keys()].sort(),
   idDefinitionPaths: [...idDefinitionPaths.values()].sort((a, b) => pathKey(a.segments).localeCompare(pathKey(b.segments))),
   referenceFields: semantics.referenceFields,
 };
 
 const outputPath = path.join(repoRoot, "reference", "schema-index.json");
 fs.writeFileSync(outputPath, `${JSON.stringify(index, null, 2)}\n`);
-console.log(`schema.json -> reference/schema-index.json (${index.visibilityPaths.length} visibility paths)`);
+console.log(`schema.json -> reference/schema-index.json (${index.visibilityPaths.length} visibility paths, ${index.structuralPaths.length} structural paths)`);
 
 function walk(node, segments, schemaPointer) {
   if (!node || typeof node !== "object") return;
@@ -42,6 +44,8 @@ function walk(node, segments, schemaPointer) {
     if (resolved?.default) {
       visibilityPaths.set(pathKey(segments), { segments, default: resolved.default });
     }
+  } else if (isObjectSchema(node) && !isOpaqueExtensionPayload(segments)) {
+    structuralPaths.set(pathKey(segments), true);
   }
 
   if (node.properties?.id && !semantics.nonDefiningIdPaths.includes(pathKey(segments))) {
@@ -76,6 +80,14 @@ function walkProperty(node, segments, pointer) {
 function resolve(node) {
   if (!node?.$ref?.startsWith("#/$defs/")) return node;
   return schema.$defs[decodePointer(node.$ref.slice("#/$defs/".length))];
+}
+
+function isObjectSchema(node) {
+  return node.type === "object" || Boolean(node.properties) || Boolean(node.additionalProperties);
+}
+
+function isOpaqueExtensionPayload(segments) {
+  return segments.length >= 2 && segments.at(-2) === "extensions" && segments.at(-1) === "*";
 }
 
 function checkReferenceCoverage() {

@@ -145,7 +145,7 @@ function renderPage(doc, outputRel, markdown) {
     "",
   ).replace(/^<!--\s*canonical-subset:.*?-->\s*$/gm, "");
   const content = markdownToHtml(renderedMarkdown, doc.source, doc.layout)
-    .replace("<p>{{OCF_LOOP}}</p>", doc.layout === "design-guide" ? renderOcfLoop() : "");
+    .replace("<p>&lt;!-- OCF_LOOP --&gt;</p>", doc.layout === "design-guide" ? renderOcfLoop() : "");
   const conversationStyles = doc.layout === "conversation" ? `  .layout-conversation {
     background: #ffffff;
     max-width: 920px;

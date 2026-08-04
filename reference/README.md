@@ -22,11 +22,11 @@ OCF is tool- and model-neutral. The Ollama example is included because local LLM
 
 ## Generated Schema Index
 
-`reference/schema-index.json` is a generated, version-specific implementer aid. It contains no candidate data. It records schema paths and defaults needed by reference behavior, including path-sensitive visibility defaults and ID/reference information used for semantic checks.
+`reference/schema-index.json` is a generated, version-specific implementer aid. It contains no candidate data. It records schema paths and defaults needed by reference behavior, including path-sensitive visibility defaults, visibility-free structural paths, and ID/reference information used for semantic checks.
 
 The index is generated from the current schema and `spec/semantic-integrity.json`; it is not an independent OCF specification. Consumers should pin it with the matching schema version or perform equivalent traversal themselves. If it conflicts with the schema, the schema wins.
 
-`reference/lib/visibility.js` demonstrates how to resolve omitted visibility, filter a document, remove references to excluded items, and prune organization registry entries that are no longer referenced. It omits source-file `meta` by default because derived output needs fresh metadata; trusted internal callers that are not producing a derived artifact may request `preserveMetadata` explicitly.
+`reference/lib/visibility.js` demonstrates how to resolve omitted visibility, retain only index-recognized structural paths, filter a document, remove references to excluded items, and prune organization registry entries that are no longer referenced. It excludes opaque extension namespaces without explicit valid visibility. It omits source-file `meta` by default because derived output needs fresh metadata; trusted internal callers that are not producing a derived artifact may request `preserveMetadata` explicitly.
 
 ## Reference Tool Maturity
 
@@ -35,7 +35,7 @@ These tools are intentionally bare bones. They prove the concept and make the da
 | Tool | Current maturity | What it demonstrates | Known limits |
 |---|---|---|---|
 | `validator/` | Full-schema structure check | Validates OCF JSON against the full current schema and checks local IDs and references. | Checks file integrity only; does not judge whether claims are true, well-curated, or appropriate to export. |
-| `cli/ocf.py` | Minimal proof of concept | Prints key fields, delegates validation to the reference validator, and emits a schema-aware private-filtered JSON document. | Not a full editor; private filtering is not anonymization, does not interpret unknown extension payloads, and does not judge whether remaining content is safe to share. When unknown extension namespaces survive filtering, the CLI reports only their count on stderr so stdout remains valid JSON. |
+| `cli/ocf.py` | Minimal proof of concept | Prints key fields, delegates validation to the reference validator, and emits a schema-aware private-filtered JSON document with fresh derived metadata. | Not a full editor; private filtering is not anonymization, does not interpret unknown extension payloads, and does not judge whether remaining content is safe to share. It excludes extension namespaces without explicit valid visibility and reports only the encountered count on stderr so stdout remains valid JSON. |
 | `context/ocf-context.js` | Context-loading proof of concept | Builds a non-authoritative context envelope, records withheld paths, and retrieves a complete item by local stable ID. | Context reduction is not privacy filtering; the profile format is local reference configuration, not OCF schema. |
 | `importers/resume-text-to-ocf.js` | Skeleton proof of concept | Turns a very regular plain-text resume into a current-schema provisional OCF master with provenance and a review question. | Not a robust resume parser; does not handle PDFs, tables, complex layouts, conflict detection, or follow-up questions. |
 | `curators/job-description.js` | Skeleton proof of concept | Scores a master OCF against target text, filters visibility, and writes a curated working file; currently smoke-tested against the current examples. | Keyword scoring only; no real judgment, no user interview, no nuanced fit analysis. |

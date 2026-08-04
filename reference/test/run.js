@@ -14,17 +14,19 @@ const { buildPrompt } = require("../ollama/ocf-local-llm");
 const { curateForJob, summarizeCuration } = require("../curators/job-description");
 const { validateSemantic } = require("../validator/semantic");
 const validateStandalone = require("../validator/standalone.cjs");
-const Ajv2020 = require("../validator/node_modules/ajv/dist/2020");
-const addFormats = require("../validator/node_modules/ajv-formats");
+const { Ajv2020, addFormats } = require("../validator/dependencies");
 
 testPrivateDefaults();
 testInvalidVisibilityFailsClosed();
 testOrganizationAndMetadataFiltering();
 testCanonicalVariantExport();
+testExporterServicePolicy();
 testReferenceToolSmoke();
+testCuratorRejectsUnknownFlags();
 testDateRangeFormatting();
 testImporterSafety();
 testOllamaImportMetadata();
+testOllamaStdinHandoff();
 testSemanticReferences();
 testValidatorCli();
 testFilterExtensionWarning();
@@ -88,6 +90,7 @@ function testOrganizationAndMetadataFiltering() {
     person: { name: { renderAs: "Example Person" } },
     organizations: {
       "visible.example": { name: "Visible Employer" },
+      "public.example": { name: "Public Employer", location: { renderAs: "Shared-default location" } },
       "private.example": { name: "Private Recovery Center" },
       "unused.example": { name: "Unreferenced Organization" },
     },
@@ -104,17 +107,24 @@ function testOrganizationAndMetadataFiltering() {
         organizationRef: "private.example",
         visibility: "private",
       },
+      {
+        id: "public-role",
+        name: "Public Role",
+        organizationRef: "public.example",
+        visibility: "public",
+      },
     ],
   };
 
   const shared = filterByVisibility(source, "shared");
   assert.strictEqual(shared.meta, undefined);
-  assert.deepStrictEqual(Object.keys(shared.organizations), ["visible.example"]);
+  assert.deepStrictEqual(Object.keys(shared.organizations), ["visible.example", "public.example"]);
   assert.strictEqual(shared.organizations["visible.example"].name, "Visible Employer");
 
   const publicOnly = filterByVisibility(source, "public");
   assert.strictEqual(publicOnly.meta, undefined);
-  assert.strictEqual(publicOnly.organizations, undefined);
+  assert.strictEqual(publicOnly.organizations["public.example"].name, "Public Employer");
+  assert.strictEqual(publicOnly.organizations["public.example"].location, undefined);
   assert.strictEqual(publicOnly.person.name.renderAs, "Example Person");
 
   const preserved = filterByVisibility(source, "shared", { preserveMetadata: true });
@@ -152,6 +162,55 @@ function testCanonicalVariantExport() {
   assert.deepStrictEqual(exported.work[0].highlights, ["Canonical statement"]);
 }
 
+function testExporterServicePolicy() {
+  const source = {
+    schemaVersion: "0.3",
+    meta: { id: "export-policy", fileRole: "export-ready" },
+    person: {
+      name: { renderAs: "Example Person" },
+      photo: { uri: "https://example.com/photo.jpg", visibility: "shared" },
+    },
+    service: [
+      {
+        organization: "Community Pantry",
+        role: "Volunteer",
+        kind: "volunteer",
+        description: "Organized weekly deliveries.",
+        visibility: "public",
+      },
+      {
+        organization: "Town Council",
+        role: "Council Member",
+        kind: "elected-office",
+        visibility: "public",
+      },
+    ],
+  };
+
+  const jsonResume = toJsonResume(source);
+  assert.strictEqual(jsonResume.basics.image, undefined);
+  assert.strictEqual(jsonResume.volunteer.length, 1);
+  assert.strictEqual(jsonResume.volunteer[0].organization, "Community Pantry");
+
+  const linkedIn = toLinkedInBundle(source);
+  assert.match(linkedIn, /Community Pantry/);
+  assert.doesNotMatch(linkedIn, /Town Council/);
+
+  const repoRoot = path.resolve(__dirname, "../..");
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "ocf-export-policy-test-"));
+  const fixture = path.join(tempDir, "fixture.ocf.json");
+  try {
+    fs.writeFileSync(fixture, JSON.stringify(source));
+    for (const exporter of ["json-resume.js", "linkedin.js"]) {
+      const result = spawnSync(process.execPath, [path.join(repoRoot, "reference/exporters", exporter), fixture], { encoding: "utf8" });
+      assert.strictEqual(result.status, 0, result.stderr);
+      assert.match(result.stderr, /Warning: skipped 1 visible service entry/);
+    }
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
 function testReferenceToolSmoke() {
   const source = {
     schemaVersion: "0.3",
@@ -180,11 +239,35 @@ function testReferenceToolSmoke() {
   const curated = curateForJob(source, "security incident response");
   assert.strictEqual(curated.meta.fileRole, "candidate-curated");
   assert.strictEqual(curated.experience[0].positions[0].achievements[0].id, "response");
-  assert.strictEqual(summarizeCuration(source, curated, "shared").privateItemsRemoved, 1);
+  assert.strictEqual(summarizeCuration(source, curated, "shared").privateBranchesExcluded, 1);
+  const nestedPrivate = structuredClone(source);
+  nestedPrivate.experience.push({
+    name: "Private Organization",
+    visibility: "private",
+    positions: [{
+      title: "Private Role",
+      visibility: "private",
+      achievements: [{ statement: "Private achievement", visibility: "private" }],
+    }],
+  });
+  assert.strictEqual(summarizeCuration(nestedPrivate, curated, "shared").privateBranchesExcluded, 2);
   const linkedIn = toLinkedInBundle(source);
   assert.match(linkedIn, /# LinkedIn Paste Bundle/);
   assert.match(linkedIn, /Published incident response guidance/);
   assert.doesNotMatch(linkedIn, /Improved incident response/);
+}
+
+function testCuratorRejectsUnknownFlags() {
+  const repoRoot = path.resolve(__dirname, "../..");
+  const curator = path.join(repoRoot, "reference/curators/job-description.js");
+  const result = spawnSync(
+    process.execPath,
+    [curator, "--publik-only", "master.json", "job.txt", "output.json"],
+    { encoding: "utf8" },
+  );
+  assert.strictEqual(result.status, 2, result.stderr);
+  assert.match(result.stderr, /Unknown option: --publik-only/);
+  assert.doesNotMatch(result.stderr, /ENOENT/);
 }
 
 function testDateRangeFormatting() {
@@ -239,6 +322,61 @@ function testOllamaImportMetadata() {
     assert.match(prompt, /current-resume\.txt/);
     assert.match(prompt, new RegExp(new Date().toISOString().slice(0, 10)));
     assert.doesNotMatch(prompt, /2026-05-28/);
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
+function testOllamaStdinHandoff() {
+  const repoRoot = path.resolve(__dirname, "../..");
+  const script = path.join(repoRoot, "reference/ollama/ocf-local-llm.js");
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "ocf-ollama-stdin-test-"));
+  const fakeOllama = path.join(tempDir, "fake-ollama.cjs");
+  const capturePath = path.join(tempDir, "capture.json");
+  const resumePath = path.join(tempDir, "private-resume.txt");
+  const outputPath = path.join(tempDir, "response.md");
+  const sentinel = `PRIVATE_STDIN_SENTINEL_${"x".repeat(200000)}`;
+
+  try {
+    fs.writeFileSync(fakeOllama, `#!/usr/bin/env node
+const fs = require("fs");
+let input = "";
+process.stdin.setEncoding("utf8");
+process.stdin.on("data", (chunk) => { input += chunk; });
+process.stdin.on("end", () => {
+  fs.writeFileSync(process.env.OLLAMA_CAPTURE_PATH, JSON.stringify({
+    args: process.argv.slice(2),
+    input,
+    noHistory: process.env.OLLAMA_NOHISTORY,
+  }));
+  process.stdout.write("Fake local response");
+});
+`);
+    fs.chmodSync(fakeOllama, 0o755);
+    fs.writeFileSync(resumePath, sentinel);
+
+    const result = spawnSync(process.execPath, [
+      script,
+      "--mode", "authoring",
+      "--model", "test-model",
+      "--resume", resumePath,
+      "--out", outputPath,
+    ], {
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        OLLAMA_BIN: fakeOllama,
+        OLLAMA_CAPTURE_PATH: capturePath,
+      },
+    });
+
+    assert.strictEqual(result.status, 0, result.stderr);
+    const capture = JSON.parse(fs.readFileSync(capturePath, "utf8"));
+    assert.deepStrictEqual(capture.args, ["run", "--nowordwrap", "test-model"]);
+    assert.ok(capture.input.includes(sentinel));
+    assert.ok(capture.args.every((arg) => !arg.includes("PRIVATE_STDIN_SENTINEL")));
+    assert.strictEqual(capture.noHistory, "1");
+    assert.strictEqual(fs.readFileSync(outputPath, "utf8"), "Fake local response\n");
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }
@@ -344,7 +482,8 @@ function testFilterExtensionWarning() {
       ...base,
       extensions: {
         "one.example.com": { note: survivingValue },
-        "two.example.com": { note: "Surviving payload two" },
+        "two.example.com": { visibility: "shared", nested: { note: "Surviving payload two" } },
+        "public.example.com": { visibility: "public", nested: { note: "Public payload" } },
         "private.example.com": { visibility: "private", secret: privateValue },
         "invalid.example.com": { visibility: "Private", secret: invalidValue },
       },
@@ -353,10 +492,19 @@ function testFilterExtensionWarning() {
     const mixed = spawnSync(process.execPath, [filter, mixedPath], { encoding: "utf8" });
     assert.strictEqual(mixed.status, 0, mixed.stderr);
     const filtered = JSON.parse(mixed.stdout);
-    assert.deepStrictEqual(Object.keys(filtered.extensions).sort(), ["one.example.com", "two.example.com"]);
-    assert.match(mixed.stderr, /2 unknown extension namespaces were preserved/);
+    assert.deepStrictEqual(Object.keys(filtered.extensions).sort(), ["public.example.com", "two.example.com"]);
+    assert.strictEqual(filtered.extensions["two.example.com"].nested.note, "Surviving payload two");
+    assert.strictEqual(filtered.extensions["public.example.com"].nested.note, "Public payload");
+    assert.strictEqual(filtered.meta.fileRole, "candidate-curated");
+    assert.strictEqual(filtered.meta.source.kind, "converted");
+    assert.strictEqual(validateStandalone(filtered), true, JSON.stringify(validateStandalone.errors));
+    assert.match(mixed.stderr, /5 unknown extension namespaces were encountered/);
     assert.doesNotMatch(mixed.stderr, /one\.example\.com|two\.example\.com/);
     assert.doesNotMatch(mixed.stderr, new RegExp(`${survivingValue}|${privateValue}|${invalidValue}`));
+
+    const publicFiltered = filterByVisibility(JSON.parse(fs.readFileSync(mixedPath, "utf8")), "public");
+    assert.deepStrictEqual(Object.keys(publicFiltered.extensions), ["public.example.com"]);
+    assert.strictEqual(publicFiltered.extensions["public.example.com"].nested.note, "Public payload");
 
     fs.writeFileSync(removedPath, JSON.stringify({
       ...base,
@@ -368,7 +516,7 @@ function testFilterExtensionWarning() {
     const removed = spawnSync(process.execPath, [filter, removedPath], { encoding: "utf8" });
     assert.strictEqual(removed.status, 0, removed.stderr);
     assert.deepStrictEqual(JSON.parse(removed.stdout).extensions, {});
-    assert.doesNotMatch(removed.stderr, /unknown extension/);
+    assert.match(removed.stderr, /2 unknown extension namespaces were encountered/);
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }
@@ -458,6 +606,21 @@ function testPythonCli() {
     assert.strictEqual(filter.status, 0, filter.error?.message || filter.stderr);
     const filtered = JSON.parse(filter.stdout);
     assert.deepStrictEqual(filtered.person.contacts, []);
+    assert.strictEqual(filtered.meta.fileRole, "candidate-curated");
+    assert.strictEqual(filtered.meta.parentFileId, "python-cli-fixture");
+    assert.strictEqual(filtered.meta.source.kind, "converted");
+
+    const missing = spawnSync("python3", [script, path.join(tempDir, "missing.ocf.json")], { encoding: "utf8", env: environment });
+    assert.strictEqual(missing.status, 1);
+    assert.match(missing.stderr, /Error: .*missing\.ocf\.json: file not found/);
+    assert.doesNotMatch(missing.stderr, /Traceback/);
+
+    const malformedPath = path.join(tempDir, "malformed.ocf.json");
+    fs.writeFileSync(malformedPath, '{"schemaVersion":');
+    const malformed = spawnSync("python3", [script, malformedPath], { encoding: "utf8", env: environment });
+    assert.strictEqual(malformed.status, 1);
+    assert.match(malformed.stderr, /Error: .*malformed\.ocf\.json: invalid JSON at line 1, column 18/);
+    assert.doesNotMatch(malformed.stderr, /Traceback/);
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }

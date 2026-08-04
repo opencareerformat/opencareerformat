@@ -197,12 +197,6 @@ When tools create contact methods, write `visibility` explicitly. Do not rely on
 
 Do not store government identity numbers, account secrets, passwords, passport numbers, taxpayer IDs, bank details, or API keys in OCF.
 
-## Stable ID Rules
-
-Use stable `id` values on durable records that tools may need to update, cite, or preserve across curation. IDs are optional unless a field needs to be referenced, but once an ID exists, future editors must preserve it across ordinary edits. If an eligible item lacks an ID, a future editor may add one.
-
-IDs are local to an OCF lineage: the master file and files intentionally derived from, curated from, or split from it. They are not global identifiers and must not be used to link across people or unrelated OCF files. Do not rewrite existing IDs to match a tool's preferred style. Use provenance to record which tool or person created or edited an item; the ID is not a tool signature.
-
 ## `sourceArtifacts`
 
 Source artifacts are inputs, not truth.
@@ -303,9 +297,11 @@ Examples:
 
 Do not use `confidence` as a substitute for future review status, verification, or attestation.
 
-## Stable IDs
+## Stable ID Rules
 
 Use stable IDs on durable items that tools may need to reference later: source artifacts, experience entries, positions, achievements, supporting facts, narrative/title variants, reflections, cautions, open questions, talking points, and positioning variants. IDs are optional unless another item references them. If an ID exists, future editors must preserve it. If an eligible item lacks an ID, future editors may add one.
+
+IDs are local to an OCF lineage: the master file and files intentionally derived from, curated from, or split from it. They are not global identifiers and must not be used to link across people or unrelated OCF files. Do not rewrite existing IDs to match a tool's preferred style. Use provenance to record which tool or person created or edited an item; the ID is not a tool signature.
 
 Any item referenced by `supportingItemIds` must have a stable local `id`. Editors must preserve referenced IDs across ordinary edits, and tools should validate that every `supportingItemIds` value resolves to an item in the same OCF lineage. JSON Schema cannot fully enforce those local cross-references, so referential-integrity checks belong in validators, editors, and migration tools.
 
@@ -362,7 +358,7 @@ Private coaching example:
 
 Public-only export paths should include only `public` visibility-bearing material. The reference curator demonstrates this with `--public-only`, which strips both `private` and `shared` items. Required structure and fields without item-level visibility still need purpose-specific curation; the visibility filter alone does not decide whether a rendered name, headline, date, or other retained context belongs in a publication.
 
-Visibility-bearing items and structural containers are different. Do not assign an implicit public default to objects such as `meta`, `person`, or the top-level `organizations` registry merely because they have no `visibility` field. A derived projection should create its own metadata and retain only organization records still referenced by retained content. This prevents a removed private role from leaving its organization name behind through the registry.
+Visibility-bearing items and structural containers are different. Do not assign an implicit public default to objects such as `meta`, `person`, or the top-level `organizations` registry merely because they have no `visibility` field. Retain a visibility-free object during generic filtering only when its exact schema path is a recognized structural path. Unknown extension payloads are not structural: exclude a namespace without explicit valid visibility from a derived projection, while preserving it during an ordinary editor round-trip. A derived projection should create its own metadata and retain only organization records still referenced by retained content. This prevents a removed private role from leaving its organization name behind through the registry.
 
 Private-by-default means "do not include automatically," not "never ask." A curator may ask the user whether a private group, type, or specific item should be shared in the export being prepared. Frame it as an output-specific curation checkpoint, not an abstract permission request: "We have the right choices to create this targeted resume; I want to make sure you are okay using these private-by-default fields for this version." The question should name what would be shared and the recipient or context, and the answer should apply to that output unless the user also asks to update the master visibility.
 

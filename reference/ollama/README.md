@@ -95,7 +95,7 @@ The script reads:
 
 ## Privacy Boundary
 
-This script invokes the local `ollama` command, using `/usr/local/bin/ollama` when present or `OLLAMA_BIN` when set. It does not call hosted LLM APIs.
+This script invokes the local `ollama` command, using `/usr/local/bin/ollama` when present or `OLLAMA_BIN` when set. It does not call hosted LLM APIs. It sends the assembled prompt through the Ollama process's standard input rather than placing private or large prompt content in the command-line argument list. The local model still receives the complete prompt, including private OCF content intentionally supplied to this local workflow.
 
 That does not make the workflow magically risk-free. The input files, generated output, shell history, editor temp files, model logs, backups, and the laptop itself are still your responsibility. Treat OCF files like other sensitive personal documents.
 

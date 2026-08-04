@@ -22,6 +22,20 @@ if (validation.status !== 0) {
 
 const document = JSON.parse(fs.readFileSync(inputPath, "utf8"));
 const filtered = filterByVisibility(document, "shared");
-const extensionWarning = unknownExtensionWarning(filtered);
+const sourceMeta = document.meta || {};
+filtered.meta = pruneUndefined({
+  fileRole: "candidate-curated",
+  lastModified: new Date().toISOString().slice(0, 10),
+  language: sourceMeta.language,
+  source: { kind: "converted" },
+  parentFileId: sourceMeta.id,
+  parentVersion: sourceMeta.version,
+  lineageNotes: "Derived by schema-aware visibility filtering. Private items and unknown extension namespaces without explicit valid visibility were excluded; review retained content before sharing.",
+});
+const extensionWarning = unknownExtensionWarning(document);
 if (extensionWarning) console.error(extensionWarning);
 process.stdout.write(`${JSON.stringify(filtered, null, 2)}\n`);
+
+function pruneUndefined(value) {
+  return Object.fromEntries(Object.entries(value).filter(([, item]) => item !== undefined));
+}

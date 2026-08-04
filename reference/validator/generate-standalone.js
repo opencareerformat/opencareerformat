@@ -2,8 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const Ajv2020 = require("ajv/dist/2020");
-const addFormats = require("ajv-formats");
+const { Ajv2020, addFormats } = require("./dependencies");
 const standaloneCode = require("ajv/dist/standalone").default;
 const { _ } = require("ajv/dist/compile/codegen");
 

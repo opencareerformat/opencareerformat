@@ -5,7 +5,7 @@ These scripts keep generated OCF artifacts synchronized with the canonical full 
 - `schema-core-projection.json` declares which parts of `schema.json` belong in the starter/core projection.
 - `generate-schema-core.js` copies those fields and their transitive `$ref` dependencies into `schema-core.json`. Do not edit the generated core independently.
 - `../spec/semantic-integrity.json` is the authoritative companion contract that classifies local reference fields and the few ID-shaped fields that are not local item definitions.
-- `generate-schema-index.js` walks `schema.json` as an AST and writes the compact visibility/reference index used by reference tools.
+- `generate-schema-index.js` walks `schema.json` as an AST and writes the compact visibility, structural-path, and reference index used by reference tools.
 - `check-schema-core.js` verifies that `schema-core.json` matches a fresh projection and that the canonical application-bootstrap starter validates against both the generated core and the full schema.
 - `generate-skill-manifest.js` hashes every file in each published skill package into `skills/manifest.json` so installed skills can detect newer or incomplete canonical guidance without silently updating themselves. The top-level `sha256` remains the `SKILL.md` hash for compatibility with older readers.
 - `check-schema-copies.js` verifies that the current root, spec, and version-pinned schema copies are byte-identical.

@@ -3,9 +3,10 @@ const schemaIndex = require("../schema-index.json");
 const OMIT = Symbol("omit");
 const VALID_VISIBILITY = new Set(["public", "shared", "private"]);
 const EXTENSION_NAMESPACE = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/;
-const defaultByPath = new Map(
-  schemaIndex.visibilityPaths.map((item) => [item.segments.join("."), item.default]),
-);
+const visibilityPaths = schemaIndex.visibilityPaths;
+const defaultByPath = new Map(visibilityPaths.map((item) => [item.segments.join("."), item.default]));
+const structuralPathKeys = new Set(schemaIndex.structuralPaths);
+const structuralPaths = schemaIndex.structuralPaths.map((item) => item ? item.split(".") : []);
 const idPathGroups = new Map(
   schemaIndex.idDefinitionPaths.map((item) => [item.segments.join("."), item.group]),
 );
@@ -28,7 +29,9 @@ function resolvedVisibility(value, segments = []) {
   if (Object.prototype.hasOwnProperty.call(value, "visibility")) {
     return VALID_VISIBILITY.has(value.visibility) ? value.visibility : "private";
   }
-  return defaultByPath.get(segments.join("."));
+  const exact = defaultByPath.get(segments.join("."));
+  if (exact) return exact;
+  return visibilityPaths.find((item) => matchesSchemaPath(item.segments, segments))?.default;
 }
 
 function unknownExtensionWarning(document) {
@@ -37,7 +40,7 @@ function unknownExtensionWarning(document) {
 
   if (namespaces.size === 0) return undefined;
   const noun = namespaces.size === 1 ? "namespace was" : "namespaces were";
-  return `Warning: ${namespaces.size} unknown extension ${noun} preserved after generic visibility filtering. OCF cannot determine whether the remaining extension content is safe to share; review it before use.`;
+  return `Warning: ${namespaces.size} unknown extension ${noun} encountered. Generic visibility filtering excludes extension namespaces without explicit valid visibility and cannot determine whether retained extension content is safe to share; review it before use.`;
 }
 
 function collectExtensionNamespaces(value, namespaces) {
@@ -57,10 +60,10 @@ function collectExtensionNamespaces(value, namespaces) {
   }
 }
 
-function filterValue(value, segments, mode) {
+function filterValue(value, segments, mode, opaqueNamespaceAllowed = false) {
   if (Array.isArray(value)) {
     return value
-      .map((item) => filterValue(item, [...segments, "*"], mode))
+      .map((item) => filterValue(item, [...segments, "*"], mode, opaqueNamespaceAllowed))
       .filter((item) => item !== OMIT);
   }
 
@@ -69,10 +72,12 @@ function filterValue(value, segments, mode) {
   const visibility = resolvedVisibility(value, segments);
   if (visibility === "private") return OMIT;
   if (mode === "public" && visibility && visibility !== "public") return OMIT;
+  const allowsOpaquePayload = opaqueNamespaceAllowed || isExplicitlyVisibleExtensionNamespace(value, segments);
+  if (visibility === undefined && !allowsOpaquePayload && !isStructuralPath(segments)) return OMIT;
 
   const result = {};
   for (const [key, item] of Object.entries(value)) {
-    const filtered = filterValue(item, [...segments, key], mode);
+    const filtered = filterValue(item, [...segments, key], mode, allowsOpaquePayload);
     if (filtered !== OMIT) result[key] = filtered;
   }
   return result;
@@ -150,6 +155,19 @@ function walk(value, segments, visit) {
 
 function patternPath(segments) {
   return segments.map((part) => typeof part === "number" ? "*" : part).join(".");
+}
+
+function isStructuralPath(segments) {
+  if (structuralPathKeys.has(segments.join("."))) return true;
+  return structuralPaths.some((item) => matchesSchemaPath(item, segments));
+}
+
+function matchesSchemaPath(pattern, segments) {
+  return pattern.length === segments.length && pattern.every((part, index) => part === "*" || part === segments[index]);
+}
+
+function isExplicitlyVisibleExtensionNamespace(value, segments) {
+  return segments.length >= 2 && segments.at(-2) === "extensions" && VALID_VISIBILITY.has(value.visibility);
 }
 
 module.exports = { filterByVisibility, resolvedVisibility, unknownExtensionWarning };

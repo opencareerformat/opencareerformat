@@ -29,6 +29,8 @@ Do not combine live OCF guidance with an installed plugin's pinned behavior duri
 - Do not export `private` OCF content unless the user explicitly approves it for this Career-Ops workspace.
 - Prefer an export-ready or candidate-curated OCF file. A candidate master may be used, but the export must still filter visibility and should be described as a broad working view, not a sent resume.
 
+When this repository is available locally, use `reference/lib/visibility.js` with the matching generated `reference/schema-index.json`, or run `reference/cli/filter-private.js`, as the deterministic baseline for visibility filtering. Do not replace schema-path defaults with one universal fallback. A derived projection must write fresh metadata, prune references and organization entries made unreachable by filtering, and exclude unknown extension namespaces unless they carry explicit valid visibility permitted for the output. If those reference files are unavailable, perform equivalent traversal against the source file's declared schema version and fail closed when a visibility-bearing or opaque path cannot be resolved.
+
 ## Inputs
 
 Establish:

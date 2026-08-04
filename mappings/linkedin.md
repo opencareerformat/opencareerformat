@@ -41,7 +41,7 @@ A LinkedIn exporter will usually produce a paste/update bundle rather than an AP
 | `certifications` | Licenses & Certifications | Include credential ID and URL only when the user wants them public. |
 | `projects` | Projects | Include selected public projects and links. |
 | `publications` | Publications | Include public works and links. |
-| `service` | Volunteer Experience | Map volunteer/civic work when public and relevant. |
+| `service[]` with `kind: "volunteer"` | Volunteer Experience | Map only work explicitly classified as volunteer service. Other public service, civic, elected, religious, or nonprofit-leadership entries need target-specific curation rather than automatic relabeling. |
 
 ## Source Artifact Import
 

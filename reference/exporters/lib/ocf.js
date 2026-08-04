@@ -127,6 +127,14 @@ function personLocation(person = {}) {
   };
 }
 
+function serviceForVolunteerSection(doc = {}) {
+  const service = visibleItems(doc.service);
+  return {
+    volunteer: service.filter((item) => item.kind === "volunteer"),
+    omitted: service.filter((item) => item.kind !== "volunteer"),
+  };
+}
+
 module.exports = {
   collectAchievements,
   countUnresolvedVariants,
@@ -143,6 +151,7 @@ module.exports = {
   readOcf,
   selectedAchievementStatement,
   selectedTitle,
+  serviceForVolunteerSection,
   visibleItems,
   writeOutput,
   filterByVisibility,

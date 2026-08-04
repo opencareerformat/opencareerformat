@@ -13,8 +13,7 @@ const { validateSemantic } = require('./semantic');
 let Ajv;
 let addFormats;
 try {
-  Ajv = require('ajv/dist/2020');
-  addFormats = require('ajv-formats');
+  ({ Ajv2020: Ajv, addFormats } = require('./dependencies'));
 } catch {
   console.error('The OCF validator requires its pinned dependencies. Run: npm --prefix reference/validator ci');
   process.exit(1);

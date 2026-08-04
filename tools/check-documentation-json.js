@@ -6,8 +6,7 @@ const path = require("path");
 let Ajv;
 let addFormats;
 try {
-  Ajv = require("../reference/validator/node_modules/ajv/dist/2020");
-  addFormats = require("../reference/validator/node_modules/ajv-formats");
+  ({ Ajv2020: Ajv, addFormats } = require("../reference/validator/dependencies"));
 } catch {
   console.error("Documentation validation requires the pinned validator dependencies.");
   console.error("Run: npm --prefix reference/validator ci");

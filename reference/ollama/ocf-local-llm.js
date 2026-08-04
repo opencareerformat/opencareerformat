@@ -254,13 +254,13 @@ function callOllama(model, prompt, options = {}) {
     args.push("--format", "json");
   }
 
-  args.push(model, prompt);
+  args.push(model);
 
   const command = resolveOllamaCommand();
 
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {
-      stdio: ["ignore", "pipe", "pipe"],
+      stdio: ["pipe", "pipe", "pipe"],
       env: { ...process.env, OLLAMA_NOHISTORY: "1" },
     });
 
@@ -275,6 +275,9 @@ function callOllama(model, prompt, options = {}) {
     child.stderr.on("data", (chunk) => {
       stderr += chunk;
     });
+    child.stdin.on("error", (error) => {
+      reject(new Error(`Could not send the prompt to ${command}: ${error.message}`));
+    });
     child.on("error", (error) => {
       reject(new Error(`Could not run ${command}: ${error.message}`));
     });
@@ -285,6 +288,7 @@ function callOllama(model, prompt, options = {}) {
       }
       resolve(stdout);
     });
+    child.stdin.end(prompt);
   });
 }
 
@@ -366,6 +370,7 @@ if (require.main === module) {
 
 module.exports = {
   buildPrompt,
+  callOllama,
   extractJsonObject,
   firstBalancedJsonObject,
   formatOutput,
