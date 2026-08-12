@@ -12,6 +12,7 @@ These files are prose specifications, not code. They describe expected behavior 
 | [LER-RS](ler-rs.md) | OCF export-ready file + credential evidence -> LER-RS | Bridge OCF career narrative into learning and employment record infrastructure. |
 | [Schema.org](schema-org.md) | OCF export-ready file -> Schema.org JSON-LD | Publish public profile data in search-friendly structured data. |
 | [LinkedIn](linkedin.md) | OCF export-ready file -> LinkedIn paste/update bundle | Help users update LinkedIn without treating LinkedIn as the source of truth. |
+| [RenderCV](rendercv.md) | OCF export-ready file -> RenderCV YAML -> rendered files | Hand approved resume content to a local, specialized typography and rendering engine. |
 | [vCard](vcard.md) | OCF export-ready file -> vCard | Export contact/profile information for address books and lightweight profile exchange. |
 | [Career-Ops file mapping](career-ops.md) | OCF curated/export-ready file <-> Career-Ops User Layer files | Field-level mapping notes for creating Career-Ops files from OCF and reviewing possible updates back into OCF. |
 | [OCF and Career-Ops integration](career-ops-integration.md) | Integration overview | Explain the project boundary, simple export skill, Maria example, and deeper curator/exporter possibilities. |

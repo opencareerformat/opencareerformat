@@ -1,0 +1,181 @@
+{
+  "$schema": "https://opencareerformat.org/v0.3/schema.json",
+  "schemaVersion": "0.3",
+  "meta": {
+    "id": "4f559e8c-5155-4f2f-9315-6cf77dca570d",
+    "version": "healthcare-ciso-rendercv-1",
+    "fileRole": "export-ready",
+    "targetRole": "Chief Information Security Officer",
+    "targetCompany": "Example Health Network",
+    "lastModified": "2026-08-12",
+    "language": "en-US",
+    "source": {
+      "kind": "authored"
+    },
+    "parentFileId": "c94ffaa9-31fd-40d7-96cd-a66725a9784a",
+    "parentVersion": "7",
+    "lineageNotes": "Fictional reviewed handoff demonstrating the local OCF to RenderCV boundary. Content selection and wording are treated as resolved for this example."
+  },
+  "person": {
+    "name": {
+      "renderAs": "Maria E. Reyes",
+      "given": "Maria",
+      "family": "Reyes",
+      "preferred": "Maria",
+      "pronouns": "she/her"
+    },
+    "headline": "Healthcare cybersecurity leader | Security operations, resilience, and executive risk communication",
+    "summary": "Cybersecurity leader with ten years across Army cyber operations and civilian security roles. Builds resilient security operations, leads high-stakes incident response, and translates technical risk for executives and boards.",
+    "contacts": [
+      {
+        "kind": "email",
+        "value": "maria.reyes@example.com",
+        "primary": true,
+        "visibility": "shared"
+      },
+      {
+        "kind": "linkedin",
+        "value": "https://linkedin.com/in/mariacreyes.example",
+        "visibility": "public"
+      }
+    ],
+    "locations": [
+      {
+        "city": "San Antonio",
+        "region": "TX",
+        "country": "US",
+        "visibility": "shared"
+      }
+    ]
+  },
+  "experience": [
+    {
+      "kind": "employment",
+      "name": "Meridian Health Systems",
+      "industry": "Healthcare IT",
+      "positions": [
+        {
+          "title": "Director of Cybersecurity",
+          "dateRange": {
+            "start": {
+              "year": 2023,
+              "month": 3
+            },
+            "end": {
+              "present": true
+            }
+          },
+          "summary": "Head of cybersecurity for a healthcare IT company handling PHI for more than two million patients. Reports to the CISO and leads security operations, incident response, and resilience.",
+          "achievements": [
+            {
+              "statement": "Built the SOC team from 0 to 12 analysts, achieving 24/7 coverage within six months.",
+              "visibility": "public"
+            },
+            {
+              "statement": "Reduced mean time to detect from 72 hours to under four hours through SIEM tuning and automated triage.",
+              "visibility": "public"
+            },
+            {
+              "statement": "Protected patient-care continuity during a ransomware event by leading recovery from offline backups and restoring critical clinical systems within 41 hours.",
+              "visibility": "shared"
+            },
+            {
+              "statement": "Briefs the CISO monthly on operational risk and the board audit committee quarterly on security posture.",
+              "visibility": "shared"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "military",
+      "name": "United States Army",
+      "branch": "Army",
+      "positions": [
+        {
+          "title": "Cyber Operations NCO",
+          "dateRange": {
+            "start": {
+              "year": 2012
+            },
+            "end": {
+              "year": 2016
+            }
+          },
+          "summary": "Led cyber defense operations and incident-response activities in high-trust environments.",
+          "achievements": [
+            {
+              "statement": "Led cross-functional response exercises that improved escalation discipline and operational readiness.",
+              "visibility": "shared"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Incident Response",
+      "category": "domain"
+    },
+    {
+      "name": "Security Operations",
+      "category": "domain"
+    },
+    {
+      "name": "Executive Risk Communication",
+      "category": "soft-skill"
+    },
+    {
+      "name": "Team Building",
+      "category": "soft-skill"
+    },
+    {
+      "name": "Splunk",
+      "category": "tool"
+    },
+    {
+      "name": "CrowdStrike Falcon",
+      "category": "tool"
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Texas at San Antonio",
+      "kind": "degree",
+      "degree": "MS",
+      "field": "Cybersecurity",
+      "dateRange": {
+        "start": {
+          "year": 2019
+        },
+        "end": {
+          "year": 2021
+        }
+      },
+      "status": "completed",
+      "gpa": 4,
+      "gpaScale": 4
+    }
+  ],
+  "certifications": [
+    {
+      "name": "CISSP",
+      "type": "certification",
+      "issuer": "(ISC)²",
+      "dateRange": {
+        "start": {
+          "year": 2020,
+          "month": 6
+        }
+      },
+      "status": "active"
+    },
+    {
+      "name": "CISM",
+      "type": "certification",
+      "issuer": "ISACA",
+      "status": "active"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ This directory contains small proof-of-concept tools around OCF:
 - `importers/` create draft OCF files from source artifacts.
 - `curators/` create curated or export-ready OCF working sets for a target context.
 - `exporters/` translate export-ready OCF files into neighboring formats or paste bundles.
+- `renderers/` invoke optional local presentation engines after an export handoff has been reviewed.
 - `validator/` validates OCF JSON against `spec/schema.json`.
 - `cli/` provides a minimal Python helper for summary output, validation delegation, and private-item filtering.
 - `context/` builds disposable context views from local profiles and retrieves full items by stable ID.
@@ -41,6 +42,8 @@ These tools are intentionally bare bones. They prove the concept and make the da
 | `curators/job-description.js` | Skeleton proof of concept | Scores a master OCF against target text, filters visibility, and writes a curated working file; currently smoke-tested against the current examples. | Keyword scoring only; no real judgment, no user interview, no nuanced fit analysis. |
 | `exporters/json-resume.js` | Minimal mapper | Converts visible canonical OCF content into JSON Resume shape. | Does not choose among unresolved variants; loses OCF-only concepts such as cautions, open questions, provenance detail, and private memory. |
 | `exporters/linkedin.js` | Minimal paste-bundle mapper | Produces Markdown from public visibility-bearing canonical OCF content, organized around LinkedIn editing areas. | Fields without item-level visibility still depend on curated input; does not choose among unresolved variants or call LinkedIn APIs; users must review and paste manually. |
+| `exporters/rendercv.js` | Strict handoff mapper | Refuses unresolved curation state and converts an export-ready OCF into deterministic RenderCV YAML. | Maps common resume sections only; rich OCF-only concepts remain outside the rendered artifact. |
+| `renderers/rendercv.js` | Local execution wrapper | Invokes an already-installed RenderCV CLI with explicit local output paths and format/theme options. | Does not install or bundle RenderCV; visual output still requires human review. |
 | `ollama/ocf-local-llm.js` | Local LLM proof of concept | Sends OCF prompts, schema-core, and user-provided files to a local Ollama model; can write either a transcript or a provisional-master JSON draft. | Requires local Ollama and a model; model-authored JSON still needs validator checks and human review. |
 
 ## End-to-End Demo
@@ -64,6 +67,13 @@ Export the curated OCF:
 ```bash
 node reference/exporters/json-resume.js /tmp/sample.candidate-curated.ocf.json /tmp/sample.resume.json
 node reference/exporters/linkedin.js /tmp/sample.candidate-curated.ocf.json /tmp/sample-linkedin.md
+```
+
+Export the fictional reviewed RenderCV handoff and, if RenderCV is already installed, render it locally:
+
+```bash
+node reference/exporters/rendercv.js reference/exporters/examples/maria-reyes-healthcare-ciso.export-ready.ocf.json /tmp/maria-reyes.rendercv.yaml
+node reference/renderers/rendercv.js /tmp/maria-reyes.rendercv.yaml /tmp/maria-reyes-rendered --theme harvard --formats pdf,html,png
 ```
 
 Run a local LLM intake pass with Ollama:

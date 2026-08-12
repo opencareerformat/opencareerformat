@@ -9,9 +9,11 @@ const { filterByVisibility } = require("../lib/visibility");
 const { formatDateRange } = require("../exporters/lib/ocf");
 const { toJsonResume } = require("../exporters/json-resume");
 const { toLinkedInBundle } = require("../exporters/linkedin");
+const { toRenderCv, toYaml } = require("../exporters/rendercv");
 const { importResumeText } = require("../importers/resume-text-to-ocf");
 const { buildPrompt } = require("../ollama/ocf-local-llm");
 const { curateForJob, summarizeCuration } = require("../curators/job-description");
+const { buildRenderArgs, parseArgs: parseRenderArgs } = require("../renderers/rendercv");
 const { validateSemantic } = require("../validator/semantic");
 const validateStandalone = require("../validator/standalone.cjs");
 const { Ajv2020, addFormats } = require("../validator/dependencies");
@@ -21,6 +23,8 @@ testInvalidVisibilityFailsClosed();
 testOrganizationAndMetadataFiltering();
 testCanonicalVariantExport();
 testExporterServicePolicy();
+testRenderCvExportBoundary();
+testRenderCvLocalCommand();
 testReferenceToolSmoke();
 testCuratorRejectsUnknownFlags();
 testDateRangeFormatting();
@@ -209,6 +213,113 @@ function testExporterServicePolicy() {
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }
+}
+
+function testRenderCvExportBoundary() {
+  const source = {
+    schemaVersion: "0.3",
+    meta: { id: "rendercv-export", fileRole: "export-ready" },
+    person: {
+      name: { renderAs: "Example Person" },
+      headline: "Security leader",
+      summary: "Builds resilient security programs.",
+      contacts: [
+        { kind: "email", value: "private@example.com", visibility: "private" },
+        { kind: "linkedin", value: "https://linkedin.com/in/example-person", visibility: "shared" },
+      ],
+      locations: [{ city: "Portland", region: "OR", country: "US", visibility: "shared" }],
+    },
+    experience: [{
+      name: "Example Corp",
+      positions: [{
+        title: "Security Director",
+        dateRange: { start: { year: 2022, month: 3 }, end: { present: true } },
+        achievements: [{ statement: "Reduced response time by 50%.", visibility: "shared" }],
+      }],
+    }],
+    skills: [
+      { name: "Incident Response", category: "domain" },
+      { name: "Executive Communication", category: "domain" },
+    ],
+    education: [{
+      institution: "Example University",
+      field: "Computer Science",
+      degree: "BS",
+      dateRange: { end: { year: 2014 } },
+    }],
+    certifications: [{ name: "Example Certification", issuer: "Example Institute" }],
+  };
+
+  const result = toRenderCv(source);
+  assert.deepStrictEqual(result.report.errors, []);
+  assert.match(result.report.warnings.join("\n"), /Excluded 1 private branch/);
+  assert.strictEqual(result.document.cv.name, "Example Person");
+  assert.strictEqual(result.document.cv.email, undefined);
+  assert.deepStrictEqual(result.document.cv.social_networks, [{ network: "LinkedIn", username: "example-person" }]);
+  assert.strictEqual(result.document.cv.sections.Experience[0].end_date, "present");
+  assert.deepStrictEqual(result.document.cv.sections.Experience[0].highlights, ["Reduced response time by 50%."]);
+  assert.deepStrictEqual(result.document.cv.sections.Skills, [{ label: "Domain", details: "Incident Response, Executive Communication" }]);
+
+  const yaml = toYaml(result.document);
+  assert.match(yaml, /^cv:\n/);
+  assert.match(yaml, /name: "Example Person"/);
+  assert.match(yaml, /end_date: "present"/);
+  assert.doesNotMatch(yaml, /private@example\.com/);
+
+  const draft = structuredClone(source);
+  draft.meta.fileRole = "candidate-curated";
+  draft.openQuestions = [{ question: "Which achievement should lead?" }];
+  draft.experience[0].positions[0].achievements[0].narrativeVariants = [{ statement: "Alternate wording" }];
+  const refused = toRenderCv(draft);
+  assert.strictEqual(refused.report.errors.length, 3);
+  assert.match(refused.report.errors.join("\n"), /expected export-ready/);
+  assert.match(refused.report.errors.join("\n"), /unresolved open question/);
+  assert.match(refused.report.errors.join("\n"), /title\/narrative variant/);
+
+  const rendererControl = structuredClone(source);
+  rendererControl.person.summary = "Unsafe #include[secret]";
+  assert.match(toRenderCv(rendererControl).report.errors.join("\n"), /Renderer control syntax/);
+
+  const repoRoot = path.resolve(__dirname, "../..");
+  const exporter = path.join(repoRoot, "reference/exporters/rendercv.js");
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "ocf-rendercv-export-test-"));
+  try {
+    const readyPath = path.join(tempDir, "ready.ocf.json");
+    const draftPath = path.join(tempDir, "draft.ocf.json");
+    const outputPath = path.join(tempDir, "resume.yaml");
+    fs.writeFileSync(readyPath, JSON.stringify(source));
+    fs.writeFileSync(draftPath, JSON.stringify(draft));
+
+    const exported = spawnSync(process.execPath, [exporter, readyPath, outputPath], { encoding: "utf8" });
+    assert.strictEqual(exported.status, 0, exported.stderr);
+    assert.ok(fs.existsSync(outputPath));
+    assert.match(exported.stderr, /Experience: 1/);
+
+    const draftOutput = path.join(tempDir, "draft.yaml");
+    const rejected = spawnSync(process.execPath, [exporter, draftPath, draftOutput], { encoding: "utf8" });
+    assert.strictEqual(rejected.status, 1, rejected.stderr);
+    assert.strictEqual(fs.existsSync(draftOutput), false);
+    assert.match(rejected.stderr, /Return to curation/);
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
+function testRenderCvLocalCommand() {
+  const parsed = parseRenderArgs(["resume.yaml", "output", "--theme", "harvard", "--formats", "pdf,html", "--stem", "application"]);
+  assert.deepStrictEqual(parsed.formats, ["pdf", "html"]);
+  assert.strictEqual(parsed.theme, "harvard");
+
+  const args = buildRenderArgs("resume.yaml", "output", parsed);
+  assert.deepStrictEqual(args.slice(0, 3), ["render", path.resolve("resume.yaml"), "--quiet"]);
+  assert.ok(args.includes("--pdf-path"));
+  assert.ok(args.includes("--html-path"));
+  assert.ok(args.includes("--dont-generate-png"));
+  assert.ok(args.includes("--dont-generate-markdown"));
+  assert.deepStrictEqual(args.slice(-2), ["--design.theme", "harvard"]);
+  assert.throws(() => parseRenderArgs(["resume.yaml", "output", "--formats", "docx"]), /Unknown output format/);
+  assert.throws(() => parseRenderArgs(["resume.yaml", "output", "--formats", " , "]), /at least one output format/);
+  assert.throws(() => parseRenderArgs(["resume.yaml", "output", "--stem", "../outside"]), /--stem may contain/);
 }
 
 function testReferenceToolSmoke() {

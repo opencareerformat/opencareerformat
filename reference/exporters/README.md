@@ -22,6 +22,16 @@ node reference/exporters/linkedin.js spec/examples/maria-reyes/maria-reyes-revis
 
 The exporter produces a Markdown paste bundle organized around LinkedIn editing areas: headline, about, contact info, experience, education, licenses and certifications, skills, projects, publications, awards, languages, and explicitly classified volunteer experience. It warns rather than automatically relabeling other visible service as volunteer work.
 
+## RenderCV YAML
+
+```bash
+node reference/exporters/rendercv.js path/to/resume.export-ready.ocf.json /tmp/resume.rendercv.yaml
+```
+
+Unlike the earlier permissive proof exporters, the RenderCV exporter enforces the conversation-to-render boundary. It refuses input that is not labeled `export-ready`, still contains unresolved open questions or title/narrative variants, or lacks fields required by the target RenderCV entry type. It filters private branches, maps the approved content into deterministic YAML, and prints a mapping summary to stderr.
+
+The exporter does not require RenderCV and does not execute it. See [`../renderers/README.md`](../renderers/README.md) for the optional local rendering step and [`../../mappings/rendercv.md`](../../mappings/rendercv.md) for the mapping contract.
+
 ## Boundaries
 
 - These scripts skip `private` items.

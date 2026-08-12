@@ -1,15 +1,33 @@
 # Reference Renderers
 
-This directory is intentionally empty for now.
+This directory contains thin wrappers around established rendering engines. OCF owns career memory and curation; a renderer owns typography, layout, pagination, and presentation file generation.
 
-Importers, curators, and exporters can be demonstrated with minimal bare-bones scripts because their outputs are structured data or paste bundles. A renderer is different: a resume renderer is only useful if it can produce a reasonable-looking PDF or other human-facing document with credible typography, spacing, ordering, and pagination.
+## RenderCV
 
-A toy renderer that emits an unattractive or poorly paginated PDF would not prove much about OCF and could make the project look less useful than it is. The first reference renderer should be good enough to produce a resume someone would plausibly review, edit, and send.
+First export a reviewed `export-ready` OCF snapshot to RenderCV YAML:
 
-Planned future work:
+```bash
+node reference/exporters/rendercv.js path/to/resume.export-ready.ocf.json /tmp/resume.rendercv.yaml
+```
 
-- choose a practical rendering stack
-- render an export-ready OCF file into a clean PDF resume
-- handle page breaks and section ordering deliberately
-- keep the rendered output clearly separate from the master and export-ready OCF files
-- remind users to review every word before sending
+If RenderCV is already installed locally, render selected formats:
+
+```bash
+node reference/renderers/rendercv.js /tmp/resume.rendercv.yaml /tmp/resume-rendered \
+  --theme classic \
+  --formats pdf,html,png
+```
+
+Supported wrapper format names are `pdf`, `typst`, `markdown`, `html`, and `png`. The default is all five. `--stem` controls output filenames, and `RENDERCV_BIN` can point to an explicit local executable.
+
+The wrapper:
+
+- creates the requested local output directory;
+- invokes RenderCV without a shell;
+- uses explicit output paths;
+- does not install dependencies or call a hosted rendering service;
+- returns RenderCV's exit status.
+
+The RenderCV dependency is deliberately not bundled. Installing or updating it is supply-chain work and should be an explicit local choice. The OCF-to-YAML export remains usable without RenderCV so users can inspect or edit the handoff first.
+
+Rendered artifacts must remain separate from the master and export-ready OCF files. A content change returns to curation and produces a revised export-ready snapshot; a theme-only change may rerender the same approved content.
