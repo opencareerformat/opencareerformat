@@ -29,3 +29,27 @@ The curator:
 - records curation notes in `meta.lineageNotes`
 
 It should not produce a perfect downstream OCF. A real curator would ask questions, handle audience strategy, preserve more context, explain tradeoffs, and let the user accept or reject selections.
+
+## Local Export Review
+
+`review-for-export.js` is the explicit question-and-answer checkpoint between a `candidate-curated` working file and an `export-ready` handoff:
+
+```bash
+node reference/curators/review-for-export.js \
+  /tmp/sample.candidate-curated.ocf.json \
+  /tmp/sample.export-ready.ocf.json
+```
+
+The terminal session asks the user to:
+
+- confirm that each remaining open question was resolved or intentionally excluded;
+- keep, replace, or omit the final headline and summary;
+- explicitly choose contacts, with contact inclusion defaulting to no;
+- include or omit locations, positions, achievements, skills, and supporting sections;
+- choose among remaining title and narrative variants;
+- approve final achievement wording;
+- confirm before writing a new file.
+
+The tool does not edit or overwrite the candidate-curated input. It creates a new `export-ready` child with lineage, removes unselected content and resolved variants, promotes explicitly selected contacts to `shared` in the recipient-specific child, and validates the result before writing it. If an open question is not actually resolved, the session stops so the curated content can be corrected instead of recording an answer in an unrelated field.
+
+This is a local terminal proof of the review state transition, not a complete conversational career coach. A richer model-backed curator could ask better follow-up questions and propose edits, while preserving the same reviewed handoff boundary.

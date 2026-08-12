@@ -25,6 +25,7 @@ testCanonicalVariantExport();
 testExporterServicePolicy();
 testRenderCvExportBoundary();
 testRenderCvLocalCommand();
+testInteractiveExportReview();
 testReferenceToolSmoke();
 testCuratorRejectsUnknownFlags();
 testDateRangeFormatting();
@@ -320,6 +321,95 @@ function testRenderCvLocalCommand() {
   assert.throws(() => parseRenderArgs(["resume.yaml", "output", "--formats", "docx"]), /Unknown output format/);
   assert.throws(() => parseRenderArgs(["resume.yaml", "output", "--formats", " , "]), /at least one output format/);
   assert.throws(() => parseRenderArgs(["resume.yaml", "output", "--stem", "../outside"]), /--stem may contain/);
+}
+
+function testInteractiveExportReview() {
+  const source = {
+    $schema: "https://opencareerformat.org/v0.3/schema.json",
+    schemaVersion: "0.3",
+    meta: {
+      id: "candidate-curated-review",
+      version: "one",
+      fileRole: "candidate-curated",
+      targetRole: "Security Director",
+      source: { kind: "authored" },
+    },
+    person: {
+      name: { renderAs: "Review Person" },
+      headline: "Security leader",
+      summary: "Builds security programs.",
+      contacts: [{ kind: "email", value: "review@example.com", visibility: "private" }],
+      locations: [{ city: "Portland", region: "OR", visibility: "shared" }],
+    },
+    experience: [{
+      name: "Example Corp",
+      positions: [{
+        title: "Security Director",
+        dateRange: { start: { year: 2022 }, end: { present: true } },
+        summary: "Led the security program.",
+        achievements: [{
+          statement: "Canonical achievement.",
+          narrativeVariants: [{ label: "Resume", statement: "Selected resume achievement." }],
+        }],
+      }],
+    }],
+    skills: [{ name: "Incident Response", category: "domain" }],
+    openQuestions: [{ question: "Is the selected metric approved?" }],
+  };
+  const repoRoot = path.resolve(__dirname, "../..");
+  const reviewer = path.join(repoRoot, "reference/curators/review-for-export.js");
+  const exporter = path.join(repoRoot, "reference/exporters/rendercv.js");
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "ocf-export-review-test-"));
+  try {
+    const inputPath = path.join(tempDir, "candidate-curated.ocf.json");
+    const outputPath = path.join(tempDir, "export-ready.ocf.json");
+    const yamlPath = path.join(tempDir, "resume.yaml");
+    fs.writeFileSync(inputPath, JSON.stringify(source));
+
+    const unresolvedPath = path.join(tempDir, "unresolved.ocf.json");
+    const unresolved = spawnSync(process.execPath, [reviewer, inputPath, unresolvedPath], {
+      encoding: "utf8",
+      input: "n\n",
+    });
+    assert.strictEqual(unresolved.status, 1, unresolved.stderr);
+    assert.strictEqual(fs.existsSync(unresolvedPath), false);
+    assert.match(unresolved.stderr, /stopped with an unresolved open question/);
+
+    const answers = [
+      "y", // open question is resolved in the curated content
+      "", // keep headline
+      "", // keep summary
+      "y", // explicitly include private contact in this recipient-specific output
+      "", // include location
+      "", // include position
+      "", // keep role summary
+      "", // include achievement
+      "2", // choose resume narrative variant
+      "", // keep selected achievement wording
+      "", // include skill
+      "y", // write final file
+    ].join("\n") + "\n";
+    const reviewed = spawnSync(process.execPath, [reviewer, inputPath, outputPath], {
+      encoding: "utf8",
+      input: answers,
+    });
+    assert.strictEqual(reviewed.status, 0, reviewed.stderr);
+    assert.ok(fs.existsSync(outputPath), JSON.stringify({ stdout: reviewed.stdout, stderr: reviewed.stderr }));
+    const final = JSON.parse(fs.readFileSync(outputPath, "utf8"));
+    assert.strictEqual(final.meta.fileRole, "export-ready");
+    assert.strictEqual(final.meta.parentFileId, "candidate-curated-review");
+    assert.strictEqual(final.person.contacts[0].visibility, "shared");
+    assert.strictEqual(final.experience[0].positions[0].achievements[0].statement, "Selected resume achievement.");
+    assert.strictEqual(final.experience[0].positions[0].achievements[0].narrativeVariants, undefined);
+    assert.strictEqual(final.openQuestions, undefined);
+    assert.strictEqual(validateStandalone(final), true, JSON.stringify(validateStandalone.errors));
+
+    const exported = spawnSync(process.execPath, [exporter, outputPath, yamlPath], { encoding: "utf8" });
+    assert.strictEqual(exported.status, 0, exported.stderr);
+    assert.match(fs.readFileSync(yamlPath, "utf8"), /Selected resume achievement\./);
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
 }
 
 function testReferenceToolSmoke() {

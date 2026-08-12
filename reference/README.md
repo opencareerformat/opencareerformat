@@ -40,6 +40,7 @@ These tools are intentionally bare bones. They prove the concept and make the da
 | `context/ocf-context.js` | Context-loading proof of concept | Builds a non-authoritative context envelope, records withheld paths, and retrieves a complete item by local stable ID. | Context reduction is not privacy filtering; the profile format is local reference configuration, not OCF schema. |
 | `importers/resume-text-to-ocf.js` | Skeleton proof of concept | Turns a very regular plain-text resume into a current-schema provisional OCF master with provenance and a review question. | Not a robust resume parser; does not handle PDFs, tables, complex layouts, conflict detection, or follow-up questions. |
 | `curators/job-description.js` | Skeleton proof of concept | Scores a master OCF against target text, filters visibility, and writes a curated working file; currently smoke-tested against the current examples. | Keyword scoring only; no real judgment, no user interview, no nuanced fit analysis. |
+| `curators/review-for-export.js` | Interactive local checkpoint | Asks explicit terminal questions, resolves selection and wording variants, and validates a new export-ready child. | Terminal-oriented and deterministic; it does not generate nuanced follow-up questions or automatically apply factual answers to canonical fields. |
 | `exporters/json-resume.js` | Minimal mapper | Converts visible canonical OCF content into JSON Resume shape. | Does not choose among unresolved variants; loses OCF-only concepts such as cautions, open questions, provenance detail, and private memory. |
 | `exporters/linkedin.js` | Minimal paste-bundle mapper | Produces Markdown from public visibility-bearing canonical OCF content, organized around LinkedIn editing areas. | Fields without item-level visibility still depend on curated input; does not choose among unresolved variants or call LinkedIn APIs; users must review and paste manually. |
 | `exporters/rendercv.js` | Strict handoff mapper | Refuses unresolved curation state and converts an export-ready OCF into deterministic RenderCV YAML. | Maps common resume sections only; rich OCF-only concepts remain outside the rendered artifact. |
@@ -62,11 +63,18 @@ node reference/curators/job-description.js spec/examples/maria-reyes/maria-reyes
 node reference/validator/validate.js /tmp/sample.candidate-curated.ocf.json
 ```
 
-Export the curated OCF:
+Review that working set through local questions and create an export-ready child:
 
 ```bash
-node reference/exporters/json-resume.js /tmp/sample.candidate-curated.ocf.json /tmp/sample.resume.json
-node reference/exporters/linkedin.js /tmp/sample.candidate-curated.ocf.json /tmp/sample-linkedin.md
+node reference/curators/review-for-export.js /tmp/sample.candidate-curated.ocf.json /tmp/sample.export-ready.ocf.json
+node reference/validator/validate.js /tmp/sample.export-ready.ocf.json
+```
+
+Export the reviewed OCF:
+
+```bash
+node reference/exporters/json-resume.js /tmp/sample.export-ready.ocf.json /tmp/sample.resume.json
+node reference/exporters/linkedin.js /tmp/sample.export-ready.ocf.json /tmp/sample-linkedin.md
 ```
 
 Export the fictional reviewed RenderCV handoff and, if RenderCV is already installed, render it locally:

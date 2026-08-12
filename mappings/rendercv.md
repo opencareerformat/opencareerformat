@@ -117,7 +117,15 @@ These losses do not justify changing canonical facts. Resolve a display choice d
 
 ## Local Reference Flow
 
-Export an approved snapshot:
+Start from a candidate-curated working set and answer the local review questions:
+
+```bash
+node reference/curators/review-for-export.js \
+  outputs/acme-ciso/resume.candidate-curated.ocf.json \
+  outputs/acme-ciso/resume.export-ready.ocf.json
+```
+
+Then export the approved snapshot:
 
 ```bash
 node reference/exporters/rendercv.js \
