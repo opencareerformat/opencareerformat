@@ -119,14 +119,36 @@ In revision 7, the same stable ID now anchors a richer achievement. The public c
     { "kind": "other", "value": 0, "unit": "patients", "note": "patient_care_impact: zero patient-care incidents attributed to the outage" },
     { "kind": "other", "value": 0, "unit": "USD", "note": "ransom_paid: no ransom was paid; recommendation against payment was accepted by leadership" }
   ],
+  "supportingFacts": [
+    {
+      "id": "mhs-ransomware-demand-low-seven-figures",
+      "statement": "The attacker made a ransom demand in the low seven figures.",
+      "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+      "visibility": "shared",
+      "reviewStatus": "user-confirmed"
+    },
+    {
+      "id": "mhs-ransomware-decryptor-failure-rate",
+      "statement": "The ransomware family's decryptor had an approximately 30% documented failure rate in adjacent engagements Maria could observe.",
+      "metrics": [
+        { "kind": "decryptorFailureRate", "value": 30, "unit": "%", "note": "Approximate rate from adjacent engagements, not a measured outcome of the Meridian incident.", "visibility": "shared" }
+      ],
+      "sourceArtifactId": "ciso-track-refinement-2026-05-21",
+      "visibility": "shared",
+      "reviewStatus": "user-confirmed"
+    }
+  ],
   "provenance": {
     "source": "interview-derived",
     "sessionTopic": "Tailoring resume for CISO-track role"
-  }
+  },
+  "reviewStatus": "user-confirmed"
 }
 ```
 
-The same achievement also carries longer private context, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.
+The achievement-level review status covers its direct statement, longform, and metrics. Each supporting fact and narrative variant has its own review status; none inherits confirmation merely because it is related to the achievement. The two consequential details recovered from the longform are explicit supporting facts, so a downstream tool does not have to mine them out of narrative context or mistake the structured metric for independent evidence.
+
+The same achievement also carries longer context, including a private interview-prep variant, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.
 
 The follow-up interview also changes the surrounding memory. Selected fields on the `mhs-ransomware-2024` achievement show skills that were only implied by the bullet point and reusable wording for different audiences:
 

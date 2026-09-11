@@ -207,7 +207,7 @@
 <li><a href="career-ops.md"><code>mappings/career-ops.md</code></a></li>
 </ul>
 
-<p>The skill is intentionally adaptive. It should inspect the installed Career-Ops workspace's own examples/templates before writing files, because Career-Ops may change its expected file shapes over time. OCF should not copy or freeze Career-Ops templates.</p>
+<p>The skill is intentionally adaptive. It should inspect the installed Career-Ops workspace's own examples/templates before writing files, because Career-Ops may change its expected file shapes over time. Career-Ops may also separate its application-code root from its candidate-data root, so integrations must locate candidate files through the installed version's current resolver or documented data-root convention rather than assuming the two roots are the same. OCF should not copy or freeze Career-Ops templates or resolver precedence.</p>
 
 <h2>Two Documented Integration Paths</h2>
 
@@ -232,7 +232,7 @@
 <li><code>article-digest.md</code>.</li>
 </ul>
 
-<p>Job-description collections, application artifacts, and writing samples remain Career-Ops state and are outside automatic OCF projection.</p>
+<p>These five files remain candidate-owned Career-Ops inputs even when Career-Ops generates application-specific CVs and other outputs elsewhere. <code>modes/_brief.md</code> is a compact Career-Ops triage artifact maintained within its search workflow, not a sixth OCF-managed projection file. Job-description collections, application artifacts, and writing samples remain Career-Ops state and are outside automatic OCF projection.</p>
 
 <p>For Career-Ops, <code>cv.md</code> should be treated as a broad candidate source, not a two-page human resume. A normal resume export should curate hard. A Career-Ops source file may include more visible roles, achievements, skills, stories, and proof points so Career-Ops has enough context to score, tailor, and generate narrower outputs.</p>
 
@@ -344,7 +344,7 @@
 
 <ul>
 <li>Career-Ops website: &lt;https://career-ops.org/&gt;</li>
-<li>Career-Ops GitHub: &lt;https://github.com/santifer/career-ops&gt;</li>
+<li>Career-Ops GitHub: &lt;https://github.com/career-ops-hq/career-ops&gt;</li>
 <li>Open Career Format website: &lt;https://opencareerformat.org/&gt;</li>
 <li>Open Career Format GitHub: &lt;https://github.com/opencareerformat/opencareerformat&gt;</li>
 </ul>

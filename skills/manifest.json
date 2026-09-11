@@ -4,12 +4,12 @@
     "ocf-export-career-ops": {
       "path": "skills/ocf-export-career-ops/SKILL.md",
       "url": "https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md",
-      "lastUpdated": "2026-08-04",
-      "sha256": "be38c6966bb83b667d0224adf12d68b3d8cd2c17b968bdfc3b9a50dd435db358",
+      "lastUpdated": "2026-09-11",
+      "sha256": "6f8ac7a3caf0ed85b46b3b7d501409652e8ea3390f9ec23372f8e80ebfc5bfd8",
       "files": {
         "SKILL.md": {
           "url": "https://opencareerformat.org/skills/ocf-export-career-ops/SKILL.md",
-          "sha256": "be38c6966bb83b667d0224adf12d68b3d8cd2c17b968bdfc3b9a50dd435db358"
+          "sha256": "6f8ac7a3caf0ed85b46b3b7d501409652e8ea3390f9ec23372f8e80ebfc5bfd8"
         }
       }
     },

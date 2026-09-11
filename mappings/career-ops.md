@@ -4,7 +4,7 @@ Career-ops is a tool/workspace, not a data format. It is an open-source, local-f
 
 Project website: <https://career-ops.org/>
 
-GitHub repository: <https://github.com/santifer/career-ops>
+GitHub repository: <https://github.com/career-ops-hq/career-ops>
 
 Unlike the JSON Resume or Schema.org mappings, the target here is not a single document schema. Career-ops keeps candidate data in several plain-text files on disk, separated by its data contract into a User Layer and a System Layer. OCF maps onto the User Layer. The System Layer -- scoring logic, evaluation prompts, portal scanning, and scripts -- is career-ops behavior and has no OCF representation by design: scoring an opportunity is an OCF non-goal.
 
@@ -26,6 +26,8 @@ Both directions follow the general principles in this directory: export from an 
 
 **Standalone OCF bootstrap.** The OCF-side skill is a one-way fallback for creating new user-layer files in an already installed Career-Ops workspace when the plugin is unavailable or the user explicitly requests it. It inspects the installed templates rather than freezing Career-Ops shapes in this repository. It is not the connector contract and must not claim to refresh, reconcile, or safely merge a populated workspace.
 
+Career-Ops can keep its application code and candidate data in different roots. Locate candidate-owned files through the installed Career-Ops version's current data-root resolver or documented convention; do not assume that `cv.md`, `config/`, `modes/`, and the other user files live beside the application code. OCF deliberately does not duplicate Career-Ops' resolver precedence.
+
 ## User Layer Mapping
 
 | OCF | career-ops file | Notes |
@@ -36,7 +38,9 @@ Both directions follow the general principles in this directory: export from an 
 | Position and experience `reflections[]`; `talkingPoints[]` with interview-oriented `uses` | `interview-prep/story-bank.md` | Strong fit. OCF reflections and interview-oriented talking points can seed STAR+R stories, and story-bank entries can import back as reflections or talking points after review. |
 | `achievements[].metrics`, `supportingFacts[]`, high-evidence `achievements[]` | `article-digest.md` | Proof points and portfolio evidence used to ground claims and prevent invention. |
 
-The installed plugin projects only these five files. Job-description collections, application artifacts, and writing samples remain Career-Ops state and are outside automatic projection.
+The installed plugin projects only these five files. They remain candidate-owned Career-Ops inputs after projection; application-specific CVs and other generated outputs elsewhere in Career-Ops do not replace them as source material. Job-description collections, application artifacts, and writing samples remain Career-Ops state and are outside automatic projection.
+
+`modes/_brief.md` is a compact Career-Ops triage artifact maintained within the Career-Ops workspace. It may summarize candidate information and operational search policy, but it is not a sixth OCF-managed projection file.
 
 ## `cv.md`
 
@@ -77,6 +81,7 @@ Career-ops owns several artifacts that OCF deliberately does not model:
 - `data/applications.md`, `data/pipeline.md`, `data/scan-history.tsv`, `data/follow-ups.md`: application pipeline and tracker state. OCF is a candidate-owned career record, not a job-search workflow tracker.
 - `reports/*`: per-job evaluations and scores. Scoring an opportunity against a candidate is an OCF non-goal; these are derivations about opportunities, not career facts.
 - `output/*`: generated tailored PDFs. These are exporter outputs, the same category as any rendered resume.
+- `modes/_brief.md`: compact Career-Ops triage context derived and maintained for its search workflow, not an additional OCF-managed source file.
 - portal scanning, liveness checks, dashboards, batch processing, and command modes: tool behavior, not career data.
 
 Keeping these out of OCF is correct. OCF supplies the durable candidate substrate; career-ops supplies elicitation, scoring, workflow, and rendering.

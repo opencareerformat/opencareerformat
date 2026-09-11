@@ -77,6 +77,8 @@ Curators should:
 - Produce proposed OCF improvements separately from export-ready content.
 - Be explicit about what was removed, skipped, or left unresolved.
 - Label reduced files as `candidate-curated` or `export-ready`, not `candidate-master`. A subset may discover improvements for the master, but those should be proposed back with provenance rather than replacing the master.
+- Treat `reviewStatus` as local to the item that carries it. It covers that item's direct content, but does not propagate across references, lineage, parent-child relationships, or variants, and does not override a nested record's own status.
+- Interpret `user-confirmed` as the person's acceptance of the material, not independent corroboration or proof.
 
 Exporters should:
 
@@ -85,6 +87,8 @@ Exporters should:
 - Treat JSON Resume, LinkedIn, Schema.org, LER-RS, vCard, PDF, and DOCX as lossy targets.
 - For generated PDFs and other rendered documents, inspect both the visible rendering and independently extracted text. Compare normalized extraction with intended content and investigate corruption, omissions, duplication, or broken reading order.
 - Emit review warnings when the input is not export-ready or when important OCF concepts cannot be represented.
+- Reuse explicit claim-bearing statements, selected variants, or reviewed supporting facts. Do not promote contextual details found only in longform, reflections, notes, or source text into stronger standalone claims.
+- Treat structured metrics as queryable values, not independent evidence. When a quantitative or consequential detail needs separate provenance or review, use a reviewed supporting fact, optionally containing the metric.
 
 Missing Unicode maps, replacement characters, mojibake, and unexpected symbols are useful extraction warnings, not proof by themselves. Passing one parser does not guarantee compatibility with every ATS or document-processing system.
 

@@ -23,7 +23,7 @@ The detailed mapping notes are:
 
 - [`mappings/career-ops.md`](career-ops.md)
 
-The skill is intentionally adaptive. It should inspect the installed Career-Ops workspace's own examples/templates before writing files, because Career-Ops may change its expected file shapes over time. OCF should not copy or freeze Career-Ops templates.
+The skill is intentionally adaptive. It should inspect the installed Career-Ops workspace's own examples/templates before writing files, because Career-Ops may change its expected file shapes over time. Career-Ops may also separate its application-code root from its candidate-data root, so integrations must locate candidate files through the installed version's current resolver or documented data-root convention rather than assuming the two roots are the same. OCF should not copy or freeze Career-Ops templates or resolver precedence.
 
 ## Two Documented Integration Paths
 
@@ -44,7 +44,7 @@ The skill prepares Career-Ops user-layer files, such as:
 - `interview-prep/story-bank.md`;
 - `article-digest.md`.
 
-Job-description collections, application artifacts, and writing samples remain Career-Ops state and are outside automatic OCF projection.
+These five files remain candidate-owned Career-Ops inputs even when Career-Ops generates application-specific CVs and other outputs elsewhere. `modes/_brief.md` is a compact Career-Ops triage artifact maintained within its search workflow, not a sixth OCF-managed projection file. Job-description collections, application artifacts, and writing samples remain Career-Ops state and are outside automatic OCF projection.
 
 For Career-Ops, `cv.md` should be treated as a broad candidate source, not a two-page human resume. A normal resume export should curate hard. A Career-Ops source file may include more visible roles, achievements, skills, stories, and proof points so Career-Ops has enough context to score, tailor, and generate narrower outputs.
 
@@ -141,6 +141,6 @@ The integration should preserve those values. OCF can help Career-Ops start from
 ## Project Links
 
 - Career-Ops website: <https://career-ops.org/>
-- Career-Ops GitHub: <https://github.com/santifer/career-ops>
+- Career-Ops GitHub: <https://github.com/career-ops-hq/career-ops>
 - Open Career Format website: <https://opencareerformat.org/>
 - Open Career Format GitHub: <https://github.com/opencareerformat/opencareerformat>

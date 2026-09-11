@@ -268,6 +268,8 @@
 <li>Produce proposed OCF improvements separately from export-ready content.</li>
 <li>Be explicit about what was removed, skipped, or left unresolved.</li>
 <li>Label reduced files as <code>candidate-curated</code> or <code>export-ready</code>, not <code>candidate-master</code>. A subset may discover improvements for the master, but those should be proposed back with provenance rather than replacing the master.</li>
+<li>Treat <code>reviewStatus</code> as local to the item that carries it. It covers that item's direct content, but does not propagate across references, lineage, parent-child relationships, or variants, and does not override a nested record's own status.</li>
+<li>Interpret <code>user-confirmed</code> as the person's acceptance of the material, not independent corroboration or proof.</li>
 </ul>
 
 <p>Exporters should:</p>
@@ -278,6 +280,8 @@
 <li>Treat JSON Resume, LinkedIn, Schema.org, LER-RS, vCard, PDF, and DOCX as lossy targets.</li>
 <li>For generated PDFs and other rendered documents, inspect both the visible rendering and independently extracted text. Compare normalized extraction with intended content and investigate corruption, omissions, duplication, or broken reading order.</li>
 <li>Emit review warnings when the input is not export-ready or when important OCF concepts cannot be represented.</li>
+<li>Reuse explicit claim-bearing statements, selected variants, or reviewed supporting facts. Do not promote contextual details found only in longform, reflections, notes, or source text into stronger standalone claims.</li>
+<li>Treat structured metrics as queryable values, not independent evidence. When a quantitative or consequential detail needs separate provenance or review, use a reviewed supporting fact, optionally containing the metric.</li>
 </ul>
 
 <p>Missing Unicode maps, replacement characters, mojibake, and unexpected symbols are useful extraction warnings, not proof by themselves. Passing one parser does not guarantee compatibility with every ATS or document-processing system.</p>

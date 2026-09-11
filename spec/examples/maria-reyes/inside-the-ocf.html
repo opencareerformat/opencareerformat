@@ -297,13 +297,35 @@
     { &quot;kind&quot;: &quot;other&quot;, &quot;value&quot;: 0, &quot;unit&quot;: &quot;patients&quot;, &quot;note&quot;: &quot;patient_care_impact: zero patient-care incidents attributed to the outage&quot; },
     { &quot;kind&quot;: &quot;other&quot;, &quot;value&quot;: 0, &quot;unit&quot;: &quot;USD&quot;, &quot;note&quot;: &quot;ransom_paid: no ransom was paid; recommendation against payment was accepted by leadership&quot; }
   ],
+  &quot;supportingFacts&quot;: [
+    {
+      &quot;id&quot;: &quot;mhs-ransomware-demand-low-seven-figures&quot;,
+      &quot;statement&quot;: &quot;The attacker made a ransom demand in the low seven figures.&quot;,
+      &quot;sourceArtifactId&quot;: &quot;ciso-track-refinement-2026-05-21&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;,
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
+    },
+    {
+      &quot;id&quot;: &quot;mhs-ransomware-decryptor-failure-rate&quot;,
+      &quot;statement&quot;: &quot;The ransomware family's decryptor had an approximately 30% documented failure rate in adjacent engagements Maria could observe.&quot;,
+      &quot;metrics&quot;: [
+        { &quot;kind&quot;: &quot;decryptorFailureRate&quot;, &quot;value&quot;: 30, &quot;unit&quot;: &quot;%&quot;, &quot;note&quot;: &quot;Approximate rate from adjacent engagements, not a measured outcome of the Meridian incident.&quot;, &quot;visibility&quot;: &quot;shared&quot; }
+      ],
+      &quot;sourceArtifactId&quot;: &quot;ciso-track-refinement-2026-05-21&quot;,
+      &quot;visibility&quot;: &quot;shared&quot;,
+      &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
+    }
+  ],
   &quot;provenance&quot;: {
     &quot;source&quot;: &quot;interview-derived&quot;,
     &quot;sessionTopic&quot;: &quot;Tailoring resume for CISO-track role&quot;
-  }
+  },
+  &quot;reviewStatus&quot;: &quot;user-confirmed&quot;
 }</code></pre>
 
-<p>The same achievement also carries longer private context, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.</p>
+<p>The achievement-level review status covers its direct statement, longform, and metrics. Each supporting fact and narrative variant has its own review status; none inherits confirmation merely because it is related to the achievement. The two consequential details recovered from the longform are explicit supporting facts, so a downstream tool does not have to mine them out of narrative context or mistake the structured metric for independent evidence.</p>
+
+<p>The same achievement also carries longer context, including a private interview-prep variant, narrative variants for different audiences, and cautions about overclaiming. That is the practical difference between a resume and career memory.</p>
 
 <p>The follow-up interview also changes the surrounding memory. Selected fields on the <code>mhs-ransomware-2024</code> achievement show skills that were only implied by the bullet point and reusable wording for different audiences:</p>
 

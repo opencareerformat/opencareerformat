@@ -6,7 +6,7 @@ description: Use when a user wants to bootstrap a Career-Ops workspace from an O
 # OCF Export Career-Ops
 
 Status: current<br>
-Last updated: 2026-08-04<br>
+Last updated: 2026-09-11<br>
 Compatible schema versions: OCF 0.3
 
 Bootstrap a local Career-Ops workspace from an OCF file. This is a filesystem workflow, not a schema change or a refresh/merge workflow.
@@ -36,7 +36,7 @@ When this repository is available locally, use `reference/lib/visibility.js` wit
 Establish:
 
 1. OCF source file: preferably `candidate-curated` or `export-ready`; otherwise the user's master with visibility filtering.
-2. Career-Ops workspace: an existing installed workspace whose templates and expected file shapes are available locally.
+2. Career-Ops candidate-data root: an existing installed workspace whose templates and expected file shapes are available locally, located through that Career-Ops version's current resolver or documented data-root convention rather than assumed to be its application-code root.
 3. Search track: what type of role this Career-Ops workspace is aiming for.
 4. Search overlay: operational preferences Career-Ops needs now but OCF usually should not preserve as durable career facts.
 
@@ -62,7 +62,7 @@ If the user prefers to keep Career-Ops under a specific application output folde
 
 ## Inspect The Target Workspace
 
-Before writing, inspect the Career-Ops workspace lightly:
+Before writing, use the installed Career-Ops version's resolver or documented convention to locate its candidate-data root. Career-Ops may keep application code and candidate data in different directories; do not reproduce or guess the resolver's precedence from memory. Then inspect the candidate workspace lightly:
 
 - examples or templates supplied by Career-Ops;
 - existing user-layer files such as `cv.md`, `config/profile.yml`, `modes/_profile.md`, `interview-prep/story-bank.md`, and `article-digest.md`;
@@ -84,6 +84,8 @@ Common targets:
 - `interview-prep/story-bank.md`: visible or explicitly approved reflections and interview-oriented talking points.
 - `article-digest.md`: high-evidence proof points, metrics, and supporting facts.
 Job-description collections, application artifacts, and writing samples remain Career-Ops workspace state and are outside automatic OCF projection. A selected job description may remain OCF provenance when it materially explains a durable career-memory change.
+
+Do not create or manage `modes/_brief.md` as a sixth projected file. It is compact Career-Ops triage context maintained within that workflow, even when Career-Ops derives some of it from the five candidate-owned inputs above.
 
 If a target file already contains user material, do not replace it through this bootstrap skill. Prepare a separate proposed file and direct the user to the installed connector or a manual comparison.
 

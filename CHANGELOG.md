@@ -22,6 +22,8 @@ OCF follows relaxed semver in the 0.x series — small breaking changes are docu
 - Added non-normative v0.4 considerations for organization visibility, stable identity for position-nested projects, compensation cadence, versioned starter schemas, contact validation, and `aiInstructions` trust semantics.
 - Made generic visibility filtering fail closed for opaque object paths, including extension namespaces without explicit valid visibility, while retaining schema-indexed structural paths.
 - Made the private-filter CLI create fresh `candidate-curated` metadata instead of copying source metadata.
+- Clarified that review status is item-scoped and separate from corroboration, and that downstream tools should promote reusable longform details into reviewed supporting facts instead of inferring stronger claims.
+- Refreshed Career-Ops guidance for its current repository, separate code and candidate-data roots, five candidate-owned projection files, and the non-OCF-managed triage brief.
 
 ## 2026-07-19
 
